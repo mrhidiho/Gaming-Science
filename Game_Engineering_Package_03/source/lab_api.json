@@ -1,0 +1,208 @@
+{
+  "06.1": {
+    "functions": [
+      "travel_time"
+    ],
+    "signatures": [
+      "def travel_time(distance: float, speed: float) -> float"
+    ],
+    "student_path": "labs/student/lab_06_1.py",
+    "reference_path": "labs/reference/lab_06_1.py"
+  },
+  "06.2": {
+    "functions": [
+      "implies"
+    ],
+    "signatures": [
+      "def implies(p: bool, q: bool) -> bool"
+    ],
+    "student_path": "labs/student/lab_06_2.py",
+    "reference_path": "labs/reference/lab_06_2.py"
+  },
+  "06.3": {
+    "functions": [
+      "count_positive_prefix"
+    ],
+    "signatures": [
+      "def count_positive_prefix(values: Sequence[float], k: int) -> int"
+    ],
+    "student_path": "labs/student/lab_06_3.py",
+    "reference_path": "labs/reference/lab_06_3.py"
+  },
+  "06.4": {
+    "functions": [
+      "halving_steps"
+    ],
+    "signatures": [
+      "def halving_steps(n: int) -> int"
+    ],
+    "student_path": "labs/student/lab_06_4.py",
+    "reference_path": "labs/reference/lab_06_4.py"
+  },
+  "07.1": {
+    "functions": [
+      "dot",
+      "normalize"
+    ],
+    "signatures": [
+      "def dot(a: Sequence[float], b: Sequence[float]) -> float",
+      "def normalize(v: Sequence[float]) -> tuple[float, ...]"
+    ],
+    "student_path": "labs/student/lab_07_1.py",
+    "reference_path": "labs/reference/lab_07_1.py"
+  },
+  "07.2": {
+    "functions": [
+      "matmul",
+      "solve2"
+    ],
+    "signatures": [
+      "def matmul(a: Sequence[Sequence[float]], b: Sequence[Sequence[float]]) -> tuple[tuple[float, ...], ...]",
+      "def solve2(a: Sequence[Sequence[float]], b: Sequence[float], rtol: float=1e-12) -> tuple[float, float]"
+    ],
+    "student_path": "labs/student/lab_07_2.py",
+    "reference_path": "labs/reference/lab_07_2.py"
+  },
+  "07.3": {
+    "functions": [
+      "transform4"
+    ],
+    "signatures": [
+      "def transform4(m: Sequence[Sequence[float]], v: Sequence[float]) -> tuple[float, ...]"
+    ],
+    "student_path": "labs/student/lab_07_3.py",
+    "reference_path": "labs/reference/lab_07_3.py"
+  },
+  "07.4": {
+    "functions": [
+      "fit_line"
+    ],
+    "signatures": [
+      "def fit_line(xs: Sequence[float], ys: Sequence[float]) -> tuple[float, float]"
+    ],
+    "student_path": "labs/student/lab_07_4.py",
+    "reference_path": "labs/reference/lab_07_4.py"
+  },
+  "08.1": {
+    "functions": [
+      "centered_difference"
+    ],
+    "signatures": [
+      "def centered_difference(f: Callable[[float], float], x: float, h: float) -> float"
+    ],
+    "student_path": "labs/student/lab_08_1.py",
+    "reference_path": "labs/reference/lab_08_1.py"
+  },
+  "08.2": {
+    "functions": [
+      "integrate"
+    ],
+    "signatures": [
+      "def integrate(f: Callable[[float], float], a: float, b: float, n: int, method: str='trapezoid') -> float"
+    ],
+    "student_path": "labs/student/lab_08_2.py",
+    "reference_path": "labs/reference/lab_08_2.py"
+  },
+  "08.3": {
+    "functions": [
+      "constant_acceleration"
+    ],
+    "signatures": [
+      "def constant_acceleration(x0: float, v0: float, a: float, t: float) -> tuple[float, float]"
+    ],
+    "student_path": "labs/student/lab_08_3.py",
+    "reference_path": "labs/reference/lab_08_3.py"
+  },
+  "08.4": {
+    "functions": [
+      "spring_step"
+    ],
+    "signatures": [
+      "def spring_step(x: float, v: float, mass: float, stiffness: float, damping: float, dt: float, method: str='semi') -> tuple[float, float]"
+    ],
+    "student_path": "labs/student/lab_08_4.py",
+    "reference_path": "labs/reference/lab_08_4.py"
+  },
+  "09.1": {
+    "functions": [
+      "posterior_bug"
+    ],
+    "signatures": [
+      "def posterior_bug(prior: float, sensitivity: float, false_positive: float) -> float"
+    ],
+    "student_path": "labs/student/lab_09_1.py",
+    "reference_path": "labs/reference/lab_09_1.py"
+  },
+  "09.2": {
+    "functions": [
+      "weighted_index"
+    ],
+    "signatures": [
+      "def weighted_index(weights: Sequence[float], u: float) -> int"
+    ],
+    "student_path": "labs/student/lab_09_2.py",
+    "reference_path": "labs/reference/lab_09_2.py"
+  },
+  "09.3": {
+    "functions": [
+      "percentile",
+      "mean_interval"
+    ],
+    "signatures": [
+      "def percentile(values: Sequence[float], p: float) -> float",
+      "def mean_interval(values: Sequence[float], critical: float) -> tuple[float, float, float]"
+    ],
+    "student_path": "labs/student/lab_09_3.py",
+    "reference_path": "labs/reference/lab_09_3.py"
+  },
+  "09.4": {
+    "functions": [
+      "rmse"
+    ],
+    "signatures": [
+      "def rmse(actual: Sequence[float], predicted: Sequence[float]) -> float"
+    ],
+    "student_path": "labs/student/lab_09_4.py",
+    "reference_path": "labs/reference/lab_09_4.py"
+  },
+  "10.1": {
+    "functions": [
+      "gradient"
+    ],
+    "signatures": [
+      "def gradient(f: Callable[[tuple[float, ...]], float], point: Sequence[float], h: float) -> tuple[float, ...]"
+    ],
+    "student_path": "labs/student/lab_10_1.py",
+    "reference_path": "labs/reference/lab_10_1.py"
+  },
+  "10.2": {
+    "functions": [
+      "alias_frequency"
+    ],
+    "signatures": [
+      "def alias_frequency(frequency: float, sample_rate: float) -> float"
+    ],
+    "student_path": "labs/student/lab_10_2.py",
+    "reference_path": "labs/reference/lab_10_2.py"
+  },
+  "10.3": {
+    "functions": [
+      "convolve"
+    ],
+    "signatures": [
+      "def convolve(signal: Sequence[float], kernel: Sequence[float]) -> list[float]"
+    ],
+    "student_path": "labs/student/lab_10_3.py",
+    "reference_path": "labs/reference/lab_10_3.py"
+  },
+  "10.4": {
+    "functions": [
+      "descent_quadratic"
+    ],
+    "signatures": [
+      "def descent_quadratic(x0: float, alpha: float, max_steps: int=100, tol: float=1e-08) -> dict"
+    ],
+    "student_path": "labs/student/lab_10_4.py",
+    "reference_path": "labs/reference/lab_10_4.py"
+  }
+}

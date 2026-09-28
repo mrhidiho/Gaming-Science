@@ -1,0 +1,542 @@
+{
+  "title": "Computer Science and Computer Engineering for Games",
+  "edition_date": "2026-09-28",
+  "volume": {
+    "number": 4,
+    "title": "Computer Systems and Software Engineering",
+    "level": "Intermediate undergraduate",
+    "purpose": "Connect programs to processors, operating systems, concurrency, networks, storage and professional practice."
+  },
+  "modules": [
+    {
+      "number": 16,
+      "title": "Processor architecture and assembly",
+      "volume": 4,
+      "prerequisites": "Modules 11-15.",
+      "references": [
+        "R15",
+        "R35"
+      ],
+      "project": "Trace a compiled C++ loop through a small assembly example and a cache model. Deliver an instruction/data-flow explanation and a controlled locality experiment.",
+      "lessons": [
+        {
+          "id": "16.1",
+          "title": "Instruction sets, registers and calling conventions",
+          "outcome": "Read a small machine-level routine without confusing ISA and implementation.",
+          "teach": "An instruction-set architecture defines visible operations, registers and relevant behavior. A microarchitecture implements that contract using particular pipelines, caches and execution units. Different implementations can run the same machine code while achieving different performance. A calling convention specifies how functions pass arguments, preserve registers and return values.\nBegin with a small load/store ISA such as the selected RISC-V subset, then compare your host's generated assembly. Do not assume an educational subset implements every extension or privileged feature. Assembly understanding helps explain costs and interoperability, but handwritten assembly is rarely the first optimization step.",
+          "example": "A load reads a value from memory into a register; an add combines register values; a store writes a result back. A C++ array loop may contain all three, plus loop-control instructions.",
+          "lab": "Annotate a ten-to-twenty-instruction routine with register meanings and memory accesses. Pass: predict its output for two inputs and identify caller/callee responsibilities from the chosen ABI reference.",
+          "reading": "R15: Assembly Language and Procedures and Stacks; R35: selected base integer ISA.",
+          "quiz": [
+            {
+              "question": "How does an ISA differ from a microarchitecture?",
+              "answer": "The ISA is the software-visible contract; the microarchitecture is a particular implementation."
+            },
+            {
+              "question": "What does a calling convention specify?",
+              "answer": "Argument/return placement, register preservation and related function-call rules."
+            },
+            {
+              "question": "Why identify the exact ISA subset in a simulator?",
+              "answer": "Unsupported instructions or extensions cannot be assumed to behave like a complete implementation."
+            }
+          ]
+        },
+        {
+          "id": "16.2",
+          "title": "Pipelines, dependencies and branch prediction",
+          "outcome": "Explain why instruction count alone does not predict latency.",
+          "teach": "A pipeline overlaps stages of multiple instructions. Dependencies can prevent later work from proceeding until earlier results are ready. Modern processors may issue or complete operations out of order while preserving required architectural behavior. Branch prediction speculates about control flow, and mispredictions can discard work.\nThroughput measures sustained work per time; latency measures delay for a particular result. A long dependency chain can have poor latency even when the processor can execute many independent operations per cycle. Do not infer performance from clock frequency alone. Instruction mix, memory stalls and available parallelism matter.",
+          "example": "Summing one running accumulator creates a dependency chain. Several independent accumulators may expose more instruction-level parallelism, but final combination and numeric-order effects must be considered.",
+          "lab": "Compare dependent and independent arithmetic loops while preventing dead-code elimination. Pass: preserve observable results, inspect generated code and explain measured differences as evidence rather than universal CPU facts.",
+          "reading": "R15: Pipelining and Performance Measures.",
+          "quiz": [
+            {
+              "question": "What is a data dependency?",
+              "answer": "An operation requires a result produced by an earlier operation."
+            },
+            {
+              "question": "Does higher clock frequency guarantee a faster program?",
+              "answer": "No. Work per cycle, stalls, memory and workload behavior also matter."
+            },
+            {
+              "question": "Why can extra independent accumulators help?",
+              "answer": "They can expose parallel operations instead of one serial dependency chain, subject to resource and numerical constraints."
+            }
+          ]
+        },
+        {
+          "id": "16.3",
+          "title": "Caches, locality and memory hierarchy",
+          "outcome": "Relate access patterns to cache lines and working sets.",
+          "teach": "Processors use a hierarchy of storage with different capacities and access costs. Caches transfer data in blocks called cache lines. Spatial locality reuses nearby data; temporal locality reuses recently accessed data. A working set is the data actively needed during a phase. Once it exceeds a cache level, behavior can change sharply.\nCache associativity and replacement influence conflicts. A cache miss is not always a main-memory access, because another cache level may satisfy it. Prefetching can help predictable patterns but can also waste bandwidth. Measure several working-set sizes and avoid attributing every slow access to one guessed cache characteristic.",
+          "example": "If a hypothetical cache line is 64 bytes and each element is a 4-byte integer, one line can contain 16 consecutive elements when aligned appropriately. A stride of 16 elements can use only one integer from each line.",
+          "lab": "Benchmark sequential, strided and randomized access over multiple array sizes. Pass: record assumed versus measured hardware information and explain spatial locality without claiming exact cache behavior from one timing curve.",
+          "reading": "R15: Caches and the Memory Hierarchy.",
+          "quiz": [
+            {
+              "question": "What is spatial locality?",
+              "answer": "Accessing data near data that was recently accessed."
+            },
+            {
+              "question": "How many 4-byte values fit in a hypothetical 64-byte line?",
+              "answer": "16, ignoring boundary misalignment and other storage."
+            },
+            {
+              "question": "Does every first-level cache miss access DRAM?",
+              "answer": "No. Another cache level or other hierarchy component may satisfy it."
+            }
+          ]
+        },
+        {
+          "id": "16.4",
+          "title": "Virtual memory, SIMD and architectural limits",
+          "outcome": "Recognize address translation and vector execution as separate mechanisms.",
+          "teach": "Virtual addresses belong to a process view; address translation maps them to physical storage subject to permissions. A translation lookaside buffer caches recent translations. Large working sets and access patterns can stress translation independently of ordinary data caches.\nSingle-instruction multiple-data execution applies operations across several lanes. It benefits suitable regular work but needs attention to alignment, tails, masks and numerical semantics. Vector width is not a guaranteed speedup factor. Some workloads are limited by memory bandwidth or serial dependencies instead. Later co-design lessons will connect these observations to roofline and Amdahl-style limits.",
+          "example": "Processing four independent additions in vector lanes can reduce instruction overhead, but loading and storing the same bytes may still dominate. The last three elements of a non-multiple-sized array still require correct handling.",
+          "lab": "Inspect compiler vectorization reports for a simple loop and compare aligned/misaligned or tail cases safely. Pass: test lengths 0, 1, lane_width-1 and lane_width+1 and explain translation versus caching.",
+          "reading": "R15: Virtual Memory and Parallel Processing; R11: bounds and arithmetic contracts.",
+          "quiz": [
+            {
+              "question": "What does a TLB cache?",
+              "answer": "Virtual-to-physical address translation information and associated access details."
+            },
+            {
+              "question": "Does four-lane SIMD guarantee a fourfold speedup?",
+              "answer": "No. Memory, dependencies, overhead and other resources can limit improvement."
+            },
+            {
+              "question": "Why test array lengths not divisible by vector width?",
+              "answer": "The remainder must be handled without out-of-bounds accesses or omitted elements."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "title": "Operating systems and resource management",
+      "volume": 4,
+      "prerequisites": "Module 16.",
+      "references": [
+        "R16",
+        "R15"
+      ],
+      "project": "Create a systems lab report covering processes, memory, scheduling and file I/O. Use unprivileged programs and disposable data; do not alter kernel or device settings on a primary machine.",
+      "lessons": [
+        {
+          "id": "17.1",
+          "title": "Processes, threads, system calls and protection",
+          "outcome": "Explain which resources are isolated and which are shared.",
+          "teach": "A process is an execution environment with an address space and operating-system-managed resources. Threads within a process share memory but have their own execution state. A system call requests a kernel service through a controlled boundary. User/kernel separation protects privileged operations; it does not make application code automatically safe.\nProcess isolation helps contain faults, while threads allow lower-overhead sharing at the cost of synchronization complexity. Starting a worker process, a thread and an asynchronous task are not interchangeable choices. Identify ownership, failure propagation and communication needs before choosing a mechanism.",
+          "example": "Two threads can see the same game-state object, creating race risk. Two isolated processes normally need an explicit communication mechanism to exchange equivalent information.",
+          "lab": "Write a program that reports its process identity and runs independent worker tasks. Pass: explain what memory is shared in the chosen approach and how worker failure is reported without privileged operations.",
+          "reading": "R16: Processes, Process API and Threads.",
+          "quiz": [
+            {
+              "question": "What do threads in one process typically share?",
+              "answer": "The process address space and many resources, while retaining separate execution state."
+            },
+            {
+              "question": "What is a system call?",
+              "answer": "A controlled request from application code for an operating-system kernel service."
+            },
+            {
+              "question": "Why might processes be preferable to threads for a risky tool?",
+              "answer": "Stronger isolation can contain faults, though communication and resource costs may be higher."
+            }
+          ]
+        },
+        {
+          "id": "17.2",
+          "title": "Allocation, paging and memory-mapped data",
+          "outcome": "Distinguish reserved address space, committed storage and live objects.",
+          "teach": "An allocator manages storage for application objects; the operating system manages virtual memory and backing resources. Reserving an address range is not the same as having every page physically resident. Page faults can occur when access requires additional mapping or data movement. Application allocation behavior and operating-system paging interact but are not identical.\nMemory mapping can present file data through an address range, but it still requires lifetime, bounds and error handling. It does not guarantee zero I/O latency. Avoid assuming that freeing an object immediately reduces the process's visible memory usage: an allocator may retain storage for reuse.",
+          "example": "A large mapped file can occupy a large virtual range while only accessed pages become resident. Reading a new region can still incur page faults and storage activity.",
+          "lab": "Compare sequential file reads with a read-only mapped-file approach on a small disposable file. Pass: verify identical content and report virtual/resident concepts separately without promising one method is faster.",
+          "reading": "R16: Address Spaces, Address Translation, Paging and Memory API.",
+          "quiz": [
+            {
+              "question": "Does reserving virtual address space imply all pages are resident?",
+              "answer": "No."
+            },
+            {
+              "question": "Why may process memory usage stay high after freeing objects?",
+              "answer": "The allocator or runtime may retain storage for later reuse rather than returning it immediately to the OS."
+            },
+            {
+              "question": "Does memory mapping eliminate storage latency?",
+              "answer": "No. Access can still trigger page faults and underlying I/O."
+            }
+          ]
+        },
+        {
+          "id": "17.3",
+          "title": "Scheduling, responsiveness and real-time constraints",
+          "outcome": "Distinguish average completion from meeting a deadline.",
+          "teach": "A scheduler chooses runnable work according to its policy. Context switches have costs, and oversubscription can create contention rather than useful parallelism. Throughput-oriented scheduling is not necessarily suitable for a time-critical audio or input path. Real-time reasoning concerns deadlines and worst-case behavior under stated assumptions.\nGeneral desktop operating systems do not make arbitrary user programs hard-real-time merely because a thread has high priority. Priority inversion occurs when high-priority work waits indirectly on lower-priority work holding a needed resource. Design short critical sections and bounded work before experimenting with priorities.",
+          "example": "An audio callback needed every few milliseconds can glitch if it waits for a worker holding a mutex during a long file load, even when average CPU usage is low.",
+          "lab": "Simulate a scheduler or instrument a bounded producer/consumer workload without changing privileged priorities. Pass: show one contention-induced latency spike and propose a structural fix rather than only raising priority.",
+          "reading": "R16: Scheduling, Multi-Level Feedback Queue and Concurrency Bugs.",
+          "quiz": [
+            {
+              "question": "What is priority inversion?",
+              "answer": "Higher-priority work is delayed by lower-priority work through a shared-resource dependency."
+            },
+            {
+              "question": "Does low average CPU use guarantee deadlines are met?",
+              "answer": "No. Bursts, blocking and scheduling delays can still cause misses."
+            },
+            {
+              "question": "Why avoid blocking I/O in an audio callback?",
+              "answer": "Its unpredictable delay can exceed the callback deadline and cause audible interruption."
+            }
+          ]
+        },
+        {
+          "id": "17.4",
+          "title": "Filesystems, persistence and asynchronous I/O",
+          "outcome": "Design data operations that survive partial failure.",
+          "teach": "A filesystem organizes persistent data and metadata. A successful write call does not always mean data has reached durable storage. Buffering, ordering and crash consistency require explicit treatment when durability matters. A robust save process avoids overwriting the only valid copy with partially generated data.\nAsynchronous I/O lets work proceed without blocking the caller, but completion can occur later and fail. Buffers and request objects must remain valid until completion according to the API. Cancellation is a request with a contract, not necessarily immediate erasure of all work. Separate correctness, durability and performance goals.",
+          "example": "A common save strategy writes a new temporary file, validates it and performs an appropriate replacement operation. The exact durability guarantee still depends on filesystem/API synchronization and failure assumptions.",
+          "lab": "Build a save pipeline with injected failures before, during and after serialization. Pass: recover a valid prior or new save under your documented model and never reuse an asynchronous buffer before completion.",
+          "reading": "R16: Files and Directories, Crash Consistency and Journaling.",
+          "quiz": [
+            {
+              "question": "Does every successful write imply durable storage?",
+              "answer": "No. Data may remain buffered unless the required durability operations and guarantees are satisfied."
+            },
+            {
+              "question": "Why retain an asynchronous I/O buffer until completion?",
+              "answer": "The operation may still read or write that storage after the initiating call returns."
+            },
+            {
+              "question": "What should a save-recovery test inject?",
+              "answer": "Partial writes, malformed data, interruption points and replacement failures under an explicit failure model."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 18,
+      "title": "Concurrency and parallel programming",
+      "volume": 4,
+      "prerequisites": "Modules 12 and 16-17.",
+      "references": [
+        "R11",
+        "R16",
+        "R37"
+      ],
+      "project": "Implement a bounded job system with dependency handling, shutdown, failure propagation and stress tests. Compare one-thread and multi-thread execution on a real workload.",
+      "lessons": [
+        {
+          "id": "18.1",
+          "title": "Races, mutexes and happens-before",
+          "outcome": "Protect shared invariants using a clear synchronization model.",
+          "teach": "Concurrent execution interleaves operations. A C++ data race occurs when conflicting accesses are not properly ordered and at least one is a write, with the relevant accesses not atomic; this leads to undefined behavior. A race condition is a broader logical timing defect and can exist even when individual accesses are atomic.\nA mutex protects a shared invariant only when all relevant participants follow the same locking protocol. The critical section must cover the complete operation that needs to be atomic at the application level. Ownership and message passing can reduce shared mutable state. Document the happens-before relationships rather than relying on \"it usually runs first.\"",
+          "example": "Checking balance >= price and then subtracting price in separate unlocked steps can allow two purchases to spend the same funds. Making each field read atomic does not automatically make the whole purchase transaction atomic.",
+          "lab": "Implement a shared counter and a compound inventory transaction with proper synchronization. Pass: stress test, inspect with an available race detector and explain why detector silence alone is not proof.",
+          "reading": "R11: Concurrency and Parallelism; R16: Locks and Concurrency Bugs.",
+          "quiz": [
+            {
+              "question": "Can individually atomic reads/writes still form a logical race?",
+              "answer": "Yes. A multi-step invariant can be violated by interleaving even when each access is atomic."
+            },
+            {
+              "question": "What must a mutex protocol protect?",
+              "answer": "The entire shared invariant and every conflicting access that participates in it."
+            },
+            {
+              "question": "Why is \"this thread usually runs first\" insufficient?",
+              "answer": "Scheduling is not the required synchronization guarantee and can change across runs or systems."
+            }
+          ]
+        },
+        {
+          "id": "18.2",
+          "title": "Condition variables, deadlocks and cancellation",
+          "outcome": "Make waiting and shutdown correct under adverse timing.",
+          "teach": "A condition variable allows a thread to wait for a predicate to become true while coordinating with a mutex. Wait in a loop because wakeups do not by themselves prove the predicate. Notifications and state changes must follow a consistent protocol to avoid missed progress.\nDeadlock can arise from circular resource dependencies. A lock-order rule or reduced lock scope can prevent common cases. Shutdown deserves the same rigor as steady-state execution: wake waiters, stop accepting work, define what happens to queued jobs and join threads safely. Cancellation must specify whether work is abandoned, completed or rolled back.",
+          "example": "A consumer waits while queue_empty and not stopping. On shutdown, the producer changes stopping under the agreed synchronization and notifies waiters so they can exit even when no work arrives.",
+          "lab": "Create a producer/consumer queue with graceful shutdown and failure propagation. Pass: test stopping with an empty queue, a full queue and active consumers; no thread remains blocked indefinitely.",
+          "reading": "R16: Condition Variables, Semaphores and Concurrency Bugs; R11: locking guidance.",
+          "quiz": [
+            {
+              "question": "Why test a condition-variable predicate in a loop?",
+              "answer": "Wakeups can be spurious or another thread can consume the condition before the waiter proceeds."
+            },
+            {
+              "question": "What does a consistent lock order prevent?",
+              "answer": "A common source of circular wait and deadlock."
+            },
+            {
+              "question": "Why must shutdown notify blocked workers?",
+              "answer": "Without new work or a notification, they may never observe the stop condition."
+            }
+          ]
+        },
+        {
+          "id": "18.3",
+          "title": "Atomics, memory ordering and false sharing",
+          "outcome": "Use low-level synchronization only with a complete correctness argument.",
+          "teach": "Atomic operations provide indivisible access according to their type and memory-order rules. Acquire/release synchronization can publish earlier writes when the specified read observes the release sequence appropriately. Relaxed ordering does not provide the same cross-object publication guarantees. Volatile is not a substitute for C++ thread synchronization.\nFalse sharing occurs when independent frequently written data occupy a shared cache line, causing coherence traffic. Padding may help a measured case but increases footprint. Lock-free algorithms also face reclamation and progress issues; an atomic pointer alone does not make referenced storage safe to free. Prefer a proven library design unless low-level implementation is the explicit learning goal.",
+          "example": "A producer writes payload, then publishes a ready flag with release ordering; a consumer that observes the corresponding flag with acquire ordering can safely observe the published payload under the complete protocol.",
+          "lab": "Write a publication litmus test with a documented happens-before diagram. Measure a padded versus unpadded counter layout. Pass: do not claim stress tests prove memory-model correctness or assume a fixed cache-line size without labeling it.",
+          "reading": "R11: atomics and memory model; R16: concurrency; R37: later GPU memory-model comparison.",
+          "quiz": [
+            {
+              "question": "Is volatile a C++ inter-thread synchronization mechanism?",
+              "answer": "No."
+            },
+            {
+              "question": "What is false sharing?",
+              "answer": "Coherence contention caused by independent data sharing a cache line."
+            },
+            {
+              "question": "Why is freeing a node difficult in lock-free structures?",
+              "answer": "Another thread may still hold or access the node; safe reclamation needs a separate protocol."
+            }
+          ]
+        },
+        {
+          "id": "18.4",
+          "title": "Task graphs, work stealing and scaling limits",
+          "outcome": "Parallelize independent work and measure end-to-end benefit.",
+          "teach": "A task graph expresses jobs and dependencies. Parallel execution is possible among ready tasks that do not conflict. Work stealing distributes queued tasks dynamically, but scheduling overhead can exceed the benefit of tiny jobs. Batch work at a granularity that matches the workload and hardware.\nAmdahl's law models the limit from a serial fraction: speedup = 1/(s+(1-s)/p) under its simplifying assumptions. Communication, contention and load imbalance can reduce real speedup further. A job system must handle exceptions, ownership, completion and shutdown, not only start threads. Benchmark the actual simulation rather than an empty task loop.",
+          "example": "If 20% of a workload remains serial, an infinite number of ideal workers cannot exceed a 5x speedup. Four ideal workers give 1/(0.2+0.8/4)=2.5x.",
+          "lab": "Implement a small task graph for independent entity updates followed by aggregation. Pass: compare 1, 2 and available worker counts, verify results and explain a case where more workers hurt.",
+          "reading": "R15: Parallel Processing; R16: concurrency; R11: task-oriented concurrency guidance.",
+          "quiz": [
+            {
+              "question": "What is the ideal maximum speedup with a 25% serial fraction?",
+              "answer": "4x, since the parallel portion cannot eliminate the remaining 0.25 of runtime."
+            },
+            {
+              "question": "Why can very small tasks reduce performance?",
+              "answer": "Scheduling, synchronization and bookkeeping can cost more than the useful work."
+            },
+            {
+              "question": "What does a task dependency express?",
+              "answer": "A required ordering or data-availability relationship before a dependent task may execute."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 19,
+      "title": "Networks, storage and data services",
+      "volume": 4,
+      "prerequisites": "Modules 15 and 17-18.",
+      "references": [
+        "R17",
+        "R18",
+        "R16"
+      ],
+      "project": "Build a local-only client/server message exercise and a small relational game-data service. Test malformed framing, transaction rollback and duplicate requests without exposing a public service.",
+      "lessons": [
+        {
+          "id": "19.1",
+          "title": "Network layers, latency and transport semantics",
+          "outcome": "Choose transport behavior from application requirements.",
+          "teach": "Networks exchange data through layered protocols. IP provides packet delivery without guaranteeing arrival or order. TCP presents a reliable ordered byte stream, not a stream of application messages. UDP preserves datagram boundaries but does not itself supply delivery, ordering or congestion-control behavior. Applications still need explicit protocols.\nLatency, jitter, loss and bandwidth describe different constraints. A high-bandwidth link can still have long round-trip delay. Reliable delivery can involve waiting for missing information, which affects real-time design. Use localhost or an authorized lab network for exercises and keep authentication and encryption decisions separate from transport assumptions.",
+          "example": "Two send calls over TCP do not guarantee two matching receive calls. The receiver may get part of one message or several messages together and must parse framing correctly.",
+          "lab": "Create a localhost client/server exchange with a length-prefixed message. Pass: split one message across several writes and combine several messages in one write; the receiver reconstructs them correctly.",
+          "reading": "R17: TCP service and interface semantics; R16: networking context.",
+          "quiz": [
+            {
+              "question": "Does TCP preserve application message boundaries?",
+              "answer": "No. It supplies an ordered byte stream."
+            },
+            {
+              "question": "Does high bandwidth imply low latency?",
+              "answer": "No. Capacity and delay are different properties."
+            },
+            {
+              "question": "What behavior must an application add when using UDP?",
+              "answer": "Whatever reliability, ordering, congestion control, validation and security its requirements need."
+            }
+          ]
+        },
+        {
+          "id": "19.2",
+          "title": "Protocol design, serialization and timeouts",
+          "outcome": "Treat every received byte as untrusted structured input.",
+          "teach": "A protocol defines message types, fields, ranges, versioning and permitted sequences. Serialization must specify byte order and numeric representation. Validate lengths before allocation and cap total resource use. A checksum can detect some corruption but is not equivalent to cryptographic authentication.\nTimeouts handle missing progress, not certainty about remote state. A timed-out operation may have executed remotely even if its response was lost. Request IDs and idempotent operations help manage retries. Compatibility is a design decision: unknown fields and versions should be accepted, ignored or rejected according to a documented rule.",
+          "example": "A repeated \"add 10 coins\" request can duplicate a reward. A request with a unique operation ID and server-side deduplication can avoid applying the same accepted operation twice under the defined retention policy.",
+          "lab": "Add versioned framing, maximum sizes, timeout handling and request IDs to the lab protocol. Pass: reject oversized and truncated messages before dangerous allocation and test duplicate delivery.",
+          "reading": "R17: transport failure context; R18: transaction and data-integrity foundations.",
+          "quiz": [
+            {
+              "question": "Does a timeout prove the remote operation never happened?",
+              "answer": "No. The operation may have executed while the response was delayed or lost."
+            },
+            {
+              "question": "Why validate a length before allocating its buffer?",
+              "answer": "An attacker or malformed file could request excessive memory or trigger overflow."
+            },
+            {
+              "question": "What does idempotence mean?",
+              "answer": "Repeating an operation has the same intended effect as applying it once."
+            }
+          ]
+        },
+        {
+          "id": "19.3",
+          "title": "Relational modeling, SQL and indexes",
+          "outcome": "Represent game data with constraints that survive application mistakes.",
+          "teach": "A relational schema defines tables, keys and relationships. A primary key identifies a row; a foreign key constrains references between tables. Normalization reduces certain redundancy and update anomalies, while deliberate denormalization trades simpler reads for additional consistency work.\nSQL queries express desired results, but their execution plans determine physical work. An index can accelerate suitable lookups while consuming storage and adding write cost. Parameterized queries separate data from executable query structure. Do not build SQL by concatenating untrusted text, and do not assume an index helps every query.",
+          "example": "A players table and an inventory table linked by player_id avoid embedding an unbounded list in a single ambiguous text field. A uniqueness constraint on (player_id,item_id) can enforce one aggregate row per item type.",
+          "lab": "Create a small schema with primary, foreign and uniqueness constraints. Use parameterized queries and inspect one indexed query plan. Pass: demonstrate rejected invalid references and compare a query before/after indexing.",
+          "reading": "R18: tables, queries, joins, foreign keys and indexes via the linked manual.",
+          "quiz": [
+            {
+              "question": "What does a foreign key protect?",
+              "answer": "A specified relationship by requiring referenced values to exist, subject to its defined rules."
+            },
+            {
+              "question": "Why can indexes slow writes?",
+              "answer": "The index structures must be maintained alongside the table changes."
+            },
+            {
+              "question": "Why use parameterized SQL?",
+              "answer": "It keeps input data separate from SQL structure and prevents common injection mistakes."
+            }
+          ]
+        },
+        {
+          "id": "19.4",
+          "title": "Transactions, consistency and distributed failure",
+          "outcome": "Preserve invariants when several operations must succeed together.",
+          "teach": "A transaction groups related database work under defined atomicity, consistency, isolation and durability guarantees. Isolation levels differ; applications must understand which anomalies remain possible. A transfer should not debit one account without the corresponding credit. Concurrency can require retries even when each statement is individually correct.\nAcross multiple services, a local transaction does not automatically create a global one. Partial failure, duplicate messages and stale reads require explicit coordination. Separate durable authoritative data from caches. A cache miss is recoverable; losing the only authoritative record is a different failure. Test the system's invariants under interruption rather than only normal response codes.",
+          "example": "Transferring five items between players requires both inventories to change together and total quantity to remain constant. A failure between updates must not destroy or create items.",
+          "lab": "Implement an inventory transfer with transactions and forced failure between updates. Pass: verify conservation, rollback and duplicate-request handling; document what is not guaranteed across processes or services.",
+          "reading": "R18: Transactions; R16: persistence and failure reasoning.",
+          "quiz": [
+            {
+              "question": "What does transaction atomicity mean?",
+              "answer": "The transaction's changes are treated as all-or-nothing under the database guarantee."
+            },
+            {
+              "question": "Does a transaction in one database automatically include another service?",
+              "answer": "No. Cross-service coordination needs a separate protocol."
+            },
+            {
+              "question": "What invariant should an item-transfer test preserve?",
+              "answer": "Total item quantity, valid nonnegative balances and the intended ownership changes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "title": "Engineering practice, security and maintainability",
+      "volume": 4,
+      "prerequisites": "Volumes 01-04.",
+      "references": [
+        "R01",
+        "R02",
+        "R05",
+        "R11",
+        "R29"
+      ],
+      "project": "Complete Gate D: a reviewed systems application with a design record, threat model, CI-style local test pipeline, dependency inventory and an incident/recovery exercise.",
+      "lessons": [
+        {
+          "id": "20.1",
+          "title": "Requirements, architecture and design records",
+          "outcome": "Make tradeoffs explicit and trace implementation back to needs.",
+          "teach": "A requirement states an observable need or constraint. Functional requirements describe behavior; quality requirements describe properties such as latency, reliability or accessibility. Architecture allocates responsibilities and dependencies to meet those requirements. A diagram without contracts and failure behavior is not enough.\nAn architecture decision record states the problem, constraints, alternatives, chosen approach and consequences. Avoid premature distributed systems or custom frameworks when a smaller design meets the need. Revisit decisions when evidence changes. Traceability links requirements to tests and avoids declaring success merely because all planned code was written.",
+          "example": "\"Loads quickly\" is vague. \"Loads the defined test level within a chosen threshold on the declared baseline machine, measured from action to usable state\" is testable once the threshold and procedure are filled in.",
+          "lab": "Write six measurable requirements and two decision records for the simulation. Pass: every requirement has an acceptance test and each decision includes a rejected alternative and a cost.",
+          "reading": "R01: Software Engineering; R02: engineering design and professional practice.",
+          "quiz": [
+            {
+              "question": "What makes a requirement testable?",
+              "answer": "Observable behavior, conditions and an explicit acceptance criterion."
+            },
+            {
+              "question": "Why record rejected alternatives?",
+              "answer": "They preserve the reasoning and make future reassessment more informed."
+            },
+            {
+              "question": "Is completing planned tasks the same as satisfying requirements?",
+              "answer": "No. The implemented result must still meet the specified needs and constraints."
+            }
+          ]
+        },
+        {
+          "id": "20.2",
+          "title": "Defensive programming and threat modeling",
+          "outcome": "Protect assets and trust boundaries before selecting security mechanisms.",
+          "teach": "A threat model identifies assets, actors, entry points, trust boundaries and plausible failures. Game clients, mods, save files and asset importers are not automatically trusted. Validate input, minimize privileges and isolate risky processing. Memory-safe interfaces, bounds checks, fuzzing and sanitizers help address different defect classes.\nAuthentication establishes an identity or credential; authorization decides permitted actions. Encryption alone does not enforce game rules or protect a compromised endpoint. Use established security libraries rather than inventing cryptography. Perform testing only against your own code or authorized lab targets; the purpose here is defensive engineering.",
+          "example": "A client may request a move, but an authoritative server should validate speed and permissions rather than accepting the client's claimed final position as truth.",
+          "lab": "Threat-model the save parser and local service. Add bounds checks and a small malformed-input fuzz harness. Pass: cap work/memory, preserve useful errors and record residual risks instead of claiming complete security.",
+          "reading": "R01: Security; R11: bounds/lifetime safety; R02: information-security breadth.",
+          "quiz": [
+            {
+              "question": "How does authorization differ from authentication?",
+              "answer": "Authentication concerns identity; authorization concerns allowed actions."
+            },
+            {
+              "question": "Why is a game client a trust boundary?",
+              "answer": "The player controls that environment and can send incorrect or manipulated requests."
+            },
+            {
+              "question": "Does encryption replace input validation?",
+              "answer": "No. Authenticated or encrypted input can still be malformed, malicious or contrary to game rules."
+            }
+          ]
+        },
+        {
+          "id": "20.3",
+          "title": "Build automation, dependencies and release discipline",
+          "outcome": "Produce a verifiable artifact from a known source revision.",
+          "teach": "Continuous integration runs repeatable checks when changes are made. A useful pipeline builds, tests and reports failures from a clean environment. Pin dependencies sufficiently to reproduce the result and record toolchain versions. A dependency inventory includes origin, version and license obligations; it is not enough to know that a package downloaded successfully.\nSeparate secrets from source and limit automation permissions. Preserve symbols or diagnostics needed to investigate crashes, while controlling access to sensitive information. A release artifact should be traceable to a commit and build configuration. Automated success is evidence only for the checks actually run.",
+          "example": "A release manifest can record source commit, compiler, build type, dependency versions and asset bundle hash. This helps determine whether a reported defect came from the same artifact that was tested.",
+          "lab": "Create a local clean-build script that runs tests and produces a versioned archive plus manifest. Pass: run it from a fresh build directory and deliberately break a test to confirm the pipeline stops.",
+          "reading": "R05: workflows and tagging; R12: builds and testing; R01: software engineering.",
+          "quiz": [
+            {
+              "question": "What is the purpose of dependency pinning?",
+              "answer": "To reduce uncontrolled version changes and support reproducible builds."
+            },
+            {
+              "question": "What should identify a release artifact's origin?",
+              "answer": "Its source revision, build configuration, toolchain and dependency/asset versions."
+            },
+            {
+              "question": "Why test a pipeline with an intentional failure?",
+              "answer": "To verify it actually blocks bad changes rather than merely displaying success regardless of checks."
+            }
+          ]
+        },
+        {
+          "id": "20.4",
+          "title": "Ethics, accessibility, teamwork and sustainable delivery",
+          "outcome": "Evaluate engineering decisions beyond code correctness.",
+          "teach": "Engineering work affects players, colleagues and the public. Accessibility, privacy, intellectual property, honest reporting and sustainable maintenance belong in technical decisions. Obtain permission for assets and code and respect the licenses under which they are supplied. Do not assume publicly visible material is free to redistribute.\nTeams need clear responsibilities, respectful review and realistic scope. Crunch is not a substitute for planning and can hide systemic delivery problems. A postmortem should identify contributing conditions and improvements, not scapegoats. For hardware, safety and environmental constraints become additional design requirements, not optional polish.",
+          "example": "A performance optimization that removes readable subtitles or makes controls non-remappable may violate the product's requirements despite increasing frame rate.",
+          "lab": "Run an accessibility review and a blameless failure retrospective on the project. Pass: identify at least three actionable changes, assign acceptance evidence and document third-party attribution honestly.",
+          "reading": "R29: input, text, captions and UI guidance; R01/R02: professional and ethical practice.",
+          "quiz": [
+            {
+              "question": "Does public availability imply permission to redistribute?",
+              "answer": "No. Copyright and license terms still govern use."
+            },
+            {
+              "question": "Why include accessibility in acceptance criteria?",
+              "answer": "Otherwise a technically functioning feature may remain unusable for part of the intended audience."
+            },
+            {
+              "question": "What should a blameless retrospective seek?",
+              "answer": "Contributing system/process conditions and practical improvements rather than personal blame."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

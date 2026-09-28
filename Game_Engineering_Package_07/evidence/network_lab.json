@@ -1,0 +1,23 @@
+{
+  "repeat_identical": true,
+  "result": {
+    "clients": 2,
+    "commands_per_client": 120,
+    "final_positions": {
+      "0": 0,
+      "1": 0
+    },
+    "reliable_drain_ticks": 80,
+    "scope": "in-process scalar simulation; no sockets or production authentication",
+    "seed": 2901,
+    "state_sha256": "83491706f53ba5bfc6bcca002b1737f6a7579c3b7d52d4367efe021c86fdadc3",
+    "statistics": {
+      "dropped": 208,
+      "duplicates": 76,
+      "rejected_owner": 1,
+      "sent": 1183,
+      "stale_snapshots": 46
+    },
+    "unreliable_ticks": 280
+  }
+}

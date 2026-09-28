@@ -1,0 +1,16 @@
+{
+  "browser": "Chromium (headless, HTML injected into an in-memory page)",
+  "limitation": "The managed browser blocked both file:// and loopback HTTP navigation. Tests used set_content on the supplied self-contained HTML. Direct file navigation, reload persistence and browser-specific local file storage were not verified.",
+  "checks": [
+    "All 20 lesson articles load without external JavaScript or stylesheet requests.",
+    "Search hides nonmatching lessons and Clear restores all 20.",
+    "Score thresholds and study/lab flags record completion; note text is handled as text rather than executable markup.",
+    "Export produces valid 20-lesson progress JSON.",
+    "Invalid progress import is rejected without changing prior state.",
+    "Valid progress import accepts confirmation and replaces values.",
+    "Desktop 1440px and mobile 390px layouts have no horizontal page overflow."
+  ],
+  "javascript_errors": [],
+  "status": "passed",
+  "browser_version": "144.0.7559.96"
+}

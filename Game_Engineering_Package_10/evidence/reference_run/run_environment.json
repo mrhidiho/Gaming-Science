@@ -1,0 +1,20 @@
+{
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "machine": "x86_64",
+  "command": [
+    "run_experiments.py",
+    "all",
+    "--out",
+    "../evidence/reference_run"
+  ],
+  "source_sha256": {
+    "gradlab/__init__.py": "d668f3d41d9817c6ba22a57f94ed200829792cd496c40e0c3b9f58f4be30ecc2",
+    "gradlab/compiler.py": "3562b5197549250d01ba42cde82368669de5efb6f45bf54623d1c4cc0805a476",
+    "gradlab/numerical.py": "ea353a475d3d864d9cd128647a258887cafc4bb5add802482295f64ad41cbd7a",
+    "gradlab/parallel.py": "240811966e5bfd75c06868d01d2dcfade2d7b93d0fc6a91ff7de1f9be8c2b9d0",
+    "gradlab/rendering.py": "9e27a5d6631f3d0e7fc414aeee3d38c89134edc52a5d329b6fb707ce48bb5818",
+    "gradlab/systems.py": "6009e2b09703c87ca232e0ca9a2bc58bbdc755da5193264e3e3109cfabe579e2"
+  },
+  "evidence": "CPU diagnostic run; no GPU or external reproduction certification"
+}

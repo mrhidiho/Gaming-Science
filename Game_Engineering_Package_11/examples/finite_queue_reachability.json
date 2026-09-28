@@ -1,0 +1,6 @@
+{
+  "fixed_point": true,
+  "scope": "abstract ordered sequence queue; not parameterized RTL proof",
+  "states": 7,
+  "transitions": 42
+}

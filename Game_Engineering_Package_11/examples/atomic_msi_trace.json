@@ -1,0 +1,95 @@
+{
+  "events": [
+    {
+      "core": 0,
+      "data": 0,
+      "memory": 0,
+      "operation": "R",
+      "result": 0,
+      "states": [
+        "S",
+        "I"
+      ],
+      "values": [
+        0,
+        null
+      ]
+    },
+    {
+      "core": 1,
+      "data": 0,
+      "memory": 0,
+      "operation": "R",
+      "result": 0,
+      "states": [
+        "S",
+        "S"
+      ],
+      "values": [
+        0,
+        0
+      ]
+    },
+    {
+      "core": 0,
+      "data": 7,
+      "memory": 0,
+      "operation": "W",
+      "result": null,
+      "states": [
+        "M",
+        "I"
+      ],
+      "values": [
+        7,
+        null
+      ]
+    },
+    {
+      "core": 1,
+      "data": 0,
+      "memory": 7,
+      "operation": "R",
+      "result": 7,
+      "states": [
+        "S",
+        "S"
+      ],
+      "values": [
+        7,
+        7
+      ]
+    },
+    {
+      "core": 1,
+      "data": 9,
+      "memory": 7,
+      "operation": "W",
+      "result": null,
+      "states": [
+        "I",
+        "M"
+      ],
+      "values": [
+        null,
+        9
+      ]
+    },
+    {
+      "core": 0,
+      "data": 0,
+      "memory": 9,
+      "operation": "R",
+      "result": 9,
+      "states": [
+        "S",
+        "S"
+      ],
+      "values": [
+        9,
+        9
+      ]
+    }
+  ],
+  "model": "atomic transitions; no transient messages"
+}

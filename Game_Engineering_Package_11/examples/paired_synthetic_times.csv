@@ -1,0 +1,5 @@
+pair,baseline_ms,candidate_ms,source
+1,10,8,synthetic
+2,12,9,synthetic
+3,8,7,synthetic
+4,20,18,synthetic

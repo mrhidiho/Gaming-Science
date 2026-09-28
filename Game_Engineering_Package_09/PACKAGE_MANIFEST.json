@@ -1,0 +1,121 @@
+{
+  "package_number": 9,
+  "expanded_volume_number": 8,
+  "title": "Gaming Platforms and Hardware/Software Co-design",
+  "edition": "1.0",
+  "prepared": "2026-09-28",
+  "modules": [
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "lesson_ids": [
+    "36.1",
+    "36.2",
+    "36.3",
+    "36.4",
+    "37.1",
+    "37.2",
+    "37.3",
+    "37.4",
+    "38.1",
+    "38.2",
+    "38.3",
+    "38.4",
+    "39.1",
+    "39.2",
+    "39.3",
+    "39.4",
+    "40.1",
+    "40.2",
+    "40.3",
+    "40.4"
+  ],
+  "checkpoint": "H",
+  "planning_hours": {
+    "minimum": 350,
+    "maximum": 560
+  },
+  "counts": {
+    "modules": 5,
+    "lessons": 20,
+    "lesson_questions": 100,
+    "original_lesson_questions": 60,
+    "added_lesson_questions": 40,
+    "module_review_questions": 25,
+    "written_problems": 40,
+    "diagnostic_questions": 10,
+    "module_projects": 5,
+    "runnable_demos": 20,
+    "student_reference_pairs": 20,
+    "unit_tests_passed": 148,
+    "published_contract_cases": 128,
+    "pipeline_reference_cases": 36,
+    "analytical_sensitivity_rows": 972
+  },
+  "documents": {
+    "ANSWER_KEY.pdf": {
+      "pages": 30,
+      "extracted_words": 8604,
+      "bookmarks": 45,
+      "bytes": 111435
+    },
+    "CAPSTONE_SPEC.pdf": {
+      "pages": 9,
+      "extracted_words": 2381,
+      "bookmarks": 17,
+      "bytes": 47627
+    },
+    "LAB_WORKBOOK.pdf": {
+      "pages": 53,
+      "extracted_words": 11073,
+      "bookmarks": 175,
+      "bytes": 154606
+    },
+    "PLATFORM_REFERENCE.pdf": {
+      "pages": 7,
+      "extracted_words": 1382,
+      "bookmarks": 11,
+      "bytes": 35342
+    },
+    "REFERENCE_CASE_STUDY.pdf": {
+      "pages": 6,
+      "extracted_words": 1246,
+      "bookmarks": 9,
+      "bytes": 35946
+    },
+    "START_NEXT.pdf": {
+      "pages": 6,
+      "extracted_words": 1443,
+      "bookmarks": 10,
+      "bytes": 36280
+    },
+    "STUDENT_HANDBOOK.pdf": {
+      "pages": 52,
+      "extracted_words": 18130,
+      "bookmarks": 159,
+      "bytes": 204298
+    }
+  },
+  "entry_points": {
+    "start": "START_NEXT.pdf",
+    "offline_course": "COURSE.html",
+    "handbook": "STUDENT_HANDBOOK.pdf",
+    "workbook": "LAB_WORKBOOK.pdf",
+    "answer_key": "ANSWER_KEY.pdf",
+    "capstone": "CAPSTONE_SPEC.pdf",
+    "progress": "PROGRESS.md",
+    "validation": "validation/VALIDATION_REPORT.md"
+  },
+  "core_dependencies": "Python standard library; chosen syntax baseline Python 3.11+; executed on Python 3.13.5/Linux",
+  "optional_dependencies": "C++17 compiler for native reference measurements; KiCad for original schematic/layout assignment; physical hardware optional and reviewed",
+  "limitations": [
+    "Core Python execution tested on Python 3.13.5/Linux, not every supported syntax-baseline version or operating system.",
+    "Native C++ data are actual build-host function measurements; not physical accelerator, whole-game, optical latency or another machine’s measurements.",
+    "Model clocks, bandwidths, resource counts and sensitivity are explicit assumptions/estimates; no synthesis, FPGA/GPU execution, board bring-up, KiCad GUI or XR runtime was tested.",
+    "Browser interactions tested through supplied HTML content in system Chromium; direct file:// navigation was blocked by container administrator policy. External links and other browsers were not exercised.",
+    "Published tests and hash checks do not constitute formal verification or scientific peer review. Full original practical work and the learner Gate H remain learner assignments."
+  ]
+}

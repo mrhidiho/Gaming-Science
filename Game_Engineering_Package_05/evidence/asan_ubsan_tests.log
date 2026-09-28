@@ -1,0 +1,24 @@
+Internal ctest changing into directory: /mnt/data/_package05_work/build-asan
+Test project /mnt/data/_package05_work/build-asan
+    Start 1: lab_16.1
+1/9 Test #1: lab_16.1 .........................   Passed    0.02 sec
+    Start 2: lab_16.2
+2/9 Test #2: lab_16.2 .........................   Passed    0.02 sec
+    Start 3: lab_16.3
+3/9 Test #3: lab_16.3 .........................   Passed    0.01 sec
+    Start 4: lab_16.4
+4/9 Test #4: lab_16.4 .........................   Passed    0.03 sec
+    Start 5: lab_18.1
+5/9 Test #5: lab_18.1 .........................   Passed    0.02 sec
+    Start 6: lab_18.2
+6/9 Test #6: lab_18.2 .........................   Passed    0.17 sec
+    Start 7: lab_18.3
+7/9 Test #7: lab_18.3 .........................   Passed    0.05 sec
+    Start 8: lab_18.4
+8/9 Test #8: lab_18.4 .........................   Passed    0.02 sec
+    Start 9: graph_integration
+9/9 Test #9: graph_integration ................   Passed    0.02 sec
+
+100% tests passed, 0 tests failed out of 9
+
+Total Test time (real) =   0.37 sec

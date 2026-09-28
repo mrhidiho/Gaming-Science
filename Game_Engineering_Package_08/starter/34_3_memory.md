@@ -1,0 +1,3 @@
+# Learner task: variable-latency memory integration
+The supplied memory_protocol.py is a single-outstanding response model, not an integrated processor implementation. Connect your processor to a stable request and a separately accepted response. Track whether the request was already accepted; do not reissue a store merely because its response is delayed.
+Vary acceptance readiness and response latency, hold responses, and test reset after acceptance. The supplied memory model commits accepted writes immediately and does not undo them on reset; state how your system discards the canceled response epoch. Check all stores, final memory and retirement. Cache modeling is an optional extension.

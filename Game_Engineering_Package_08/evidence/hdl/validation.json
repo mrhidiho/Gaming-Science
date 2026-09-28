@@ -1,0 +1,11 @@
+{
+  "status": "NOT_RUN",
+  "layer": "RTL digital simulation, not analog/physical proof",
+  "selection": "all",
+  "missing_tools": [
+    "iverilog",
+    "vvp"
+  ],
+  "checks": [],
+  "reason": "Required simulator executables are not on PATH."
+}

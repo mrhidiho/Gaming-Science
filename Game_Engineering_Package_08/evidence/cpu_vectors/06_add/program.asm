@@ -1,0 +1,4 @@
+LDI r1,5
+LDI r2,7
+ADD r3,r1,r2
+HALT

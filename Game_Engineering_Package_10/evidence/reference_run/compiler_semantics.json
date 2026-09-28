@@ -1,0 +1,41 @@
+{
+  "original": [
+    "mul",
+    [
+      "add",
+      [
+        "var",
+        "x"
+      ],
+      [
+        "const",
+        0
+      ]
+    ],
+    [
+      "add",
+      [
+        "const",
+        2
+      ],
+      [
+        "const",
+        3
+      ]
+    ]
+  ],
+  "folded": [
+    "mul",
+    [
+      "var",
+      "x"
+    ],
+    [
+      "const",
+      5
+    ]
+  ],
+  "cases": 1000,
+  "mismatches": 0,
+  "cache_key": "791da20065ce16f809d1a9c66c3683667a4e477558296bad8f0c46484512b1a7"
+}

@@ -1,0 +1,46 @@
+[  6%] Building CXX object CMakeFiles/contract_tests.dir/tests/contracts.cpp.o
+[  6%] Building CXX object CMakeFiles/demo_16_3.dir/examples/lesson_16_3.cpp.o
+[  9%] Building CXX object CMakeFiles/demo_16_1.dir/examples/lesson_16_1.cpp.o
+[ 12%] Building CXX object CMakeFiles/demo_16_2.dir/examples/lesson_16_2.cpp.o
+[ 16%] Linking CXX executable demo_16_1
+[ 19%] Linking CXX executable demo_16_2
+[ 22%] Linking CXX executable demo_16_3
+[ 19%] Built target demo_16_1
+[ 22%] Built target demo_16_2
+[ 25%] Building CXX object CMakeFiles/demo_16_4.dir/examples/lesson_16_4.cpp.o
+[ 29%] Building CXX object CMakeFiles/demo_18_1.dir/examples/lesson_18_1.cpp.o
+[ 29%] Built target demo_16_3
+[ 32%] Building CXX object CMakeFiles/demo_18_2.dir/examples/lesson_18_2.cpp.o
+[ 35%] Linking CXX executable demo_16_4
+[ 35%] Built target demo_16_4
+[ 38%] Linking CXX executable demo_18_1
+[ 41%] Building CXX object CMakeFiles/demo_18_3.dir/examples/lesson_18_3.cpp.o
+[ 41%] Built target demo_18_1
+[ 45%] Building CXX object CMakeFiles/demo_18_4.dir/examples/lesson_18_4.cpp.o
+[ 48%] Linking CXX executable demo_18_2
+[ 48%] Built target demo_18_2
+[ 51%] Building CXX object CMakeFiles/native_worker.dir/worker.cpp.o
+[ 54%] Linking CXX executable demo_18_3
+[ 58%] Linking CXX executable native_worker
+[ 58%] Built target demo_18_3
+[ 58%] Built target native_worker
+[ 61%] Building CXX object CMakeFiles/benchmark.dir/benchmark.cpp.o
+[ 64%] Building CXX object CMakeFiles/graph_tests.dir/tests/graph.cpp.o
+[ 67%] Linking CXX executable demo_18_4
+[ 67%] Built target demo_18_4
+[ 70%] Building CXX object CMakeFiles/locality_benchmark.dir/locality_benchmark.cpp.o
+[ 74%] Linking CXX executable graph_tests
+[ 74%] Built target graph_tests
+[ 77%] Building CXX object CMakeFiles/false_sharing.dir/false_sharing.cpp.o
+[ 80%] Building CXX object CMakeFiles/benchmark.dir/kernels.cpp.o
+[ 83%] Linking CXX executable benchmark
+[ 83%] Built target benchmark
+[ 87%] Building CXX object CMakeFiles/graph_benchmark.dir/graph_benchmark.cpp.o
+[ 90%] Linking CXX executable locality_benchmark
+[ 90%] Built target locality_benchmark
+[ 93%] Linking CXX executable contract_tests
+[ 96%] Linking CXX executable false_sharing
+[ 96%] Built target contract_tests
+[ 96%] Built target false_sharing
+[100%] Linking CXX executable graph_benchmark
+[100%] Built target graph_benchmark

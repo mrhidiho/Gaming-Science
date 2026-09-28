@@ -1,0 +1,11 @@
+[
+  {
+    "id": "REPLACE-CLAIM-ID",
+    "tier": "analytical",
+    "artifact": "REPLACE-relative-artifact-path",
+    "sha256": "REPLACE-with-actual-64-character-SHA256",
+    "requirement": "REPLACE-REQ-ID",
+    "claim": "REPLACE-with-bounded-claim",
+    "limitations": "REPLACE-with-model-and-measurement-limits"
+  }
+]

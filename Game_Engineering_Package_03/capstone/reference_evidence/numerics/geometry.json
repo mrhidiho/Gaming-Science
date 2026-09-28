@@ -1,0 +1,21 @@
+{
+  "convention": "column vectors, right handed, y up, scalar-first quaternion",
+  "parent_child_origin": [
+    10.0,
+    2.0,
+    0.0,
+    1.0
+  ],
+  "translated_direction": [
+    1.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "rotated_vector": [
+    2.220446049250313e-16,
+    0.9999999999999998,
+    0.0
+  ],
+  "zero_vector_policy": "ValueError: no unique direction"
+}

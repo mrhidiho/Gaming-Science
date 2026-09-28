@@ -1,0 +1,228 @@
+[
+  {
+    "id": "R01",
+    "organization": "ACM / IEEE-CS / AAAI",
+    "title": "CS2023 knowledge areas",
+    "url": "https://csed.acm.org/knowledge-areas/",
+    "note": "Breadth checklist, not a claim of accreditation."
+  },
+  {
+    "id": "R02",
+    "organization": "ACM / IEEE Computer Society",
+    "title": "Computer Engineering Curricula 2016",
+    "url": "https://ieeecs-media.computer.org/assets/pdf/ce2016-final-report.pdf",
+    "note": "Computer-engineering breadth and laboratory expectations; historical curriculum report."
+  },
+  {
+    "id": "R04",
+    "organization": "Python Software Foundation",
+    "title": "Python tutorial and language documentation",
+    "url": "https://docs.python.org/3/tutorial/",
+    "note": "Reference companion; the tutorial itself assumes some programming familiarity."
+  },
+  {
+    "id": "R05",
+    "organization": "Scott Chacon and Ben Straub",
+    "title": "Pro Git",
+    "url": "https://git-scm.com/book/en/v2",
+    "note": "Version control and collaboration."
+  },
+  {
+    "id": "R11",
+    "organization": "C++ Core Guidelines editors",
+    "title": "C++ Core Guidelines",
+    "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+    "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard."
+  },
+  {
+    "id": "R12",
+    "organization": "Kitware",
+    "title": "CMake tutorial",
+    "url": "https://cmake.org/cmake/help/latest/guide/tutorial/index.html",
+    "note": "Build systems; use documentation matching the installed release."
+  },
+  {
+    "id": "R15",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.004 Computation Structures",
+    "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+    "note": "Logic, processor design, memory and systems."
+  },
+  {
+    "id": "R16",
+    "organization": "Remzi and Andrea Arpaci-Dusseau",
+    "title": "Operating Systems: Three Easy Pieces",
+    "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "note": "Virtualization, concurrency and persistence; book by its authors."
+  },
+  {
+    "id": "R17",
+    "organization": "IETF / RFC Editor",
+    "title": "RFC 9293: Transmission Control Protocol",
+    "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+    "note": "Transport semantics; reference reading after networking foundations."
+  },
+  {
+    "id": "R18",
+    "organization": "PostgreSQL Global Development Group",
+    "title": "PostgreSQL tutorial",
+    "url": "https://www.postgresql.org/docs/current/tutorial.html",
+    "note": "Relational data, transactions and SQL; pin local server and client versions."
+  },
+  {
+    "id": "R29",
+    "organization": "Microsoft",
+    "title": "Xbox Accessibility Guidelines",
+    "url": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines",
+    "note": "Accessibility design and testing; not a legal-compliance certificate."
+  },
+  {
+    "id": "R35",
+    "organization": "RISC-V International",
+    "title": "RISC-V ISA specifications",
+    "url": "https://docs.riscv.org/reference/isa/",
+    "note": "Instruction-set reference; record the exact ISA version and implemented extensions."
+  },
+  {
+    "id": "R37",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+    "note": "GPU execution and memory; CUDA is an optional vendor-specific lab route."
+  },
+  {
+    "id": "P01",
+    "organization": "RISC-V non-ISA specifications project",
+    "title": "RISC-V ELF psABI: integer register and calling conventions",
+    "url": "https://riscv-non-isa.github.io/riscv-elf-psabi-doc/",
+    "note": "Use the ILP32 integer convention for the teaching RV32 routine; no floating-point ABI claim.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P02",
+    "organization": "GNU Compiler Collection",
+    "title": "Developer options: optimization reports",
+    "url": "https://gcc.gnu.org/onlinedocs/gcc/Developer-Options.html",
+    "note": "Match options and interpretation to the installed compiler.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P03",
+    "organization": "LLVM Project",
+    "title": "Clang user manual: optimization remarks",
+    "url": "https://clang.llvm.org/docs/UsersManual.html",
+    "note": "Compiler diagnostic interface, not a performance guarantee.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P04",
+    "organization": "LLVM Project",
+    "title": "AddressSanitizer",
+    "url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+    "note": "Instrumented checks; platform support and observed coverage have limits.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P05",
+    "organization": "LLVM Project",
+    "title": "ThreadSanitizer",
+    "url": "https://clang.llvm.org/docs/ThreadSanitizer.html",
+    "note": "Data-race detection; separate from ASan and not a proof of liveness.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P06",
+    "organization": "Python Software Foundation",
+    "title": "os: replacement and synchronization interfaces",
+    "url": "https://docs.python.org/3/library/os.html",
+    "note": "File and directory durability require a platform-specific failure model.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P07",
+    "organization": "Python Software Foundation",
+    "title": "mmap",
+    "url": "https://docs.python.org/3/library/mmap.html",
+    "note": "Read-only mapping and platform-specific behavior.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P08",
+    "organization": "Python Software Foundation",
+    "title": "subprocess",
+    "url": "https://docs.python.org/3/library/subprocess.html",
+    "note": "Argument lists, checked results and timeout behavior for a trusted program.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P09",
+    "organization": "Python Software Foundation",
+    "title": "socket",
+    "url": "https://docs.python.org/3/library/socket.html",
+    "note": "Partial reads, socket waits and connection behavior.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P10",
+    "organization": "Python Software Foundation",
+    "title": "sqlite3",
+    "url": "https://docs.python.org/3/library/sqlite3.html",
+    "note": "Connection and transaction handling. Tested runtime is recorded separately.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P11",
+    "organization": "SQLite project",
+    "title": "Foreign key support",
+    "url": "https://sqlite.org/foreignkeys.html",
+    "note": "Explicit per-connection enforcement in the lab.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P12",
+    "organization": "SQLite project",
+    "title": "Transactions",
+    "url": "https://sqlite.org/lang_transaction.html",
+    "note": "BEGIN IMMEDIATE, writer behavior and explicit transactions.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P13",
+    "organization": "Kitware",
+    "title": "CTest command-line reference",
+    "url": "https://cmake.org/cmake/help/latest/manual/ctest.1.html",
+    "note": "Use documentation matching the installed CMake/CTest version.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P14",
+    "organization": "Python Software Foundation",
+    "title": "concurrent.futures",
+    "url": "https://docs.python.org/3/library/concurrent.futures.html",
+    "note": "Future completion, executor shutdown and cancellation contracts.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "P16",
+    "organization": "RISC-V International",
+    "title": "RV32I base integer ISA, version 2.1; library snapshot v20260120",
+    "url": "https://docs.riscv.org/reference/isa/v20260120/unpriv/rv32.html",
+    "note": "Pinned specification entry for instruction semantics; no full-ISA emulator is supplied.",
+    "kind": "package expansion primary source",
+    "accessed": "2026-09-28"
+  }
+]

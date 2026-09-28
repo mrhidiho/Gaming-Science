@@ -1,0 +1,3 @@
+Target: RV32I / ILP32
+Command: clang --target=riscv32 -march=rv32i -mabi=ilp32 -c native/asm/sum_u32_rv32.S -o sum_u32_rv32.o
+Observed: assembly command exited 0. Object was not executed.

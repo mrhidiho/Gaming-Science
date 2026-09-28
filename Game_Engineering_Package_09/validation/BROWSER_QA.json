@@ -1,0 +1,22 @@
+{
+  "browser": "Playwright with system Chromium; supplied HTML set_content (container policy blocks file:// navigation)",
+  "executed": true,
+  "sections": 36,
+  "answer_details": 175,
+  "all_answers_initially_closed": true,
+  "search_no_match_clear_navigation": true,
+  "matching_sections_for_quiescence": 7,
+  "answer_reveal_close": true,
+  "javascript_errors": [],
+  "viewports_tested": [
+    [
+      1440,
+      1000
+    ],
+    [
+      390,
+      844
+    ]
+  ],
+  "limits": "HTML content, search, anchors and reveal behavior checked via set_content; direct file:// opening was blocked by container browser policy. External reading sites and other browser engines not tested."
+}

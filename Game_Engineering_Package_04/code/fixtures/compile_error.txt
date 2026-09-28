@@ -1,0 +1,2 @@
+// Intentional missing semicolon. Do not add to the ordinary course build.
+int main() { int score = 3 return score; }

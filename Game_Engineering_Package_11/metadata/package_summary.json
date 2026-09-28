@@ -1,0 +1,74 @@
+{
+  "package": 11,
+  "volume": 10,
+  "title": "Graduate Gaming Hardware and Research Thesis",
+  "edition": "2026-09-28",
+  "checkpoint": "J",
+  "numbered_lessons": 20,
+  "lesson_labs": 20,
+  "lesson_quiz_questions": 60,
+  "lesson_quiz_answers": 60,
+  "module_projects": 5,
+  "additional_transfer_problems": 10,
+  "student_coding_functions": 8,
+  "templates": 21,
+  "pdf_documents": 6,
+  "pdf_pages": 122,
+  "pdf_inventory": {
+    "START_HERE.pdf": {
+      "pages": 4,
+      "bytes": 64985
+    },
+    "Volume_10_Student_Handbook.pdf": {
+      "pages": 46,
+      "bytes": 211070
+    },
+    "Volume_10_Lab_Workbook.pdf": {
+      "pages": 31,
+      "bytes": 140488
+    },
+    "Volume_10_Answer_Key.pdf": {
+      "pages": 18,
+      "bytes": 109449
+    },
+    "Gate_J_Thesis_Defense_and_Handoff.pdf": {
+      "pages": 10,
+      "bytes": 87371
+    },
+    "Volume_10_Math_and_Reference.pdf": {
+      "pages": 13,
+      "bytes": 87867
+    }
+  },
+  "reference_test_methods": 83,
+  "cpp_checks": 3,
+  "synthetic_demo_files": 13,
+  "primary_reference_entries": 20,
+  "planning_hours": {
+    "minimum": 810,
+    "maximum": 1380
+  },
+  "thesis_hours_included": {
+    "minimum": 400,
+    "maximum": 800
+  },
+  "tested": {
+    "python": "3.13.5",
+    "compiler": "GCC 14.2.0",
+    "cmake": "3.31.6",
+    "os": "Linux x86-64"
+  },
+  "not_executed": [
+    "HDL simulation",
+    "formal proof and cover",
+    "OpenSTA/OpenROAD physical flow",
+    "real hardware benchmarks",
+    "learner thesis"
+  ],
+  "entry_points": [
+    "START_HERE.html",
+    "START_HERE.md",
+    "pdf/START_HERE.pdf"
+  ],
+  "note": "Self-study expansion; original IDs preserved. Templates and examples are not completed learner submissions."
+}

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "31.1-C1",
+    "question": "What current flows through 1,000 ohms at 5 V?",
+    "answer": "0.005 A, or 5 mA.",
+    "points": 2,
+    "lesson": "31.1",
+    "group": "core"
+  },
+  {
+    "id": "31.1-C2",
+    "question": "What power is dissipated in that ideal resistor?",
+    "answer": "5 V x 0.005 A = 0.025 W, or 25 mW.",
+    "points": 2,
+    "lesson": "31.1",
+    "group": "core"
+  },
+  {
+    "id": "31.1-C3",
+    "question": "Why can putting a meter in the wrong current-measurement configuration be dangerous?",
+    "answer": "It can create an unintended low-resistance path or short, damaging equipment or causing injury.",
+    "points": 2,
+    "lesson": "31.1",
+    "group": "core"
+  },
+  {
+    "id": "31.1-T1",
+    "question": "A 5 V source drives R1=2 kohm above R2=3 kohm. A 6 kohm load is placed across R2. Find Vout and all three branch currents.",
+    "answer": "R2 parallel RL is 2 kohm, so Vout=2.5 V. Top current is 1.25 mA; currents through R2 and RL are 0.833333 and 0.416667 mA. Their sum equals the top current. Award one point for loading the divider correctly and one for consistent currents and units.",
+    "points": 2,
+    "lesson": "31.1",
+    "group": "transfer"
+  },
+  {
+    "id": "31.1-T2",
+    "question": "Why does testing 1,000 random resistor values inside a tolerance band not prove the worst-case divider voltage?",
+    "answer": "A finite sample can miss the extreme combinations, and tolerance alone does not define a probability distribution. Analyze monotonicity and evaluate the corners; random sampling can supplement but not replace that bound. Award one point for the sampling limitation and one for the corner-analysis remedy.",
+    "points": 2,
+    "lesson": "31.1",
+    "group": "transfer"
+  },
+  {
+    "id": "31.2-C1",
+    "question": "What is tau for 10 kohm and 1 microfarad?",
+    "answer": "10 ms.",
+    "points": 2,
+    "lesson": "31.2",
+    "group": "core"
+  },
+  {
+    "id": "31.2-C2",
+    "question": "What fraction of a zero-to-final RC charging step is reached at one tau?",
+    "answer": "Approximately 1-exp(-1), or 63.2%.",
+    "points": 2,
+    "lesson": "31.2",
+    "group": "core"
+  },
+  {
+    "id": "31.2-C3",
+    "question": "Why do initial conditions matter?",
+    "answer": "Energy already stored in capacitors or inductors affects the transient response.",
+    "points": 2,
+    "lesson": "31.2",
+    "group": "core"
+  },
+  {
+    "id": "31.2-T1",
+    "question": "For the 10 kohm, 1 microfarad low-pass, find the 90% rise time and cutoff frequency.",
+    "answer": "tau=0.01 s; t90=-tau ln(0.1)=0.0230259 s, and fc=1/(2 pi tau)=15.9155 Hz. One point for each result with units.",
+    "points": 2,
+    "lesson": "31.2",
+    "group": "transfer"
+  },
+  {
+    "id": "31.2-T2",
+    "question": "Why is a forward-Euler RC response that overshoots at dt=1.5 tau not evidence that the ideal physical RC circuit overshoots?",
+    "answer": "The Euler update has multiplier 1-dt/tau=-0.5, which creates alternating numerical error. The exact first-order passive RC response to this step is monotonic. Refine the step or use the exact interval update. One point for identifying numerical origin and one for the explanation/remedy.",
+    "points": 2,
+    "lesson": "31.2",
+    "group": "transfer"
+  },
+  {
+    "id": "31.3-C1",
+    "question": "Why is a transistor not only a binary software switch?",
+    "answer": "Its electrical behavior is continuous and depends on voltages, currents, device properties and operating region.",
+    "points": 2,
+    "lesson": "31.3",
+    "group": "core"
+  },
+  {
+    "id": "31.3-C2",
+    "question": "Does a logical high guarantee compatibility across voltage domains?",
+    "answer": "No. Electrical input limits and output levels must also match.",
+    "points": 2,
+    "lesson": "31.3",
+    "group": "core"
+  },
+  {
+    "id": "31.3-C3",
+    "question": "Why distinguish absolute maximum ratings from recommended operating conditions?",
+    "answer": "Absolute limits are not a normal design target or a guarantee of intended performance.",
+    "points": 2,
+    "lesson": "31.3",
+    "group": "core"
+  },
+  {
+    "id": "31.3-T1",
+    "question": "A non-inverting ideal gain is 10 on a nominal 0-to-3.3 V supply. Does a 0.5 V input establish a valid 5 V output?",
+    "answer": "No. The linear equation requests 5 V, outside the supplied output range; a real device may saturate earlier and has other limits. One point for detecting the limit and one for distinguishing a requested ideal value from a physical guarantee.",
+    "points": 2,
+    "lesson": "31.3",
+    "group": "transfer"
+  },
+  {
+    "id": "31.3-T2",
+    "question": "Starting low, a comparator sets at >=1.8 V and clears at <=1.5 V. What outputs follow 1.4, 1.6, 1.81, 1.7, 1.49 V?",
+    "answer": "0,0,1,1,0. Values in the middle band retain the previous state. One point for the sequence and one for explaining state retention.",
+    "points": 2,
+    "lesson": "31.3",
+    "group": "transfer"
+  },
+  {
+    "id": "31.4-C1",
+    "question": "How many distinct codes does a 12-bit converter provide?",
+    "answer": "4,096.",
+    "points": 2,
+    "lesson": "31.4",
+    "group": "core"
+  },
+  {
+    "id": "31.4-C2",
+    "question": "Does 12-bit resolution guarantee 12-bit accuracy?",
+    "answer": "No. Noise and other errors can reduce accuracy and effective resolution.",
+    "points": 2,
+    "lesson": "31.4",
+    "group": "core"
+  },
+  {
+    "id": "31.4-C3",
+    "question": "Why filter before sampling to prevent aliasing?",
+    "answer": "Once high-frequency content aliases into the sampled band, ordinary later filtering cannot distinguish it from genuine in-band content.",
+    "points": 2,
+    "lesson": "31.4",
+    "group": "core"
+  },
+  {
+    "id": "31.4-T1",
+    "question": "For alpha=0.25, how many discrete updates are needed to reach at least 90% of a unit step from zero?",
+    "answer": "Nine updates. Solve (0.75)^n<=0.1; n>=8.0039, so take the ceiling. Update 8 is about 0.899887, just below the target. One point for the result and one for the inequality/indexing.",
+    "points": 2,
+    "lesson": "31.4",
+    "group": "transfer"
+  },
+  {
+    "id": "31.4-T2",
+    "question": "At fs=1 kHz, why can digital processing alone not identify whether an observed 300 Hz sampled cosine came from 300 or 700 Hz?",
+    "answer": "Those continuous cosines have identical samples at n/fs for this phase convention. The information was not preserved during sampling; an analog bandwidth constraint or other prior information is needed. One point for the identical samples and one for the information/antialiasing explanation.",
+    "points": 2,
+    "lesson": "31.4",
+    "group": "transfer"
+  },
+  {
+    "id": "32.1-C1",
+    "question": "What distinguishes combinational from sequential logic?",
+    "answer": "Combinational outputs depend on current inputs without stored state; sequential behavior also depends on state.",
+    "points": 2,
+    "lesson": "32.1",
+    "group": "core"
+  },
+  {
+    "id": "32.1-C2",
+    "question": "What does a two-to-one multiplexer do?",
+    "answer": "Selects one of two inputs according to a control bit.",
+    "points": 2,
+    "lesson": "32.1",
+    "group": "core"
+  },
+  {
+    "id": "32.1-C3",
+    "question": "Does the shortest Boolean expression always imply the fastest circuit?",
+    "answer": "No. Physical mapping, fanout and timing also affect the implementation.",
+    "points": 2,
+    "lesson": "32.1",
+    "group": "core"
+  },
+  {
+    "id": "32.1-T1",
+    "question": "A four-bit adder receives unsigned 13 and 7. Give the low result, carry-out and number of exhaustive input cases including carry-in.",
+    "answer": "The full result is 20=10100 binary; low result is 4 and carry-out is 1. There are 16*16*2=512 cases. One point for the result/carry and one for the count.",
+    "points": 2,
+    "lesson": "32.1",
+    "group": "transfer"
+  },
+  {
+    "id": "32.1-T2",
+    "question": "Why does a one-hot assertion not fully verify a 2-to-4 decoder?",
+    "answer": "It checks how many outputs are selected, not which output corresponds to the input code. A design that always selects bit zero can pass one-hotness. Add input-to-output correspondence checks. One point for the distinction and one for the counterexample/check.",
+    "points": 2,
+    "lesson": "32.1",
+    "group": "transfer"
+  },
+  {
+    "id": "32.2-C1",
+    "question": "What does a register capture in a synchronous model?",
+    "answer": "The value presented under the specified timing conditions at its active clock event.",
+    "points": 2,
+    "lesson": "32.2",
+    "group": "core"
+  },
+  {
+    "id": "32.2-C2",
+    "question": "What simplified maximum frequency follows from an 8 ns period?",
+    "answer": "125 MHz before additional uncertainty or margin.",
+    "points": 2,
+    "lesson": "32.2",
+    "group": "core"
+  },
+  {
+    "id": "32.2-C3",
+    "question": "Does slowing the clock automatically fix hold violations?",
+    "answer": "No. Hold concerns the minimum-delay relationship near the capture edge.",
+    "points": 2,
+    "lesson": "32.2",
+    "group": "core"
+  },
+  {
+    "id": "32.2-T1",
+    "question": "Given maximum delays 0.8+5.6+0.6 ns plus 0.5 ns uncertainty, what period is required and what is setup slack at 8 ns?",
+    "answer": "The required period is 7.5 ns; slack at 8 ns is 0.5 ns. The corresponding idealized frequency limit is about 133.33 MHz. One point for the required period and one for the slack.",
+    "points": 2,
+    "lesson": "32.2",
+    "group": "transfer"
+  },
+  {
+    "id": "32.2-T2",
+    "question": "A path has 0.15 ns earliest data arrival and a 0.25 ns hold requirement. What is its hold slack, and does changing period from 8 to 16 ns fix it?",
+    "answer": "Slack is -0.10 ns. The same-edge minimum-delay inequality is unchanged by that period increase under the given model. One point for the number and one for the timing explanation.",
+    "points": 2,
+    "lesson": "32.2",
+    "group": "transfer"
+  },
+  {
+    "id": "32.3-C1",
+    "question": "What is the signed 8-bit two's-complement range?",
+    "answer": "-128 through 127.",
+    "points": 2,
+    "lesson": "32.3",
+    "group": "core"
+  },
+  {
+    "id": "32.3-C2",
+    "question": "What does stored value 24 mean with scale 1/16?",
+    "answer": "1.5.",
+    "points": 2,
+    "lesson": "32.3",
+    "group": "core"
+  },
+  {
+    "id": "32.3-C3",
+    "question": "Why use a wider intermediate for multiplication?",
+    "answer": "The product can require more bits and has a changed fixed-point scale before rounding or rescaling.",
+    "points": 2,
+    "lesson": "32.3",
+    "group": "core"
+  },
+  {
+    "id": "32.3-T1",
+    "question": "Give wrapped and saturated signed eight-bit results for 120+20, then state the range of signed W=16,F=8.",
+    "answer": "Wrapped result is -116; saturated result is 127. The fixed-point range is -128 to 127.99609375. One point for the two policies and one for the range with sign included in W.",
+    "points": 2,
+    "lesson": "32.3",
+    "group": "transfer"
+  },
+  {
+    "id": "32.3-T2",
+    "question": "With nearest-even division by four, what do products +6, +10, -6 and -10 become?",
+    "answer": "+2,+2,-2,-2. These are ties at +/-1.5 and +/-2.5 retained integer units, resolved to the even integer. One point for all results and one for the tie rule.",
+    "points": 2,
+    "lesson": "32.3",
+    "group": "transfer"
+  },
+  {
+    "id": "32.4-C1",
+    "question": "Does a two-register synchronizer eliminate all metastability risk?",
+    "answer": "No. It reduces propagation probability under stated timing and device assumptions.",
+    "points": 2,
+    "lesson": "32.4",
+    "group": "core"
+  },
+  {
+    "id": "32.4-C2",
+    "question": "Why not independently synchronize every bit of a changing binary bus?",
+    "answer": "Bits can be observed from different source transitions, yielding an incoherent word.",
+    "points": 2,
+    "lesson": "32.4",
+    "group": "core"
+  },
+  {
+    "id": "32.4-C3",
+    "question": "Can ordinary digital simulation prove an analog metastability failure rate?",
+    "answer": "No. It does not faithfully model that analog probability and timing behavior.",
+    "points": 2,
+    "lesson": "32.4",
+    "group": "core"
+  },
+  {
+    "id": "32.4-T1",
+    "question": "Why does a two-register synchronizer on a one-cycle pulse not guarantee that a slower destination sees the pulse?",
+    "answer": "The pulse may rise and fall between destination sampling edges, so neither stage ever samples a high level. Stretch, toggle with rate control, or handshake the event. One point for the missed-sampling mechanism and one for a suitable protocol remedy.",
+    "points": 2,
+    "lesson": "32.4",
+    "group": "transfer"
+  },
+  {
+    "id": "32.4-T2",
+    "question": "In a bundled-data handshake, when may the source change the payload, and what additional physical assumption is still required?",
+    "answer": "Only after it observes the acknowledgement for the outstanding request, under the declared reset policy. The data must settle at the destination before capture and remain stable for the required window; control synchronization alone does not prove the data-path timing. One point for ownership and one for settling/timing.",
+    "points": 2,
+    "lesson": "32.4",
+    "group": "transfer"
+  },
+  {
+    "id": "33.1-C1",
+    "question": "Why assign every combinational output on every path?",
+    "answer": "Missing assignments can imply unwanted retained state or latches.",
+    "points": 2,
+    "lesson": "33.1",
+    "group": "core"
+  },
+  {
+    "id": "33.1-C2",
+    "question": "What does the nonblocking swap example do?",
+    "answer": "Each register receives the other register's previous value.",
+    "points": 2,
+    "lesson": "33.1",
+    "group": "core"
+  },
+  {
+    "id": "33.1-C3",
+    "question": "Does a source-code loop necessarily take multiple hardware clock cycles?",
+    "answer": "No. It may elaborate into replicated combinational or parallel hardware.",
+    "points": 2,
+    "lesson": "33.1",
+    "group": "core"
+  },
+  {
+    "id": "33.1-T1",
+    "question": "Before an edge a=1 and b=2. What follows a<=b; b<=a, and why?",
+    "answer": "After the scheduled nonblocking updates a=2,b=1. Both right-hand sides read the old state. One point for the result and one for the scheduling explanation.",
+    "points": 2,
+    "lesson": "33.1",
+    "group": "transfer"
+  },
+  {
+    "id": "33.1-T2",
+    "question": "Why is an omitted else sometimes intentional in always_ff but dangerous in intended combinational logic?",
+    "answer": "In a clocked block it commonly means the register holds its state. In combinational logic an unassigned output must retain history, implying a latch instead of a function of current inputs. One point for each context.",
+    "points": 2,
+    "lesson": "33.1",
+    "group": "transfer"
+  },
+  {
+    "id": "33.2-C1",
+    "question": "Should a scoreboard count attempted or accepted transactions?",
+    "answer": "Accepted transactions according to the interface handshake.",
+    "points": 2,
+    "lesson": "33.2",
+    "group": "core"
+  },
+  {
+    "id": "33.2-C2",
+    "question": "Why save random seeds?",
+    "answer": "They allow a failing stimulus sequence to be reproduced.",
+    "points": 2,
+    "lesson": "33.2",
+    "group": "core"
+  },
+  {
+    "id": "33.2-C3",
+    "question": "Why deliberately inject a known bug?",
+    "answer": "It checks that the verification environment can detect the failure it claims to cover.",
+    "points": 2,
+    "lesson": "33.2",
+    "group": "core"
+  },
+  {
+    "id": "33.2-T1",
+    "question": "Under this FIFO policy, depth two is full with [A,B], input offers C and output-ready is high. Which transfers occur and what remains?",
+    "answer": "Only the read of A is accepted. The queue becomes [B]; C remains pending at the producer because pre-edge input-ready was false. One point for the transfer and one for remaining ownership.",
+    "points": 2,
+    "lesson": "33.2",
+    "group": "transfer"
+  },
+  {
+    "id": "33.2-T2",
+    "question": "Why should the scoreboard use an abstract sequence instead of copying the RTL read/write-pointer equations?",
+    "answer": "Structural independence reduces the risk that the same pointer or wrap bug appears in the DUT and expected-result code. The scoreboard should model the specified accepted-word order, not reimplement the same microarchitecture. One point for independence and one for the sequence contract.",
+    "points": 2,
+    "lesson": "33.2",
+    "group": "transfer"
+  },
+  {
+    "id": "33.3-C1",
+    "question": "Does reaching 100% of chosen coverage bins prove correctness?",
+    "answer": "No. The bins may omit important behavior and coverage does not establish every property.",
+    "points": 2,
+    "lesson": "33.3",
+    "group": "core"
+  },
+  {
+    "id": "33.3-C2",
+    "question": "Why can overconstrained assumptions hide a bug?",
+    "answer": "They can exclude the very input sequences that trigger it.",
+    "points": 2,
+    "lesson": "33.3",
+    "group": "core"
+  },
+  {
+    "id": "33.3-C3",
+    "question": "What limitation must accompany a bounded proof?",
+    "answer": "The checked time or state bound, unless an additional argument proves the property unboundedly.",
+    "points": 2,
+    "lesson": "33.3",
+    "group": "core"
+  },
+  {
+    "id": "33.3-T1",
+    "question": "Does proving 0<=count<=DEPTH establish FIFO ordering?",
+    "answer": "No. Count can stay legal while payloads are swapped, repeated or dropped. Add payload/sequence properties or a tracked-item proof. One point for the limitation and one for an appropriate stronger check.",
+    "points": 2,
+    "lesson": "33.3",
+    "group": "transfer"
+  },
+  {
+    "id": "33.3-T2",
+    "question": "A bounded check finds no counterexample through 20 cycles. What claim is justified, and what must not be claimed?",
+    "answer": "The specified property passed all allowed modeled traces through the stated 20-cycle bound under its assumptions, subject to the tool result. That is not an unbounded proof or physical timing guarantee. One point for the bounded claim and one for the exclusions.",
+    "points": 2,
+    "lesson": "33.3",
+    "group": "transfer"
+  },
+  {
+    "id": "33.4-C1",
+    "question": "Does successful synthesis establish timing closure?",
+    "answer": "No. Implementation and timing analysis under correct constraints are additional requirements.",
+    "points": 2,
+    "lesson": "33.4",
+    "group": "core"
+  },
+  {
+    "id": "33.4-C2",
+    "question": "Why inspect inferred memory resources?",
+    "answer": "The source description may map to registers or memories with different cost and behavior.",
+    "points": 2,
+    "lesson": "33.4",
+    "group": "core"
+  },
+  {
+    "id": "33.4-C3",
+    "question": "Why use identical constraints when comparing designs?",
+    "answer": "Otherwise reported area or timing differences may reflect the experiment setup rather than the design change.",
+    "points": 2,
+    "lesson": "33.4",
+    "group": "core"
+  },
+  {
+    "id": "33.4-T1",
+    "question": "At width 16 and depth eight, how many abstract payload bits are present, and how wide must occupancy be?",
+    "answer": "There are 16*8=128 payload bits. Occupancy must represent 0 through 8 and therefore needs four bits; a storage index needs only three. One point for each distinction.",
+    "points": 2,
+    "lesson": "33.4",
+    "group": "transfer"
+  },
+  {
+    "id": "33.4-T2",
+    "question": "Why cannot a generic synthesis cell count establish routed FPGA Fmax?",
+    "answer": "It lacks the required device-specific mapping, placement, routed interconnect and complete timing constraints/corners. A cell count measures structure, not the maximum constrained path delay. One point for missing physical/constraint context and one for the structure-versus-delay distinction.",
+    "points": 2,
+    "lesson": "33.4",
+    "group": "transfer"
+  },
+  {
+    "id": "34.1-C1",
+    "question": "How does an ISA differ from a microarchitecture?",
+    "answer": "The ISA specifies programmer-visible behavior; the microarchitecture is one implementation of it.",
+    "points": 2,
+    "lesson": "34.1",
+    "group": "core"
+  },
+  {
+    "id": "34.1-C2",
+    "question": "What limits a simple single-cycle clock period?",
+    "answer": "The longest required combinational path plus sequential timing and margin.",
+    "points": 2,
+    "lesson": "34.1",
+    "group": "core"
+  },
+  {
+    "id": "34.1-C3",
+    "question": "Why avoid claiming full ISA compliance for a small subset?",
+    "answer": "Unsupported instructions or required architectural behaviors may prevent compliance.",
+    "points": 2,
+    "lesson": "34.1",
+    "group": "core"
+  },
+  {
+    "id": "34.1-T1",
+    "question": "Why does G16 ADD r3,r1,r2 encode as 0x2650?",
+    "answer": "Opcode 2 contributes 0x2000, destination r3 contributes 3<<9=0x600, r1 contributes 1<<6=0x40 and r2 contributes 2<<3=0x10; reserved low bits are zero. Sum is 0x2650. One point for fields and one for the sum.",
+    "points": 2,
+    "lesson": "34.1",
+    "group": "transfer"
+  },
+  {
+    "id": "34.1-T2",
+    "question": "What must happen when LD r0 uses an out-of-range address in the G16 contract?",
+    "answer": "It faults without retirement or architectural side effects. Discarding a write to r0 does not remove the instruction’s required address validation. One point for the fault behavior and one for the r0 distinction.",
+    "points": 2,
+    "lesson": "34.1",
+    "group": "transfer"
+  },
+  {
+    "id": "34.2-C1",
+    "question": "Does pipelining always shorten one instruction's latency?",
+    "answer": "No. Its main goal is often improved throughput by overlapping instructions.",
+    "points": 2,
+    "lesson": "34.2",
+    "group": "core"
+  },
+  {
+    "id": "34.2-C2",
+    "question": "Why must flushed instructions suppress writes?",
+    "answer": "They are not part of the accepted instruction path and must not alter architectural state.",
+    "points": 2,
+    "lesson": "34.2",
+    "group": "core"
+  },
+  {
+    "id": "34.2-C3",
+    "question": "What is a load-use hazard?",
+    "answer": "A following instruction needs loaded data before the pipeline has made it available.",
+    "points": 2,
+    "lesson": "34.2",
+    "group": "core"
+  },
+  {
+    "id": "34.2-T1",
+    "question": "Why can forwarding the ALU result of a load fail to solve its immediate load-use dependency?",
+    "answer": "The ALU result is typically the effective address, not the loaded memory value. The value may not exist until a later stage or response. Stall or forward the actual available load data according to the chosen timing model. One point for address/value and one for timing/remedy.",
+    "points": 2,
+    "lesson": "34.2",
+    "group": "transfer"
+  },
+  {
+    "id": "34.2-T2",
+    "question": "A taken branch skips a store, but the final registers match the reference. Is that enough to validate branch recovery?",
+    "answer": "No. The wrong-path store may have changed memory despite matching registers. Check memory side effects and valid/write-enable suppression at retirement or acceptance. One point for the missing evidence and one for the required check.",
+    "points": 2,
+    "lesson": "34.2",
+    "group": "transfer"
+  },
+  {
+    "id": "34.3-C1",
+    "question": "Why is an instantaneous array an incomplete memory model?",
+    "answer": "It omits latency, backpressure, errors and device-specific side effects.",
+    "points": 2,
+    "lesson": "34.3",
+    "group": "core"
+  },
+  {
+    "id": "34.3-C2",
+    "question": "What does a cache tag identify?",
+    "answer": "Which memory block is represented by the stored cache line.",
+    "points": 2,
+    "lesson": "34.3",
+    "group": "core"
+  },
+  {
+    "id": "34.3-C3",
+    "question": "Does a small CPU necessarily need an MMU?",
+    "answer": "No, but omitting translation and protection changes its capabilities and safe use cases.",
+    "points": 2,
+    "lesson": "34.3",
+    "group": "core"
+  },
+  {
+    "id": "34.3-T1",
+    "question": "A 32-bit byte address uses 16-byte blocks and 64 direct-mapped lines. Give offset, index and tag widths.",
+    "answer": "Offset is log2(16)=4 bits, index log2(64)=6 bits, and tag 32-4-6=22 bits. One point for offset/index and one for tag plus byte-address assumption.",
+    "points": 2,
+    "lesson": "34.3",
+    "group": "transfer"
+  },
+  {
+    "id": "34.3-T2",
+    "question": "A store request is accepted once, then its response is delayed five cycles. How many times may the memory write occur?",
+    "answer": "Exactly once under this store contract. Waiting cycles are not additional accepted transactions; the sender must not re-offer the same request as new work after acceptance. One point for the count and one for the protocol reasoning.",
+    "points": 2,
+    "lesson": "34.3",
+    "group": "transfer"
+  },
+  {
+    "id": "34.4-C1",
+    "question": "Why compare at retirement rather than arbitrary internal cycles?",
+    "answer": "Different correct implementations can have different internal timing while preserving the same architectural effects.",
+    "points": 2,
+    "lesson": "34.4",
+    "group": "core"
+  },
+  {
+    "id": "34.4-C2",
+    "question": "Why inspect compiler-generated instructions?",
+    "answer": "The compiler or runtime may use operations unsupported by the educational core.",
+    "points": 2,
+    "lesson": "34.4",
+    "group": "core"
+  },
+  {
+    "id": "34.4-C3",
+    "question": "What belongs in a reproducible processor failure report?",
+    "answer": "Program bytes, initial state, toolchain/configuration, seed and the first architectural mismatch.",
+    "points": 2,
+    "lesson": "34.4",
+    "group": "core"
+  },
+  {
+    "id": "34.4-T1",
+    "question": "Why compare retirement events rather than register files after the same number of cycles in a reference interpreter and pipeline?",
+    "answer": "They can implement the same instruction semantics at different cycle timings and with different bubbles/stalls. Retirement aligns committed architectural events. One point for timing differences and one for the correct comparison boundary.",
+    "points": 2,
+    "lesson": "34.4",
+    "group": "transfer"
+  },
+  {
+    "id": "34.4-T2",
+    "question": "Does generating random legal programs with the same decoder code used by the DUT provide fully independent verification?",
+    "answer": "No. Shared interpretation or field-extraction bugs can affect both stimulus and DUT. Add independently specified generation, hand-encoded cases and an independent semantic reference. One point for correlated-error risk and one for a remedy.",
+    "points": 2,
+    "lesson": "34.4",
+    "group": "transfer"
+  },
+  {
+    "id": "35.1-C1",
+    "question": "Why are device registers not ordinary memory variables?",
+    "answer": "Accesses can have side effects, ordering requirements and restricted widths.",
+    "points": 2,
+    "lesson": "35.1",
+    "group": "core"
+  },
+  {
+    "id": "35.1-C2",
+    "question": "When may software reuse a DMA source buffer?",
+    "answer": "After the device has completed the access and ownership is returned under the protocol.",
+    "points": 2,
+    "lesson": "35.1",
+    "group": "core"
+  },
+  {
+    "id": "35.1-C3",
+    "question": "Does C++ volatile make a shared device driver thread-safe?",
+    "answer": "No. It is not a substitute for synchronization or the platform's device-access rules.",
+    "points": 2,
+    "lesson": "35.1",
+    "group": "core"
+  },
+  {
+    "id": "35.1-T1",
+    "question": "With pending=1, clear=1 and event=1, what does set-wins W1C logic produce, and why?",
+    "answer": "The next pending bit is (1 & ~1)|1 = 1, preserving the newly arriving event. One point for the result and one for the event-loss rationale.",
+    "points": 2,
+    "lesson": "35.1",
+    "group": "transfer"
+  },
+  {
+    "id": "35.1-T2",
+    "question": "Can holding a device response valid for five cycles justify repeating the original enqueue five times?",
+    "answer": "No. The request acceptance caused one side effect. Response backpressure only delays response consumption; it must not create new accepted requests or duplicate effects. One point for exactly-once semantics and one for separating the two channels.",
+    "points": 2,
+    "lesson": "35.1",
+    "group": "transfer"
+  },
+  {
+    "id": "35.2-C1",
+    "question": "How many bytes does the example framebuffer require?",
+    "answer": "320 x 240 x 2 = 153,600 bytes.",
+    "points": 2,
+    "lesson": "35.2",
+    "group": "core"
+  },
+  {
+    "id": "35.2-C2",
+    "question": "Is active-pixel bandwidth the whole physical interface bandwidth?",
+    "answer": "No. Blanking, encoding, protocol and other traffic can add overhead.",
+    "points": 2,
+    "lesson": "35.2",
+    "group": "core"
+  },
+  {
+    "id": "35.2-C3",
+    "question": "Why synchronize framebuffer swaps?",
+    "answer": "An arbitrary swap can display parts of different frames, causing tearing.",
+    "points": 2,
+    "lesson": "35.2",
+    "group": "core"
+  },
+  {
+    "id": "35.2-T1",
+    "question": "For 64x48 active pixels inside 80x60 total periods at 288 kHz, find frame frequency and active samples per frame.",
+    "answer": "Frame frequency is 288000/(80*60)=60 Hz. Active samples are 64*48=3072. One point for each result and the distinction between total and active.",
+    "points": 2,
+    "lesson": "35.2",
+    "group": "transfer"
+  },
+  {
+    "id": "35.2-T2",
+    "question": "Why can delaying RGB by one register while leaving active unchanged corrupt an otherwise correct frame?",
+    "answer": "Color now belongs to the preceding coordinate while active labels the current one, shifting or dropping boundary pixels. Delay the associated sideband signals or define and implement an equivalent alignment. One point for the mismatch and one for the remedy.",
+    "points": 2,
+    "lesson": "35.2",
+    "group": "transfer"
+  },
+  {
+    "id": "35.3-C1",
+    "question": "What total time follows from halving the example 20 microsecond compute phase?",
+    "answer": "80 + 10 = 90 microseconds.",
+    "points": 2,
+    "lesson": "35.3",
+    "group": "core"
+  },
+  {
+    "id": "35.3-C2",
+    "question": "What does backpressure accomplish?",
+    "answer": "It prevents a producer from overrunning a consumer that cannot currently accept more data.",
+    "points": 2,
+    "lesson": "35.3",
+    "group": "core"
+  },
+  {
+    "id": "35.3-C3",
+    "question": "Why report latency and throughput separately?",
+    "answer": "A pipeline can accept frequent work while each individual item still takes multiple cycles to complete.",
+    "points": 2,
+    "lesson": "35.3",
+    "group": "core"
+  },
+  {
+    "id": "35.3-T1",
+    "question": "Software costs 2 us+8N ns and hardware 30 us+3N ns. What is the smallest integer N for a strict modeled hardware win?",
+    "answer": "N>5600, so 5601. At 5600 the paths tie. One point for the inequality and one for the strict integer boundary.",
+    "points": 2,
+    "lesson": "35.3",
+    "group": "transfer"
+  },
+  {
+    "id": "35.3-T2",
+    "question": "If 20% of application time speeds up 4x, what is the ideal total speedup before new overhead?",
+    "answer": "1/(0.8+0.2/4)=1/0.85=1.17647. One point for weighting the unchanged portion and one for the result/overhead limitation.",
+    "points": 2,
+    "lesson": "35.3",
+    "group": "transfer"
+  },
+  {
+    "id": "35.4-C1",
+    "question": "Why are unit tests insufficient for integration?",
+    "answer": "Connected components may disagree on protocols, reset, timing or ownership despite working in isolation.",
+    "points": 2,
+    "lesson": "35.4",
+    "group": "core"
+  },
+  {
+    "id": "35.4-C2",
+    "question": "What must be checked before wiring a peripheral?",
+    "answer": "Pin assignment, voltage compatibility, interface requirements and the reviewed board safety plan.",
+    "points": 2,
+    "lesson": "35.4",
+    "group": "core"
+  },
+  {
+    "id": "35.4-C3",
+    "question": "Does a successful FPGA demonstration prove an ASIC is ready to fabricate?",
+    "answer": "No. ASIC physical design, verification, manufacturing and signoff impose additional requirements.",
+    "points": 2,
+    "lesson": "35.4",
+    "group": "core"
+  },
+  {
+    "id": "35.4-T1",
+    "question": "Can a sprite-compositor capstone replace the required Module 34 processor exercise?",
+    "answer": "No. Gate G can center on a different subsystem, but the module-level processor model/RTL and verification work remain required. One point for the answer and one for distinguishing module work from the capstone choice.",
+    "points": 2,
+    "lesson": "35.4",
+    "group": "transfer"
+  },
+  {
+    "id": "35.4-T2",
+    "question": "A generic synthesis run succeeds and a board later displays an image. What stronger claims still need separate evidence?",
+    "answer": "Target timing closure, power/reliability under defined conditions, full interface correctness and ASIC readiness are not established merely by those outcomes. Name the needed constraints, verification and physical signoff for the specific claim. One point for at least two exclusions and one for explaining the missing evidence.",
+    "points": 2,
+    "lesson": "35.4",
+    "group": "transfer"
+  }
+]

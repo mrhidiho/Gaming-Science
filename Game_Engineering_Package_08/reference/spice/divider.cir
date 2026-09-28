@@ -1,0 +1,10 @@
+* Volume 7: ideal 5 V loaded divider. Simulation only.
+Vsrc supply 0 DC 5
+R1 supply output 2k
+R2 output 0 3k
+Rload output 0 6k
+.control
+op
+print v(output) i(Vsrc)
+.endc
+.end

@@ -1,0 +1,9 @@
+{
+  "boundary": "No hardware performance, physical timing, analog CDC, RTL proof, or thesis research is claimed.",
+  "command": "python code/demo.py --out examples",
+  "data_kind": "original synthetic fixtures",
+  "ecc_payload_10_hex": "D2",
+  "edition": "2026-09-28",
+  "generator": "code/demo.py",
+  "seed": 20260928
+}

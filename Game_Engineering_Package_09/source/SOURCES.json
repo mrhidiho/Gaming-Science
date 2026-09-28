@@ -1,0 +1,142 @@
+[
+  {
+    "id": "S01",
+    "organization": "Zephyr Project",
+    "title": "SPI peripheral API",
+    "url": "https://docs.zephyrproject.org/latest/hardware/peripherals/spi.html",
+    "note": "Role, mode and transaction vocabulary. Use the exact device datasheet for electrical limits."
+  },
+  {
+    "id": "S02",
+    "organization": "Zephyr Project",
+    "title": "Scheduling",
+    "url": "https://docs.zephyrproject.org/latest/kernel/services/scheduling/index.html",
+    "note": "RTOS scheduling mechanisms; the supplied integer-tick scheduler is an original simplified model."
+  },
+  {
+    "id": "S03",
+    "organization": "KiCad Project",
+    "title": "Schematic Editor, version 9.0",
+    "url": "https://docs.kicad.org/9.0/en/eeschema/eeschema.html",
+    "note": "Schematic editing and electrical-rule checking. Versioned documentation, not a claim that 9.0 is the latest release."
+  },
+  {
+    "id": "S04",
+    "organization": "KiCad Project",
+    "title": "PCB Editor, version 9.0",
+    "url": "https://docs.kicad.org/9.0/en/pcbnew/pcbnew.html",
+    "note": "Board layout and design-rule checks. Use documentation matching the installed version."
+  },
+  {
+    "id": "S05",
+    "organization": "Linux kernel contributors",
+    "title": "Dynamic DMA mapping guide",
+    "url": "https://docs.kernel.org/core-api/dma-api-howto.html",
+    "note": "Mapping, access and ownership considerations. The educational Python code does not use DMA."
+  },
+  {
+    "id": "S06",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide: Writing SIMT Kernels",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/writing-cuda-kernels.html",
+    "note": "GPU execution-group vocabulary; architecture parameters must be checked for the selected target."
+  },
+  {
+    "id": "S07",
+    "organization": "NVIDIA",
+    "title": "CUDA C++ Best Practices Guide",
+    "url": "https://docs.nvidia.com/cuda/cuda-c-best-practices-guide/index.html",
+    "note": "Performance, memory access and validation context. No CUDA runtime is required for the core labs."
+  },
+  {
+    "id": "S08",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide: Unified and System Memory",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/02-basics/understanding-memory.html",
+    "note": "Separate addressing, placement and access behavior. Actual support depends on the platform."
+  },
+  {
+    "id": "S09",
+    "organization": "Khronos Group",
+    "title": "Vulkan Guide: Synchronization",
+    "url": "https://docs.vulkan.org/guide/latest/synchronization.html",
+    "note": "Execution and memory synchronization concepts; consult the selected API specification for implementation."
+  },
+  {
+    "id": "S10",
+    "organization": "Samuel Williams, Andrew Waterman and David Patterson / UC Berkeley",
+    "title": "Roofline: An Insightful Visual Performance Model for Floating-Point Programs and Multicore Architectures, technical report EECS-2008-134",
+    "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html",
+    "note": "Original performance-model reference. All numerical worksheet examples in this package are original hypothetical values."
+  },
+  {
+    "id": "S11",
+    "organization": "Python Software Foundation",
+    "title": "timeit — Measure execution time of small code snippets",
+    "url": "https://docs.python.org/3/library/timeit.html",
+    "note": "Timing boundaries and repeated experiments. Package execution was tested on Python 3.13.5, not every documented version."
+  },
+  {
+    "id": "S12",
+    "organization": "Android Developers",
+    "title": "Android Dynamic Performance Framework",
+    "url": "https://developer.android.com/games/optimize/adpf",
+    "note": "Device-dependent thermal and performance-management context; physical use remains optional."
+  },
+  {
+    "id": "S13",
+    "organization": "SDL Project",
+    "title": "SDL3: SDL_Event",
+    "url": "https://wiki.libsdl.org/SDL3/SDL_Event",
+    "note": "Event representation and timestamps. An event timestamp is not a photon measurement."
+  },
+  {
+    "id": "S14",
+    "organization": "Android Developers",
+    "title": "Frame Pacing library",
+    "url": "https://developer.android.com/games/sdk/frame-pacing",
+    "note": "Presentation and frame-pacing context. The supplied trace is synthetic, not captured by this library."
+  },
+  {
+    "id": "S15",
+    "organization": "Android Developers",
+    "title": "The activity lifecycle",
+    "url": "https://developer.android.com/guide/components/activities/activity-lifecycle",
+    "note": "Lifecycle and state-management context. The teaching state machine intentionally simplifies operating-system behavior."
+  },
+  {
+    "id": "S16",
+    "organization": "Khronos Group",
+    "title": "OpenXR 1.1 reference: xrWaitFrame",
+    "url": "https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrWaitFrame.html",
+    "note": "Frame timing contract. No real XR runtime was executed for this package."
+  },
+  {
+    "id": "S17",
+    "organization": "Khronos Group",
+    "title": "OpenXR 1.1 reference: xrLocateViews",
+    "url": "https://registry.khronos.org/OpenXR/specs/1.1/man/html/xrLocateViews.html",
+    "note": "Space-, time- and view-dependent pose information."
+  },
+  {
+    "id": "S18",
+    "organization": "Cornell University",
+    "title": "ECE 5745: Complex Digital ASIC Design",
+    "url": "https://www.csl.cornell.edu/courses/ece5745/",
+    "note": "Deeper digital-design and evaluation study. This package is not a substitute for an ASIC implementation flow."
+  },
+  {
+    "id": "S19",
+    "organization": "gem5 Project",
+    "title": "gem5 documentation",
+    "url": "https://www.gem5.org/documentation/",
+    "note": "Supported architectural simulation as an optional deeper path; gem5 is not a required dependency."
+  },
+  {
+    "id": "S21",
+    "organization": "Apple Developer",
+    "title": "Synchronizing CPU and GPU work",
+    "url": "https://developer.apple.com/documentation/metal/synchronizing-cpu-and-gpu-work",
+    "note": "A platform-specific synchronization reference; the documentation page may require JavaScript."
+  }
+]

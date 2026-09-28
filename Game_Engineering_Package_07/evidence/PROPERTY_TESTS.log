@@ -1,0 +1,22 @@
+test_astar_bfs_oracle_100_maps (__main__.Properties.test_astar_bfs_oracle_100_maps) ... ok
+test_audio_split_continuity (__main__.Properties.test_audio_split_continuity) ... ok
+test_broad_phase_oracle_200_scenes (__main__.Properties.test_broad_phase_oracle_200_scenes) ... ok
+test_canonical_key_order (__main__.Properties.test_canonical_key_order) ... ok
+test_elastic_conservation_100_cases (__main__.Properties.test_elastic_conservation_100_cases) ... ok
+test_hierarchy_rotation (__main__.Properties.test_hierarchy_rotation) ... ok
+test_ik_forward_reconstruction_100_cases (__main__.Properties.test_ik_forward_reconstruction_100_cases) ... ok
+test_logistic_gradient_finite_difference (__main__.Properties.test_logistic_gradient_finite_difference) ... ok
+test_mod_bool_dimension_rejected (__main__.Properties.test_mod_bool_dimension_rejected) ... ok
+test_nonfinite_replay_rejected (__main__.Properties.test_nonfinite_replay_rejected) ... ok
+test_pan_power (__main__.Properties.test_pan_power) ... ok
+test_placeholder_preservation (__main__.Properties.test_placeholder_preservation) ... ok
+test_prediction_duplicate_once (__main__.Properties.test_prediction_duplicate_once) ... ok
+test_rollback_matches_full_replay_100_cases (__main__.Properties.test_rollback_matches_full_replay_100_cases) ... ok
+test_search_against_exhaustive_100_trees (__main__.Properties.test_search_against_exhaustive_100_trees) ... ok
+test_store_input_unmodified (__main__.Properties.test_store_input_unmodified) ... ok
+test_sweep_time_reversal_direction (__main__.Properties.test_sweep_time_reversal_direction) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.065s
+
+OK

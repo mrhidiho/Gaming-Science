@@ -1,0 +1,586 @@
+{
+  "package": 10,
+  "volume": 9,
+  "title": "Graduate Game-Engine and Graphics Engineering",
+  "edition_date": "2026-09-28",
+  "payload_file_count": 113,
+  "packaged_file_count": 115,
+  "pdf_count": 11,
+  "lesson_count": 20,
+  "original_quiz_question_count": 60,
+  "graduate_problem_count": 40,
+  "learner_starters": 20,
+  "reference_python_tests": 64,
+  "device_validation": "pending",
+  "self_hash_exclusions": [
+    "FILE_MANIFEST.json",
+    "SHA256SUMS.txt"
+  ],
+  "files": [
+    {
+      "path": "ANSWER_KEY.pdf",
+      "bytes": 133872,
+      "sha256": "b0aca325831f43a271e8ce06404175c3ee7830232f88702b76f30a60d88bf1d4"
+    },
+    {
+      "path": "CAPSTONE_SPEC.pdf",
+      "bytes": 88080,
+      "sha256": "9e45798c15667b97aab570ecfcd5268ce48cae19b70c12625ed25fa00d6a9987"
+    },
+    {
+      "path": "COURSE.html",
+      "bytes": 288576,
+      "sha256": "bc6668af86d1a514827c399162fe2d117287b64926fc7cc5213213fcfbfba2da"
+    },
+    {
+      "path": "LAB_WORKBOOK.pdf",
+      "bytes": 157904,
+      "sha256": "6e2621df3bc95cd25a69613ed5bff69649e8eba33beb9081a03b613bc789b2be"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2815,
+      "sha256": "6f6264687118ef57e975f5f4208f749713738bdc176e47e2b5e8ea439be9a9a8"
+    },
+    {
+      "path": "REFERENCE_GUIDE.pdf",
+      "bytes": 91654,
+      "sha256": "d71cf09257925c5724900a80fbb7b63f1bbe3bd69e744ae236234a8b5fd5bf10"
+    },
+    {
+      "path": "START_NEXT.pdf",
+      "bytes": 101455,
+      "sha256": "febe9f83d77d8934a9519fe24e12621ebbc1f8d70cc27e50c342c58e8030a95c"
+    },
+    {
+      "path": "STUDENT_HANDBOOK.pdf",
+      "bytes": 268531,
+      "sha256": "b329704cd90daf46fc2e23c2bf0177e928be6528b49adf7ca941eaeed5dfe1f7"
+    },
+    {
+      "path": "code/README.md",
+      "bytes": 4827,
+      "sha256": "134e71aabe8aacb763e0a4d7a607f5625a4e75c57397ce886592812ce3346116"
+    },
+    {
+      "path": "code/check_exercises.py",
+      "bytes": 1884,
+      "sha256": "989d80d38b592dc19a30ed8e2c48e64d90b920c3b4e3f77c85c8108349cf860b"
+    },
+    {
+      "path": "code/exercises/cases.json",
+      "bytes": 8027,
+      "sha256": "46ff39814396ab989a2976e3b375948ea9cb9b4aa6527a8d68f98ff854b73a0d"
+    },
+    {
+      "path": "code/exercises/lesson_41_1.py",
+      "bytes": 726,
+      "sha256": "bc7c2450577cf7d3218d7ce25fe64b257247754ea3dc21c63ca9124546dad925"
+    },
+    {
+      "path": "code/exercises/lesson_41_2.py",
+      "bytes": 662,
+      "sha256": "7d06ce799e1a2cb85dff3d8d4851265c6ffa002b8a688ead8f8b83c0c0c87146"
+    },
+    {
+      "path": "code/exercises/lesson_41_3.py",
+      "bytes": 651,
+      "sha256": "ec5878b46e6b0fba534b503f0bb11db1429f056cc87c25b7503a300c2bade260"
+    },
+    {
+      "path": "code/exercises/lesson_41_4.py",
+      "bytes": 638,
+      "sha256": "342b8ed7c6c76aa48deb4b46a33a32fba3809f6a4e639603393e9b64f9506ec5"
+    },
+    {
+      "path": "code/exercises/lesson_42_1.py",
+      "bytes": 623,
+      "sha256": "5ad0f66851389d0f971c83e5444a29a13aa40f35e5ead1bfdfe64d2a83058338"
+    },
+    {
+      "path": "code/exercises/lesson_42_2.py",
+      "bytes": 744,
+      "sha256": "7e96bdd81bdf8127957da77dbaf63dd41995aaad59d85ae08ab5f36b297e2aa7"
+    },
+    {
+      "path": "code/exercises/lesson_42_3.py",
+      "bytes": 673,
+      "sha256": "adcfed6723cd702e3005f47a07c11d843788b1f6508e0443060f408e8d0a553e"
+    },
+    {
+      "path": "code/exercises/lesson_42_4.py",
+      "bytes": 639,
+      "sha256": "4aad9902ecd43f73866452164eb375b2dc2e0ffe2609be15b8b898e5166ffff0"
+    },
+    {
+      "path": "code/exercises/lesson_43_1.py",
+      "bytes": 662,
+      "sha256": "ab871361e5dbc72a5fae98b58ec481438cdf54abbde1f73d3852232d7f2fcb42"
+    },
+    {
+      "path": "code/exercises/lesson_43_2.py",
+      "bytes": 754,
+      "sha256": "ea3f57b16617e3509b7c9a0284c1926f4a2358b3dbb426970d6ee4de990d6f7f"
+    },
+    {
+      "path": "code/exercises/lesson_43_3.py",
+      "bytes": 645,
+      "sha256": "28d13f1768dbeaeef3b31da4a2fe49957afcff4fcfb3e071829ae82e5ece6dbc"
+    },
+    {
+      "path": "code/exercises/lesson_43_4.py",
+      "bytes": 674,
+      "sha256": "4046bafeaa039a65684cad34cdbd2e0ee949cfa723301633169c1d00c7c05aae"
+    },
+    {
+      "path": "code/exercises/lesson_44_1.py",
+      "bytes": 648,
+      "sha256": "d1461fa53b86e7517082a63e19b8e76128b01aed0d978712cbdd60548f9a8775"
+    },
+    {
+      "path": "code/exercises/lesson_44_2.py",
+      "bytes": 703,
+      "sha256": "a76312244d926cbd67b50bd66a5cbd3773a57239e3512a71d7122fc5f0d41b86"
+    },
+    {
+      "path": "code/exercises/lesson_44_3.py",
+      "bytes": 693,
+      "sha256": "5968f1899249ee3019a4553fb8ab8d35a55e965d687682167843972e9515fda2"
+    },
+    {
+      "path": "code/exercises/lesson_44_4.py",
+      "bytes": 788,
+      "sha256": "3744252edd295c098bb10b7c10f1680514525addd02d18475c57602654b7d1cf"
+    },
+    {
+      "path": "code/exercises/lesson_45_1.py",
+      "bytes": 629,
+      "sha256": "aff9ee9a2a8a5b05f912821ad828db7d914089d021a15e221f5868f5ce6ef9a4"
+    },
+    {
+      "path": "code/exercises/lesson_45_2.py",
+      "bytes": 666,
+      "sha256": "6889170d21b323ac8e8c01f78fa6936f6f96a01089efd466c75456e901ea9b68"
+    },
+    {
+      "path": "code/exercises/lesson_45_3.py",
+      "bytes": 680,
+      "sha256": "ed43409aed1ad92ecb6773c2aa242e246f7f510d3b0b6979a2cf83e80eea7a3d"
+    },
+    {
+      "path": "code/exercises/lesson_45_4.py",
+      "bytes": 628,
+      "sha256": "0250b63d19aac164faeab029db9dd9571a62e4c78da9f5d609e99df52e087364"
+    },
+    {
+      "path": "code/gpu/README.md",
+      "bytes": 2254,
+      "sha256": "b5dab689e448a400d795f9052f7f0037e73619589d8b5180b51d2e210c1221ca"
+    },
+    {
+      "path": "code/gpu/reduction.cu",
+      "bytes": 2645,
+      "sha256": "9641f5867ce13a62d6efdfac9ab7ff5ccf94f371750b31113239ef7adc6a6c4b"
+    },
+    {
+      "path": "code/gradlab/__init__.py",
+      "bytes": 80,
+      "sha256": "d668f3d41d9817c6ba22a57f94ed200829792cd496c40e0c3b9f58f4be30ecc2"
+    },
+    {
+      "path": "code/gradlab/compiler.py",
+      "bytes": 6110,
+      "sha256": "3562b5197549250d01ba42cde82368669de5efb6f45bf54623d1c4cc0805a476"
+    },
+    {
+      "path": "code/gradlab/numerical.py",
+      "bytes": 7201,
+      "sha256": "ea353a475d3d864d9cd128647a258887cafc4bb5add802482295f64ad41cbd7a"
+    },
+    {
+      "path": "code/gradlab/parallel.py",
+      "bytes": 4550,
+      "sha256": "240811966e5bfd75c06868d01d2dcfade2d7b93d0fc6a91ff7de1f9be8c2b9d0"
+    },
+    {
+      "path": "code/gradlab/rendering.py",
+      "bytes": 12136,
+      "sha256": "9e27a5d6631f3d0e7fc414aeee3d38c89134edc52a5d329b6fb707ce48bb5818"
+    },
+    {
+      "path": "code/gradlab/systems.py",
+      "bytes": 7110,
+      "sha256": "6009e2b09703c87ca232e0ca9a2bc58bbdc755da5193264e3e3109cfabe579e2"
+    },
+    {
+      "path": "code/native/CMakeLists.txt",
+      "bytes": 714,
+      "sha256": "5b9917e801fd1d308e7d77a8c2ae2ed2213e53356dea6aaa54c3c575e33b3b08"
+    },
+    {
+      "path": "code/native/main.cpp",
+      "bytes": 3326,
+      "sha256": "d5f86e46738b947ae6397ec445fb00fb14a69a77c39409343991e8441ca3f22c"
+    },
+    {
+      "path": "code/run_experiments.py",
+      "bytes": 5812,
+      "sha256": "6fd6ed14fec0999af20ade22b83869d5ee2274f8ece0aaac749b646cd6e458d2"
+    },
+    {
+      "path": "code/tests/test_compiler.py",
+      "bytes": 2534,
+      "sha256": "6c9b07a8b307a5ea2a50de07f3ffd1c9d2734614d163604339887ead18fd15a3"
+    },
+    {
+      "path": "code/tests/test_numerical.py",
+      "bytes": 2088,
+      "sha256": "fab1a2ab288e98e8b1b5e6f81b9d008bd26786d5da29b4a73a8a71f15dbd26ab"
+    },
+    {
+      "path": "code/tests/test_parallel.py",
+      "bytes": 1978,
+      "sha256": "289c16a38392b9a66a65c9560d2ad76f7c6d2f3dfad7e40c43eb306ed776adf4"
+    },
+    {
+      "path": "code/tests/test_rendering.py",
+      "bytes": 3943,
+      "sha256": "6b3d395b7ce7aca1a2ff116b75059733b05b0725ff3670358244eb3c4b194256"
+    },
+    {
+      "path": "code/tests/test_systems.py",
+      "bytes": 2495,
+      "sha256": "21117662977037690a1e388ce049ad0fe6147a91931457f8435b71dd41ee9c5d"
+    },
+    {
+      "path": "evidence/README.md",
+      "bytes": 2388,
+      "sha256": "bbd84dbe86fc4c67ce361a381c5c6ca5da3744e2d779832f0c07a562c3947e98"
+    },
+    {
+      "path": "evidence/reference_run/bar_sensitivity.csv",
+      "bytes": 2378,
+      "sha256": "0299afa3859f837fcb66123448fc1f870f97ad5f6efa99b1a530f1bf685284d4"
+    },
+    {
+      "path": "evidence/reference_run/compiler_semantics.json",
+      "bytes": 480,
+      "sha256": "b40ce4d752f38876a9043a5e560515caf8e15a6c0c5b33101c793af8e5f588b9"
+    },
+    {
+      "path": "evidence/reference_run/generated_kernel.cpp",
+      "bytes": 101,
+      "sha256": "31d4bb5562287450c83297703cea5f3d35123a053182f5de4c2a253fb7fbe304"
+    },
+    {
+      "path": "evidence/reference_run/lifecycle.json",
+      "bytes": 231,
+      "sha256": "f26c6aa59748bdaf587823b6fa4c54cef77c09d9f602cd6f95faae64751b7a84"
+    },
+    {
+      "path": "evidence/reference_run/mis_integral_trials.csv",
+      "bytes": 861,
+      "sha256": "d35832af827f21227487a5ab6b94c38167fb3d71a4501491678da4c9425b5495"
+    },
+    {
+      "path": "evidence/reference_run/native_scan_pairs.csv",
+      "bytes": 828,
+      "sha256": "4d14bd3ae00a9712a394af99a62cd0c87a1c9fa4750fc5ed9267b6e6c2ae49c2"
+    },
+    {
+      "path": "evidence/reference_run/numerical.csv",
+      "bytes": 430,
+      "sha256": "9383f56e0f1f68e87fe654d3bea7a008e87abb5827dd17073881b7bbe80c6ec8"
+    },
+    {
+      "path": "evidence/reference_run/pipeline_model.json",
+      "bytes": 1156,
+      "sha256": "a015b2212dd8ec5c6993075a436254b1d128bcab406b0e2a3ea71f755a7e723f"
+    },
+    {
+      "path": "evidence/reference_run/render_bsdf.ppm",
+      "bytes": 2749,
+      "sha256": "8d13107d70b9a9e333e5874cfcac5c46f51fd13462962c46bec2abd39faa8bbb"
+    },
+    {
+      "path": "evidence/reference_run/render_bsdf_linear.json",
+      "bytes": 4280,
+      "sha256": "80afe531d229488155a9ae253cdb8ec386a0ae252cf4f015d6d2692ba5241984"
+    },
+    {
+      "path": "evidence/reference_run/render_diagnostics.csv",
+      "bytes": 140,
+      "sha256": "29537a5e28176032f5b60d721de2c51edc4d4c0bb17397d75875a03532d7771b"
+    },
+    {
+      "path": "evidence/reference_run/render_mis.ppm",
+      "bytes": 3358,
+      "sha256": "363f95119e967150ab3be1cbb2eb739cea9378be38c21dd36e919587ee4b8eec"
+    },
+    {
+      "path": "evidence/reference_run/render_mis_linear.json",
+      "bytes": 7572,
+      "sha256": "899d2d302055cbf85a54098424243874ef40da8ff02ec86ede1fb4164213be4e"
+    },
+    {
+      "path": "evidence/reference_run/run_environment.json",
+      "bytes": 925,
+      "sha256": "a60d9a648fb017ed1618191ca98d1fe892600fae17b45344979810619629246a"
+    },
+    {
+      "path": "evidence/reference_run/scan_cases.csv",
+      "bytes": 91,
+      "sha256": "a0b46b35cf4879eea33465ae039af93437a9226f439272bb76453124449e7323"
+    },
+    {
+      "path": "evidence/reference_run/schedule_model.json",
+      "bytes": 15008,
+      "sha256": "fea8115f34d7aa32a820fe972fc3d04337b630b71a5e9804735a4df0ae04af14"
+    },
+    {
+      "path": "evidence/reference_run/stream_trace.json",
+      "bytes": 618,
+      "sha256": "3dd235c3ab8c648e48d31115e64b84acd3b03e47387beefb02e7873b1ea4e245"
+    },
+    {
+      "path": "modules/41_graduate_numerical_methods_and_research_practice.pdf",
+      "bytes": 125942,
+      "sha256": "5652ffbefb3ed295ad6de550875503d5701e05bcb09e4d4ccf951548d51875da"
+    },
+    {
+      "path": "modules/42_advanced_parallel_and_gpu_algorithms.pdf",
+      "bytes": 122121,
+      "sha256": "ffb40cc109309d0b0e81b6fa0f7d8e7c6a50593c98cef0f61a81c8855746b663"
+    },
+    {
+      "path": "modules/43_advanced_rendering_and_reconstruction.pdf",
+      "bytes": 124127,
+      "sha256": "2b9a828b64ed9a20edeb046c913716e838c70168a4cff563d5b49680635f80fd"
+    },
+    {
+      "path": "modules/44_advanced_engine_systems_and_simulation_research.pdf",
+      "bytes": 125976,
+      "sha256": "385b4cf43b557bc43e4a484c69f8c6288d576fb3d44b6acda71ba4dbcf711b5b"
+    },
+    {
+      "path": "modules/45_compilers_shader_languages_and_engine_specialization.pdf",
+      "bytes": 122746,
+      "sha256": "aa398a2090b5fd285d3bef2a73e607fbbb12d15aedacdcedbcb792e31948a656"
+    },
+    {
+      "path": "source/41_graduate_numerical_methods_and_research_practice.md",
+      "bytes": 30361,
+      "sha256": "35df7fb6f9f38d807ccc15d09599534e693348d38682e5bce9d81afc6cf6064b"
+    },
+    {
+      "path": "source/42_advanced_parallel_and_gpu_algorithms.md",
+      "bytes": 27887,
+      "sha256": "f18ff11eeeda4762e7d59aaa90039a8ef6838171160387fea559652eaa5e8206"
+    },
+    {
+      "path": "source/43_advanced_rendering_and_reconstruction.md",
+      "bytes": 29428,
+      "sha256": "2b9b2d69637a6a23e05797669f0a0521c3861b03db9dc04678f21ca3869ebbd7"
+    },
+    {
+      "path": "source/44_advanced_engine_systems_and_simulation_research.md",
+      "bytes": 30436,
+      "sha256": "d1b9fd8c8ba35369241e1b343f80de818e5157a94063d90c298a3527e67d67c6"
+    },
+    {
+      "path": "source/45_compilers_shader_languages_and_engine_specialization.md",
+      "bytes": 28633,
+      "sha256": "08c59b3fb07a764110a851ea1ce68f45ee5a681438c63ba03bb0c5d55fa0218c"
+    },
+    {
+      "path": "source/ANSWER_KEY.md",
+      "bytes": 36405,
+      "sha256": "8b85a780ca8e05b7f544a422a9d383dc99c4e31b76e276fbf4c5014419a355d5"
+    },
+    {
+      "path": "source/CAPSTONE_SPEC.md",
+      "bytes": 13686,
+      "sha256": "be89c09d6cde3965e16e81a53488047ece469b91e247b63f1eb9ae226623eb2b"
+    },
+    {
+      "path": "source/LAB_WORKBOOK.md",
+      "bytes": 55548,
+      "sha256": "733cff39a5ee2200b43b0a697ce8a3cdeba2aaeea1c529528587fa993a05e696"
+    },
+    {
+      "path": "source/README.md",
+      "bytes": 1410,
+      "sha256": "6541e8508d7a3e349e3f22e41e5a43ea4d6ec6939ca793f89bf6a1060adcad2a"
+    },
+    {
+      "path": "source/REFERENCE_GUIDE.md",
+      "bytes": 26316,
+      "sha256": "188c0935c89842f9b437b6fcbb2b5b3d61838e9053ca60c3c6e3360b15f9249b"
+    },
+    {
+      "path": "source/START_NEXT.md",
+      "bytes": 8545,
+      "sha256": "29ac42d8d55409024ea54c5e7743e1025d1d7fc075edf57fb893f82afcd77d8b"
+    },
+    {
+      "path": "source/STUDENT_HANDBOOK.md",
+      "bytes": 143831,
+      "sha256": "c2cc81716cab02a7e9d46bbb31f715c40569260128da1a25bbc8be614cc39aae"
+    },
+    {
+      "path": "source/browser.css",
+      "bytes": 4201,
+      "sha256": "3eded5955f457400b598c66b89974e1ba2d42c3f8d2915aed3c7599c774e0f93"
+    },
+    {
+      "path": "source/browser.js",
+      "bytes": 3298,
+      "sha256": "f3f47a6924b2d3fd429e4cb2b0ffbefc580c3e979c81d5f9783dbaee4442969c"
+    },
+    {
+      "path": "source/curriculum_expanded.json",
+      "bytes": 198623,
+      "sha256": "87137b9d1b4b1b4c53d625683df8898ea8e7e0a707b84321eaa3234d283c06b6"
+    },
+    {
+      "path": "source/original_volume09.json",
+      "bytes": 49965,
+      "sha256": "59bbbf9597e66f28564796e15c8b844024f501f17c948507e7980d956081c52f"
+    },
+    {
+      "path": "source/references.json",
+      "bytes": 28420,
+      "sha256": "45b240d87322c40647bceafc34cec614ae68472c717ffb77346a9ef7ef4be1c3"
+    },
+    {
+      "path": "templates/ARCHITECTURE_DECISION.md",
+      "bytes": 371,
+      "sha256": "5ec71e7a67e54aba1d7901a14f607a923af1f75e6dbcecd2037fff9152a8b5d7"
+    },
+    {
+      "path": "templates/BENCHMARK_MANIFEST.md",
+      "bytes": 732,
+      "sha256": "a212de36e1dd3a2fbe7c1f8282491e962412b20157187d44e2ad39f8c4da4fc9"
+    },
+    {
+      "path": "templates/CAPABILITY_MATRIX.md",
+      "bytes": 555,
+      "sha256": "de7a990f678b889ccae1856392cafa97d29d16ec4fba21da99beded4fe358368"
+    },
+    {
+      "path": "templates/CLAIM_EVIDENCE_MAP.md",
+      "bytes": 615,
+      "sha256": "baed9bcd725e6ba49b999ef40f1bd708228bbf2621fdb5a7246aaef00e83a39a"
+    },
+    {
+      "path": "templates/FAILURE_CASE.md",
+      "bytes": 467,
+      "sha256": "b2d73c02dcf4f3b7d5db1ba1275f97bfc410070a4e803cd554da48420409c9e8"
+    },
+    {
+      "path": "templates/INDEPENDENT_REVIEW.md",
+      "bytes": 784,
+      "sha256": "c4e010e0af0ef5f6ed7cc87524196e9e5f7b369fdf7e45d1c081815bb7afe07e"
+    },
+    {
+      "path": "templates/LAB_JOURNAL.md",
+      "bytes": 569,
+      "sha256": "63b6fcd1bc236284eb3e8ff89c68bc792e368546d84dc1611040cde0c19215a4"
+    },
+    {
+      "path": "templates/PREREGISTRATION.md",
+      "bytes": 756,
+      "sha256": "61473041d82bac6a52a7d51ddd40e90b0588fc3e5b962773c46acd1ef96ccd38"
+    },
+    {
+      "path": "templates/PREREQUISITE_REPAIR.md",
+      "bytes": 275,
+      "sha256": "fe1ac02fd577183845391a8d4f70244b7c409f0ee56c83dfad6ad81412c1812f"
+    },
+    {
+      "path": "templates/PROGRESS.md",
+      "bytes": 993,
+      "sha256": "646ecc0a5d03f34a50c7310bec1213c6a5d3ad0f531a29ede36428bb9845e224"
+    },
+    {
+      "path": "templates/REPRODUCTION_REPORT.md",
+      "bytes": 696,
+      "sha256": "8a902f91f7a2b7cbfb3c05b9882181292581ba1664d1d441fb7ee5f362534d95"
+    },
+    {
+      "path": "validation/VALIDATION_REPORT.md",
+      "bytes": 5999,
+      "sha256": "5b1ffce04eabd5c73803bdfa770abf1674e38efe4c370af2d119a5332336843d"
+    },
+    {
+      "path": "validation/browser_tests.json",
+      "bytes": 1092,
+      "sha256": "55d91634d15aa0dd407fe37475a5d6485ef8a34204242bd09c989bab924c0bef"
+    },
+    {
+      "path": "validation/content_checks.json",
+      "bytes": 993,
+      "sha256": "23830f24dee798f3a97d5340f3391d42436c4283c18172955bb2aa028d41fd0f"
+    },
+    {
+      "path": "validation/environment.json",
+      "bytes": 369,
+      "sha256": "58c4f7bb3265ff247061d127dcc8a92773417f6c15da9d5b096f67e3089d8251"
+    },
+    {
+      "path": "validation/experiments.txt",
+      "bytes": 113,
+      "sha256": "c99a53b547964b439f9d43fbe60e55f8f7e024f2fd19ae6b4e78c6fb41f218b9"
+    },
+    {
+      "path": "validation/javascript_syntax.txt",
+      "bytes": 26,
+      "sha256": "5f35183aa5c023e15990f0edb73ea01a7667f0246fe6946a8223683b7abfe0d6"
+    },
+    {
+      "path": "validation/learner_starter_status.txt",
+      "bytes": 951,
+      "sha256": "8c2a875f11cbf3230ee19e086d81e725972a2d4f77d3ae4848866da7df3f8340"
+    },
+    {
+      "path": "validation/native_benchmark_note.txt",
+      "bytes": 58,
+      "sha256": "75033aa38c6e1c0c51b45d98c05a339954addf0d1bc7e3d36e0f1b69af2a9716"
+    },
+    {
+      "path": "validation/native_clang_sanitize.txt",
+      "bytes": 848,
+      "sha256": "42f7901ad4fd5e63f07d423504e79949fed5bdadcae35752268282d8b0dea853"
+    },
+    {
+      "path": "validation/native_gcc_debug.txt",
+      "bytes": 811,
+      "sha256": "9a8ceac71ac5f065b69b0453f60e0277d326b0f1357dd60eb89158632ec52765"
+    },
+    {
+      "path": "validation/native_gcc_release.txt",
+      "bytes": 817,
+      "sha256": "e54c5d19c88e24736f4ec321bd2948bdb13ae652ce4a7c25ec1aa51ca58c2536"
+    },
+    {
+      "path": "validation/pdf_page_counts.json",
+      "bytes": 506,
+      "sha256": "53188b75dcbb4ac6fe462186a3e511eca18a4544c2a2db2ac8d679becb041641"
+    },
+    {
+      "path": "validation/pdf_text_preflight.json",
+      "bytes": 81,
+      "sha256": "4997d20d3f0a7869b01d238e09748618aea06e6e61c242cdcb95c0f6d948df16"
+    },
+    {
+      "path": "validation/python_optimized_tests.txt",
+      "bytes": 5127,
+      "sha256": "589ff8fea81e3d804c8d221c9fb79606e9051f5ec4e60da4284ea599907056eb"
+    },
+    {
+      "path": "validation/python_tests.txt",
+      "bytes": 5127,
+      "sha256": "822c70a3192ddec61d646349afd0a7aa8e4be2138dffdad89a9e40bd5b5f04d3"
+    }
+  ]
+}

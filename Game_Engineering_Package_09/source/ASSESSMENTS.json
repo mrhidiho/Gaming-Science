@@ -1,0 +1,213 @@
+{
+  "diagnostic": [
+    {
+      "id": "D01",
+      "question": "A 32-bit word starts at address 62 and a modeled sector is 64 bytes. How many sectors can it touch?",
+      "answer": "Two: bytes 62–65 cross the boundary at 64. Distinguish word size from alignment."
+    },
+    {
+      "id": "D02",
+      "question": "Does a volatile C++ pointer establish CPU/device ownership or API-specific synchronization?",
+      "answer": "No. A language qualifier does not substitute for the platform’s synchronization and mapping contract."
+    },
+    {
+      "id": "D03",
+      "question": "A 10 ms frame contains a 2 ms serial operation. What is the maximum additive-frame speedup if it disappears?",
+      "answer": "10/8 = 1.25x. The maximum time reduction is 20%, assuming the operation is on the critical path."
+    },
+    {
+      "id": "D04",
+      "question": "Explain why deadline and average utilization are different concepts.",
+      "answer": "A deadline constrains a particular job’s completion. Utilization summarizes demand over time and does not by itself prove every job meets a deadline under all scheduling and blocking assumptions."
+    },
+    {
+      "id": "D05",
+      "question": "What is the difference between a functional model and a physically measured circuit?",
+      "answer": "The model executes a stated abstraction. A physical measurement observes a built circuit through an instrument and method. Each has limits; functional correctness does not establish physical timing or power."
+    },
+    {
+      "id": "D06",
+      "question": "A camera pose has rotation R and position p. Give the rigid world-to-camera inverse.",
+      "answer": "Rotation R transpose and translation −R transpose times p, assuming R is an orthonormal rotation."
+    },
+    {
+      "id": "D07",
+      "question": "What evidence should accompany a claimed faster algorithm?",
+      "answer": "Correct outputs at the same quality, an appropriate baseline, raw timings, workload and environment metadata, boundaries, repeat policy and a defensible uncertainty statement."
+    },
+    {
+      "id": "D08",
+      "question": "Why can a timeout fail to make a device buffer safe to reuse?",
+      "answer": "The device may still access it. Completion or acknowledged quiescence is needed under the ownership contract."
+    },
+    {
+      "id": "D09",
+      "question": "Convert 3 MiB and 3 MB to bytes.",
+      "answer": "3 MiB = 3×1,048,576 = 3,145,728 bytes. 3 MB = 3,000,000 bytes in decimal units."
+    },
+    {
+      "id": "D10",
+      "question": "What must happen before optional physical board bring-up?",
+      "answer": "Use the exact board/peripheral documentation and obtain qualified review of electrical limits, power, wiring, layout and bring-up plan. Simulation and rule-check success are not electrical approval."
+    }
+  ],
+  "module_reviews": {
+    "36": [
+      {
+        "id": "R36-1",
+        "question": "A controller returns a checksum-valid packet with an old sequence after a retry. Explain what additional contract is needed.",
+        "answer": "A checksum does not prove freshness. Define request identity, acceptable sequence progression, wraparound/reset behavior and a bounded stale-response policy. Do not silently accept the old input as a current observation."
+      },
+      {
+        "id": "R36-2",
+        "question": "An input task misses its deadline while average CPU load is 40%. Give a plausible structural cause and an experiment.",
+        "answer": "Blocking on low-priority logging, a long nonpreemptible interval or interrupt interference can dominate response. Trace releases, blocking and completion, then remove or bound the suspected critical-path dependency while holding other work constant."
+      },
+      {
+        "id": "R36-3",
+        "question": "A board passes DRC but a connector footprint was mirrored. Explain why DRC may not catch the error.",
+        "answer": "DRC checks declared geometrical/electrical rules, not whether the designer chose the correct physical connector view and pin mapping. Compare footprint numbering and orientation with the exact datasheet and schematic intent."
+      },
+      {
+        "id": "R36-4",
+        "question": "Power is within the reviewed limit, reset is released, clock is absent and identity reads fail. Which hypothesis should be tested first?",
+        "answer": "The missing clock is an earlier prerequisite. Confirm the observation and its expected source before debugging high-level identity logic. If any observation exceeds a reviewed safe limit, stop and isolate instead."
+      },
+      {
+        "id": "R36-5",
+        "question": "Define evidence sufficient for the simulated peripheral project and evidence still needed for fabrication.",
+        "answer": "Simulation evidence includes framing/error tests, bounded scheduling and ownership traces, interface specification, schematic/layout files and review findings. Fabrication additionally needs qualified electrical/layout/footprint/power/bring-up review using exact parts; simulation alone cannot authorize it."
+      }
+    ],
+    "37": [
+      {
+        "id": "R37-1",
+        "question": "A shader changes from 100% to 75% theoretical occupancy and becomes faster. Is this contradictory?",
+        "answer": "No. Occupancy is one resource-related measure. Lower occupancy can accompany less spilling, greater instruction-level parallelism or lower synchronization cost. Measure the actual kernel and inspect the changed bottleneck."
+      },
+      {
+        "id": "R37-2",
+        "question": "A layout reduces modeled sectors by half but adds a conversion pass. State the correct comparison.",
+        "answer": "Compare the full consuming pipeline at equal output quality, including conversion, allocation, transfers and reuse frequency. The sector count is a mechanism estimate, not an end-to-end result."
+      },
+      {
+        "id": "R37-3",
+        "question": "A matrix unit has high nominal arithmetic throughput. Why might a small transform batch lose?",
+        "answer": "Setup, packing, supported precision, shape mismatch, data movement, dispatch and underutilization can dominate. A competent direct CPU/GPU path may be better at that size."
+      },
+      {
+        "id": "R37-4",
+        "question": "Shared addressing is available. Which other questions remain before CPU/GPU overlap is correct?",
+        "answer": "Where data resides, how visibility and ordering are established, who owns each buffer, when completion permits reuse, and what happens under migration, failure or timeout. Shared addresses do not answer these questions."
+      },
+      {
+        "id": "R37-5",
+        "question": "Explain how to use a GPU-less architecture workbook honestly.",
+        "answer": "Label group/sector/bank/resource numbers as model assumptions, verify them analytically, and avoid claims about a named GPU’s measured behavior. Identify the profiler and target evidence needed to test each hardware hypothesis later."
+      }
+    ],
+    "38": [
+      {
+        "id": "R38-1",
+        "question": "A kernel-only speedup is 8x but the kernel occupied 5% of a frame. Find the no-overhead additive frame speedup.",
+        "answer": "Normalized time = 0.95 + 0.05/8 = 0.95625; speedup ≈ 1.04575x. New overhead or overlap can reduce benefit further."
+      },
+      {
+        "id": "R38-2",
+        "question": "Your fastest implementation fails only at N=17. How should performance results be handled?",
+        "answer": "Reject results for the claimed exact contract until the tail or boundary bug is repaired. Preserve the rejected experiment and rerun validation and timing after the fix."
+      },
+      {
+        "id": "R38-3",
+        "question": "A parallel version wins at N=1,000,000 but loses at N=100. What should the report recommend?",
+        "answer": "Report the distribution-dependent tradeoff, investigate setup/dispatch costs and evaluate a tested fallback threshold or coarser batching. Do not declare a universal winner from the large case alone."
+      },
+      {
+        "id": "R38-4",
+        "question": "A power trace uses endpoint instantaneous samples but the script treats them as interval averages. What must change?",
+        "answer": "Correct the data contract or use a stated interpolation/integration model appropriate to the samples, such as a trapezoidal estimate. Recompute results and preserve the original provenance and correction."
+      },
+      {
+        "id": "R38-5",
+        "question": "A counter correlates with frame spikes. What additional work supports causality?",
+        "answer": "Verify event meaning and timing scope, propose a mechanism, then manipulate the suspected cause under controlled workloads while validating output. Repeated correlation alone does not isolate the cause."
+      }
+    ],
+    "39": [
+      {
+        "id": "R39-1",
+        "question": "Two engines average 60 FPS; one reports much older input at presentation. Explain a likely distinction.",
+        "answer": "Queue depth, simulation buffering or input-consumption timing can differ despite identical throughput. Compare input-to-named-marker distributions and stage timelines; optical latency requires additional measurement."
+      },
+      {
+        "id": "R39-2",
+        "question": "A quality change fits steady memory but fails during recreation. What budget was omitted?",
+        "answer": "Peak transitional memory, including old/new resources, staging, decompression and temporary allocations. Test the transition, not only the settled tier."
+      },
+      {
+        "id": "R39-3",
+        "question": "Stereo looks correct at zero yaw but eye positions are wrong after a turn. Identify a likely transform bug.",
+        "answer": "Eye offsets may have been applied in world X instead of rotating local eye offsets with the head pose. Verify conventions with known 90-degree rotations and inverse-view tests."
+      },
+      {
+        "id": "R39-4",
+        "question": "A save service disappears after capability negotiation. What should a robust engine do?",
+        "answer": "Use the current service/lifecycle contract, retain or cancel pending work safely, report a defined failure and recover or fallback without falsely acknowledging durable progress. Startup negotiation is not a permanent guarantee."
+      },
+      {
+        "id": "R39-5",
+        "question": "List the boundaries a platform report must avoid overstating.",
+        "answer": "A simulated presentation timestamp is not photon timing; a pose test is not an XR comfort guarantee; a capability mock is not console certification; a symbolic checkpoint is not production storage durability."
+      }
+    ],
+    "40": [
+      {
+        "id": "R40-1",
+        "question": "What minimum alternatives and evidence are required by Gate H?",
+        "answer": "A measured engine workload, competent software baseline and at least two architecture alternatives; implement one in RTL, supported simulation or a bounded analytical prototype. Include quality, ownership, end-to-end costs, resource/timing estimates, failures, small/large/adverse cases and sensitivity."
+      },
+      {
+        "id": "R40-2",
+        "question": "Four lanes produce no gain over one in the supplied model. Explain the asymptotic limit.",
+        "answer": "Four bytes/item at 400 MB/s gives 100 million items/s. A one-lane 100 MHz initiation-interval-one model already approaches that rate, so internal bandwidth prevents asymptotic compute-lane scaling under these assumptions."
+      },
+      {
+        "id": "R40-3",
+        "question": "A timed-out request resets its software epoch, but old hardware is still writing. Is isolation restored?",
+        "answer": "No. Epochs reject stale completions but cannot stop memory accesses. Confirm device quiescence and preserve buffer ownership before reuse; real multi-context isolation needs additional supported mechanisms."
+      },
+      {
+        "id": "R40-4",
+        "question": "A model’s assumed 100 MHz clock is accidentally labeled measured. How should the review respond?",
+        "answer": "Correct the evidence tier and conditional wording, audit derived timing claims and document the change. Obtain actual implementation/timing evidence before making a physical-frequency claim."
+      },
+      {
+        "id": "R40-5",
+        "question": "An accelerator loses to improved software on every representative batch. Can the capstone pass?",
+        "answer": "Yes, when the baseline is fair, the specialized implementation and alternatives are genuinely evaluated, all required tests/evidence are present and the negative conclusion explains the bottleneck and sensitivity. Merely guessing it will lose is not enough."
+      }
+    ]
+  },
+  "module_projects": {
+    "36": {
+      "title": "A simulated controller with a reviewable board plan",
+      "brief": "Build a small controller pipeline: a modeled peripheral supplies signed input samples; a bounded firmware scheduler processes them; a host adapter consumes only valid current data. Keep the provided packet format or document a replacement completely. The scheduler slice and packet slice must be connected by explicit request timing, not just run as unrelated demos.\n\nCreate a low-speed schematic and a simple or unrouted PCB layout in KiCad, as required by the original lesson. Include exact selected part/connector footprints, a power-domain table and a return-path review. Fabrication, soldering and physical power-up are not required. The JSON linter is only a review checklist and does not replace KiCad files or ERC/DRC evidence.\n\nInject wrong mode metadata, bad checksum, stale sequence, timeout, overloaded processing, removal during a request and a simulated missing clock. Demonstrate a bounded safe response for each. Where real SPI cannot diagnose a mode mismatch from bytes alone, state the stronger information available in your simulator.\n\nDeliver source, interface contract, timing trace, lifecycle/cancellation policy, schematic/layout files, ERC/DRC report or justified findings, and a bring-up hypothesis table. Acceptance requires no silent stale-input acceptance, no unbounded retries and no invalid buffer lifetime after removal. Carry the ownership contract into Gate H."
+    },
+    "37": {
+      "title": "An architecture workbook tied to one shader or kernel",
+      "brief": "Select a simple transform, image filter or particle operation with a software oracle. Map its control flow, logical execution groups, live values, memory addresses and fixed-function opportunities. Work through at least one branch-divergent case, one partial group, one aligned and one strided access pattern, and one shared-bank/broadcast example.\n\nCompare two layouts with conversion included and two CPU/device data-placement strategies with clear ownership. State group width, sector size, bank mapping, rates and precision as assumptions unless verified for a named target. An accessible GPU measurement is welcome but not required; a simulator-only workbook is acceptable when clearly labeled.\n\nDeliver calculations, executable slices, expected-result checks, a resource-service table, an end-to-end budget and a page explaining which profiler observations would confirm or reject your dominant-bottleneck hypothesis. The workbook must not equate occupancy with speed, modeled sectors with measured DRAM bytes, or shared addressing with free synchronization."
+    },
+    "38": {
+      "title": "A reproducible performance investigation",
+      "brief": "Choose a particle, transform or other engine workload and establish a suitable software baseline. Predeclare input sizes, quality, warmup, repetition, comparison order and exclusion rules. Add an intentional no-op or wrong-result path and verify that the harness rejects it before reporting performance.\n\nApply one locality change and one scheduling change, testing them separately before their combination. Measure small, tail and large batches. Record raw samples and metadata, report central and tail behavior, and use an Amdahl or roofline worksheet to bound the application opportunity. A counter observation supports a hypothesis only with an explanation and a controlled test.\n\nAnalyze the supplied synthetic energy trace or collect a normal-limits sustained trace with its measurement boundary. Deliver the protocol, source, raw timings, correctness failures, numerical-error results, model, energy analysis and a reasoned conclusion. An honest negative result meets the project objective when the experiment is sufficiently controlled and reproducible."
+    },
+    "39": {
+      "title": "A constrained-platform and latency report",
+      "brief": "Create a strict engine backend simulation that enforces a memory budget, read-only packaged assets, supported save behavior and at least one lifecycle transition. Connect capability negotiation to behavioral failures rather than just checking feature names. Implement a quality tier whose changes do not alter authoritative simulation rules.\n\nTrace input to a named software presentation marker and report interval pacing separately from latency. Mark unmeasured display stages explicitly. Build a two-view numerical camera exercise with declared space/time conventions and tracking-loss behavior; a headset is not required.\n\nTest transition peak memory, sudden kill before a checkpoint, resource-generation mismatch, unsupported optional service and permission-denied save. Deliver the capability matrix, trace, memory/lifecycle tests, camera tests and a report that separates simulation from device measurements and makes no proprietary-console or optical-latency claim without evidence."
+    },
+    "40": {
+      "title": "Gate H: a defensible specialization decision",
+      "brief": "Integrate the preceding projects into one workload-centered comparison. Do not submit five unrelated demos as a capstone. Use the full CAPSTONE_SPEC to choose a measured engine operation, define quality and latency requirements, defend a competent baseline, compare at least two architecture alternatives and implement one bounded specialized path.\n\nThe provided affine pipeline is a teaching reference. Adapt its numerical contract, host/device stride, workload distribution and failure handling to your own engine use. Label assumed clocks, rates and resource counts; measure the software baseline and keep the timing boundaries comparable. Evaluate small, large and adverse cases and show what changes when memory bandwidth, capacity or latency is tightened.\n\nDeliver a reproducible portfolio, raw data, source, tests, an evidence ledger and an independently reviewed recommendation. A conclusion favoring software is acceptable; a conclusion supported only by optimistic model parameters is not. Gate H remains incomplete until the learner's project evidence and review are supplied."
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "volumes": [
+    {
+      "number": 1,
+      "title": "Foundations and Your First Game",
+      "file": "volumes/01_foundations_and_your_first_game.pdf"
+    },
+    {
+      "number": 2,
+      "title": "Mathematics for Games and Computing",
+      "file": "volumes/02_mathematics_for_games_and_computing.pdf"
+    },
+    {
+      "number": 3,
+      "title": "C++, Algorithms and Language Implementation",
+      "file": "volumes/03_c_algorithms_and_language_implementation.pdf"
+    },
+    {
+      "number": 4,
+      "title": "Computer Systems and Software Engineering",
+      "file": "volumes/04_computer_systems_and_software_engineering.pdf"
+    },
+    {
+      "number": 5,
+      "title": "Graphics and Game-Engine Construction",
+      "file": "volumes/05_graphics_and_game_engine_construction.pdf"
+    },
+    {
+      "number": 6,
+      "title": "Game Systems and Production",
+      "file": "volumes/06_game_systems_and_production.pdf"
+    },
+    {
+      "number": 7,
+      "title": "Computer Engineering and Digital Design",
+      "file": "volumes/07_computer_engineering_and_digital_design.pdf"
+    },
+    {
+      "number": 8,
+      "title": "Gaming Platforms and Hardware/Software Co-design",
+      "file": "volumes/08_gaming_platforms_and_hardware_software_co_design.pdf"
+    },
+    {
+      "number": 9,
+      "title": "Graduate Game-Engine and Graphics Engineering",
+      "file": "volumes/09_graduate_game_engine_and_graphics_engineering.pdf"
+    },
+    {
+      "number": 10,
+      "title": "Graduate Gaming Hardware and Research Thesis",
+      "file": "volumes/10_graduate_gaming_hardware_and_research_thesis.pdf"
+    }
+  ],
+  "pdfs": {
+    "ANSWER_KEY.pdf": {
+      "pages": 52,
+      "bytes": 146922
+    },
+    "COMPLETE_CURRICULUM.pdf": {
+      "pages": 299,
+      "bytes": 964658
+    },
+    "PROGRAM_GUIDE.pdf": {
+      "pages": 21,
+      "bytes": 120687
+    },
+    "START_HERE.pdf": {
+      "pages": 8,
+      "bytes": 82474
+    },
+    "volumes/01_foundations_and_your_first_game.pdf": {
+      "pages": 27,
+      "bytes": 115545
+    },
+    "volumes/02_mathematics_for_games_and_computing.pdf": {
+      "pages": 27,
+      "bytes": 114849
+    },
+    "volumes/03_c_algorithms_and_language_implementation.pdf": {
+      "pages": 27,
+      "bytes": 114770
+    },
+    "volumes/04_computer_systems_and_software_engineering.pdf": {
+      "pages": 27,
+      "bytes": 117447
+    },
+    "volumes/05_graphics_and_game_engine_construction.pdf": {
+      "pages": 27,
+      "bytes": 122646
+    },
+    "volumes/06_game_systems_and_production.pdf": {
+      "pages": 27,
+      "bytes": 121032
+    },
+    "volumes/07_computer_engineering_and_digital_design.pdf": {
+      "pages": 27,
+      "bytes": 121507
+    },
+    "volumes/08_gaming_platforms_and_hardware_software_co_design.pdf": {
+      "pages": 27,
+      "bytes": 127234
+    },
+    "volumes/09_graduate_game_engine_and_graphics_engineering.pdf": {
+      "pages": 27,
+      "bytes": 126225
+    },
+    "volumes/10_graduate_gaming_hardware_and_research_thesis.pdf": {
+      "pages": 27,
+      "bytes": 126181
+    }
+  },
+  "modules": 50,
+  "lessons": 200,
+  "quiz_questions": 600,
+  "quiz_answers": 600,
+  "references": 55,
+  "templates": 8
+}

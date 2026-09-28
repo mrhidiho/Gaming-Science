@@ -1,0 +1,191 @@
+[
+  {
+    "id": "R11",
+    "organization": "C++ Core Guidelines editors",
+    "title": "C++ Core Guidelines",
+    "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+    "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard."
+  },
+  {
+    "id": "R19",
+    "organization": "Carnegie Mellon University",
+    "title": "15-462/662 Computer Graphics",
+    "url": "https://15462.courses.cs.cmu.edu/fall2021/",
+    "note": "Rendering, geometry and animation course structure and exercises."
+  },
+  {
+    "id": "R20",
+    "organization": "Carnegie Mellon University",
+    "title": "15-466/666 Computer Game Programming",
+    "url": "https://graphics.cs.cmu.edu/courses/15-466/",
+    "note": "Runtime systems and game-production programming."
+  },
+  {
+    "id": "R21",
+    "organization": "Khronos Group",
+    "title": "Vulkan tutorial",
+    "url": "https://docs.vulkan.org/tutorial/latest/00_Introduction.html",
+    "note": "Explicit graphics API study; feature-check the device before using the moving latest tutorial."
+  },
+  {
+    "id": "R22",
+    "organization": "SDL project",
+    "title": "SDL3 documentation",
+    "url": "https://wiki.libsdl.org/SDL3/FrontPage",
+    "note": "Windowing, input, audio and platform services; do not mix SDL2 and SDL3 examples."
+  },
+  {
+    "id": "R23",
+    "organization": "Matt Pharr, Wenzel Jakob, Greg Humphreys",
+    "title": "Physically Based Rendering, fourth edition",
+    "url": "https://www.pbr-book.org/4ed/contents",
+    "note": "Rendering mathematics and implementation; use chapter titles in lesson assignments."
+  },
+  {
+    "id": "R24",
+    "organization": "Microsoft",
+    "title": "Direct3D 12 graphics",
+    "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d12/direct3d-12-graphics",
+    "note": "Windows graphics backend reference."
+  },
+  {
+    "id": "R25",
+    "organization": "Apple",
+    "title": "Metal developer resources",
+    "url": "https://developer.apple.com/metal/",
+    "note": "Apple-platform graphics and compute reference."
+  },
+  {
+    "id": "R26",
+    "organization": "Epic Games",
+    "title": "Programming with C++ in Unreal Engine",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/programming-with-cplusplus-in-unreal-engine",
+    "note": "Engine comparison after C++ foundations, not a beginner substitute."
+  },
+  {
+    "id": "R27",
+    "organization": "Glenn Fiedler",
+    "title": "Fix Your Timestep!",
+    "url": "https://gafferongames.com/post/fix_your_timestep/",
+    "note": "Original practitioner explanation of fixed-step simulation; read critically and implement your own lab."
+  },
+  {
+    "id": "R37",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+    "note": "GPU execution and memory; CUDA is an optional vendor-specific lab route."
+  },
+  {
+    "id": "S01",
+    "organization": "W3C",
+    "title": "WebGPU Shading Language (WGSL)",
+    "url": "https://www.w3.org/TR/WGSL/",
+    "note": "Host-shareable layout, alignment, storage/uniform contracts; evolving specification."
+  },
+  {
+    "id": "S02",
+    "organization": "Netpbm",
+    "title": "PPM format specification",
+    "url": "https://netpbm.sourceforge.net/doc/ppm.html",
+    "note": "Strict PPM and the explicitly documented sRGB variant used in this package."
+  },
+  {
+    "id": "S03",
+    "organization": "Khronos Group",
+    "title": "glTF 2.0 specification",
+    "url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html",
+    "note": "Material/color semantics and tangent handedness; glTF importing is assigned, not implemented here."
+  },
+  {
+    "id": "S04",
+    "organization": "Pharr, Jakob and Humphreys",
+    "title": "PBRT 4: Bounding Volume Hierarchies",
+    "url": "https://www.pbr-book.org/4ed/Primitives_and_Intersection_Acceleration/Bounding_Volume_Hierarchies",
+    "note": "Spatial bounds, construction and traversal."
+  },
+  {
+    "id": "S05",
+    "organization": "Khronos Group",
+    "title": "Vulkan Tutorial: Frames in flight",
+    "url": "https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/03_Drawing/03_Frames_in_flight.html",
+    "note": "Frame contexts; distinguish frame indexing from presentation-image indexing."
+  },
+  {
+    "id": "S06",
+    "organization": "GPU for the Web Community Group",
+    "title": "WebGPU explainer",
+    "url": "https://gpuweb.github.io/gpuweb/explainer/",
+    "note": "Conceptual API overview; an explainer, not a substitute for the normative specification."
+  },
+  {
+    "id": "S07",
+    "organization": "Khronos Group",
+    "title": "Vulkan Guide: Synchronization examples",
+    "url": "https://docs.vulkan.org/guide/latest/synchronization_examples.html",
+    "note": "Dependencies, stages, accesses and barriers."
+  },
+  {
+    "id": "S08",
+    "organization": "Khronos Group",
+    "title": "Vulkan Guide: Swapchain semaphore reuse",
+    "url": "https://docs.vulkan.org/guide/latest/swapchain_semaphore_reuse.html",
+    "note": "Presentation waits may outlive the graphics submission fence."
+  },
+  {
+    "id": "S09",
+    "organization": "Microsoft",
+    "title": "Using resource barriers in Direct3D 12",
+    "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d12/using-resource-barriers-to-synchronize-resource-states-in-direct3d-12",
+    "note": "Resource state and hazard management; do not transliterate Vulkan flags."
+  },
+  {
+    "id": "S10",
+    "organization": "Apple",
+    "title": "Synchronizing CPU and GPU work",
+    "url": "https://developer.apple.com/documentation/metal/synchronizing-cpu-and-gpu-work",
+    "note": "Official Metal starting point. URL retrieved; dynamic page body was not fully inspectable during authoring."
+  },
+  {
+    "id": "S11",
+    "organization": "SDL",
+    "title": "SDL_GetWindowSizeInPixels",
+    "url": "https://wiki.libsdl.org/SDL3/SDL_GetWindowSizeInPixels",
+    "note": "Drawable pixel extent can differ from logical window size."
+  },
+  {
+    "id": "S12",
+    "organization": "Khronos Group",
+    "title": "Vulkan Tutorial: Swap chain recreation",
+    "url": "https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/04_Swap_chain_recreation.html",
+    "note": "Out-of-date/zero-extent paths and safe fence-reset sequencing."
+  },
+  {
+    "id": "S13",
+    "organization": "Pharr, Jakob and Humphreys",
+    "title": "PBRT 4: Radiometry",
+    "url": "https://www.pbr-book.org/4ed/Radiometry,_Spectra,_and_Color/Radiometry",
+    "note": "Radiometric quantities and their domains."
+  },
+  {
+    "id": "S14",
+    "organization": "Pharr, Jakob and Humphreys",
+    "title": "PBRT 4: Roughness using microfacet theory",
+    "url": "https://www.pbr-book.org/4ed/Reflection_Models/Roughness_Using_Microfacet_Theory",
+    "note": "Microfacet distributions and model assumptions."
+  },
+  {
+    "id": "S15",
+    "organization": "Pharr, Jakob and Humphreys",
+    "title": "PBRT 4: Image texture",
+    "url": "https://www.pbr-book.org/4ed/Textures_and_Materials/Image_Texture",
+    "note": "Texture reconstruction, footprints and filtering."
+  },
+  {
+    "id": "S16",
+    "organization": "GPU for the Web Community Group",
+    "title": "WebGPU samples",
+    "url": "https://webgpu.github.io/webgpu-samples/",
+    "note": "Optional companion examples; no external sample source is bundled."
+  }
+]

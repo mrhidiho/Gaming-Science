@@ -1,0 +1,514 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Volume 10 · Game Engineering</title><link rel="stylesheet" href="style.css"></head><body><header><p class="kicker">Package 11 · Volume 10 · September 2026</p><h1>Graduate Gaming Hardware and Research Thesis</h1><p>20 lessons · 60 quiz questions · Gate J</p><nav class="toolbar"><a href="start.html">Start here</a><a href="workbook.html">Lab workbook</a><a href="gate-j.html">Gate J</a><a href="reference.html">Math &amp; references</a><a href="answers.html">Separate answer key</a><a href="../pdf/Volume_10_Student_Handbook.pdf">Handbook PDF</a></nav></header><main><p><a href="index.html">← Return to lessons</a></p><section class="panel"><h1>Volume 10 Lab Workbook</h1>
+<p><strong>Package 11 · Modules 46–50 · Twenty labs and five integrated projects</strong></p>
+<h2>Work before reading the solution</h2>
+<p>Create one evidence directory per lesson, such as <code>work/46.1/</code>. Separate predictions, changes, actual observations and explanations. Retain commands and raw logs.</p>
+<p>Each “Manifest assignment” preserves the original requirements. Reference code does not complete the additional physical-flow, verification, review or thesis work.</p>
+<h2>Common ten-point lab rubric</h2>
+<table>
+<thead>
+<tr>
+  <th>Criterion</th>
+  <th style="text-align:right">Points</th>
+  <th>What the reviewer checks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Contract and prediction</td>
+  <td style="text-align:right">2</td>
+  <td>Inputs, assumptions, expected result and exclusions are stated before the run.</td>
+</tr>
+<tr>
+  <td>Implementation or substantive analysis</td>
+  <td style="text-align:right">3</td>
+  <td>Required transitions, derivations, experiment or artifact exist and match the assignment.</td>
+</tr>
+<tr>
+  <td>Correctness, boundaries and failure evidence</td>
+  <td style="text-align:right">3</td>
+  <td>Relevant tests, adverse cases and at least one explained failure are retained.</td>
+</tr>
+<tr>
+  <td>Evidence and explanation</td>
+  <td style="text-align:right">2</td>
+  <td>Another reader can follow the commands and distinguish results from assumptions.</td>
+</tr>
+</tbody>
+</table>
+<p>Acceptance requires eight points <strong>and all original mandatory conditions</strong>. Missing verification cannot be replaced by writing points. For thesis labs, inspect actual reviewed artifacts and reproduction. Use <code>templates/LAB_RECORD.md</code>.</p>
+<h2>Reference-code map</h2>
+<table>
+<thead>
+<tr>
+  <th>Lessons</th>
+  <th>Starting files</th>
+  <th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>46.1–46.4</td>
+  <td><code>coherence.py</code>, <code>scheduler.py</code>, <code>cache.py</code>, <code>models.py</code>, C++ publication</td>
+  <td>Atomic or bounded models, not a production CPU or measured game engine.</td>
+</tr>
+<tr>
+  <td>47.1–47.4</td>
+  <td><code>models.py</code>, <code>code/rtl/</code></td>
+  <td>Arithmetic is tested; consult validation status for optional tool runs.</td>
+</tr>
+<tr>
+  <td>48.1–48.4</td>
+  <td><code>protocol.py</code>, <code>ecc.py</code>, <code>security.py</code>, optional FIFO properties</td>
+  <td>Finite digital models; no analog reliability or real DMA operation.</td>
+</tr>
+<tr>
+  <td>49.1–50.4</td>
+  <td><code>analysis.py</code>, thesis and review templates</td>
+  <td>Synthetic statistical fixture and workflow aids; no completed learner thesis.</td>
+</tr>
+</tbody>
+</table>
+<p>The Python file names above are under <code>code/reference/</code>. Run from the package root using the commands in START_HERE. Before editing, copy a reference into your work area or use the dedicated student exercises.</p>
+<h1>Lab 46.1</h1>
+<h2>Cache coherence, memory consistency and synchronization</h2>
+<p><strong>Learning outcome:</strong> Separate agreement about a location from ordering across locations.</p>
+<h3>Manifest assignment</h3>
+<p>Model a small coherence protocol and evaluate message-passing litmus tests under stated language and hardware models. Pass: ownership invariants hold, transient races are considered and coherence is not confused with data-race freedom.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Run the atomic MSI reference and manually trace the six-operation sequence in the lesson. Label which reads force an owner downgrade.</p>
+<p><strong>Step 2.</strong> Implement one missing transition in a copy, then enumerate read/write sequences of length up to six over two cores and values zero/one. Check ownership and data invariants after every transition.</p>
+<p><strong>Step 3.</strong> Draw two invalidation-acknowledgment races. Add transient states to your own model, or provide a reviewed transition table with a retry/serialization policy; the supplied atomic model does not discharge this requirement.</p>
+<p><strong>Step 4.</strong> Build the C++ publication example. Explain every happens-before edge. Construct a separate all-atomic relaxed litmus description and compare SC versus one named ISA model.</p>
+<p><strong>Step 5.</strong> Mutate the invalidation operation so that a stale shared copy survives. Retain a minimal failing trace and repair the implementation.</p>
+<h3>Submission and review</h3>
+<p>Submit transition table, invariant definitions, exhaustive-trace log, transient-race analysis, C++ build record and two annotated litmus tests.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add a third core and compare bus-broadcast with a directory sharer set. Preserve the same observable single-copy behavior.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 46.2</h1>
+<h2>Out-of-order execution, speculation and precise state</h2>
+<p><strong>Learning outcome:</strong> Increase instruction overlap without changing architectural outcomes.</p>
+<h3>Manifest assignment</h3>
+<p>Use a simulator or detailed scheduling model to compare in-order and out-of-order execution on independent and dependent instruction streams. Pass: architectural results agree and bottleneck explanations include true dependencies and resource limits.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Hand-schedule the four instructions using the stated within-cycle ordering. Run both policies and compare every issue/finish/retirement timestamp.</p>
+<p><strong>Step 2.</strong> Create three instruction streams: a dependency chain, independent work, and a mixed entity-update DAG. Run windows of one, four and eight with fixed issue width.</p>
+<p><strong>Step 3.</strong> Compare complete committed value maps for all non-faulting runs. Add malformed dependency and zero-latency inputs and require explicit rejection.</p>
+<p><strong>Step 4.</strong> Inject an exception at the second instruction and show a younger completed operation excluded from architectural state.</p>
+<p><strong>Step 5.</strong> Write a bottleneck explanation for one improvement, one non-improvement and one workload not represented by the model.</p>
+<h3>Submission and review</h3>
+<p>Submit three DAGs, cycle tables, equivalence tests, fault trace and a one-page model-boundary statement.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add a finite multiplier resource and a separate commit-width parameter. Predict and test a workload whose bottleneck changes.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 46.3</h1>
+<h2>Architecture simulation, traces and model validation</h2>
+<p><strong>Learning outcome:</strong> Use simulation as evidence with a stated fidelity boundary.</p>
+<h3>Manifest assignment</h3>
+<p>Run a cache, scheduling or accelerator study with at least one validation case and a sensitivity sweep. Pass: raw configurations reproduce results, modeled versus measured quantities are labeled and conclusions do not exceed the tested fidelity.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Calculate the six-address worked trace by hand and verify hit/miss order, not just the final count.</p>
+<p><strong>Step 2.</strong> Implement LRU hit promotion and eviction in the student cache. Test one set, multiple sets, a zero-length trace and invalid geometry.</p>
+<p><strong>Step 3.</strong> Generate stream, localized and conflict workloads. Compare at least three equal-capacity geometries, then separately sweep capacity.</p>
+<p><strong>Step 4.</strong> Change additional miss penalty over a stated range and report whether the preferred design changes. Label all derived times as modeled.</p>
+<p><strong>Step 5.</strong> Write a validation plan with one independent oracle and a held-out case. A hand-derived oracle is acceptable for algorithm verification; it is not hardware validation.</p>
+<h3>Submission and review</h3>
+<p>Submit trace files, cache configurations, raw counts, regenerated CSV, oracle comparison, sensitivity results and validation limitations.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add a warmup region and compare cold-start versus steady-state conclusions without discarding adverse startup behavior.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 46.4</h1>
+<h2>Memory systems, chiplets and multi-objective design</h2>
+<p><strong>Learning outcome:</strong> Choose an architecture across performance, power, cost and complexity.</p>
+<h3>Manifest assignment</h3>
+<p>Construct a Pareto comparison of at least three architecture configurations. Pass: objectives and assumptions are explicit, dominated designs are identified correctly and a recommendation changes appropriately when a hard constraint changes.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Implement strict Pareto dominance for all-minimization vectors and test duplicates, ties, empty input and invalid numbers.</p>
+<p><strong>Step 2.</strong> Reproduce the four-candidate example. Apply hard constraints before selecting a minimum-latency candidate.</p>
+<p><strong>Step 3.</strong> Build three or more architecture configurations using your cache/scheduling study. Clearly distinguish measured, modeled and assumed objectives.</p>
+<p><strong>Step 4.</strong> Add a memory-placement or cross-die communication term with declared units. Sweep at least one communication assumption.</p>
+<p><strong>Step 5.</strong> Change a hard limit and a workload weighting rule, then write the resulting recommendation and its reversal conditions.</p>
+<h3>Submission and review</h3>
+<p>Submit objective definitions, frontier table, feasibility filters, evidence-tier labels, sensitivity sweep and a two-page decision record.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Propagate scenario-level uncertainty through selection and report how often a candidate is chosen without labeling that frequency a universal probability of superiority.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 47.1</h1>
+<h2>CMOS logic, transistor sizing and delay models</h2>
+<p><strong>Learning outcome:</strong> Connect gate-level choices to electrical load and timing.</p>
+<h3>Manifest assignment</h3>
+<p>Analyze and simulate an inverter chain or compare library-cell drive strengths under several loads. Pass: assumptions are stated, input loading is included and model predictions are compared with available characterized or simulated results.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Implement the equal-effort chain calculation with positive-load and stage-count validation. Reproduce H=64 for one through six stages.</p>
+<p><strong>Step 2.</strong> Add an interface polarity requirement and reject functionally inappropriate stage counts before optimizing delay.</p>
+<p><strong>Step 3.</strong> Analyze how a fixed external driver sees the first-stage capacitance. Compare a larger first stage with an extra internal stage.</p>
+<p><strong>Step 4.</strong> Use an available educational Liberty library or circuit simulator to compare drive strengths at three loads and two slews; capture exact files and commands. When unavailable, mark this external comparison pending rather than filling in estimates as measurements.</p>
+<p><strong>Step 5.</strong> Compare normalized predictions with the characterized/simulated results and identify a mismatch with a plausible physical cause.</p>
+<h3>Submission and review</h3>
+<p>Submit derivation, normalized sweep, polarity filter, library/simulator identity, characterized comparison and a boundary statement.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Include a wire capacitance term between stages and test whether equal taper remains optimal.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 47.2</h1>
+<h2>Static timing analysis, clocks and timing exceptions</h2>
+<p><strong>Learning outcome:</strong> Check every required path under the correct timing contract.</p>
+<h3>Manifest assignment</h3>
+<p>Constrain a small sequential block and inspect worst setup and hold paths. Pass: no unexplained unconstrained endpoints, every exception is justified and a deliberately tightened clock produces an understood violation.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Reproduce both worked slacks in the timing model and test the stated skew signs with a positive and a negative skew.</p>
+<p><strong>Step 2.</strong> Read the sample FIFO SDC. Inventory clocks and all input/output ports, including the synchronous reset.</p>
+<p><strong>Step 3.</strong> In an educational STA flow, load your verified sequential block and inspect worst max/setup and min/hold paths. Save the exact library, constraint and netlist identities.</p>
+<p><strong>Step 4.</strong> Tighten the period by 20% and explain the changed report. Confirm that a hold violation is not automatically fixed by relaxing the period.</p>
+<p><strong>Step 5.</strong> Deliberately remove one interface constraint in a copy, detect the uncovered endpoint, and restore it. Provide written justification for every retained exception.</p>
+<h3>Submission and review</h3>
+<p>Submit hand calculations, SDC, endpoint coverage inventory, worst-path reports, tightened-clock report and an exception-review record.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Analyze a generated clock with explicit launch/capture edges and compare hand reasoning with the selected timing tool.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 47.3</h1>
+<h2>Synthesis, placement, clock trees, routing and physical checks</h2>
+<p><strong>Learning outcome:</strong> Understand how a logical netlist becomes a physical layout.</p>
+<h3>Manifest assignment</h3>
+<p>Run a small block through an educational OpenROAD-compatible flow or inspect a provided open example. Pass: capture stage reports, identify a routing/timing change and state which physical checks were and were not performed.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Run the FIFO testbench and record the acceptance contract, reset behavior and transaction-order checks.</p>
+<p><strong>Step 2.</strong> Install or use an already approved educational OpenROAD-compatible flow and pin its revision. Run its official small example before adding the teaching FIFO.</p>
+<p><strong>Step 3.</strong> Use the supplied config/SDC as a starting point, verifying variable names against your pinned flow. Save synthesis, placement, clock-tree and routing reports.</p>
+<p><strong>Step 4.</strong> Follow one endpoint pair across stages and identify a cell-delay or wire-delay change. Do not infer this solely from worst-slack differences.</p>
+<p><strong>Step 5.</strong> Create the performed/not-performed check matrix for DRC, LVS, equivalence, timing, antenna and power integrity. Record every unsupported claim as an exclusion.</p>
+<h3>Submission and review</h3>
+<p>Submit RTL/test identities, version-lock record, stage reports, path comparison, final artifact inventory and physical-check coverage matrix.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Compare two placement densities at fixed RTL and constraints; report timing, congestion, cell area and run-to-run sensitivity.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 47.4</h1>
+<h2>Power, area, process corners and design-space closure</h2>
+<p><strong>Learning outcome:</strong> Report PPA with enough assumptions to make comparison meaningful.</p>
+<h3>Manifest assignment</h3>
+<p>Compare two verified RTL implementations using identical flow assumptions. Pass: report area, worst timing and activity-based power estimates where supported, with uncertainty and no unsupported commercial-silicon claim.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Implement the switching-power and energy-per-item calculations with unit-aware inputs and rejection of negative or nonfinite values.</p>
+<p><strong>Step 2.</strong> Choose two functionally equivalent FIFO/controller implementations or a reviewed pair of small RTL blocks. State equal useful-work and latency requirements.</p>
+<p><strong>Step 3.</strong> Run both through the same educational flow, corners and constraints. Collect cell area, setup/hold results and power estimates where supported.</p>
+<p><strong>Step 4.</strong> Use representative and high-activity stimuli, recording activity coverage and default assumptions. Leave unsupported power fields unknown.</p>
+<p><strong>Step 5.</strong> Apply a hard constraint and show the feasible frontier. Write a final claim that includes both results and missing signoff coverage.</p>
+<h3>Submission and review</h3>
+<p>Submit equivalence/transaction tests, PPA table with units, activity records, matched flow identities, feasible-design decision and assurance boundary.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Evaluate energy over a burst-plus-idle interval and determine when the faster design can lose after transition overheads are included.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 48.1</h1>
+<h2>Formal properties, abstraction and assume-guarantee reasoning</h2>
+<p><strong>Learning outcome:</strong> Prove useful properties without hiding failures in assumptions.</p>
+<h3>Manifest assignment</h3>
+<p>Prove a queue, arbiter or transaction property and inject a violation. Pass: assumptions are reviewed independently, contention is covered and bounded, proven, failed and unknown results are reported separately.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Write the conservative FIFO transition relation and prove occupancy bounds on paper by cases.</p>
+<p><strong>Step 2.</strong> Run finite-state exploration for depth-two storage with a two-value alphabet. Record whether exploration reaches a fixed point, rather than labeling a depth-limited sample exhaustive.</p>
+<p><strong>Step 3.</strong> Run the RTL simulation scoreboard and inspect the optional formal accounting/flag properties. Run the SBY proof/cover tasks when the required tools are available; report each actual status separately.</p>
+<p><strong>Step 4.</strong> Inject a full-write occupancy bug and a data-order bug separately. Explain which properties or tests detect each.</p>
+<p><strong>Step 5.</strong> Create a requirement-to-evidence table and have a reviewer audit assumptions, contention coverage and unresolved obligations.</p>
+<h3>Submission and review</h3>
+<p>Submit transition proof, explored-state record, assertion/cover list, bug counterexamples, exact result categories and verification traceability.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add bounded fairness and prove a latency bound for eventual consumption. State exactly which environment guarantee makes the bound true.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 48.2</h1>
+<h2>Clock/reset crossings and asynchronous FIFO verification</h2>
+<p><strong>Learning outcome:</strong> Check digital protocol correctness while acknowledging analog risk.</p>
+<h3>Manifest assignment</h3>
+<p>Model an asynchronous FIFO or event handshake with independent clocks and reset sequences. Pass: no loss/duplication under the stated protocol, full/empty behavior is checked and physical synchronizer assumptions are listed separately.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Hand-trace the two-stage toggle handshake with source/destination periods two and three and at least two initial phase choices.</p>
+<p><strong>Step 2.</strong> Run period pairs (2,3), (3,2), (5,7) and coincident edges. Add destination backpressure and compare accepted versus delivered sequences after drain.</p>
+<p><strong>Step 3.</strong> Test mailbox-full behavior and a stopped destination clock. Verify stable payload while busy and distinguish delayed delivery from corruption.</p>
+<p><strong>Step 4.</strong> Assert coordinated reset with an outstanding item. Record the dropped in-flight item, start a new epoch and verify no old item appears afterward. Reject unilateral reset in this model.</p>
+<p><strong>Step 5.</strong> Write a physical-assumptions review covering synchronizer structure, metastability, reset release and multi-bit timing. Derive Gray adjacency as a separate FIFO-extension exercise.</p>
+<h3>Submission and review</h3>
+<p>Submit edge-by-edge traces, sequence scoreboards, reset-epoch accounting, full/empty-equivalent tests and separate digital/physical assurance statements.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Implement a Gray-pointer asynchronous FIFO with a power-of-two depth, explicit wrap bit and a reviewed full/empty derivation. This is an extension, not a supplied production design.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 48.3</h1>
+<h2>Fault models, ECC, testability and recovery</h2>
+<p><strong>Learning outcome:</strong> Design for detectable failures rather than assuming perfect hardware.</p>
+<h3>Manifest assignment</h3>
+<p>Implement a parity and a small single-error-correcting code model, then inject faults. Pass: enumerate the supported correction/detection claims, test multi-bit counterexamples and define a recovery response.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Implement even parity and the extended Hamming encoder/decoder with the documented bit-position convention.</p>
+<p><strong>Step 2.</strong> Reproduce payload ten encoding to 0xD2 and verify every single-bit flip returns the original payload.</p>
+<p><strong>Step 3.</strong> Enumerate all sixteen clean words, 128 single-bit faults and 448 double-bit faults. Require untrusted payload to be absent in double-error results.</p>
+<p><strong>Step 4.</strong> Enumerate three-bit faults and preserve a specific miscorrection example. Contrast it with an even-parity two-bit miss.</p>
+<p><strong>Step 5.</strong> Define recovery for a transient asset cache and a persistent save-state path, including retries, escalation, logging and a stopped-processing condition.</p>
+<h3>Submission and review</h3>
+<p>Submit encoder/decoder, exhaustive fault log, bit-layout derivation, multi-bit counterexamples and a recovery-policy table.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add interleaving for a stated burst-fault model and analyze the new assumptions rather than merely counting more parity bits.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 48.4</h1>
+<h2>Hardware security, thermal limits and assurance review</h2>
+<p><strong>Learning outcome:</strong> Include isolation and failure containment in the design contract.</p>
+<h3>Manifest assignment</h3>
+<p>Write a threat-and-failure review for the accelerator and test malformed descriptors, denied access and reset under load in simulation. Pass: isolation limits, protection assumptions and unresolved risks are explicit; no unauthorized target testing occurs.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Implement the descriptor validator and test exact-end fits, overruns, negative values, zero length, misalignment, wrong owner and stale generation.</p>
+<p><strong>Step 2.</strong> Add a bounded local work queue. Verify rejected descriptors do not modify its modeled memory or pending count.</p>
+<p><strong>Step 3.</strong> Queue work, reset, then submit a stale completion and stale descriptor. Require rejection under the new generation.</p>
+<p><strong>Step 4.</strong> Write a threat/failure table identifying assets, trust boundaries, attacker capabilities, containment mechanisms and exclusions.</p>
+<p><strong>Step 5.</strong> Calculate the hypothetical thermal example, then create a read-only monitoring/abort plan for any future authorized hardware run. No protection settings are changed in this lab.</p>
+<h3>Submission and review</h3>
+<p>Submit rejection tests, reset-under-load trace, memory-effect checks, threat/failure matrix and a bounded assurance statement.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add a two-phase commit protocol for modeled partial writes and demonstrate cancellation or recovery after each interruption point.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 49.1</h1>
+<h2>Question selection, literature map and thesis scope</h2>
+<p><strong>Learning outcome:</strong> Turn a broad interest into a falsifiable, feasible research question.</p>
+<h3>Manifest assignment</h3>
+<p>Write a 3-5 page proposal with a research question, 8-15 relevant sources, baseline plan, constraints and exclusions. Pass: a reviewer can explain what observation would weaken or refute the main hypothesis.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Choose one primary specialization and write three candidate research questions. Reject two with an explicit feasibility or evidence argument.</p>
+<p><strong>Step 2.</strong> Build an 8–15-source literature map using original papers and official documentation. Record search date, source identity and competing findings.</p>
+<p><strong>Step 3.</strong> Write a 3–5 page proposal with question, hypothesis, refutation condition, baseline, metric, correctness oracle, constraints and exclusions.</p>
+<p><strong>Step 4.</strong> Identify a minimal feasibility experiment that can be completed before the main implementation.</p>
+<p><strong>Step 5.</strong> Ask a qualified reviewer or peer panel to explain the hypothesis back to you and record corrections before approval.</p>
+<h3>Submission and review</h3>
+<p>Submit proposal, literature map, rejected alternatives, feasibility plan and dated reviewer decision.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Write a two-paragraph adversarial review arguing why the hypothesis could fail, then revise the evaluation to distinguish those explanations.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 49.2</h1>
+<h2>Proposal review, baselines and risk-reduction milestones</h2>
+<p><strong>Learning outcome:</strong> Make failure cheap before the expensive implementation phase.</p>
+<h3>Manifest assignment</h3>
+<p>Deliver a running baseline, risk register and milestone plan. Pass: the primary metric can be measured, a small feasibility experiment exists and each major risk has a mitigation or explicit acceptance decision.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Run the chosen baseline end to end on a minimal workload and check its output against a trusted oracle or documented tolerance.</p>
+<p><strong>Step 2.</strong> Complete the experiment-contract template, including the independent sampling unit and handling of failed runs.</p>
+<p><strong>Step 3.</strong> Estimate runtime and variance with a small pilot. Recalculate the complete run matrix and resource requirements.</p>
+<p><strong>Step 4.</strong> Create a risk register with at least five project-specific risks, each with a trigger and mitigation/acceptance decision.</p>
+<p><strong>Step 5.</strong> Hold a baseline/milestone review and record a continue/narrow/revise decision before major implementation.</p>
+<h3>Submission and review</h3>
+<p>Submit baseline artifact, environment record, oracle check, pilot data, experiment contract, resource budget, risk register and review decision.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Compare two plausible baseline choices and explain how each could bias the apparent contribution.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 49.3</h1>
+<h2>Implementation, ablations and controlled evaluation</h2>
+<p><strong>Learning outcome:</strong> Execute the study without changing the question to fit a favorable result.</p>
+<h3>Manifest assignment</h3>
+<p>Run the approved evaluation with baselines, at least one ablation and one sensitivity study. Pass: scripts regenerate results, failed cases remain visible and claims use the preregistered primary metric or clearly disclose deviations.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Run baseline, complete candidate and at least one justified ablation on the approved workload set, with correctness checks before timing summaries.</p>
+<p><strong>Step 2.</strong> Run one sensitivity sweep that could plausibly reverse the conclusion. Retain adverse cases, failures and timeouts.</p>
+<p><strong>Step 3.</strong> Use the supplied synthetic pairs to test the analysis code, then analyze real study data separately with explicit provenance.</p>
+<p><strong>Step 4.</strong> Compute the primary metric and justified uncertainty analysis at the prespecified independent unit. Record seed, quantile definition and replication count for resampling.</p>
+<p><strong>Step 5.</strong> Regenerate the central table from a clean output directory and write a deviations/failure report without changing the original protocol file.</p>
+<h3>Submission and review</h3>
+<p>Submit raw data, status/failure ledger, run manifests, ablation table, sensitivity results, analysis scripts and protocol amendments.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Add a paired permutation or hierarchical analysis justified for the study design and compare the interpretation with the basic bootstrap.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 49.4</h1>
+<h2>Thesis writing, reproducibility and contribution boundaries</h2>
+<p><strong>Learning outcome:</strong> Write a technical argument another engineer can audit.</p>
+<h3>Manifest assignment</h3>
+<p>Produce a thesis-style report, typically 30-60 pages plus appendices as a planning guide, and a complete artifact package. Pass: a reviewer traces five major claims to evidence and reproduces the central table or experiment.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Write the thesis-style report with question, related work, method, correctness, evaluation, limitations and contribution boundaries.</p>
+<p><strong>Step 2.</strong> Create a ledger for at least five major claims and have a reviewer trace them to raw inputs and scripts.</p>
+<p><strong>Step 3.</strong> Package a clean artifact with short and full reproduction commands, dependency lock, provenance, expected output and rights/assistance disclosure.</p>
+<p><strong>Step 4.</strong> Run the artifact from a clean directory or isolated environment and test file-integrity validation.</p>
+<p><strong>Step 5.</strong> Incorporate reviewer corrections, regenerate every final figure/table and tag the revised release.</p>
+<h3>Submission and review</h3>
+<p>Submit thesis report, technical appendices, claim ledger, reproducible artifact, integrity manifest, provenance/rights record and revision log.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Ask a second reviewer unfamiliar with the project to find and reproduce a secondary result using only the entry document.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 50.1</h1>
+<h2>Oral defense and independent artifact reproduction</h2>
+<p><strong>Learning outcome:</strong> Show that the learner owns the reasoning and implementation.</p>
+<h3>Manifest assignment</h3>
+<p>Hold a 30-45 minute technical defense with a qualified reviewer or peer panel and a separate artifact run. Pass: the central result is reproduced, major questions receive evidence-based answers and required revisions are completed.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Prepare the 30–45 minute defense and distribute the release, abstract, claim ledger and reviewer instructions in advance.</p>
+<p><strong>Step 2.</strong> Include one central derivation, one failed/adverse case and one live implementation or contract question.</p>
+<p><strong>Step 3.</strong> Have a reviewer independently execute the central-result procedure, recording their own environment and deviations.</p>
+<p><strong>Step 4.</strong> Score the Gate J rubric, record required revisions and distinguish blocking issues from optional extensions.</p>
+<p><strong>Step 5.</strong> Complete revisions, rerun affected checks and obtain a dated closure decision from the reviewer.</p>
+<h3>Submission and review</h3>
+<p>Submit defense outline, reviewer questions, independent reproduction log, rubric, revision responses and closure record.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Ask the reviewer to choose an unseen workload or small parameter change and predict the outcome before running it.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 50.2</h1>
+<h2>Mature-codebase integration, review and maintainable contributions</h2>
+<p><strong>Learning outcome:</strong> Transfer a prototype into an engineering environment with other owners.</p>
+<h3>Manifest assignment</h3>
+<p>Integrate one tested improvement into a mature open codebase or a maintained local fork. Pass: a focused patch, regression test, design rationale and reviewer response are included, whether or not an upstream project accepts it.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Choose an authorized mature project or maintained fork, pin its base revision and read its contribution/build guidance.</p>
+<p><strong>Step 2.</strong> Write a one-page integration proposal identifying the narrow behavior change, compatibility effects and out-of-scope work.</p>
+<p><strong>Step 3.</strong> Implement a focused patch with a regression/equivalence test and run the relevant clean-build checks.</p>
+<p><strong>Step 4.</strong> Obtain review from another person and respond to each substantive comment with evidence and commit references.</p>
+<p><strong>Step 5.</strong> Produce a patch series or local release with rollback instructions, ownership, known issues and an honest upstream status.</p>
+<h3>Submission and review</h3>
+<p>Submit base/patch identities, focused diff, tests, benchmark evidence where relevant, review discussion and integration/handoff notes.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Backport the patch to one supported branch and document compatibility differences without duplicating the implementation unnecessarily.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 50.3</h1>
+<h2>Portfolio, technical interviews and role-specific evidence</h2>
+<p><strong>Learning outcome:</strong> Present concrete engineering competence without inflated claims.</p>
+<h3>Manifest assignment</h3>
+<p>Prepare three portfolio case studies and complete one systems, one algorithm and one specialization mock interview. Pass: every claimed result is supported by an artifact and assistance or third-party contributions are clearly attributed.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Prepare three case studies from existing systems, algorithm/numerical and thesis artifacts; do not create unnecessary extra capstones.</p>
+<p><strong>Step 2.</strong> Add evidence paths, role relevance, exact personal contribution, assistance disclosure and a limitation to each case study.</p>
+<p><strong>Step 3.</strong> Complete one systems, one algorithm and one specialization mock interview with another person or a clearly labeled practice partner.</p>
+<p><strong>Step 4.</strong> Record scoring, hints and missed concepts, then solve one unseen transfer problem for the primary gap.</p>
+<p><strong>Step 5.</strong> Perform a rights/privacy/claim audit before publishing or sharing the portfolio.</p>
+<h3>Submission and review</h3>
+<p>Submit three case studies, three interview records, scoring/reflection, one transfer solution and a publication-rights checklist.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Rewrite one case study for two different role audiences without changing the facts or inflating scope.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Lab 50.4</h1>
+<h2>Long-term learning, maintenance and final handoff</h2>
+<p><strong>Learning outcome:</strong> Keep the knowledge and artifacts useful after the course ends.</p>
+<h3>Manifest assignment</h3>
+<p>Complete Gate J: archive the thesis artifact, produce a maintainer handoff and write a 90-day learning plan with one primary gap and one real contribution goal. Pass: another person can locate, build and understand the project without the author's machine.</p>
+<h3>Procedure</h3>
+<p><strong>Step 1.</strong> Assemble the final thesis release and verify its complete inventory, integrity manifest, provenance and rights/assistance record.</p>
+<p><strong>Step 2.</strong> Write the maintainer runbook with architecture, contracts, commands, known issues, troubleshooting, ownership and rollback.</p>
+<p><strong>Step 3.</strong> Have another person locate, build, test and explain the artifact from the entry document. Record and repair every blocking documentation gap.</p>
+<p><strong>Step 4.</strong> Complete a 30/60/90-day plan centered on one primary gap and one maintained contribution, with measurable review points.</p>
+<p><strong>Step 5.</strong> Close the Gate J checklist only after the independent reproduction, defense and blocking revisions are complete; record remaining nonblocking limitations honestly.</p>
+<h3>Submission and review</h3>
+<p>Submit final release, handoff runbook, independent handoff log, 90-day plan and signed/dated educational completion record.</p>
+<p>Apply the ten-point rubric. The original pass conditions above are mandatory; identify the exact file or reviewed argument that satisfies each one. Record tool outcomes as passed, failed, inconclusive or not run.</p>
+<h3>Extension after the core lab</h3>
+<p>Run the archived central experiment after a controlled dependency update and publish a compatibility/correction note without altering the historical release.</p>
+<h3>Lab record prompts</h3>
+<p>Write your predicted result, the hardest boundary case, one deliberate failure and its explanation, evidence paths, remaining limitations and the reviewer’s decision. Do not replace this record with the answer key.</p>
+<h1>Module 46 project</h1>
+<h2>Architecture study with a visible fidelity boundary</h2>
+<h3>Original brief</h3>
+<p>Perform an architecture study using a pinned simulator or a carefully bounded analytical model. Compare at least three configurations on representative and adverse game-related workloads, and validate the model against a known reference where possible.</p>
+<h3>Scope and integration</h3>
+<p>Select a game-related operation such as entity-component iteration, visibility-list traversal or a command-queue access pattern. Use at least one representative workload and one adverse workload. Begin with the supplied three equal-capacity cache geometries only as a mechanics check; then justify an actual workload source or a synthetic generator tied to an explicit mechanism. Compare at least three configurations in a pinned simulator or a bounded analytical model. A trace cannot support hypotheses about execution-dependent address generation unless the limitation is addressed.</p>
+<h3>Required evidence package</h3>
+<p>Submit the model contract, trace provenance and hashes, validation tests against an oracle or hand case, configuration table, metric definition, full result table, at least one adverse result and a sensitivity study. Include a coherence/consistency explanation and the precise-state exercise as separate prerequisite evidence. A table of three unvalidated synthetic timings is not sufficient.</p>
+<h3>Acceptance and stopping conditions</h3>
+<p>Acceptance requires equal comparison scope, explicit changed dimensions, correctness before speed, at least one known-reference validation and claims bounded to the model. Negative results are admissible. Gate failure triggers include calling modeled cycles measured FPS, silently omitting adverse workloads, or attributing all effects to associativity after changing capacity.</p>
+<h3>Review sequence</h3>
+<p>First review the contract and source provenance. Next reproduce a minimal correct case and an adverse case. Inspect every central claim against its evidence. Record discrepancies before discussing extensions. Agree on a repair or a narrower defensible claim, and then rerun the affected acceptance checks. A reviewer’s unanswered question is an open issue, not an automatic rejection or approval.</p>
+<h1>Module 47 project</h1>
+<h2>Verified RTL through an educational physical flow</h2>
+<h3>Original brief</h3>
+<p>Carry a verified small RTL block through an educational synthesis and physical-design flow. Report constraints, timing, area and power-estimation assumptions. The result is a learning artifact, not fabrication-ready commercial signoff.</p>
+<h3>Scope and integration</h3>
+<p>Use the fixed-depth synchronous FIFO or an equally small verified block. Freeze its interface and reset semantics before synthesis. Establish simulation evidence and a property plan, then use an authorized educational standard-cell library with pinned synthesis and physical-design tools. Record constraints at each stage and keep intermediate reports; a final screenshot alone cannot reconstruct the analysis.</p>
+<h3>Required evidence package</h3>
+<p>Submit RTL and test versions, reset/handshake contract, SDC with time and load units, tool/library identity, synthesis and implementation logs, stage-specific warnings, setup/hold reports, unconstrained-path review, area definition, power-estimation basis and an alternatives comparison. Inspect a completed open example only where the lesson explicitly permits it; the integrated project requires your own small block’s flow evidence.</p>
+<h3>Acceptance and stopping conditions</h3>
+<p>Acceptance requires meaningful constraints on required paths, timing and area from actual reports rather than the Python calculator, correct labeling of pre-route versus post-route estimates, and a review of unresolved physical checks. Tools not executed remain not run. This project is not fabrication approval; no silicon purchase or protected-process access is implied.</p>
+<h3>Review sequence</h3>
+<p>First review the contract and source provenance. Next reproduce a minimal correct case and an adverse case. Inspect every central claim against its evidence. Record discrepancies before discussing extensions. Agree on a repair or a narrower defensible claim, and then rerun the affected acceptance checks. A reviewer’s unanswered question is an open issue, not an automatic rejection or approval.</p>
+<h1>Module 48 project</h1>
+<h2>Assurance dossier for a data-moving component</h2>
+<h3>Original brief</h3>
+<p>Create a verification dossier for the hardware capstone: requirements-to-tests traceability, assertions, coverage, clock/reset review, fault injection and a clearly bounded assurance claim.</p>
+<h3>Scope and integration</h3>
+<p>Reuse the FIFO or select a small queue/DMA-like controller with an explicitly bounded trust model. Pair properties with reachable traffic, model CDC and reset or justify a single-clock boundary, inject stated fault classes, and evaluate invalid descriptors and recovery. Keep the digital/analog boundary visible. A symbolic proof of a count invariant alone does not establish payload integrity.</p>
+<h3>Required evidence package</h3>
+<p>Submit a property/assumption/cover matrix, solver outcomes and counterexamples, simulation scoreboard results, reset-epoch contract, CDC review, fault campaign counts and response policy, malformed-input tests, residual risks and evidence for at least one deliberate mutation. State which conditions are proved, tested, inspected, assumed or unaddressed.</p>
+<h3>Acceptance and stopping conditions</h3>
+<p>Acceptance requires no unexplained contradiction between the contract and evidence, explicit handling of detected-uncorrectable errors, no stale completion accepted after modeled reset, and an honest reliability limit. Passing a finite protocol simulator does not establish MTBF; SECDED does not promise correction of arbitrary multi-bit faults. Unilateral reset cannot be waved away as an ordinary empty queue.</p>
+<h3>Review sequence</h3>
+<p>First review the contract and source provenance. Next reproduce a minimal correct case and an adverse case. Inspect every central claim against its evidence. Record discrepancies before discussing extensions. Agree on a repair or a narrower defensible claim, and then rerun the affected acceptance checks. A reviewer’s unanswered question is an open issue, not an automatic rejection or approval.</p>
+<h1>Module 49 project</h1>
+<h2>One primary thesis, from reviewed question to evidence</h2>
+<h3>Original brief</h3>
+<p>Prepare and execute a thesis-scale project in one primary specialization. Budget 400-800 focused hours as a planning range, with scope adjusted through review. The deliverable is a defensible contribution and reproducible artifact, not a promise of publication.</p>
+<h3>Scope and integration</h3>
+<p>Choose one specialization, not a collection of unrelated systems. Produce the 3–5-page proposal and literature map, obtain a technical scope review, execute a running baseline and feasibility experiment, then freeze the primary comparison protocol. Implement the candidate and a reference path, complete at least one ablation and one sensitivity study, and write the thesis-style argument.</p>
+<h3>Required evidence package</h3>
+<p>Deliver proposal and review actions, 8–15 relevant starting sources with claim mapping, baseline record, risk register, versioned design decisions, tests, raw data, analysis scripts, deviations, negative cases and a claim-evidence ledger. The report should typically fit 30–60 pages plus appendices, but quality and traceability determine acceptance. Refer to the Gate J guide for the release structure.</p>
+<h3>Acceptance and stopping conditions</h3>
+<p>Acceptance requires a feasible falsifiable question, an actually running baseline, a controlled comparison and a report that distinguishes new work, reproduced work, borrowed code and unsupported generalization. The supplied reference outputs cannot be passed off as your experiment. Gate J’s independent reproduction and defense occur in Module 50 and reuse this same thesis.</p>
+<h3>Review sequence</h3>
+<p>First review the contract and source provenance. Next reproduce a minimal correct case and an adverse case. Inspect every central claim against its evidence. Record discrepancies before discussing extensions. Agree on a repair or a narrower defensible claim, and then rerun the affected acceptance checks. A reviewer’s unanswered question is an open issue, not an automatic rejection or approval.</p>
+<h1>Module 50 project</h1>
+<h2>Gate J: defend, reproduce, integrate and hand off</h2>
+<h3>Original brief</h3>
+<p>Gate J: defend the thesis, pass an independent artifact reproduction, complete a maintainable handoff and publish an honest portfolio where rights permit. This completes the self-study program, not an accredited degree.</p>
+<h3>Scope and integration</h3>
+<p>Freeze a release candidate from Module 49. A technically capable reviewer should reproduce the central table or result from a clean workspace, challenge a derivation and a failure case, and inspect a live implementation question during the 30–45-minute defense. Address review actions and prepare a maintainer handoff. Separately demonstrate a reviewable mature-codebase integration and an honest role-specific portfolio.</p>
+<h3>Required evidence package</h3>
+<p>Deliver a signed or explicitly attributed reviewer record, reproduced outputs and discrepancy log, defense questions and revisions, final hashes and release notes, integration patch with base/changed tests, three portfolio case studies, three mock-interview records and a single-priority 90-day continuation plan. Prior curriculum projects may supply the extra case studies; three new thesis projects are not required.</p>
+<h3>Acceptance and stopping conditions</h3>
+<p>Gate J closes only when the central result is independently reproduced or the claim is explicitly narrowed and independently verified, all critical review conditions are satisfied, and the learner can defend both a derivation and a failed case. A weighted score cannot erase a safety, integrity or central-correctness blocker. This completes a self-study route, not a degree.</p>
+<h3>Review sequence</h3>
+<p>First review the contract and source provenance. Next reproduce a minimal correct case and an adverse case. Inspect every central claim against its evidence. Record discrepancies before discussing extensions. Agree on a repair or a narrower defensible claim, and then rerun the affected acceptance checks. A reviewer’s unanswered question is an open issue, not an automatic rejection or approval.</p>
+<h1>Additional transfer problems</h1>
+<p>These ten problems are additional practice, separate from the sixty lesson quiz questions. Attempt them before opening the transfer-solution appendix. State units and assumptions where applicable.</p>
+<h2>46-A — An ordering claim from a trace</h2>
+<p>A worker reports that a million relaxed all-atomic store-buffering runs never produced zero/zero. Write the strongest justified statement, the unjustified stronger statement, and one evidence source that could decide whether the outcome is allowed.</p>
+<h2>46-B — A cache experiment that changes two things</h2>
+<p>Compare a cache with 8 sets × 1 way × 64 bytes and one with 8 sets × 2 ways × 64 bytes. What changed? Construct a same-capacity associativity comparison, and state one limitation that survives the repair.</p>
+<h2>47-A — Repairing one kind of slack</h2>
+<p>Starting from setup slack +0.25 ns and hold slack −0.06 ns, add a buffer with +0.08 ns minimum delay and +0.12 ns maximum delay. Assume everything else unchanged. What are the new slacks?</p>
+<h2>47-B — Energy versus feasibility</h2>
+<p>Candidate P consumes 4 mW and processes 2 million items/s. Q consumes 3 mW and processes 1 million items/s. Which has lower energy per item? Which is feasible under a 3.5 mW hard power ceiling?</p>
+<h2>48-A — A proof with no traffic</h2>
+<p>A queue harness assumes push is always false and proves that every popped value was previously pushed. Explain the vacuity risk and specify a cover or mutation that improves confidence.</p>
+<h2>48-B — Reset at the worst time</h2>
+<p>In the one-entry mailbox, the source has toggled request and is holding a payload. Only the destination is reset. Explain why treating this as an ordinary empty state is unsafe.</p>
+<h2>49-A — The wrong resampling unit</h2>
+<p>A study has twelve independently selected scenes, each producing 10,000 frame times for both configurations. Why is sampling all 120,000 frames as independent potentially misleading? Specify a defensible paired primary analysis.</p>
+<h2>49-B — A favorable metric switch</h2>
+<p>The approved primary metric is p95 frame time. After testing, the candidate improves the mean but worsens p95. Write an honest result sentence and one allowed next step.</p>
+<h2>50-A — A clean-room mismatch</h2>
+<p>The independent reviewer reproduces the final table except one workload that is 15% slower. The thesis conclusion depends on that row. What should happen before Gate J closes?</p>
+<h2>50-B — The honest portfolio statement</h2>
+<p>Rewrite “I built a production GPU and earned a master’s degree” for a learner who implemented a queue accelerator, tested it in an educational flow and completed this self-study route.</p>
+</section></main></body></html>

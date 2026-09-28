@@ -1,0 +1,203 @@
+{
+  "edition_date": "2026-09-28",
+  "package": 9,
+  "volume": 8,
+  "title": "Gaming Platforms and Hardware/Software Co-design",
+  "environment": {
+    "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41"
+  },
+  "counts": {
+    "modules": 5,
+    "lessons": 20,
+    "lesson_questions": 100,
+    "original_lesson_questions": 60,
+    "added_lesson_questions": 40,
+    "module_review_questions": 25,
+    "written_problems": 40,
+    "diagnostic_questions": 10,
+    "module_projects": 5
+  },
+  "pdfs": {
+    "ANSWER_KEY.pdf": {
+      "pages": 30,
+      "extracted_words": 8604,
+      "bookmarks": 45,
+      "bytes": 111435
+    },
+    "CAPSTONE_SPEC.pdf": {
+      "pages": 9,
+      "extracted_words": 2381,
+      "bookmarks": 17,
+      "bytes": 47627
+    },
+    "LAB_WORKBOOK.pdf": {
+      "pages": 53,
+      "extracted_words": 11073,
+      "bookmarks": 175,
+      "bytes": 154606
+    },
+    "PLATFORM_REFERENCE.pdf": {
+      "pages": 7,
+      "extracted_words": 1382,
+      "bookmarks": 11,
+      "bytes": 35342
+    },
+    "REFERENCE_CASE_STUDY.pdf": {
+      "pages": 6,
+      "extracted_words": 1246,
+      "bookmarks": 9,
+      "bytes": 35946
+    },
+    "START_NEXT.pdf": {
+      "pages": 6,
+      "extracted_words": 1443,
+      "bookmarks": 10,
+      "bytes": 36280
+    },
+    "STUDENT_HANDBOOK.pdf": {
+      "pages": 52,
+      "extracted_words": 18130,
+      "bookmarks": 159,
+      "bytes": 204298
+    }
+  },
+  "checks": [
+    {
+      "check": "Original manifest and quiz continuity",
+      "passed": true,
+      "detail": "All 20 IDs, titles, outcomes, practical briefs, assigned readings and first three quiz questions match the original source."
+    },
+    {
+      "check": "Assessment counts",
+      "passed": true,
+      "detail": {
+        "modules": 5,
+        "lessons": 20,
+        "lesson_questions": 100,
+        "original_lesson_questions": 60,
+        "added_lesson_questions": 40,
+        "module_review_questions": 25,
+        "written_problems": 40,
+        "diagnostic_questions": 10,
+        "module_projects": 5
+      }
+    },
+    {
+      "check": "Python syntax",
+      "passed": true,
+      "detail": "75 Python files parsed with 3.13.5."
+    },
+    {
+      "check": "Runnable demonstrations",
+      "passed": true,
+      "detail": "All 20 demo files executed successfully from an unrelated temporary working directory."
+    },
+    {
+      "check": "Unimplemented student starter",
+      "passed": true,
+      "detail": "Expected failure confirms the CLI tests the student route; untouched starters are intentionally incomplete learning exercises."
+    },
+    {
+      "check": "Automated unit suite",
+      "passed": true,
+      "detail": "148 tests pass, including 128 declared contract cases and additional arithmetic, flow-control, ownership-audit and sensitivity checks."
+    },
+    {
+      "check": "Retained native baseline evidence",
+      "passed": true,
+      "detail": {
+        "raw_rows": 420,
+        "retained_samples": 360,
+        "warmup_rows": 60,
+        "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+        "boundary": "C++ host function only; allocation, validation and checksum outside timing"
+      }
+    },
+    {
+      "check": "Pipeline reference cases",
+      "passed": true,
+      "detail": "36 cases rerun after independent packet-arithmetic implementation; retained modeled values and trace reproduced exactly."
+    },
+    {
+      "check": "Sensitivity grid",
+      "passed": true,
+      "detail": "36 functional trace configurations × 27 analytical parameter combinations; no new hardware measurements."
+    },
+    {
+      "check": "Synthetic trace consistency",
+      "passed": true,
+      "detail": {
+        "power": {
+          "joules": 6600.0,
+          "duration_s": 120,
+          "average_w": 55.0,
+          "frames_per_joule": 0.9545454545454546
+        },
+        "latency": {
+          "mean_latency_ms": 50.0,
+          "p95_latency_ms": 66.6666666670003,
+          "min_interval_ms": 16.666666665999855,
+          "max_interval_ms": 33.33333333400003,
+          "mean_rate_fps": 59.337016574579074,
+          "boundary": "synthetic_present"
+        },
+        "scope": "Explicitly synthetic; interval-average watts and software markers."
+      }
+    },
+    {
+      "check": "HTML unique anchors",
+      "passed": true,
+      "detail": "82 distinct IDs."
+    },
+    {
+      "check": "HTML links and answer reveal structure",
+      "passed": true,
+      "detail": "175 answer panels are initially closed; local links and internal anchors resolve."
+    },
+    {
+      "check": "Chromium behavior",
+      "passed": true,
+      "detail": {
+        "browser": "Playwright with system Chromium; supplied HTML set_content (container policy blocks file:// navigation)",
+        "executed": true,
+        "sections": 36,
+        "answer_details": 175,
+        "all_answers_initially_closed": true,
+        "search_no_match_clear_navigation": true,
+        "matching_sections_for_quiescence": 7,
+        "answer_reveal_close": true,
+        "javascript_errors": [],
+        "viewports_tested": [
+          [
+            1440,
+            1000
+          ],
+          [
+            390,
+            844
+          ]
+        ],
+        "limits": "HTML content, search, anchors and reveal behavior checked via set_content; direct file:// opening was blocked by container browser policy. External reading sites and other browser engines not tested."
+      }
+    },
+    {
+      "check": "PDF structural checks",
+      "passed": true,
+      "detail": {
+        "pdf_files": 7,
+        "total_pages": 163,
+        "outside_page_spans": [],
+        "replacement_or_nul_glyphs": []
+      }
+    }
+  ],
+  "visual_review": "PDF contact sheets and representative full-size pages inspected in PyMuPDF raster output; browser content inspected at desktop/mobile widths. No overlap, clipping or missing-glyph issue found in reviewed pages. Workbook continuation whitespace remains available for learner notes.",
+  "limitations": [
+    "Core Python execution tested on Python 3.13.5/Linux, not every supported syntax-baseline version or operating system.",
+    "Native C++ data are actual build-host function measurements; not physical accelerator, whole-game, optical latency or another machine’s measurements.",
+    "Model clocks, bandwidths, resource counts and sensitivity are explicit assumptions/estimates; no synthesis, FPGA/GPU execution, board bring-up, KiCad GUI or XR runtime was tested.",
+    "Browser interactions tested through supplied HTML content in system Chromium; direct file:// navigation was blocked by container administrator policy. External links and other browsers were not exercised.",
+    "Published tests and hash checks do not constitute formal verification or scientific peer review. Full original practical work and the learner Gate H remain learner assignments."
+  ]
+}

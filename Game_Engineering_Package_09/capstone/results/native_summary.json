@@ -1,0 +1,134 @@
+[
+  {
+    "n": 0,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 30.0,
+    "p95_nearest_rank_ns": 31,
+    "min_ns": 30,
+    "max_ns": 31,
+    "checksum": 0
+  },
+  {
+    "n": 0,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 30.0,
+    "p95_nearest_rank_ns": 31,
+    "min_ns": 29,
+    "max_ns": 31,
+    "checksum": 0
+  },
+  {
+    "n": 1,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 32.0,
+    "p95_nearest_rank_ns": 33,
+    "min_ns": 30,
+    "max_ns": 34,
+    "checksum": -14936
+  },
+  {
+    "n": 1,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 33.0,
+    "p95_nearest_rank_ns": 34,
+    "min_ns": 31,
+    "max_ns": 34,
+    "checksum": -14936
+  },
+  {
+    "n": 7,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 46.0,
+    "p95_nearest_rank_ns": 50,
+    "min_ns": 44,
+    "max_ns": 52,
+    "checksum": -103386
+  },
+  {
+    "n": 7,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 53.0,
+    "p95_nearest_rank_ns": 54,
+    "min_ns": 50,
+    "max_ns": 55,
+    "checksum": -103386
+  },
+  {
+    "n": 64,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 190.0,
+    "p95_nearest_rank_ns": 194,
+    "min_ns": 186,
+    "max_ns": 200,
+    "checksum": -844016
+  },
+  {
+    "n": 64,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 204.0,
+    "p95_nearest_rank_ns": 209,
+    "min_ns": 198,
+    "max_ns": 210,
+    "checksum": -844016
+  },
+  {
+    "n": 1024,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 2629.5,
+    "p95_nearest_rank_ns": 4062,
+    "min_ns": 2612,
+    "max_ns": 4464,
+    "checksum": -715620
+  },
+  {
+    "n": 1024,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 2703.5,
+    "p95_nearest_rank_ns": 5869,
+    "min_ns": 2672,
+    "max_ns": 270588,
+    "checksum": -715620
+  },
+  {
+    "n": 65536,
+    "variant": "contiguous",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 166261.0,
+    "p95_nearest_rank_ns": 284377,
+    "min_ns": 166037,
+    "max_ns": 329279,
+    "checksum": 2728343
+  },
+  {
+    "n": 65536,
+    "variant": "blocked",
+    "n_samples": 30,
+    "evidence_tier": "host_measurement",
+    "median_ns": 168627.5,
+    "p95_nearest_rank_ns": 236659,
+    "min_ns": 168457,
+    "max_ns": 251155,
+    "checksum": 2728343
+  }
+]

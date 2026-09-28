@@ -1,0 +1,237 @@
+{
+  "number": 3,
+  "title": "C++, Algorithms and Language Implementation",
+  "level": "Undergraduate CS core",
+  "purpose": "Write native software safely, select data structures, analyze algorithms and build a tiny language.",
+  "planning_hours": {
+    "minimum": 400,
+    "maximum": 650
+  },
+  "pdf_path": "volumes/03_c_algorithms_and_language_implementation.pdf",
+  "source_path": "source/03_c_algorithms_and_language_implementation.md",
+  "checkpoint": "C",
+  "modules": [
+    {
+      "number": 11,
+      "title": "Native programming with C++",
+      "prerequisites": "Volume 01, Modules 06-07; do not skip the ownership module that follows.",
+      "references": [
+        "R11",
+        "R12",
+        "R15"
+      ],
+      "project": "Port the deterministic grid simulation to C++20, with a command-line build, automated tests, warnings enabled and an explicit account of representation differences from Python.",
+      "lessons": [
+        {
+          "id": "11.1",
+          "title": "Compilation, linking and build systems",
+          "outcome": "Explain how source code becomes a runnable native program.",
+          "practical_assignment": "Build the included C++ starter, then split one function into a header and source file. Pass: reproduce and explain one compile error and one link error, then restore a warning-clean build.",
+          "assigned_reading": "R12: Getting Started and libraries; R11: Source Files.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "11.2",
+          "title": "Integer, floating-point and object representations",
+          "outcome": "Choose native types with explicit range and precision assumptions.",
+          "practical_assignment": "Print relevant sizes and numeric limits on the available compiler. Write checked conversions for a file length and tests for boundary values. Pass: do not trigger signed overflow as a test oracle; reject out-of-range input before converting.",
+          "assigned_reading": "R11: arithmetic and conversion guidance; R15: information encoding and arithmetic.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "11.3",
+          "title": "Values, references, pointers and lifetimes",
+          "outcome": "Track where an object lives and how long access remains valid.",
+          "practical_assignment": "Implement functions taking values, const references and pointers with a documented null policy. Pass: explain each lifetime and identify a deliberately supplied dangling-reference example without executing undefined behavior.",
+          "assigned_reading": "R11: Interfaces, Resource Management and lifetime safety guidance.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "11.4",
+          "title": "Standard containers, iterators and error handling",
+          "outcome": "Use library abstractions while respecting invalidation and failure contracts.",
+          "practical_assignment": "Port the unit list to std::vector and implement lookup with an explicit not-found result. Pass: test empty input, missing ID and growth; document which operations invalidate stored references.",
+          "assigned_reading": "R11: standard-library use and error handling; R12: testing integration.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "title": "Ownership, abstractions and C++ design",
+      "prerequisites": "Module 11.",
+      "references": [
+        "R11",
+        "R12"
+      ],
+      "project": "Build a small resource manager with explicit ownership, safe move behavior, bounded interfaces, fault-injection tests and a written comparison of composition and inheritance.",
+      "lessons": [
+        {
+          "id": "12.1",
+          "title": "RAII and resource ownership",
+          "outcome": "Make cleanup follow object lifetime on success and failure paths.",
+          "practical_assignment": "Wrap a mock file/device resource whose open/close counters can be inspected. Inject failure after acquisition. Pass: each acquired resource is released exactly once and no view outlives its owner.",
+          "assigned_reading": "R11: Resource Management and smart-pointer ownership rules.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "12.2",
+          "title": "Copy, move and exception safety",
+          "outcome": "Define what transferring a resource means without duplicating ownership.",
+          "practical_assignment": "Implement a move-only mock resource and transactional asset replacement. Pass: copying is prohibited, moving does not double-release, and injected load failure preserves the old asset.",
+          "assigned_reading": "R11: class special members, rule of zero and exception safety.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "12.3",
+          "title": "Interfaces, composition and polymorphism",
+          "outcome": "Choose abstractions according to substitutability and measured cost.",
+          "practical_assignment": "Create interchangeable console and recording renderers behind one small interface. Pass: both satisfy the same contract, tests run without display output, and ownership/destructor behavior is explicit.",
+          "assigned_reading": "R11: Interfaces, Class Hierarchies and composition guidance.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "12.4",
+          "title": "Templates, concepts and data-oriented choices",
+          "outcome": "Use generic code without hiding costs or exploding complexity.",
+          "practical_assignment": "Write a constrained generic clamp or interpolation function and benchmark two simple entity layouts. Pass: test contracts, record compiler/build mode and explain why the result is workload-specific.",
+          "assigned_reading": "R11: Templates and Generic Programming; R15: memory hierarchy motivation.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "title": "Data structures and their costs",
+      "prerequisites": "Modules 06 and 11-12.",
+      "references": [
+        "R13",
+        "R06"
+      ],
+      "project": "Implement educational versions of a dynamic array, queue, hash table and heap, each with invariants and tests. Compare them to standard containers without replacing standard code in production merely for practice.",
+      "lessons": [
+        {
+          "id": "13.1",
+          "title": "Complexity, arrays and linked structures",
+          "outcome": "Predict asymptotic work while recognizing locality and constants.",
+          "practical_assignment": "Implement a growable integer buffer for study. Count copied elements under doubling and one-at-a-time growth. Pass: derive the growth behavior and separately measure elapsed time without equating it to the proof.",
+          "assigned_reading": "R13: arrays, cost models and asymptotic analysis; R06: sums.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "13.2",
+          "title": "Stacks, queues and ring buffers",
+          "outcome": "Match ordering semantics to the intended workflow.",
+          "practical_assignment": "Implement a bounded queue with explicit full/empty results and wraparound tests. Pass: preserve FIFO order through more than three times its capacity in operations and never read an uninitialized slot.",
+          "assigned_reading": "R13: elementary data structures; R16: later concurrency comparison.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "13.3",
+          "title": "Hash tables and collision policies",
+          "outcome": "Explain expected lookup behavior and its assumptions.",
+          "practical_assignment": "Implement chaining or open addressing with collision tests and resizing. Pass: deliberately force many collisions, test missing keys and verify that distinct equal-hash keys remain distinct.",
+          "assigned_reading": "R13: hashing and dictionary data structures.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "13.4",
+          "title": "Trees, heaps and priority queues",
+          "outcome": "Preserve structural invariants and choose the right query behavior.",
+          "practical_assignment": "Implement a binary min-heap with push/pop and randomized comparison to a sorted reference. Pass: validate the heap invariant after every operation and test duplicate priorities.",
+          "assigned_reading": "R13: binary search trees, balanced trees and heaps.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "title": "Algorithms for maps, simulation and tools",
+      "prerequisites": "Modules 06, 09 and 13.",
+      "references": [
+        "R13",
+        "R06"
+      ],
+      "project": "Build a pathfinding visualizer and asset-dependency planner. Provide correctness arguments, unreachable cases, complexity analysis and measured comparisons on multiple map families.",
+      "lessons": [
+        {
+          "id": "14.1",
+          "title": "Searching, sorting and algorithm selection",
+          "outcome": "Choose an algorithm from its preconditions and the data distribution.",
+          "practical_assignment": "Implement binary search with a documented interval convention and test empty, one-element, duplicate and missing cases. Compare two sorts on random and nearly sorted inputs. Pass: verify output order and element preservation.",
+          "assigned_reading": "R13: binary search, sorting and comparison models.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "14.2",
+          "title": "Graph traversal and dependency ordering",
+          "outcome": "Use graph algorithms with explicit edge semantics.",
+          "practical_assignment": "Implement BFS and topological sorting. Pass: recover a shortest unweighted path, report unreachable goals, reject a cyclic dependency graph and justify the O(V+E) traversal bound for adjacency lists.",
+          "assigned_reading": "R13: graph representations, BFS, DFS and topological sorting.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "14.3",
+          "title": "Dijkstra, A* and admissible heuristics",
+          "outcome": "Build a correct pathfinder before optimizing its queue.",
+          "practical_assignment": "Implement Dijkstra and A* against the same grid model. Pass: compare path costs on many small maps, include no-path cases and demonstrate a deliberately overestimating heuristic that can sacrifice optimality.",
+          "assigned_reading": "R13: shortest paths; R20: game navigation context.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "14.4",
+          "title": "Dynamic programming, complexity limits and approximation",
+          "outcome": "Recognize repeated subproblems and justify a practical solution.",
+          "practical_assignment": "Solve a small 0/1 knapsack instance by exhaustive search and dynamic programming. Pass: compare answers, derive state count, and describe how a heuristic would be evaluated without claiming a guarantee it lacks.",
+          "assigned_reading": "R13: dynamic programming; R06: reductions and asymptotic reasoning.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Programming languages, compilers and computability",
+      "prerequisites": "Modules 11-14 and discrete proofs.",
+      "references": [
+        "R14",
+        "R06",
+        "R11"
+      ],
+      "project": "Complete Gate C: a tested C++ simulation plus a tiny expression language with lexer, parser, evaluator, bytecode execution and resource limits.",
+      "lessons": [
+        {
+          "id": "15.1",
+          "title": "Language paradigms and type systems",
+          "outcome": "Separate language semantics from syntax and implementation habits.",
+          "practical_assignment": "Write one rule in imperative and pure-functional styles, then define a small typed C-compatible interface for a mock subsystem. Pass: state allocation ownership and reject type-invalid expressions in a toy checker.",
+          "assigned_reading": "R14: language frontend concepts; R11: interfaces and C-style boundary guidance.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "15.2",
+          "title": "Lexing, parsing and syntax trees",
+          "outcome": "Convert source text into a structured representation with diagnostics.",
+          "practical_assignment": "Implement tokens, recursive-descent parsing and evaluation for numbers, parentheses and four arithmetic operators. Pass: test precedence, associativity, malformed input, unknown names and division-by-zero policy.",
+          "assigned_reading": "R14: Kaleidoscope lexer, parser and abstract syntax tree chapters.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "15.3",
+          "title": "Bytecode, virtual machines and bounded execution",
+          "outcome": "Implement a small execution model with explicit limits.",
+          "practical_assignment": "Compile the expression language into stack bytecode and compare results to the tree evaluator. Pass: reject stack underflow, invalid opcodes and over-budget execution; preserve source context for errors.",
+          "assigned_reading": "R14: code generation and execution concepts; course security requirements.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "15.4",
+          "title": "Automata, computability and compiler optimization",
+          "outcome": "Know what analysis can establish and when transformation is legal.",
+          "practical_assignment": "Add constant folding to the toy compiler and test it against the unoptimized evaluator. Pass: include a finite-state recognizer, explain a termination restriction and document transformations deliberately excluded for semantic reasons.",
+          "assigned_reading": "R14: optimizer support; R06: computation models and proof limitations.",
+          "quiz_question_count": 3
+        }
+      ]
+    }
+  ]
+}

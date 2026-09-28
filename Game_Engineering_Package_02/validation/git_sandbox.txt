@@ -1,0 +1,10 @@
+Temporary repository only; no existing course files changed.
+* f747a4a Revert "Demonstrate a mistaken damage change"
+* 6075f90 Demonstrate a mistaken damage change
+* 3d8c9cc Specify zero-health boundary
+* 818aa7a Define starting damage rule
+Restored rules:
+damage=3
+health_min=0
+
+PASS: branch, merge, revert and clean working tree.

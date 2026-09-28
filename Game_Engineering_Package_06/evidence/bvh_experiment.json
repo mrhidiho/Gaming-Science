@@ -1,0 +1,18 @@
+{
+  "seed": 2026,
+  "spheres": 256,
+  "rays": 1000,
+  "same_hits": true,
+  "build_ms": 1.244703000111258,
+  "brute": {
+    "boxes": 0,
+    "primitives": 256000,
+    "query_ms": 386.1583089999385
+  },
+  "bvh": {
+    "boxes": 24918,
+    "primitives": 9964,
+    "query_ms": 43.833066999923176
+  },
+  "timing_scope": "Python CPU wall time, one run; not a performance guarantee"
+}

@@ -1,0 +1,9 @@
+{
+  "implementation": "reference",
+  "tests_run": 83,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "passed": true,
+  "note": "Counts are test methods; exhaustive subcases are additional, not separate methods."
+}

@@ -1,0 +1,39 @@
+{
+  "statuses": [
+    "accepted",
+    "accepted",
+    "accepted",
+    "accepted",
+    "backpressure",
+    "backpressure"
+  ],
+  "peak_bytes": 1000,
+  "trace": [
+    {
+      "event": "load",
+      "asset": "asset-0",
+      "resident_bytes": 300,
+      "epoch": 0
+    },
+    {
+      "event": "load",
+      "asset": "asset-1",
+      "resident_bytes": 600,
+      "epoch": 0
+    },
+    {
+      "event": "teleport",
+      "epoch": 1
+    },
+    {
+      "event": "evict",
+      "asset": "asset-0"
+    },
+    {
+      "event": "load",
+      "asset": "teleport-target",
+      "resident_bytes": 1000,
+      "epoch": 1
+    }
+  ]
+}

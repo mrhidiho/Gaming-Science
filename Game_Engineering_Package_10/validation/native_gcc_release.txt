@@ -1,0 +1,20 @@
+-- The CXX compiler identification is GNU 14.2.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Configuring done (0.2s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/_build_v09/gcc_release
+[ 50%] Building CXX object CMakeFiles/v09_native.dir/main.cpp.o
+[100%] Linking CXX executable v09_native
+[100%] Built target v09_native
+Internal ctest changing into directory: /mnt/data/_build_v09/gcc_release
+Test project /mnt/data/_build_v09/gcc_release
+    Start 1: native_semantics
+1/1 Test #1: native_semantics .................   Passed    0.00 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.00 sec

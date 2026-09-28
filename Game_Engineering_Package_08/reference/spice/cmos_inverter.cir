@@ -1,0 +1,13 @@
+* TOY level-1 MOS models. No actual fabrication process or board prediction.
+Vdd vdd 0 3.3
+Vin in 0 DC 0
+Mp out in vdd vdd PMOS_TOY W=20u L=1u
+Mn out in 0 0 NMOS_TOY W=10u L=1u
+Cload out 0 10p
+.model NMOS_TOY NMOS (LEVEL=1 VTO=0.7 KP=100u LAMBDA=0.02)
+.model PMOS_TOY PMOS (LEVEL=1 VTO=-0.7 KP=50u LAMBDA=0.02)
+.control
+dc Vin 0 3.3 0.01
+print v(in) v(out)
+.endc
+.end

@@ -1,0 +1,14 @@
+{
+  "lessons": 20,
+  "lesson_questions": 100,
+  "retained_questions": 60,
+  "new_lesson_questions": 40,
+  "additional_problems": 50,
+  "module_review_questions": 25,
+  "readiness_questions": 12,
+  "transfer_tasks": 20,
+  "coding_exercises": 16,
+  "evidence_labs": 4,
+  "module_projects": 5,
+  "templates": 10
+}

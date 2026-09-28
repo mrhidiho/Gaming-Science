@@ -1,0 +1,82 @@
+test_21_1_1 (__main__.ContractTests.test_21_1_1) ... ERROR
+test_21_1_2 (__main__.ContractTests.test_21_1_2) ... ERROR
+test_21_1_3 (__main__.ContractTests.test_21_1_3) ... ERROR
+test_21_1_4 (__main__.ContractTests.test_21_1_4) ... ERROR
+test_21_1_5 (__main__.ContractTests.test_21_1_5) ... ERROR
+test_21_1_6 (__main__.ContractTests.test_21_1_6) ... ERROR
+
+======================================================================
+ERROR: test_21_1_1 (__main__.ContractTests.test_21_1_1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 21, in run
+    actual=eval(expr,module.__dict__); expected=eval(expect,{'math':math})
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+======================================================================
+ERROR: test_21_1_2 (__main__.ContractTests.test_21_1_2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 21, in run
+    actual=eval(expr,module.__dict__); expected=eval(expect,{'math':math})
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+======================================================================
+ERROR: test_21_1_3 (__main__.ContractTests.test_21_1_3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 21, in run
+    actual=eval(expr,module.__dict__); expected=eval(expect,{'math':math})
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+======================================================================
+ERROR: test_21_1_4 (__main__.ContractTests.test_21_1_4)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 19, in run
+    with self.assertRaises(ValueError): eval(expr,module.__dict__)
+                                        ~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+======================================================================
+ERROR: test_21_1_5 (__main__.ContractTests.test_21_1_5)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 19, in run
+    with self.assertRaises(ValueError): eval(expr,module.__dict__)
+                                        ~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+======================================================================
+ERROR: test_21_1_6 (__main__.ContractTests.test_21_1_6)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_06/tests/test_exercises.py", line 19, in run
+    with self.assertRaises(ValueError): eval(expr,module.__dict__)
+                                        ~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 1, in <module>
+  File "/mnt/data/Game_Engineering_Package_06/exercises/starter/lesson_21_1.py", line 19, in image_bytes
+    raise NotImplementedError('Complete exercise 21.1; see LAB_WORKBOOK.pdf')
+NotImplementedError: Complete exercise 21.1; see LAB_WORKBOOK.pdf
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.002s
+
+FAILED (errors=6)
+
+Observed starter exit: 1 (expected nonzero until implemented)

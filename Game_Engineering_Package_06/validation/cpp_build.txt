@@ -1,0 +1,4 @@
+[ 25%] Building CXX object CMakeFiles/renderer_tests.dir/tests.cpp.o
+[ 75%] Built target cpu_renderer
+[100%] Linking CXX executable renderer_tests
+[100%] Built target renderer_tests

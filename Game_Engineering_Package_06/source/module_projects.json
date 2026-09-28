@@ -1,0 +1,182 @@
+{
+  "21": {
+    "title": "CPU reference renderer",
+    "budget": "90-140 planning hours",
+    "milestones": [
+      "P21-A: image contract and byte-checked PPM output.",
+      "P21-B: six-plane homogeneous clipping with attributed vertices.",
+      "P21-C: quantized coverage, depth and perspective-correct UVs with comparison images.",
+      "P21-D: a sphere or triangle ray path and BVH/brute-force comparison."
+    ],
+    "evidence": [
+      "Coordinate contract; unit tests; clipped polygon dumps; coverage-count proof.",
+      "Affine/corrected images; near-plane sequence; BVH seed and raw build/query measurements."
+    ],
+    "review": [
+      [
+        "Why should the renderer keep an image byte test even when screenshots look right?",
+        "Viewers can reinterpret color and hide flips or padding issues. Exact byte and marker tests verify the actual output contract."
+      ],
+      [
+        "Can a triangle with every original vertex outside the frustum still have visible area?",
+        "Yes. It can cross the view volume; correct polygon clipping may create visible intersection vertices."
+      ],
+      [
+        "Which attributes use reciprocal-w interpolation, and what is the depth exception here?",
+        "Smooth surface attributes such as UVs use the ratio. Conventional projected z_ndc is already interpolated affinely in screen coordinates."
+      ],
+      [
+        "What does a BVH correctness test compare besides execution time?",
+        "Hit/miss, nearest primitive identity and t under a stated tie/tolerance policy, using an independent brute-force oracle."
+      ],
+      [
+        "Why not promise exact GPU image equality for the CPU reference?",
+        "Subpixel precision, coverage, sample positions, color formats and floating behavior can differ; compare under declared conventions and tolerances."
+      ]
+    ]
+  },
+  "22": {
+    "title": "One validated GPU route",
+    "budget": "90-140 planning hours",
+    "milestones": [
+      "P22-A: capability report, clear target and validation capture.",
+      "P22-B: geometry, transform layout and bounded compute readback.",
+      "P22-C: compute-to-draw dependency and two reusable contexts.",
+      "P22-D: resizing, loss policy and failure-safe teardown."
+    ],
+    "evidence": [
+      "Actual backend/toolchain record; byte layout table; shader sources; readback results.",
+      "Dependency ledger; frame-context stress log; resize/minimize matrix; pending hardware markers where applicable."
+    ],
+    "review": [
+      [
+        "Why can correct submission order still be an incomplete native synchronization argument?",
+        "The resource may also require memory availability/visibility, a transition or ownership transfer under the API rules."
+      ],
+      [
+        "Are WebGPU implicit transitions proof that Vulkan barriers are unnecessary?",
+        "No. The managed API supplies different validation and transition behavior; native dependencies still need native expression."
+      ],
+      [
+        "What separates frame-context indices from presentation-image indices?",
+        "They identify different ownership pools and may have different counts and acquisition order."
+      ],
+      [
+        "Why should GPU results include readback instead of only a triangle?",
+        "A visual output may not reveal tail bounds or exact compute errors. Numeric readback validates the tested data path."
+      ],
+      [
+        "What can a CPU-only run honestly establish for this module?",
+        "The ledger, layout arithmetic and other host models; not driver hazard freedom, actual GPU output or GPU performance."
+      ]
+    ]
+  },
+  "23": {
+    "title": "Material and lighting laboratory",
+    "budget": "90-140 planning hours",
+    "milestones": [
+      "P23-A: linear-light diffuse and documented microfacet material.",
+      "P23-B: semantic mip filtering and tangent-handedness tests.",
+      "P23-C: one shadow map and an equal-quality lighting-path comparison.",
+      "P23-D: exposure, tone mapping and temporal failure/rejection sequences."
+    ],
+    "evidence": [
+      "Units/space table; raw linear fixtures; material grid; normal seam test.",
+      "Buffer budget; light-count data; shadow-bias comparison; temporal sequence and error domain."
+    ],
+    "review": [
+      [
+        "Why distinguish radiance from irradiance in a shader notebook?",
+        "They have different directional/area units and roles in transport; mixing them can hide missing cosine or normalization factors."
+      ],
+      [
+        "Why can a perfect normal-map seam on one mesh be insufficient?",
+        "Mirrored UVs, degenerate parameterization and nonuniform scaling expose different tangent-frame failures."
+      ],
+      [
+        "Why is a lower light-list count not a measured speedup?",
+        "List construction, lookup, memory and GPU execution overhead also contribute; measure the equal-quality workload."
+      ],
+      [
+        "Does an HDR intermediate prove HDR display output?",
+        "No. The engine may tone-map the intermediate to an SDR surface; display negotiation and color handling are separate."
+      ],
+      [
+        "Why preserve camera-cut and disocclusion failures in the report?",
+        "They demonstrate the limits and behavior of correspondence/rejection rather than concealing temporal artifacts behind still images."
+      ]
+    ]
+  },
+  "24": {
+    "title": "Headless engine core",
+    "budget": "80-120 planning hours",
+    "milestones": [
+      "P24-A: fixed ticks, interpolation and explicit overload accounting.",
+      "P24-B: generational identity and deferred structural edits.",
+      "P24-C: checked arena plus serial/parallel task-graph validation.",
+      "P24-D: schema migration, transactional loads and safe reload/shutdown."
+    ],
+    "evidence": [
+      "Tick-indexed input log; time invariant tests; entity mutation tests.",
+      "Task trace and critical path; arena guard tests; save fixtures; stale reload and initialization-failure logs."
+    ],
+    "review": [
+      [
+        "What does dropping accumulated ticks sacrifice?",
+        "Simulation no longer tracks all elapsed real time; this must be compatible with the product and recorded explicitly."
+      ],
+      [
+        "Why is a valid handle lookup not permission to hold a component pointer forever?",
+        "Subsequent structural changes can move or destroy storage even while logical identity remains meaningful."
+      ],
+      [
+        "Can an acyclic task graph still race?",
+        "Yes. Missing edges or undeclared overlapping writes permit unsafe simultaneous access."
+      ],
+      [
+        "What makes a load transactional?",
+        "It constructs and validates a full candidate before publication, leaving the old world unchanged if any step fails."
+      ],
+      [
+        "What protects against an old reload overwriting a new one?",
+        "Request/revision tokens checked at completion and publication, plus safe retirement of discarded candidates."
+      ]
+    ]
+  },
+  "25": {
+    "title": "Gate E integrated engine",
+    "budget": "70-110 planning hours",
+    "milestones": [
+      "P25-A: reproducible mesh/image cooking with dependency-aware keys.",
+      "P25-B: bounded loading, cancellation and peak-budget evidence.",
+      "P25-C: validated inspector commands and undo/redo histories.",
+      "P25-D: clean build, measurements, second-person review and Gate E defense."
+    ],
+    "evidence": [
+      "Source/cooked manifest and provenance; cold/warm/change/corruption tests.",
+      "Peak residency ledger; ten-command history tests; raw timings; reviewer record; explicit limitations."
+    ],
+    "review": [
+      [
+        "Which key inputs prevent a stale content build after a tool upgrade?",
+        "Tool/importer version, target format, semantic settings, source digest and dependency digests."
+      ],
+      [
+        "Why can bounded worker count still exceed the memory budget?",
+        "Each worker or queue stage can retain multiple large decoded/staging allocations; bound bytes and overlap, not just threads."
+      ],
+      [
+        "What must happen to editor history when its target scene revision is replaced?",
+        "Clear it or apply a deliberately revision-aware remapping policy; never replay stale commands blindly."
+      ],
+      [
+        "What does the software-only Gate E allowance exclude?",
+        "Untested GPU support, hazard-freedom and timing claims. CPU integration, ownership, cooking, inspection and other mandatory evidence still apply."
+      ],
+      [
+        "What must a reviewer reproduce besides opening a screenshot?",
+        "A clean build/run, a boundary test, a live edit and save/reload under the README, followed by the learner explaining dependencies and tradeoffs."
+      ]
+    ]
+  }
+}

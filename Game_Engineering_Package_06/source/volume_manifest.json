@@ -1,0 +1,242 @@
+{
+  "number": 5,
+  "title": "Graphics and Game-Engine Construction",
+  "level": "Upper undergraduate",
+  "purpose": "Build a renderer and a small engine instead of only learning an existing editor.",
+  "planning_hours": {
+    "minimum": 420,
+    "maximum": 650
+  },
+  "pdf_path": "volumes/05_graphics_and_game_engine_construction.pdf",
+  "source_path": "source/05_graphics_and_game_engine_construction.md",
+  "checkpoint": "E",
+  "modules": [
+    {
+      "number": 21,
+      "title": "From geometry to a software renderer",
+      "prerequisites": "Modules 07-08, 11-16; complete the mathematics checkpoint.",
+      "references": [
+        "R19",
+        "R23"
+      ],
+      "project": "Build a CPU renderer that writes a portable image file. It must clip geometry, rasterize triangles, resolve visibility and interpolate attributes correctly. Keep it as a reference implementation for future GPU work.",
+      "lessons": [
+        {
+          "id": "21.1",
+          "title": "Images, color and coordinate conventions",
+          "outcome": "Define the numerical and geometric meaning of an image buffer.",
+          "practical_assignment": "Write a PPM image containing a gradient and coordinate markers. Pass: the dimensions, orientation and channel values are verified by tests, and a README states all coordinate and color assumptions.",
+          "assigned_reading": "R19: image representation and transformations; R23: Radiometry, Spectra, and Color.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "21.2",
+          "title": "Projection and clipping before perspective division",
+          "outcome": "Transform geometry without confusing visibility with division by depth.",
+          "practical_assignment": "Implement clipping against one plane, then the complete chosen clip volume. Pass: triangles crossing the near plane remain finite and correctly shaped, and tests cover points exactly on the boundary.",
+          "assigned_reading": "R19: perspective transformations, clipping and the graphics pipeline; R23: Cameras.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "21.3",
+          "title": "Triangle coverage, depth and perspective-correct interpolation",
+          "outcome": "Produce crack-resistant filled triangles with correct varying attributes.",
+          "practical_assignment": "Render two triangles sharing an edge and a receding checkerboard. Pass: no cracks under the documented fill rule, correct overlap ordering, and a visible comparison between affine and perspective-correct texture coordinates.",
+          "assigned_reading": "R19: rasterization, barycentric coordinates and texture mapping; R23: Sampling and Reconstruction.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "21.4",
+          "title": "Rays, intersections and acceleration structures",
+          "outcome": "Build a second visibility method and compare its costs with rasterization.",
+          "practical_assignment": "Implement sphere or triangle intersections and a small BVH. Pass: accelerated and brute-force results agree within a defined tolerance over randomized rays, including misses and grazing cases; report build and query costs separately.",
+          "assigned_reading": "R23: Shapes and Primitives and Intersection Acceleration.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 22,
+      "title": "Explicit GPU programming and graphics APIs",
+      "prerequisites": "Module 21 plus Modules 18 and 20. Choose one compatible backend, not all at once.",
+      "references": [
+        "R21",
+        "R22",
+        "R24",
+        "R25",
+        "R37"
+      ],
+      "project": "Implement a GPU backend for the reference scene. Query device capabilities, enable available validation, document the toolchain and handle resize and shutdown safely. A CPU backend remains a valid fallback while hardware access is arranged.",
+      "lessons": [
+        {
+          "id": "22.1",
+          "title": "GPU work submission, resources and pipeline state",
+          "outcome": "Separate CPU recording from asynchronous GPU execution.",
+          "practical_assignment": "Create a window or offscreen target and report supported capabilities. Pass: render a clear color, capture validation output and explain which objects belong to CPU recording versus GPU execution.",
+          "assigned_reading": "R21: Introduction and Drawing a Triangle; alternatively R24 or R25 for one native platform; R22: SDL3 platform setup.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "22.2",
+          "title": "Buffers, shaders, layouts and resource binding",
+          "outcome": "Match data representations across CPU and GPU boundaries.",
+          "practical_assignment": "Upload a transform and vertex colors, then add a bounded compute operation. Pass: host/shader layouts are documented, a readback test checks results, and non-multiple work sizes remain correct.",
+          "assigned_reading": "R21: vertex buffers, uniform buffers and compute; R37: execution configuration and memory organization, only for the optional CUDA route.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "22.3",
+          "title": "Synchronization, hazards and frames in flight",
+          "outcome": "Express dependencies without serializing the entire renderer.",
+          "practical_assignment": "Implement a compute-to-draw dependency and two reusable frame contexts. Pass: validation reports no relevant hazards and a stress test never resets a context still used by the GPU.",
+          "assigned_reading": "R21: synchronization, frames in flight and resource transitions; use R24 or R25 equivalents for the selected backend.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "22.4",
+          "title": "Presentation, resizing and device capability policy",
+          "outcome": "Treat the window system as a changing environment rather than a fixed image.",
+          "practical_assignment": "Stress resize, minimize, restore and orderly shutdown. Pass: no stale size-dependent resources, no division by zero, and a readable capability report explains enabled features and fallbacks.",
+          "assigned_reading": "R21: swapchain recreation and device selection; R22: window events; R24 or R25: presentation and resource lifetime.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 23,
+      "title": "Lighting, materials and real-time image quality",
+      "prerequisites": "Modules 07, 09-10, 21-22.",
+      "references": [
+        "R19",
+        "R23",
+        "R21"
+      ],
+      "project": "Create a material-and-lighting demonstration with a documented color pipeline. Compare image quality and frame cost at identical resolution and scene content; include reference images, not only attractive screenshots.",
+      "lessons": [
+        {
+          "id": "23.1",
+          "title": "Radiometry, reflectance and physically based materials",
+          "outcome": "Explain how lighting models approximate light transport.",
+          "practical_assignment": "Implement diffuse lighting and one documented microfacet model. Pass: test a constant environment, grazing angles and roughness limits, and state approximations rather than labeling any shiny shader physically exact.",
+          "assigned_reading": "R23: Radiometry, Reflection Models and Light Transport; R19: shading.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "23.2",
+          "title": "Textures, mipmaps, filtering and tangent-space detail",
+          "outcome": "Control aliasing while preserving the meaning of texture data.",
+          "practical_assignment": "Render a receding textured floor with and without mipmaps and inspect a normal-mapped seam. Pass: report texture storage including mip levels and explain why non-color data needs its own filtering policy.",
+          "assigned_reading": "R23: Textures and Sampling and Reconstruction; R21: texture images, samplers and mipmaps.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "23.3",
+          "title": "Shadows, light selection and rendering-path tradeoffs",
+          "outcome": "Choose a lighting architecture from scene and bandwidth requirements.",
+          "practical_assignment": "Implement shadow mapping and compare a simple forward path with tiled light selection or a small deferred prototype. Pass: disclose buffer sizes, light counts, transparency limitations and measured frame costs.",
+          "assigned_reading": "R19: real-time rendering and shadows; R23: Lights and Light Transport.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "23.4",
+          "title": "HDR, tone mapping, temporal reconstruction and validation",
+          "outcome": "Separate display mapping from reconstruction and simulation correctness.",
+          "practical_assignment": "Add exposure, a documented tone mapper and a basic temporal accumulation experiment. Pass: capture a camera cut and disocclusion test, show failure modes, and compare both still-image error and motion behavior.",
+          "assigned_reading": "R23: Film and Imaging and Sampling; R19: anti-aliasing and image processing.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 24,
+      "title": "Engine architecture, simulation and resource ownership",
+      "prerequisites": "Modules 12, 17-18, 21-23.",
+      "references": [
+        "R20",
+        "R26",
+        "R27",
+        "R11"
+      ],
+      "project": "Build a small engine with a fixed-step world, generational entity handles, explicit resource ownership and an inspectable task graph. Keep the game rules separate enough to run automated headless tests.",
+      "lessons": [
+        {
+          "id": "24.1",
+          "title": "Fixed updates, interpolation and overload policy",
+          "outcome": "Separate simulation time from rendering time and real elapsed time.",
+          "practical_assignment": "Implement an accumulator loop and inject long frames. Pass: simulation advances consistently under normal load, interpolation is bounded, and the overload behavior is tested rather than silently spiraling.",
+          "assigned_reading": "R27: Fix Your Timestep!; R20: game loops and timing. Use the article as a starting model, not a guarantee of determinism.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "24.2",
+          "title": "Entities, components, handles and data-oriented storage",
+          "outcome": "Design identity separately from memory location.",
+          "practical_assignment": "Implement a small generational entity store with two components and deferred destruction. Pass: stale handles fail safely, iteration survives queued changes, and benchmarks include creation, deletion and common queries.",
+          "assigned_reading": "R20: game-state organization; R26: gameplay architecture for comparison; R11: lifetime and interface guidance.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "24.3",
+          "title": "Allocators, task graphs and frame-resource lifetime",
+          "outcome": "Make temporary storage and parallel dependencies observable.",
+          "practical_assignment": "Create a serial-then-parallel task graph and a checked temporary arena. Pass: resetting live storage is detected in tests, dependency order is verified, and the critical path is identified from a trace.",
+          "assigned_reading": "R11: ownership and concurrency; R20: engine architecture; R26: engine systems as a comparative implementation.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "24.4",
+          "title": "Subsystem boundaries, save formats and reloadability",
+          "outcome": "Choose interfaces that make change and failure manageable.",
+          "practical_assignment": "Add versioned saves and one reloadable asset type. Pass: old supported data migrates, malformed data is rejected without partial world corruption, and subsystem shutdown works after injected initialization failure.",
+          "assigned_reading": "R20: resource management and tools; R26: serialization and gameplay architecture; R11: interfaces and error handling.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 25,
+      "title": "Asset pipelines, editors and an integrated engine",
+      "prerequisites": "Module 24 and the software-engineering practices of Module 20.",
+      "references": [
+        "R20",
+        "R26",
+        "R22"
+      ],
+      "project": "Gate E: deliver a small 3D engine demonstration with an asset cooker, reproducible scene, inspector, save/load, diagnostics and a measured frame/memory budget. A second person must build and run it from the README.",
+      "lessons": [
+        {
+          "id": "25.1",
+          "title": "Importing, cooking and content-addressed asset builds",
+          "outcome": "Treat assets as compiled inputs with dependency tracking.",
+          "practical_assignment": "Build a cooker for one mesh and one image representation. Pass: identical declared inputs reproduce the same result, changed settings invalidate the cache, and corrupted sources produce readable failures.",
+          "assigned_reading": "R20: asset pipelines; R26: asset management and content tools. Apply Module 20 dependency and provenance practices.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "25.2",
+          "title": "Streaming, residency and memory budgets",
+          "outcome": "Load content without allowing asynchronous work to violate ownership.",
+          "practical_assignment": "Implement a bounded streaming queue with placeholder assets and cancellation. Pass: a forced small budget produces graceful fallback, no use-after-free, and a report of peak rather than only steady-state memory.",
+          "assigned_reading": "R20: resource loading; R26: asset management, asynchronous loading and streaming concepts.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "25.3",
+          "title": "Editors, inspection and undoable commands",
+          "outcome": "Make engine state understandable and safely editable.",
+          "practical_assignment": "Create a scene inspector with transform editing and a ten-command undo/redo test. Pass: invalid inputs are rejected, focus does not trigger unintended gameplay, and save/reload preserves committed changes.",
+          "assigned_reading": "R20: game tools; R26: editor and reflection concepts. Use a minimal UI toolkit appropriate to the selected platform.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "25.4",
+          "title": "Engine integration and reproducible demonstration",
+          "outcome": "Deliver a small complete system whose limitations are measurable.",
+          "practical_assignment": "Complete Gate E using the project specification in the handbook. Pass: another person follows the README, a headless test scene passes, all assets have provenance, and a limitations section identifies remaining correctness or performance risks.",
+          "assigned_reading": "R20: project completion; R26: profiling and engine architecture comparison; revisit Module 20 release and review practices.",
+          "quiz_question_count": 3
+        }
+      ]
+    }
+  ]
+}

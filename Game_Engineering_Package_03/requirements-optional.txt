@@ -1,0 +1,4 @@
+# Only for regenerating PNG illustrations with tools/render_figures.py.
+# The core course, lab checks and benchmark use the standard library.
+# This is the tested renderer version, not a newest-version claim.
+matplotlib==3.10.8

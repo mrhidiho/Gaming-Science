@@ -1,0 +1,16 @@
+{
+  "correct": {
+    "safe": true,
+    "visited": 6,
+    "counterexample": null
+  },
+  "deliberate_bug": {
+    "safe": false,
+    "visited": 7,
+    "counterexample": [
+      "request",
+      "release",
+      "complete"
+    ]
+  }
+}

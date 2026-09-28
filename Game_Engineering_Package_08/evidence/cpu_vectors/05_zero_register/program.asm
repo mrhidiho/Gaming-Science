@@ -1,0 +1,3 @@
+LDI r0, 19
+ADD r0,r0,r0
+HALT

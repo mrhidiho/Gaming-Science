@@ -1,0 +1,27 @@
+{
+  "template": true,
+  "status": "fill with actual environment; not a pinned runnable environment yet",
+  "os": null,
+  "architecture": null,
+  "python": null,
+  "compiler": null,
+  "compiler_flags": null,
+  "cmake": null,
+  "simulator": {
+    "name": null,
+    "release": null,
+    "commit": null
+  },
+  "eda_tools": [],
+  "solver": null,
+  "library": {
+    "name": null,
+    "revision": null,
+    "units": null,
+    "license": null
+  },
+  "input_hashes": {},
+  "container_image_digest": null,
+  "host_hardware": null,
+  "measurement_settings": null
+}

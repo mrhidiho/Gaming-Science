@@ -1,0 +1,3 @@
+// The declaration is visible, but no implementation is supplied to the linker.
+int missing_update(int tick);
+int main() { return missing_update(0); }

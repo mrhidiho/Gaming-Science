@@ -1,0 +1,16 @@
+{
+  "browser": "144.0.7559.96",
+  "file_url_open": "BLOCKED: ERR_BLOCKED_BY_ADMINISTRATOR; tested by HTML injection instead",
+  "search_matches": 1,
+  "local_progress_persisted_reload": "NOT VERIFIED: managed file-navigation restriction; local storage unavailable on injected about:blank origin",
+  "export_valid": true,
+  "bad_import_preserved_state": true,
+  "import_valid": true,
+  "answers_expand": true,
+  "responsive_widths": [
+    1440,
+    390
+  ],
+  "unique_document_ids": true,
+  "page_errors": []
+}

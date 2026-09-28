@@ -1,0 +1,36 @@
+{
+  "template": true,
+  "status": "not executed",
+  "question": null,
+  "proposal_revision": null,
+  "primary_metric": {
+    "name": null,
+    "unit": null,
+    "aggregation": null
+  },
+  "independent_unit": null,
+  "baseline": {
+    "revision": null,
+    "configuration": null
+  },
+  "candidate": {
+    "revision": null,
+    "configuration": null
+  },
+  "workloads": [],
+  "correctness_oracle": null,
+  "warmup": null,
+  "timing_scope": null,
+  "run_order": null,
+  "seeds": [],
+  "repetitions": null,
+  "exclusion_rules": [],
+  "ablation": null,
+  "sensitivity": null,
+  "environment": null,
+  "raw_output_directory": null,
+  "analysis_command": null,
+  "uncertainty_method": null,
+  "reviewer": null,
+  "deviations": []
+}

@@ -1,0 +1,107 @@
+{
+  "edition": "2026-09-28",
+  "bundle": 3,
+  "volume": 2,
+  "python": "3.13.5",
+  "platform": "Linux",
+  "machine": "x86_64",
+  "core_dependencies": "Python standard library only",
+  "reference_test_methods": 230,
+  "reference_test_breakdown": {
+    "designated_lab_contract_cases": 169,
+    "additional_properties_and_integration": 33,
+    "deliberate_mutant_detection": 8,
+    "executed_example_output_checks": 20
+  },
+  "pdf_page_counts": {
+    "ANSWER_KEY.pdf": 35,
+    "CAPSTONE_SPEC.pdf": 7,
+    "LAB_WORKBOOK.pdf": 30,
+    "MATH_REFERENCE.pdf": 4,
+    "START_NEXT.pdf": 4,
+    "STUDENT_HANDBOOK.pdf": 77,
+    "capstone/reference/REFERENCE_NOTEBOOK.pdf": 4,
+    "modules/06_discrete_mathematical_reasoning.pdf": 14,
+    "modules/07_linear_algebra_and_game_geometry.pdf": 15,
+    "modules/08_calculus_mechanics_and_numerical_simulation.pdf": 15,
+    "modules/09_probability_statistics_and_evidence.pdf": 14,
+    "modules/10_signals_optimization_and_numerical_foundations.pdf": 16
+  },
+  "pdf_rendered_pages": 235,
+  "pdf_text_and_image_bounds_issues": [],
+  "visual_review": "Contact sheets and representative full-size content, formula, code, table and figure pages reviewed; oversized PDF image scaling was corrected before the final render. No remaining clipping identified in reviewed pages.",
+  "content_checks": {
+    "original_ids_titles_outcomes_labs_readings_and_first_three_questions": "exactly preserved for all 20 lessons",
+    "original_excerpt_modules": "unchanged",
+    "lesson_count": 20,
+    "quiz_questions": 100,
+    "module_reviews": 25,
+    "written_problems": 75,
+    "bridge_items": 10,
+    "student_stubs": "20 intentionally unfinished",
+    "pdf_cross_checks": "all lesson IDs, 100 answer labels, 75 problem IDs and 25 review IDs present",
+    "measured_benchmark_rows": 360,
+    "student_first_check": "expected failure verified; not a package fault"
+  },
+  "browser_test": {
+    "browser": "144.0.7559.96",
+    "engine": "system Chromium via Playwright",
+    "mode": "headless page.set_content on an in-memory document",
+    "checks": [
+      "HTML injected into the test document renders 20 lessons",
+      "Five embedded figures load from the standalone file",
+      "Search narrows to matching lessons",
+      "No-result search is handled",
+      "Clear search restores all lessons",
+      "Answers expand only after the reveal control",
+      "Core 5/6 and total 8/10 plus three evidence boxes satisfy self-recorded status",
+      "In-page state updates work; local-file reload persistence was not tested",
+      "Progress exports valid JSON containing 20 records",
+      "Exported progress restores through import",
+      "Wrong-package import rejected without changing existing progress",
+      "Out-of-range score import rejected without data replacement",
+      "Desktop viewport has no page-level horizontal overflow",
+      "390px mobile viewport has no page-level horizontal overflow",
+      "No browser page errors observed during this test"
+    ],
+    "page_errors": [],
+    "limitations": "Managed Chromium blocked file:// navigation with ERR_BLOCKED_BY_ADMINISTRATOR. UI was tested with page.set_content. Direct local-file opening and reload persistence were not verified. Chromium/Linux only; not a cross-browser or assistive-technology audit."
+  },
+  "fresh_extraction_test": {
+    "fresh_extraction": true,
+    "zip_crc_check": "passed",
+    "reference_tests": 230,
+    "examples": 20,
+    "commands": [
+      "validate_reference.py",
+      "run_example.py --all --verify",
+      "environment_check.py",
+      "capstone/reference/build_evidence.py --out outputs/reference_check",
+      "run_benchmark.py --out outputs/benchmark_check --pairs 10",
+      "run_benchmark.py --out outputs/benchmark_check --pairs 10"
+    ],
+    "model_files_reproduced_byte_for_byte_excluding_metadata": [
+      "spring_trajectories.csv",
+      "filters.json",
+      "optimization_2d.csv",
+      "sampling.csv",
+      "loot_counts.csv",
+      "optimization.csv",
+      "derivatives.csv",
+      "quadrature.csv",
+      "spring_summary.csv",
+      "geometry.json"
+    ],
+    "new_benchmark_measured_rows": 120,
+    "existing_benchmark_directory_rejected": true,
+    "limitations": "Same Linux/Python authoring environment; does not establish other-platform compatibility or reproducible elapsed timings."
+  },
+  "limitations": [
+    "Not a formal proof or exhaustive numerical verification.",
+    "No independent learner submission, oral defense or external expert review has occurred.",
+    "No native Windows/macOS or alternate Python-version execution was performed.",
+    "No measured native-engine, GPU or physical-hardware performance claim.",
+    "Browser tests used in-memory HTML because managed Chromium blocked file navigation; direct local-file storage/reload was not verified.",
+    "Generated timing observations depend on this environment and are not reproducibility constants."
+  ]
+}

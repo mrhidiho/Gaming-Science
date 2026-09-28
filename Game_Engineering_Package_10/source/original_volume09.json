@@ -1,0 +1,540 @@
+{
+  "source": "Original curriculum.json, edition 2026-09-28",
+  "volume": 9,
+  "modules": [
+    {
+      "number": 41,
+      "title": "Graduate numerical methods and research practice",
+      "volume": 9,
+      "prerequisites": "Gates B, F and H; rigorous linear algebra, calculus, probability and systems competence.",
+      "references": [
+        "R42",
+        "R54",
+        "R09",
+        "R23"
+      ],
+      "project": "Produce a graduate numerical notebook with derivations, reference implementations, conditioning experiments and a preregistered evaluation plan. Complete substantial assigned problem sets; the short lesson quizzes are only formative checks.",
+      "lessons": [
+        {
+          "id": "41.1",
+          "title": "Reading research as claims, assumptions and evidence",
+          "outcome": "Extract an implementable argument rather than only a paper summary.",
+          "teach": "A research paper makes claims under assumptions using a method and evidence. First identify the problem, baseline, objective and scope. Then reconstruct the central derivation or algorithm without looking at the authors' code. Track definitions, units and where approximations enter. A result can be valuable while narrower than its abstract initially suggests.\nBuild a claim-evidence table: each claim points to an equation, proof, experiment or stated limitation. Distinguish reproduction of reported results from an independent implementation and from a new extension. Read related work to identify the actual contribution. Select original papers and author artifacts where available, and record versions. A negative reproduction result needs diagnostic investigation before concluding the original claim is false.",
+          "example": "A method reported faster at equal image error is not necessarily faster at equal sample count. Reproducing the wrong comparison target tests a different claim.",
+          "lab": "Analyze one paper associated with R23, R44 or R55. Pass: a two-page claim map, a reconstructed central algorithm, at least three assumptions and a feasible reproduction target are reviewed by another reader.",
+          "reading": "R23: Further Reading sections for a chosen rendering topic; R44 or R55: one named original paper; handbook research-reading template.",
+          "quiz": [
+            {
+              "question": "Why distinguish equal-error from equal-sample comparisons?",
+              "answer": "They control different quantities and can support different performance conclusions."
+            },
+            {
+              "question": "What makes a claim-evidence table useful?",
+              "answer": "It connects each conclusion to its actual mathematical or experimental support and exposes unsupported generalization."
+            },
+            {
+              "question": "Does a failed reproduction immediately disprove a paper?",
+              "answer": "No. Configuration, implementation, data, numerical and interpretation differences must first be investigated."
+            }
+          ]
+        },
+        {
+          "id": "41.2",
+          "title": "Conditioning, sparse systems and iterative solvers",
+          "outcome": "Choose a solver from mathematical properties and error requirements.",
+          "teach": "A linear system Ax=b has numerical behavior governed partly by conditioning: sensitivity of the solution to changes in data. Residual r=b-Ax measures equation mismatch, but a small residual need not imply a small forward error for an ill-conditioned system. Scaling and problem formulation matter before choosing a faster kernel.\nSparse storage exploits structure, while iterative methods use repeated matrix-vector operations. Conjugate gradient requires a symmetric positive-definite setting for its standard guarantees. Preconditioning changes the system seen by the iteration to improve convergence without changing the intended solution when correctly applied. State stopping criteria, norm, precision and maximum work. Test a known solution and increasingly difficult conditioning, not only one friendly matrix.",
+          "example": "If A=diag(1,10^-6), its 2-norm condition number is 10^6. A small perturbation in the second equation can produce a much larger relative change in its associated solution component.",
+          "lab": "Implement a sparse matrix-vector product and conjugate gradient for a verified SPD system. Pass: derive the relevant assumptions, compare residual and forward error, and evaluate a simple preconditioner over several conditioning levels.",
+          "reading": "R54: linear systems, positive definiteness and numerical methods; R07: orthogonality and eigenvalues; R42: numerical optimization background.",
+          "quiz": [
+            {
+              "question": "What is the 2-norm condition number of diag(1,10^-6)?",
+              "answer": "10^6."
+            },
+            {
+              "question": "Why can a small residual coexist with substantial solution error?",
+              "answer": "An ill-conditioned system can amplify small equation perturbations into large changes in the solution."
+            },
+            {
+              "question": "What matrix property is required by standard conjugate gradient?",
+              "answer": "A symmetric positive-definite matrix, or the corresponding Hermitian positive-definite complex case."
+            }
+          ]
+        },
+        {
+          "id": "41.3",
+          "title": "Constrained optimization, derivatives and optimality conditions",
+          "outcome": "Derive and verify an optimization method for an engineering objective.",
+          "teach": "Optimization requires a defined objective, feasible set and numerical tolerance. For differentiable unconstrained problems, stationary points have zero gradient but may be minima, maxima or saddles. Convexity provides stronger global conclusions under the appropriate assumptions. Equality and inequality constraints introduce Lagrange multipliers and Karush-Kuhn-Tucker conditions, whose necessity or sufficiency depends on regularity and convexity.\nFor nonlinear least squares, residual Jacobians support Gauss-Newton-style approximations; poor scaling or rank deficiency can require damping or regularization. Check analytic or automatic derivatives against finite differences over sensible step sizes. Gradient checks themselves have truncation and roundoff error. Report convergence histories and failed initializations rather than only a final successful parameter set.",
+          "example": "Minimize x^2+y^2 subject to x+y=1. The Lagrangian gives 2x+lambda=0 and 2y+lambda=0; together with the constraint, x=y=0.5 and lambda=-1.",
+          "lab": "Derive the example, then solve a constrained fitting or IK problem with a numerical method. Pass: derivative checks, feasibility residual, convergence criteria and at least one failure or sensitivity case are reported.",
+          "reading": "R42: convexity, duality, optimality and numerical methods; R41: gradients and constrained differentials.",
+          "quiz": [
+            {
+              "question": "What is the constrained minimizer in the example?",
+              "answer": "x=y=0.5, with objective 0.5 and multiplier -1 under the stated Lagrangian sign convention."
+            },
+            {
+              "question": "Does zero gradient prove a general nonconvex point is a minimum?",
+              "answer": "No. It may also be a saddle or maximum."
+            },
+            {
+              "question": "Why vary finite-difference step size in a derivative check?",
+              "answer": "Large steps incur truncation error while extremely small steps amplify floating-point roundoff."
+            }
+          ]
+        },
+        {
+          "id": "41.4",
+          "title": "Experimental design, uncertainty and reproducible graduate work",
+          "outcome": "Make a performance or quality claim that survives independent scrutiny.",
+          "teach": "Define the primary outcome and comparison before examining final results. Choose workloads that represent the intended claim, plus adverse and held-out cases. Repeated frames within one run can be correlated, so the statistical unit might be a run, scene or device rather than every frame. A large count of correlated observations does not automatically provide strong independent evidence.\nUse confidence intervals or other justified uncertainty summaries, report effect sizes and preserve raw observations. Ablations remove or replace components to test which parts cause an improvement. Multiple comparisons and parameter tuning can overfit the benchmark suite. Keep final evaluation data separate from tuning when feasible. State external validity limits, including devices, workloads and quality settings not tested.",
+          "example": "Ten thousand frames from one scene are not equivalent to ten thousand independent games. A scene-level comparison across diverse scenes can better test a claim about broad engine behavior.",
+          "lab": "Preregister a small experiment with baseline, primary metric, trial unit and exclusion policy. Pass: raw data and analysis scripts reproduce the tables, and an ablation isolates at least one proposed mechanism.",
+          "reading": "R09: statistical inference; R42: experimental examples; handbook benchmark and research templates.",
+          "quiz": [
+            {
+              "question": "Why identify the statistical unit?",
+              "answer": "It determines what observations can reasonably be treated as independent for the intended inference."
+            },
+            {
+              "question": "What does an ablation test?",
+              "answer": "Whether removing or changing a component changes the outcome in a way that supports its claimed contribution."
+            },
+            {
+              "question": "Why reserve held-out workloads?",
+              "answer": "They test whether tuning improvements generalize beyond the cases used to choose parameters."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 42,
+      "title": "Advanced parallel and GPU algorithms",
+      "volume": 9,
+      "prerequisites": "Modules 18, 37-38 and 41.",
+      "references": [
+        "R37",
+        "R43",
+        "R48"
+      ],
+      "project": "Implement a reusable GPU reduction, scan or compaction primitive and integrate it into an engine workload. Compare a simple reference, a competent library baseline when available and your implementation at equal correctness requirements.",
+      "lessons": [
+        {
+          "id": "42.1",
+          "title": "Parallel reductions, scans and work-span analysis",
+          "outcome": "Prove the structure of a parallel primitive before tuning it.",
+          "teach": "A reduction combines many values with an operator; a scan produces prefix combinations. Associativity supports regrouping mathematically, but floating-point addition is not exactly associative. Decide whether the contract requires bitwise reproducibility, bounded error or an exact integer result. A tree reduction can reduce dependency depth from linear to logarithmic while retaining linear total work.\nWork is the total number of operations; span is the longest dependency chain. More processors cannot beat the span without changing the algorithm. A naive parallel scan can have extra logarithmic work, while work-efficient constructions achieve linear work with logarithmic span under their model. Handle partial groups, empty inputs and irregular sizes explicitly. Cross-group coordination must follow the API rather than assuming a global barrier inside an ordinary dispatch.",
+          "example": "A balanced reduction over 1,024 elements has 10 combination levels under a binary-tree model and 1,023 total pairwise combinations. Its implementation still pays memory and synchronization costs.",
+          "lab": "Implement reduction and either scan or compaction. Pass: derive work/span bounds, test sizes 0, 1 and non-powers of two, and report the numerical/reproducibility contract.",
+          "reading": "R37: cooperative execution and synchronization; R48: parallel architectures; derive algorithm bounds using Module 14 methods.",
+          "quiz": [
+            {
+              "question": "How many levels are in a balanced binary reduction of 1,024 values?",
+              "answer": "10."
+            },
+            {
+              "question": "How many pairwise combines does that reduction require?",
+              "answer": "1,023."
+            },
+            {
+              "question": "Why can parallel floating-point sums differ from serial sums?",
+              "answer": "Changing grouping changes rounding because floating-point addition is not exactly associative."
+            }
+          ]
+        },
+        {
+          "id": "42.2",
+          "title": "Tiling, data reuse and asynchronous pipelines",
+          "outcome": "Overlap movement and computation without creating races.",
+          "teach": "Tiling partitions a computation so values can be reused in a faster memory level. Matrix multiplication, image filters and neighborhood operations benefit when the tile fits available storage and exposes sufficient parallelism. Larger tiles can increase reuse but also raise register or shared-memory demand and reduce residency.\nDouble buffering can overlap preparation of one tile with computation on another. The pipeline needs explicit ownership: no consumer reads an incomplete tile and no producer overwrites data still in use. Asynchronous copy features vary by device; maintain a correct portable baseline. Account for boundary tiles, alignment, synchronization and extra staging work. Compare arithmetic intensity at the memory level actually being optimized.",
+          "example": "For C=A*B, reusing a loaded A or B tile across many multiply-adds can raise useful operations per byte. A tile that spills heavily can erase that advantage.",
+          "lab": "Implement a tiled matrix multiply or image filter, then one overlap variant where supported. Pass: adversarial dimensions match the reference, synchronization is checked and the end-to-end comparison includes staging overhead.",
+          "reading": "R37: shared memory, synchronization and asynchronous operations where supported; R43: operational intensity.",
+          "quiz": [
+            {
+              "question": "Why can larger tiles hurt performance?",
+              "answer": "They can increase resource usage, reduce residency or cause spills and boundary overhead."
+            },
+            {
+              "question": "What ownership rule is essential for double buffering?",
+              "answer": "A buffer must not be consumed before preparation completes or overwritten before its current consumer finishes."
+            },
+            {
+              "question": "Why retain a non-asynchronous baseline?",
+              "answer": "It provides a simpler correctness and portability reference for evaluating the extra pipeline complexity."
+            }
+          ]
+        },
+        {
+          "id": "42.3",
+          "title": "Irregular workloads, wavefront scheduling and load balance",
+          "outcome": "Design around variable work rather than assuming identical threads.",
+          "teach": "Ray traversal, graph processing and variable-length simulation tasks have irregular work. A fixed assignment can leave some workers idle while a few long tasks dominate the tail. Work queues, compaction and wavefront processing reorganize active tasks, trading scheduling and memory traffic for better coherence or load balance.\nPersistent-worker designs keep workers alive to fetch tasks, but need bounded queues, termination detection and a memory-ordering contract. Global progress cannot depend on every workgroup being resident when the hardware does not guarantee that. Sorting tasks by similarity can improve coherence but has a cost and can alter latency. Evaluate both balanced and skewed distributions, including rare expensive tasks.",
+          "example": "If 99 tasks take 1 unit and one takes 100 units, static one-task assignments can leave the final completion dominated by the long task. Splitting or scheduling work differently may help only when the task is divisible.",
+          "lab": "Implement an irregular workload using static assignment and a queue or compaction alternative. Pass: prove or test termination, handle queue capacity safely and measure tail behavior as well as mean throughput.",
+          "reading": "R37: execution, atomics and synchronization; R48: multithreaded scheduling; R23: wavefront rendering as an application.",
+          "quiz": [
+            {
+              "question": "Why can average task cost hide poor completion time?",
+              "answer": "A few long tasks can dominate the final tail after most workers become idle."
+            },
+            {
+              "question": "Why avoid a global spin barrier requiring every group to be resident?",
+              "answer": "Unschedulable groups may never run while resident groups wait, causing deadlock."
+            },
+            {
+              "question": "Is sorting tasks always beneficial?",
+              "answer": "No. Sorting cost, added latency and data movement can exceed coherence gains."
+            }
+          ]
+        },
+        {
+          "id": "42.4",
+          "title": "Portable performance and integration-quality evaluation",
+          "outcome": "Separate algorithmic benefit from one device-specific tuning win.",
+          "teach": "A performance-portable implementation preserves correctness and obtains useful efficiency across its stated target set. This does not mean identical code or identical speed everywhere. Capability dispatch can select specialized paths while keeping a tested fallback. Tuning parameters should be bounded and recorded rather than silently selected from the final test set.\nCompare against a competent baseline and include small, large and irregular workloads. Report speed, memory, numerical error and integration cost. A kernel that is faster only after excluding transfer or conversion work should make that boundary explicit. Reproducible artifacts include build scripts, device capability reports, raw data and failure cases. Lack of access to multiple GPUs is a limitation to disclose, not a reason to invent portability evidence.",
+          "example": "A tile size tuned on one GPU can reduce occupancy or exceed shared-memory limits on another. Capability checks and independent tuning prevent that choice from becoming an invalid universal default.",
+          "lab": "Integrate the selected primitive into the engine and evaluate at least two workload regimes. Pass: application impact is measured, unsupported features fall back safely and any untested device claims are explicitly excluded.",
+          "reading": "R37 and R21: capability contracts; R43: performance models; Module 41 experimental protocol.",
+          "quiz": [
+            {
+              "question": "Does portable performance require one fixed launch configuration?",
+              "answer": "No. Valid specialization or bounded tuning may be necessary across targets."
+            },
+            {
+              "question": "What should be said when only one GPU was tested?",
+              "answer": "The evidence is limited to that tested configuration; broader portability remains unverified."
+            },
+            {
+              "question": "Why measure integration cost?",
+              "answer": "A standalone kernel gain may not survive real data preparation, scheduling and result consumption."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 43,
+      "title": "Advanced rendering and reconstruction",
+      "volume": 9,
+      "prerequisites": "Modules 09-10, 21-23 and 41-42.",
+      "references": [
+        "R23",
+        "R44",
+        "R47"
+      ],
+      "project": "Reproduce a bounded rendering result and add one justified extension. Derive the estimator or reconstruction objective, compare equal-quality cost, include temporal failure cases and preserve source scenes and evaluation scripts.",
+      "lessons": [
+        {
+          "id": "43.1",
+          "title": "Monte Carlo light transport and multiple importance sampling",
+          "outcome": "Derive estimators with correct densities and measures.",
+          "teach": "The rendering equation expresses outgoing radiance as emission plus an integral of incident radiance, scattering and geometry factors. Monte Carlo estimation samples an integral: for samples from density p, average f(x)/p(x) where p is positive over the relevant nonzero support. Correct units and probability measures matter; area and solid-angle densities are not interchangeable without a Jacobian.\nImportance sampling aims to reduce variance by matching useful structure. Multiple importance sampling combines strategies with weights that sum appropriately under the estimator. The balance heuristic uses relative weighted densities, but sample counts and support must be included correctly. Russian roulette can terminate paths without bias when surviving contributions receive the proper probability compensation. Finite-variance independent sampling gives the familiar inverse-square-root standard-error scaling; do not assume it for every estimator.",
+          "example": "With one sample from each of two strategies and densities p1=2 and p2=6 at a point, the balance weight for strategy 1 is 2/(2+6)=0.25.",
+          "lab": "Implement a path tracer with explicit light sampling and MIS. Pass: derive the estimator, verify a simple known integral, compare variance at equal cost and test emission and grazing-angle edge cases.",
+          "reading": "R23: Monte Carlo Integration, Light Transport and sampling strategies. Work the associated mathematical exercises, not only the implementation.",
+          "quiz": [
+            {
+              "question": "What is the balance weight for strategy 1 in the example?",
+              "answer": "0.25 under equal sample counts."
+            },
+            {
+              "question": "Why is p(x)>0 on relevant support important?",
+              "answer": "Otherwise nonzero contributions can never be sampled and the estimator can be biased or undefined."
+            },
+            {
+              "question": "What sample-count increase ideally halves standard error for independent finite-variance samples?",
+              "answer": "Approximately four times as many samples."
+            }
+          ]
+        },
+        {
+          "id": "43.2",
+          "title": "Real-time ray tracing, dynamic acceleration and hybrid pipelines",
+          "outcome": "Budget traversal, building and shading as one system.",
+          "teach": "Ray-tracing acceleration structures trade build cost, memory and query cost. Dynamic scenes may update or rebuild structures; the best policy depends on movement, geometry and traversal degradation. A refit can be cheaper initially but leave poor bounds after large changes. Hardware-assisted traversal still needs correct synchronization and resource lifetime.\nHybrid renderers combine rasterized visibility with ray-traced shadows, reflections or indirect lighting. Each path needs a consistent material and coordinate model. Screen-space or cached approximations require fallbacks where information is absent. Measure acceleration build/update, tracing, shading, denoising and synchronization separately, then report total frame impact. Compare equivalent scene motion and image quality rather than static screenshots alone.",
+          "example": "A faster traversal variant that adds 4 ms of build work to save 1 ms of tracing is a regression for a scene rebuilt every frame, but might help a scene reused for many frames.",
+          "lab": "Add one ray-traced effect to the engine or build a software hybrid prototype. Pass: dynamic-scene tests include total update cost, missing-information fallbacks and resource synchronization evidence.",
+          "reading": "R23: intersection acceleration and light transport; R21, R24 or R25: supported ray-tracing interfaces for an optional hardware route.",
+          "quiz": [
+            {
+              "question": "Why can a cheap BVH refit become a poor long-term choice?",
+              "answer": "Large motion can degrade bounds and increase traversal cost."
+            },
+            {
+              "question": "Is saving 1 ms of tracing worth 4 ms of per-frame rebuild cost?",
+              "answer": "Not under that stated per-frame workload; total time increases by 3 ms."
+            },
+            {
+              "question": "Why compare animated scenes?",
+              "answer": "Dynamic updates and temporal behavior can dominate costs or artifacts absent in a static scene."
+            }
+          ]
+        },
+        {
+          "id": "43.3",
+          "title": "Spatiotemporal reuse, reservoirs and denoising",
+          "outcome": "Evaluate variance reduction together with bias, history validity and motion.",
+          "teach": "Temporal and spatial reuse exploit related samples across frames or nearby locations. Reusing data changes the sampling and correlation structure, so the estimator and weights must be derived rather than improvised. Reservoir sampling can retain a compact representative sample under a defined weighted selection rule; its rendering use requires additional treatment of target distributions and reuse.\nDenoising reconstructs a signal from noisy observations using assumptions about spatial, temporal or learned structure. It can suppress noise while introducing bias, blur or ghosting. Visibility changes and incorrect motion vectors invalidate history. Distinguish estimator bias from reconstruction bias and assess moving sequences at equal total cost. The original 2020 ReSTIR paper is a historical reproduction option, not a claim to represent the latest technique.",
+          "example": "If a moving object reveals a background, old foreground samples are not valid background evidence merely because they occupy the same pixel coordinate. History acceptance must account for correspondence and visibility.",
+          "lab": "Reproduce a small weighted-reservoir example or temporal denoiser, then evaluate on motion and disocclusion sequences. Pass: the selection/weight rule is derived, bias limitations are stated and results include sequence-level failure cases.",
+          "reading": "R44: original ReSTIR paper and its estimator assumptions; R23: sampling theory; read only the selected bounded method before expanding scope.",
+          "quiz": [
+            {
+              "question": "Why cannot reused samples always be treated as new independent samples?",
+              "answer": "Reuse can introduce correlation and change the estimator's sampling structure."
+            },
+            {
+              "question": "Why is same-pixel history not enough to establish correspondence?",
+              "answer": "Different surfaces can occupy that pixel after motion or disocclusion."
+            },
+            {
+              "question": "What should be compared in a denoised rendering benchmark?",
+              "answer": "Quality, bias/artifacts, temporal behavior and total runtime, not only the raw ray count."
+            }
+          ]
+        },
+        {
+          "id": "43.4",
+          "title": "Differentiable and neural rendering under engineering constraints",
+          "outcome": "Test learned or gradient-based methods against explicit baselines.",
+          "teach": "Differentiable rendering studies how outputs change with scene or model parameters. Visibility discontinuities, stochastic sampling and approximations complicate gradients. A useful derivative must match the actual objective and parameterization; automatic differentiation alone does not guarantee the right physical or statistical estimator. Validate on small scenes with finite differences and known cases.\nNeural rendering or learned reconstruction can trade preprocessing, training and memory for runtime quality or speed. Training data coverage, scene specificity, temporal stability and inference hardware constrain deployment. Compare a non-learned baseline and include training or preprocessing cost where the claim requires it. Separate interpolation within familiar conditions from generalization to new scenes, lighting or motion.",
+          "example": "A reconstruction network tested on frames from its own training sequence may perform well without generalizing to a new level. Holding out entire scenes tests a stronger claim.",
+          "lab": "Implement a small inverse-rendering optimization or learned reconstruction experiment. Pass: gradient or generalization checks, a non-learned baseline, compute/memory accounting and a distribution-shift failure analysis are included.",
+          "reading": "R47: automatic differentiation, optimization and generalization; R23: light transport and sampling foundations; select one original method with Module 41's paper-review protocol.",
+          "quiz": [
+            {
+              "question": "Does automatic differentiation guarantee the desired gradient estimator?",
+              "answer": "No. The modeled computation, discontinuities and stochastic estimator must still match the intended objective."
+            },
+            {
+              "question": "Why hold out entire scenes for some rendering evaluations?",
+              "answer": "It tests generalization beyond correlated frames or content seen during training."
+            },
+            {
+              "question": "When should training cost be included?",
+              "answer": "When the claimed practical benefit depends on total preparation, deployment or repeated use, not only one isolated inference."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 44,
+      "title": "Advanced engine systems and simulation research",
+      "volume": 9,
+      "prerequisites": "Gates F-H; Modules 41-43.",
+      "references": [
+        "R20",
+        "R26",
+        "R54",
+        "R55",
+        "R50"
+      ],
+      "project": "Conduct an engine-system experiment with a formal model or numerical argument, a reference implementation and stress-tested integration. Choose one main depth area: world streaming, simulation, distributed state or reliability.",
+      "lessons": [
+        {
+          "id": "44.1",
+          "title": "Large-world scheduling, streaming and critical-path control",
+          "outcome": "Design a bounded system under changing content and workload.",
+          "teach": "Large-world engines coordinate visibility, simulation, streaming and resource residency under changing demand. A frame graph can make dependencies explicit, but hidden shared state or unpredictable tasks can still expand the critical path. Partition work by ownership and locality while controlling cross-partition communication.\nWorld-coordinate precision can degrade far from the origin; origin rebasing, hierarchical coordinates or higher precision each affect physics, rendering and networking interfaces. Streaming priorities should reflect gameplay deadlines and resource availability, not only distance. Build a workload model with bursts, cancellation and scarce memory. Evaluate tail latency and quality degradation under stress rather than only steady travel through a preloaded scene.",
+          "example": "A camera teleport invalidates a distance-based prefetch assumption and can create a sudden working-set change. The engine needs placeholders and a bounded recovery policy rather than an unlimited synchronous load.",
+          "lab": "Implement a bounded world-streaming scheduler or large-coordinate experiment. Pass: teleport and memory-pressure tests preserve correctness, peak resources are measured and the critical path is explained with a trace.",
+          "reading": "R26: world, task and streaming systems for comparison; R20: engine architecture; R54: numerical conditioning where coordinate precision is studied.",
+          "quiz": [
+            {
+              "question": "Why can a camera teleport defeat ordinary prefetching?",
+              "answer": "It changes the needed content abruptly, bypassing assumptions about gradual motion."
+            },
+            {
+              "question": "Why is origin rebasing an interface issue?",
+              "answer": "Physics, rendering, networking and stored references must agree on coordinate changes."
+            },
+            {
+              "question": "What distinguishes a bounded degradation policy?",
+              "answer": "It limits work and resource use while explicitly choosing which quality or availability guarantees may temporarily relax."
+            }
+          ]
+        },
+        {
+          "id": "44.2",
+          "title": "Deformable simulation, variational models and solver tradeoffs",
+          "outcome": "Derive a physical or constraint model before comparing visual results.",
+          "teach": "Deformable simulation represents degrees of freedom and a model of forces, energies or constraints. Spatial discretization, boundary conditions and time integration together define the numerical problem. Finite-element or mass-spring approaches approximate different structures; a visually similar result does not prove equivalent material behavior.\nImplicit methods can improve stability for stiff systems while requiring nonlinear or linear solves and introducing other errors. Position-based and compliant-constraint methods offer alternative formulations with their own parameters and convergence behavior. Derive one simple energy or constraint, explain its units and study timestep/iteration sensitivity. Separate stability, accuracy and physical fidelity. A stable method can be inaccurate, and an accurate local solver can still use an inappropriate material model.",
+          "example": "For spring energy E=0.5*k*(x-rest)^2, the force is -dE/dx=-k*(x-rest). This derivative supplies a check before extending to a multi-particle system.",
+          "lab": "Implement a small cloth, elastic bar or compliant-constraint model and compare two integration/solver choices. Pass: derive the core equations, check gradients, quantify constraint or energy error and reproduce one bounded result from the assigned research.",
+          "reading": "R54: equilibrium, variational and differential-equation methods; R55: 2016 XPBD and related position-based simulation course notes.",
+          "quiz": [
+            {
+              "question": "What force follows from the example spring energy?",
+              "answer": "-k*(x-rest)."
+            },
+            {
+              "question": "Does numerical stability guarantee physical accuracy?",
+              "answer": "No. A stable trajectory can still have large discretization error or use an unsuitable physical model."
+            },
+            {
+              "question": "Why vary timestep and solver iterations independently?",
+              "answer": "They affect different sources of error and can reveal hidden parameter dependence."
+            }
+          ]
+        },
+        {
+          "id": "44.3",
+          "title": "Distributed game state, consistency and overload behavior",
+          "outcome": "Specify which guarantees survive network delay and partial failure.",
+          "teach": "Distributed engine services divide state across processes or machines. Some operations require a single authoritative order, while others tolerate delayed or approximate views. Consistency is a property of a specified operation and model, not a single adjective that applies equally to every subsystem. During communication failure, availability and agreement requirements can conflict.\nPartition ownership, migration and recovery need explicit protocols. A world handoff must not create two authorities granting the same irreversible outcome. Queues require bounds and backpressure; retry storms can magnify overload. Test fault sequences involving delayed messages, crashes and duplicate requests. Use local process simulation before public infrastructure, and never claim internet-scale behavior from a two-process happy-path demo.",
+          "example": "If two servers both accept ownership of the same entity during a failed handoff, both might award a unique item. A versioned ownership or fencing mechanism must prevent stale authority from committing that effect.",
+          "lab": "Model a two-partition entity handoff with injected failure. Pass: a stated safety invariant holds, recovery assumptions are explicit and overload is bounded without unbounded retry amplification.",
+          "reading": "R17-R18: transport and transactions; R20: game-state architecture; use Module 41's claim and experiment discipline for the distributed model.",
+          "quiz": [
+            {
+              "question": "Why is duplicate authority dangerous?",
+              "answer": "Two participants may both commit effects that should occur only once under one owner."
+            },
+            {
+              "question": "What is a retry storm?",
+              "answer": "Many failed or slow requests trigger additional retries that worsen overload."
+            },
+            {
+              "question": "Can a small local demo establish internet-scale reliability?",
+              "answer": "No. It supports only the tested model and scale unless broader evidence is provided."
+            }
+          ]
+        },
+        {
+          "id": "44.4",
+          "title": "Formal specifications, replay and reliability-oriented engine design",
+          "outcome": "Use precise invariants to reduce the space of subtle failures.",
+          "teach": "A formal model abstracts a system to states and transitions so properties can be examined precisely. Safety states that something bad never happens; liveness states that something good eventually happens under assumptions. An engine resource manager can have safety invariants about ownership and liveness obligations about eventual completion or cancellation.\nModel checking explores the chosen abstraction, not every detail of the production implementation. Connect model transitions to real code and tests. Deterministic replay, fault injection and property-based testing complement formal reasoning by exercising implemented behavior. Avoid vacuous proofs from impossible environment assumptions. A reliability claim should identify the property, model, bound and implementation evidence separately.",
+          "example": "For an asset request, safety might require that a released owner never receives a callback touching its memory. Liveness might require that each accepted request eventually completes or cancels, assuming the worker continues to run.",
+          "lab": "Model a small engine lifecycle or queue protocol and connect it to implementation tests. Pass: at least one safety and one conditional liveness property are defined, a deliberate violation is found and abstraction limits are documented.",
+          "reading": "R50: safety, liveness and assumptions as a formal-methods reference; R11 and Module 18: ownership/concurrency contracts; R26: system comparison.",
+          "quiz": [
+            {
+              "question": "How do safety and liveness differ?",
+              "answer": "Safety excludes forbidden events; liveness requires eventual progress under stated assumptions."
+            },
+            {
+              "question": "Why must liveness assumptions mention scheduling or worker progress?",
+              "answer": "An environment that never lets work run can prevent completion regardless of the local algorithm."
+            },
+            {
+              "question": "Does proving an abstract model automatically prove all implementation code?",
+              "answer": "No. The relationship between the model and implementation must be established and checked."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 45,
+      "title": "Compilers, shader languages and engine specialization",
+      "volume": 9,
+      "prerequisites": "Modules 15-16, 18, 37 and 41-42.",
+      "references": [
+        "R14",
+        "R11",
+        "R37",
+        "R48"
+      ],
+      "project": "Gate I: deliver a research-quality reproduction and extension in rendering, simulation, GPU algorithms or compilation. This module also requires a small compiler optimization with semantic tests, generated-code inspection and end-to-end measurements.",
+      "lessons": [
+        {
+          "id": "45.1",
+          "title": "Intermediate representations, SSA and dataflow analysis",
+          "outcome": "Represent program meaning so transformations can be justified.",
+          "teach": "An intermediate representation makes control flow, values and operations explicit. Static single assignment gives each value one defining assignment; merge points use a representation such as phi nodes to select values from predecessor paths. SSA simplifies many analyses but does not by itself establish program correctness.\nDataflow analysis computes properties over a control-flow graph, often through iterative fixed points on a chosen domain. Liveness identifies values that may be used later; constant propagation tracks values known under the analysis. Soundness means the analysis does not exclude behavior relevant to its guarantee, while precision controls how much useful information it retains. Dominance and control-flow edges must remain consistent after transformations.",
+          "example": "After an if/else assigning x=1 or x=2, a merge can represent x=phi(1 from then, 2 from else). Replacing it with 1 unconditionally would be wrong unless the else path is proven unreachable.",
+          "lab": "Extend the tiny compiler with a control-flow IR and one dataflow analysis. Pass: derive transfer functions and a fixed-point stopping condition, test loops and merges, and verify transformed programs against an interpreter.",
+          "reading": "R14: LLVM frontend, control flow and optimization tutorials; R48: compiler/architecture interaction.",
+          "quiz": [
+            {
+              "question": "What does SSA require of each value?",
+              "answer": "One defining assignment in the representation."
+            },
+            {
+              "question": "Why is the example phi node not always constant 1?",
+              "answer": "The else predecessor supplies 2 unless that path is proven unreachable."
+            },
+            {
+              "question": "What is the role of a fixed point in dataflow analysis?",
+              "answer": "It marks a state where further propagation under the analysis rules no longer changes the computed facts."
+            }
+          ]
+        },
+        {
+          "id": "45.2",
+          "title": "Alias analysis, vectorization and legal optimization",
+          "outcome": "Separate transformations that are fast from transformations that preserve meaning.",
+          "teach": "An optimization must preserve the language's permitted observable behavior under its assumptions. Alias analysis determines which references may identify overlapping storage. Incorrectly assuming no aliasing can make loop reordering or vectorization wrong. Undefined behavior, overflow rules and floating-point options affect what transformations are legal, so record the compilation contract.\nVectorization groups iterations only when dependencies and semantics permit it. Reductions, exceptional values and rounding can require special handling. Register allocation maps values to a limited physical register set; spills introduce memory traffic. Inspect generated code and test adversarial inputs. A faster compiler output that silently changes required results is a correctness failure, not an optimization.",
+          "example": "For a[i]=a[i-1]+1, iterations depend on previous results. Treating all iterations as independent changes behavior unless a valid alternative algorithm preserves the recurrence.",
+          "lab": "Implement or study a loop transformation with an explicit legality check. Pass: overlapping-memory and boundary cases are tested, compiler flags are recorded and speed claims exclude transformations that violate the required numerical contract.",
+          "reading": "R14: optimization and code generation; R11: aliasing, lifetime and arithmetic guidance; R37: vector/parallel execution consequences.",
+          "quiz": [
+            {
+              "question": "Why is alias analysis important for reordering loads and stores?",
+              "answer": "Two apparently different references may access the same storage, creating dependencies."
+            },
+            {
+              "question": "Are iterations of a[i]=a[i-1]+1 independent?",
+              "answer": "No. Each depends on the previous result."
+            },
+            {
+              "question": "Why record floating-point compiler options?",
+              "answer": "They can permit transformations that change rounding, exceptional-value handling or other required semantics."
+            }
+          ]
+        },
+        {
+          "id": "45.3",
+          "title": "Domain-specific languages, specialization and safe JIT execution",
+          "outcome": "Trade generality for predictable game-engine computation.",
+          "teach": "A domain-specific language restricts expression to make authoring, validation or optimization easier. A material graph, particle formula or animation expression can expose structure that a general compiler cannot easily infer. Define types, allowed effects and resource limits before implementing code generation.\nSpecialization precomputes decisions known from material or scene parameters, potentially reducing runtime branches at the cost of more variants and compilation work. Just-in-time compilation introduces startup latency, code-cache management and execution-security concerns. Cache keys must include meaningful inputs and tool versions. Untrusted scripts or graphs need capability and complexity limits. A restricted interpreter remains a useful fallback and semantic reference.",
+          "example": "Specializing four binary material options can create up to 2^4=16 variants before other parameters are considered. Uncontrolled variant growth can increase build time and runtime cache misses.",
+          "lab": "Build a typed expression or material DSL with constant folding and a bounded interpreter or JIT route. Pass: invalid graphs fail safely, variant counts are measured and compiled outputs match the reference.",
+          "reading": "R14: language implementation and JIT; R26: material and scripting concepts for comparison; Module 20: trust boundaries.",
+          "quiz": [
+            {
+              "question": "How many combinations do four independent binary options create?",
+              "answer": "16."
+            },
+            {
+              "question": "Why limit the effects allowed in a DSL?",
+              "answer": "Restrictions make validation, optimization and safe execution more tractable."
+            },
+            {
+              "question": "Why keep an interpreter alongside compiled execution?",
+              "answer": "It provides a portable fallback and a simpler reference for semantic testing."
+            }
+          ]
+        },
+        {
+          "id": "45.4",
+          "title": "Compiler/hardware co-design and graduate artifact review",
+          "outcome": "Connect a transformation to architecture and application evidence.",
+          "teach": "Compiler decisions influence memory layout, instruction mix, register demand and parallel scheduling. Hardware features are useful only when software can express and exploit them efficiently. A co-design experiment changes one interface, representation or instruction opportunity and measures its complete effect. Avoid attributing a gain to hardware when it actually comes from a stronger software baseline.\nGraduate review requires a defensible claim, mathematical or semantic argument, implementation and reproducible evaluation. Gate I can focus on one earlier graduate topic, but must include baselines, ablations, uncertainty and limitations. Publication acceptance is not required; credible independent evaluation is. Preserve unsuccessful experiments and distinguish a reproduced known result from the learner's actual extension.",
+          "example": "A new vector instruction that saves arithmetic but increases packing and spills may lose in the full engine. The experiment must measure both the generated kernel and its application integration.",
+          "lab": "Complete Gate I and defend one compiler transformation's legality. Pass: an independent reader reruns the central experiment, the claimed extension is precisely identified and raw evidence supports the conclusions.",
+          "reading": "R14 and R48: compilation and architecture; R49: co-design methodology; Module 41: research evaluation protocol.",
+          "quiz": [
+            {
+              "question": "Why can a faster instruction fail to improve the application?",
+              "answer": "Packing, spills, data movement or unaccelerated work can outweigh the arithmetic savings."
+            },
+            {
+              "question": "What distinguishes reproduction from extension?",
+              "answer": "Reproduction recreates an existing result; extension changes or adds a clearly identified method, setting or analysis."
+            },
+            {
+              "question": "Is publication acceptance mandatory for Gate I?",
+              "answer": "No. The requirement is rigorous, reproducible work and an independent technical review."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

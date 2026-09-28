@@ -1,0 +1,79 @@
+{
+  "ANSWER_KEY.pdf": {
+    "pages": 19,
+    "words": 4940,
+    "off_page_words": [],
+    "outline_entries": 153,
+    "links": 0
+  },
+  "CAPSTONE_SPEC.pdf": {
+    "pages": 6,
+    "words": 1656,
+    "off_page_words": [],
+    "outline_entries": 10,
+    "links": 0
+  },
+  "ENGINE_REFERENCE.pdf": {
+    "pages": 12,
+    "words": 2863,
+    "off_page_words": [],
+    "outline_entries": 46,
+    "links": 29
+  },
+  "LAB_WORKBOOK.pdf": {
+    "pages": 27,
+    "words": 7085,
+    "off_page_words": [],
+    "outline_entries": 163,
+    "links": 0
+  },
+  "START_NEXT.pdf": {
+    "pages": 3,
+    "words": 885,
+    "off_page_words": [],
+    "outline_entries": 7,
+    "links": 0
+  },
+  "STUDENT_HANDBOOK.pdf": {
+    "pages": 59,
+    "words": 19943,
+    "off_page_words": [],
+    "outline_entries": 256,
+    "links": 95
+  },
+  "modules/MODULE_21.pdf": {
+    "pages": 11,
+    "words": 3513,
+    "off_page_words": [],
+    "outline_entries": 42,
+    "links": 0
+  },
+  "modules/MODULE_22.pdf": {
+    "pages": 11,
+    "words": 3740,
+    "off_page_words": [],
+    "outline_entries": 42,
+    "links": 0
+  },
+  "modules/MODULE_23.pdf": {
+    "pages": 11,
+    "words": 3468,
+    "off_page_words": [],
+    "outline_entries": 42,
+    "links": 0
+  },
+  "modules/MODULE_24.pdf": {
+    "pages": 11,
+    "words": 3752,
+    "off_page_words": [],
+    "outline_entries": 44,
+    "links": 0
+  },
+  "modules/MODULE_25.pdf": {
+    "pages": 11,
+    "words": 3751,
+    "off_page_words": [],
+    "outline_entries": 45,
+    "links": 0
+  }
+}

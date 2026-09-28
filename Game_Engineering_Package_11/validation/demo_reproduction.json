@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "files": 13,
+  "comparison": "byte-identical fresh generation of all synthetic outputs",
+  "sha256": {
+    "atomic_msi_trace.json": "3f1b0886db190e5c164636a0fa455ec0a27d9304c0547502b09969b67a291ad9",
+    "descriptor_reset.json": "727d26a245448f6a23181b7499834d42d16ea519c57b41d1ce90b6d0e972b2e2",
+    "ecc_fault_campaign.json": "3475aeb546dfb9393c2ef4c125b861c3a4a5895733aca3fd05c95d1c6673a8a3",
+    "finite_queue_reachability.json": "70576eec3955277923407d6316e334c5f9e9afe397bce87a277a953564af54af",
+    "scheduler.json": "ab83256fc03c2d941a30a941e14fd5290f52da23422d972b267b3ec9eab77893",
+    "mailbox_trace.json": "cdaf975a4bd8e94381d466123d2e1633ddab6b63f1ed2b6ddb4321a8250dfce2",
+    "synthetic_address_traces.json": "dc7b18dd5b07d675851dacb221603846aac426f4c5a73503053bc9a7c9981e49",
+    "provenance.json": "6da01efeaebeabd1ae3bad20f53ba9c75886f114518ab8f9aaf547b47137ab79",
+    "analytical_models.json": "1bd3243729c95f792d102bfdf5559942a7b82a83b32907a67945778455693320",
+    "cache_penalty_sensitivity.csv": "494013b6e4daf0fcd30b6f70c66c9efaf4b36ddfb0518f01b7d191ccc9fb30ce",
+    "paired_synthetic_times.csv": "fa09150f986bd70eb71c7d611de08048bb51d33f503309c00a45feb0822a86f7",
+    "cache_comparison.csv": "729082c1b39592101e8a605c91f30f45725813b1cb0356877353768bdfa796ca",
+    "paired_analysis.json": "b3b9efc4647f522bf55bcef3be1f9ab9e1b9d78a49555b788755b2cea8f34347"
+  }
+}

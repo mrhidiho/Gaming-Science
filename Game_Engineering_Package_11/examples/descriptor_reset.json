@@ -1,0 +1,8 @@
+{
+  "last_valid": true,
+  "overrun": false,
+  "reset_discarded": 1,
+  "source": "local pure-Python controller model; no hardware access",
+  "stale_completion_accepted": false,
+  "writes": []
+}

@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "python_files_compiled": 23,
+  "lesson_ids_verified": 20,
+  "core_questions_preserved": 60,
+  "core_answers_preserved": 60,
+  "transfer_questions": 40,
+  "unique_question_ids": 100,
+  "referenced_lab_paths": "all exist",
+  "json_files": "all parse",
+  "limits": "Python syntax/content integrity checks are not HDL, SPICE, synthesis, formal or physical verification."
+}

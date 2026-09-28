@@ -1,0 +1,49 @@
+
+@page { size: Letter; margin: .68in .68in .7in;
+ @top-left { content: "GAME ENGINEERING / PACKAGE 04"; font: 7.3pt "DejaVu Sans"; color:#416773; }
+ @top-right { content: "EXPANDED VOLUME 03"; font: 7.3pt "DejaVu Sans"; color:#416773; }
+ @bottom-left { content: string(doc-title); font: 7pt "DejaVu Sans"; color:#526570; }
+ @bottom-right { content: counter(page); font: 8pt "DejaVu Sans"; color:#153044; }
+}
+@page cover { margin:0; @top-left{content:none} @top-right{content:none} @bottom-left{content:none} @bottom-right{content:none} }
+* { box-sizing:border-box; }
+body { font-family:"DejaVu Sans",sans-serif; font-size:10pt; line-height:1.48; color:#1c2c36; }
+.cover { page:cover; width:8.5in; height:11in; padding:.85in; background:#142c40; color:#fff; position:relative; break-after:page; border-left:.18in solid #008594; }
+.cover .eyebrow { margin:0; font-size:9.8pt; font-weight:bold; color:#a7d5db; letter-spacing:.06em; }
+.cover .series { font-size:11pt; color:#d6e2e8; margin-top:.15in; }
+.cover .number { font-size:90pt; font-weight:bold; line-height:1; margin:.65in 0 .3in; color:#fff; }
+.cover h1 { color:white; border:0; margin:0; font-size:27pt; line-height:1.18; break-before:auto; }
+.cover .subtitle { font-size:15pt; color:#b8d9e1; line-height:1.4; margin-top:.22in; }
+.cover .desc { font-size:10.5pt; line-height:1.5; margin-top:.5in; color:#e0e9ee; }
+.cover .bottom { position:absolute; left:.85in; right:.8in; bottom:.8in; border-top:1px solid #527285; padding-top:.2in; font-size:8.5pt; color:#c1d3df; }
+h1 { color:#173249; font-size:21pt; line-height:1.18; margin:0 0 .22in; break-after:avoid; }
+h2 { color:#075f6d; font-size:15pt; line-height:1.25; margin:.25in 0 .12in; break-after:avoid; }
+h3 { color:#24475b; font-size:11.3pt; line-height:1.32; margin:.2in 0 .08in; break-after:avoid; }
+p { margin:0 0 .11in; orphans:3; widows:3; }
+a { color:#076779; text-decoration:none; overflow-wrap:anywhere; }
+strong { font-weight:700; }
+pre { font-family:"DejaVu Sans Mono",monospace; font-size:7.4pt; line-height:1.42; background:#eef3f5; border-left:3px solid #2b8791; padding:.12in; white-space:pre-wrap; overflow-wrap:anywhere; margin:.12in 0; }
+code { font-family:"DejaVu Sans Mono",monospace; font-size:.88em; overflow-wrap:anywhere; }
+pre code { font-size:inherit; }
+table { width:100%; border-collapse:collapse; margin:.12in 0 .2in; font-size:8.5pt; line-height:1.35; table-layout:auto; }
+th { background:#173249; color:white; text-align:left; padding:7px; font-weight:700; }
+td { border-bottom:1px solid #d5e1e7; padding:7px; vertical-align:top; overflow-wrap:anywhere; }
+tr:nth-child(even) td { background:#f0f5f7; }
+thead { display:table-header-group; }
+tr { break-inside:avoid; }
+ul,ol { margin:.07in 0 .17in; padding-left:.23in; }
+li { margin:0 0 .07in; padding-left:.03in; orphans:2; widows:2; }
+blockquote { border-left:3px solid #158290; margin:.16in 0; padding:.1in .17in; background:#f0f7f8; }
+.doc-marker { string-set:doc-title content(); font-size:0; height:0; }
+.toc { break-after:page; }
+.toc h1 { margin-top:0; }
+.toc ul { list-style:none; padding:0; }
+.toc li { border-bottom:1px solid #d9e5e8; padding:.08in 0; margin:0; font-size:9.5pt; }
+.toc a::after { content: leader('.') target-counter(attr(href), page); }
+.part { break-before:page; }
+.lesson { break-before:page; }
+.lesson.first { break-before:auto; }
+.part h1 { margin-top:0; }
+.part .lesson h2:first-child { margin-top:.12in; }
+.no-bookmark { bookmark-level:none; }
+.compact-intro { border-bottom:2px solid #d4e4e9; padding-bottom:.08in; margin-bottom:.18in; }

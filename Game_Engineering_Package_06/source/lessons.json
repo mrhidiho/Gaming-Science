@@ -1,0 +1,862 @@
+[
+  {
+    "id": "21.1",
+    "title": "Images, color and coordinate conventions",
+    "outcome": "Define the numerical and geometric meaning of an image buffer.",
+    "practical_assignment": "Write a PPM image containing a gradient and coordinate markers. Pass: the dimensions, orientation and channel values are verified by tests, and a README states all coordinate and color assumptions.",
+    "assigned_reading": "R19: image representation and transformations; R23: Radiometry, Spectra, and Color.",
+    "quiz_question_count": 3,
+    "module": 21,
+    "module_title": "From geometry to a software renderer",
+    "quiz": [
+      "Why must image stride be recorded?",
+      "How many bytes are in the tightly packed example image?",
+      "Should a normal map automatically receive sRGB decoding?"
+    ],
+    "teaching": "### An image is a contract, not just an array\nA pixel address is meaningful only after you specify the dimensions, row stride, bytes per pixel, channel order, origin and transfer function. For interleaved RGB8, the address of channel c at integer coordinate (x,y) is base + y*stride + 3*x + c. A 641-pixel row may occupy more than 1,923 bytes when an interface requires alignment. Padding is storage, not additional visible pixels. Use checked multiplication before allocating width*height*channels; a wrapped size can turn an apparently valid image into an out-of-bounds write.\n\nKeep three coordinate systems separate in your notebook: integer image indices, continuous sample positions and geometric coordinates. In this package, memory rows run top to bottom, x increases right, and the sample for pixel (x,y) is at (x+0.5,y+0.5). Normalized device coordinates use x right and y up. Consequently, viewport mapping flips y. Treat that conversion as an explicit boundary, not an unexplained negative sign scattered through shaders.\n\n### Light values and display values\nA stored byte does not say whether it represents linear light, nonlinear color, a normal component, an object ID or roughness. Lighting arithmetic in this volume uses a linear RGB working space with fixed primaries. sRGB-encoded color inputs are decoded before lighting; output is encoded once after exposure and tone mapping. Color primaries and a transfer function are different parts of a color-space definition. Merely applying a power function is not a complete color-management system.\n\nFor normalized sRGB input s, decode with s/12.92 when s <= 0.04045, otherwise ((s+0.055)/1.055)^2.4. For linear output l in [0,1], encode with 12.92*l when l <= 0.0031308, otherwise 1.055*l^(1/2.4)-0.055. These piecewise equations are not interchangeable with a universal gamma of 2.2. Quantize only at the output boundary, after handling invalid or out-of-range values deliberately. [S03]\n\n### Data textures and portable output\nA normal-map channel is numerical data. Applying sRGB decoding changes the vector; it is not a cosmetic adjustment. Depth, roughness, masks and object IDs likewise need semantic rules. A normal map may require remapping [0,1] to [-1,1] and normalization, while an ID texture must not be linearly blended between unrelated IDs.\n\nThe P6 PPM format is useful because its header and raster can be inspected without a graphics SDK. This package writes three 8-bit RGB channels, top row first. Its preview files intentionally use the common sRGB-coded PPM variant, documented in a header comment; strict PPM color semantics are based on BT.709, so the files are not color-managed reference masters. Preserve linear numerical test data separately and never judge transfer-function correctness solely by an uncalibrated viewer. [S02]\n\n### Engineer the boundary first\nBegin with four asymmetric corner markers and a gradient. Symmetric images hide flips, swaps and incorrect origins. Test bytes directly before looking at the picture. This establishes a trustworthy output surface for the clipping and visibility work that follows.",
+    "worked": "The original packed-image example is 320*180*4 = 230,400 bytes for RGBA8, excluding metadata. Exporting that same size as RGB8 PPM uses 172,800 raster bytes, plus the ASCII header. Those are different representations, not conflicting answers.\n\nFor a 3-by-2 RGB8 image with a 12-byte stride, pixel (2,1) begins at 1*12 + 2*3 = byte 18. The allocation has 24 bytes, although only 18 are visible pixel data. A tightly packed exporter copies nine useful bytes per row rather than copying padding into the raster.\n\nFor equal-area black and white samples, a linear-light average is 0.5. Encoding that result gives about 0.7354, or byte 188 after nearest-integer quantization. Averaging the encoded bytes directly gives about 128 instead. The two paths visibly disagree because encoding is nonlinear. Keep this two-sample experiment as a regression test.",
+    "steps": [
+      "Write the image/coordinate contract before coding; include channel order, row origin, sample centers and the output transfer function.",
+      "Create a 320-by-180 buffer. Add a horizontal linear-light ramp and four distinct corner markers. Export RGB8 P6 PPM.",
+      "Parse the header and raster with an independent test. Check byte count and markers, including a padded-stride source.",
+      "Run the linear-average versus encoded-average experiment. Preserve its numeric values rather than only a screenshot.",
+      "Add invalid dimension, out-of-bounds coordinate and nonfinite color tests. Document the chosen failure behavior."
+    ],
+    "checks": [
+      "Exact dimensions and marker positions; no padding leaks into exported raster.",
+      "Round-trip encode/decode within 1e-6 before byte quantization for representative values.",
+      "Negative dimensions and invalid coordinates fail explicitly rather than silently wrapping."
+    ],
+    "troubleshooting": "Upside-down output usually indicates an origin mismatch. Blue/red swaps indicate channel order. A too-dark gradient often indicates missing output encoding; a washed-out image can indicate double encoding. First inspect stored values, then inspect the viewer.",
+    "extra_quiz": [
+      "A 3-by-2 RGB8 image has stride 12. What is the byte offset of pixel (2,1), and how large is its allocation?",
+      "Why does averaging encoded black and white produce a different result from encoding their linear-light average?"
+    ],
+    "answers": [
+      "Stride specifies the actual byte distance between rows; padding makes width times pixel size insufficient.",
+      "320*180*4 = 230,400 bytes of tightly packed RGBA8 pixel storage, excluding header or metadata.",
+      "No. It stores directional data; a color transfer function would distort the encoded vector.",
+      "Offset 18, allocation 24 bytes. Only 18 bytes represent visible RGB samples.",
+      "The transfer function is nonlinear. Average linear values first: 0.5 encodes to about 0.7354, not 0.5."
+    ],
+    "exercise": "Implement image_bytes(width, height, channels, row_alignment) with positive-integer validation and padded row accounting.",
+    "focused_reading": "S02: PPM header, raster order and nonlinear variants. S03: sRGB texture semantics; R23: color representations. Derive the address expression on paper."
+  },
+  {
+    "id": "21.2",
+    "title": "Projection and clipping before perspective division",
+    "outcome": "Transform geometry without confusing visibility with division by depth.",
+    "practical_assignment": "Implement clipping against one plane, then the complete chosen clip volume. Pass: triangles crossing the near plane remain finite and correctly shaped, and tests cover points exactly on the boundary.",
+    "assigned_reading": "R19: perspective transformations, clipping and the graphics pipeline; R23: Cameras.",
+    "quiz_question_count": 3,
+    "module": 21,
+    "module_title": "From geometry to a software renderer",
+    "quiz": [
+      "Why clip before perspective division?",
+      "What normalized component follows from x=2 and w=4?",
+      "Is deleting every outside vertex a valid triangle-clipping algorithm?"
+    ],
+    "teaching": "### Projection must preserve the information needed for clipping\nA camera transform maps world coordinates into a view frame. Projection produces a homogeneous point (xc,yc,zc,wc), not a final screen position. Perspective division comes later: x_ndc=xc/wc and similarly for y and z. Dividing a point close to wc=0 can create enormous or nonfinite coordinates. Worse, vertices behind the camera can change apparent sides after division. Visibility is a geometric operation, not a test that a quotient happened to fit on the screen.\n\nUse one consistent clip volume. The reference path uses -w <= x <= w, -w <= y <= w and 0 <= z <= w. This is a zero-to-one depth convention; do not import an OpenGL-style near inequality z >= -w without changing the projection and tests. The chosen camera looks along -Z, uses column vectors and radians, and maps the near plane to z_ndc=0 and the far plane to 1. A backend adapter owns any further convention changes. [R19, S01]\n\n### Half-spaces make clipping systematic\nRepresent each plane by a signed function f(p), with f(p)>=0 meaning inside. The six functions are x+w, w-x, y+w, w-y, z and w-z. Traverse a polygon edge from a to b. When the endpoints lie on different sides, the intersection parameter is t=f(a)/(f(a)-f(b)). The new vertex is a+t*(b-a). Interpolate the original per-vertex attributes with that same t while they still belong to the undivided geometric edge.\n\nThe four edge cases are inside-to-inside, inside-to-outside, outside-to-inside and outside-to-outside. Their output is respectively b; intersection; intersection then b; and nothing. Applying this rule around the polygon is Sutherland-Hodgman clipping against one convex half-space. Repeat for each plane, then triangulate a surviving polygon as a fan. A triangle may become a quadrilateral or a larger polygon; the output need not contain exactly three vertices.\n\n### Boundaries and numerical policy\nDeclare points exactly on a plane to be inside. Shared edges must use the same plane equations and interpolation convention. Arbitrary per-triangle epsilon changes can produce inconsistent intersections. The small reference uses double precision and explicit finite-input checks, but is not an exact-predicate geometry library. Record its supported coordinate range and tolerance; add stronger robustness before treating it as a universal oracle.\n\nClipping does not justify dividing by zero. After all planes, reject singular vertices whose w does not meet the documented positive threshold. Degenerate polygons with zero projected area should produce no fragments. Avoid clamping a negative w to a positive constant: that invents geometry instead of clipping it.\n\n### A practical debugging sequence\nDraw an unprojected triangle first, then a projected triangle fully inside the frustum, then one crossing only the near plane. Only after these pass should you test all six planes together. Preserve polygon vertex dumps before and after clipping. A blank result is easier to explain with plane distances than with an image alone.",
+    "worked": "For the near half-space f(p)=z, let a=(0,0,-1,1) and b=(2,0,1,2). Then f(a)=-1 and f(b)=1, so t=-1/(-1-1)=0.5. The intersection is (1,0,0,1.5), with x_ndc=2/3 after division. Clipping after first dividing a and b would interpolate a different projected segment parameter and would lose the correct attribute relationship.\n\nFor the original normalization question, x=2 and w=4 gives x_ndc=0.5. That one quotient says nothing about the other five clip inequalities.\n\nWith a 90-degree vertical field of view, aspect 1, near 0.1 and far 100, use w=-z_view and z_clip=A*z_view+B, where A=far/(near-far) and B=far*near/(near-far). Substituting z_view=-0.1 yields z_ndc=0; substituting -100 yields 1. Test those endpoints before rendering any scene.",
+    "steps": [
+      "Implement signed clip-plane distances and test points inside, outside and exactly on each plane.",
+      "Implement one-plane polygon clipping with complete vertices, including UV and color attributes.",
+      "Apply all six planes, fan-triangulate the result and divide only after clipping.",
+      "Move one triangle repeatedly across the near plane. Log output counts and assert every retained vertex is finite.",
+      "Test all-outside polygons, reversed edge traversal, a boundary vertex, degenerate geometry and rejected singular w."
+    ],
+    "checks": [
+      "Retained vertices satisfy all six inequalities within the declared tolerance.",
+      "No infinity, NaN or enormous viewport allocation appears during near-plane crossing.",
+      "Interpolated intersection attributes use the same t as the clip-space position."
+    ],
+    "troubleshooting": "Exploding triangles suggest division happened too soon. Missing near-plane triangles suggest whole-triangle rejection replaced clipping. Seams suggest inconsistent intersection or fill rules. A left/right mirror suggests matrix or viewport conventions, not a need to reverse all normals.",
+    "extra_quiz": [
+      "For plane f=z, endpoints have distances -2 and 6. What interpolation parameter reaches the boundary?",
+      "In a zero-to-one clip volume, does z=-0.2,w=1 pass the near plane? What changes under a minus-one-to-one depth convention?"
+    ],
+    "answers": [
+      "Clipping retains valid visible portions while homogeneous coordinates are well behaved; premature division loses the appropriate boundary relationship and can divide by zero or reverse signs.",
+      "0.5.",
+      "No. A triangle can intersect the view volume even when some or all original vertices are outside; create edge intersections and retain the interior polygon.",
+      "t=-2/(-2-6)=0.25 from the first endpoint.",
+      "It fails z>=0. With a matching minus-one-to-one projection and near rule z>=-w, it would pass that near-plane inequality. Other planes still need testing."
+    ],
+    "exercise": "Implement clip_near(polygon) for homogeneous tuples (x,y,z,w), retaining exact-boundary points and creating crossing intersections.",
+    "focused_reading": "R19: homogeneous projection and clipping. S01: clip-space conventions for the chosen shader route. Verify the chosen near/far mapping algebraically."
+  },
+  {
+    "id": "21.3",
+    "title": "Triangle coverage, depth and perspective-correct interpolation",
+    "outcome": "Produce crack-resistant filled triangles with correct varying attributes.",
+    "practical_assignment": "Render two triangles sharing an edge and a receding checkerboard. Pass: no cracks under the documented fill rule, correct overlap ordering, and a visible comparison between affine and perspective-correct texture coordinates.",
+    "assigned_reading": "R19: rasterization, barycentric coordinates and texture mapping; R23: Sampling and Reconstruction.",
+    "quiz_question_count": 3,
+    "module": 21,
+    "module_title": "From geometry to a software renderer",
+    "quiz": [
+      "What is the sum of barycentric coordinates?",
+      "When does perspective-correct interpolation reduce to affine interpolation?",
+      "Why specify a shared-edge coverage rule?"
+    ],
+    "teaching": "### Coverage is a discrete geometric decision\nAfter clipping and division, map the triangle to pixel space. A signed edge function E(a,b,p)=(bx-ax)*(py-ay)-(by-ay)*(px-ax) tests which side of the directed edge contains p. Orient the projected vertices so the signed area is positive in the chosen algebraic coordinates. Evaluate at pixel centers, not at integer corners. Divide the three opposite-edge values by the signed area to obtain barycentric coordinates lambda0, lambda1 and lambda2.\n\nA mathematical point on a shared edge belongs to both closed triangles. A framebuffer cannot allow that ambiguity when blending, counting fragments or assigning IDs. Use a half-open fill convention. For this package's y-down image coordinates and positive-area edge function, include a zero-valued edge when dy<0, or dy==0 and dx>0. A reversed shared edge then belongs to exactly one triangle. The reference quantizes screen positions to a 1/256-pixel grid before integer coverage tests. Quantization is a documented rasterization choice, not exact continuous geometry. [R19]\n\n### Visibility is separate from color\nInitialize depth to the far value, here 1, and accept a fragment when its z_ndc is strictly less. This tie rule means an exactly far-plane fragment does not replace a cleared depth of 1. Document that boundary. Draw opaque overlapping triangles in both orders and compare the result. Triangle sorting alone is not sufficient for intersecting geometry; depth testing resolves visibility at each sample.\n\nFor a conventional perspective projection, z_ndc at the sample is the screen-barycentric affine interpolation of vertex zc/wc. Do not apply a second perspective correction to this already projected depth. A useful code review labels every quantity by its space: view z, clip z, reciprocal w or normalized depth. Reusing the name z for all four hides mistakes.\n\n### Why texture coordinates need a ratio\nA UV coordinate is affine along the original surface, not generally affine after perspective projection. For an attribute a, compute q=sum(lambda_i/w_i), numerator=sum(lambda_i*a_i/w_i), and a=numerator/q. You interpolate a/w and 1/w, then divide. Colors and other smooth surface attributes follow the same rule when they represent quantities attached to that surface. Flat attributes, such as material IDs, need a separate flat/provoking-vertex policy.\n\nThe ratio reduces to affine interpolation when all vertex w values are equal. More generally, a constant attribute is unchanged either way, but that does not make the methods equivalent for arbitrary attributes. A receding checkerboard reveals the difference far more clearly than a solid triangle.\n\n### Robustness and reference comparisons\nClamp the integer bounding box to the target before touching memory. Reject zero-area triangles and nonfinite intermediate values. Test both windings, subpixel translation and triangles partly outside each screen edge. A screenshot without cracks is weak evidence: add an integer coverage-count image and check that a two-triangle rectangle has exactly one owner per intended sample. When comparing to hardware, account for its subpixel precision, edge conventions and sample positions; this CPU path is an educational reference, not a promise of bit-identical GPU rasterization.",
+    "worked": "Take barycentric weights (0.2,0.3,0.5), vertex w values (1,2,4), and scalar u values (0,1,1). The affine result is 0.8. The perspective numerator is 0 + 0.3/2 + 0.5/4 = 0.275. The reciprocal-w denominator is 0.2 + 0.3/2 + 0.5/4 = 0.475. Therefore u=0.275/0.475=11/19, approximately 0.578947.\n\nIf those vertices have z_ndc values (0.1,0.4,0.8), the sample depth is 0.2*0.1 + 0.3*0.4 + 0.5*0.8 = 0.54. It is not 0.54 divided by 0.475.\n\nFor a 16-by-16 image, split the rectangle from (2,2) to (10,10) into two triangles. With samples at half-integers, there are 8*8=64 covered samples. Test count==1 for each interior sample and count==0 elsewhere. Reversing the winding of both triangles must preserve that ownership result after orientation normalization.",
+    "steps": [
+      "Implement edge functions and a bounded raster loop, then add the documented half-open shared-edge rule.",
+      "Add a coverage-count target and test the exact 64-sample rectangle. Reverse winding and triangle order.",
+      "Add depth with an explicit clear value and comparison. Test near/far ordering in both submission orders.",
+      "Implement both affine and perspective-correct attributes and render the receding checkerboard in both modes.",
+      "Run clipped and degenerate triangles through the full pipeline and save comparison images plus numerical coverage evidence."
+    ],
+    "checks": [
+      "No shared-edge double hits or holes for the quantized rectangle test.",
+      "Opaque overlap is draw-order independent except documented exact-depth ties.",
+      "The numerical interpolation fixture yields 11/19 and depth 0.54."
+    ],
+    "troubleshooting": "Bending checkerboards usually indicate affine UVs. Random holes often indicate winding or edge-equality mistakes. Correct colors with wrong overlap suggest depth-space confusion. Do not loosen a global epsilon to conceal all three.",
+    "extra_quiz": [
+      "Compute perspective-correct u for weights (0.2,0.3,0.5), w=(1,2,4), u=(0,1,1).",
+      "Why is affine interpolation of z_ndc not the same mistake as affine interpolation of UVs?"
+    ],
+    "answers": [
+      "They sum to 1 for the affine coordinate representation of a point in the triangle plane; numerical implementations have rounding error.",
+      "For arbitrary attributes, when all three w values are equal. Constant attributes also agree as a special case.",
+      "It gives a shared boundary exactly one owner, preventing cracks or duplicate fragment processing under the chosen sample convention.",
+      "Numerator 0.275, denominator 0.475, so u=11/19, approximately 0.578947.",
+      "Depth has already undergone the projection division; conventional raster depth is affine in screen barycentrics. A surface UV remains an attribute needing the reciprocal-w ratio."
+    ],
+    "exercise": "Implement perspective_attribute(weights, values, clip_w), validating finite nonzero positive w and a usable denominator.",
+    "focused_reading": "R19: coverage and perspective interpolation. R23: Sampling and Reconstruction. Keep a derivation and the numeric fixture with the code."
+  },
+  {
+    "id": "21.4",
+    "title": "Rays, intersections and acceleration structures",
+    "outcome": "Build a second visibility method and compare its costs with rasterization.",
+    "practical_assignment": "Implement sphere or triangle intersections and a small BVH. Pass: accelerated and brute-force results agree within a defined tolerance over randomized rays, including misses and grazing cases; report build and query costs separately.",
+    "assigned_reading": "R23: Shapes and Primitives and Intersection Acceleration.",
+    "quiz_question_count": 3,
+    "module": 21,
+    "module_title": "From geometry to a software renderer",
+    "quiz": [
+      "When is ray parameter t directly a distance?",
+      "What point occurs in the worked example at t=3?",
+      "Why retain the brute-force implementation?"
+    ],
+    "teaching": "### Rays ask the visibility question in the opposite direction\nRasterization projects surfaces onto a target. Ray casting starts at a sample and asks what surface is first encountered. Write a ray as r(t)=o+t*d over an explicit interval [tmin,tmax]. For a camera ray, d typically points into the scene, but its magnitude is not required to be one. Distances and ray parameters coincide only when the direction is unit length in the chosen coordinate units. Scaling d changes the numerical t of the same hit.\n\nFor a sphere centered at c with radius r, substitute the ray into |o+t*d-c|^2=r^2. With m=o-c, the quadratic coefficients are a=d dot d, b=2*(m dot d), and c0=m dot m-r^2. Reject zero-length directions. A negative discriminant misses; otherwise select the nearest root inside the stated interval. Tests must include rays starting inside the sphere, tangent rays and intersections behind the origin. For production-scale numeric ranges, use a stable quadratic formulation rather than assuming the elementary formula never suffers cancellation. [R23]\n\n### Bounding boxes reject groups conservatively\nAn axis-aligned box is the intersection of three slabs. On each nonparallel axis, compute the two t values at its bounds, sort them and intersect the resulting interval with the current ray interval. A zero direction component requires a special case: the origin must already lie within that axis's slab, otherwise it misses. Do not multiply zero by an infinite reciprocal and hope that NaN comparisons will behave as intended.\n\nA bounding-volume hierarchy, or BVH, stores conservative bounds around primitive groups. A ray missing a node's bounds can skip its entire subtree. A first implementation can split sphere centers at the median along their widest axis. Leaves store small primitive lists. Correctness comes from conservative enclosure and exhaustive traversal of intersected candidate nodes, not from the sophistication of the splitting heuristic. [S04]\n\n### Keep an independent oracle\nRetain a brute-force query that visits every primitive and returns the nearest valid hit. Compare hit/miss, primitive identity and t to BVH results over deterministic random rays. Equal-distance ties need a stable rule, such as lowest primitive ID within an explicitly stated tie policy. Record both primitive-test counts and wall-clock query time; a lower count is not itself proof of lower time in a high-overhead implementation.\n\nBuild time belongs in the report. A static scene queried by millions of rays may justify a slower builder, while frequently changing objects may favor a simpler build, a refit or a different structure. Overlapping bounds can force many node visits; do not promise logarithmic worst-case traversal.\n\n### Relationship to the engine\nUse ray casting for a small reference image or object picking, not as an excuse to postpone the rasterizer. The two methods expose different mistakes. An incorrect camera convention can affect both, so retain direct numerical fixtures as well as image agreement. The package includes a small sphere BVH reference in Python and ray/box tests; robust triangle intersection and a high-performance native BVH remain valuable implementation extensions.",
+    "worked": "The original ray has o=(0,0,0), d=(0,0,2). At t=3, the point is (0,0,6). The traveled distance is 6 coordinate units, not 3.\n\nFor a sphere at (0,0,5) with radius 1 and ray o=(0,0,0), d=(0,0,1), the equation is t^2-10t+24=0. Its roots are 4 and 6, so the nearest positive hit is t=4. With d=(0,0,2), the roots become 2 and 3 while the first hit position stays (0,0,4).\n\nFor box min=(-1,-1,4), max=(1,1,6), the unit +Z ray from the origin has parallel x/y directions, both origins inside their slabs, and a z interval [4,6]. The same ray from x=2 misses immediately because its x origin is outside a parallel slab. These fixtures should pass before adding hierarchy traversal.",
+    "steps": [
+      "Implement a bounded ray and sphere intersection; verify the two direction-scale fixtures.",
+      "Implement slab AABB intersection with explicit parallel-axis handling.",
+      "Build a median-split sphere BVH and keep brute-force traversal independent.",
+      "Compare at least 1,000 seeded rays across empty, separated and overlapping scenes. Log seed, tolerance, hit ID and t mismatches.",
+      "Report build time, query time, node visits and primitive tests separately. Render or visualize one test scene."
+    ],
+    "checks": [
+      "Sphere and box fixtures match expected t intervals.",
+      "BVH and brute-force agree on hit/miss and nearest hit within the declared tolerance.",
+      "Empty scenes, parallel directions and inside-origin rays are handled without undefined arithmetic."
+    ],
+    "troubleshooting": "False misses often come from nonconservative bounds or an incorrect parallel-axis case. Wrong nearest hits often come from returning the first visited leaf instead of the nearest candidate. Acceleration is secondary until the oracle comparison passes.",
+    "extra_quiz": [
+      "A sphere hit occurs at t=4 with unit direction. What t reaches the same point when the direction is doubled?",
+      "Why can a BVH with heavily overlapping node boxes approach brute-force behavior?"
+    ],
+    "answers": [
+      "When d has unit length in the coordinate system used for distance; for forward rays, traveled distance equals nonnegative t.",
+      "(0,0,6).",
+      "It provides a simpler correctness oracle and baseline cost against which acceleration can be checked.",
+      "t=2. The product t*d must stay unchanged.",
+      "A ray intersects many overlapping bounds, so traversal cannot reject most subtrees and must test many primitives."
+    ],
+    "exercise": "Implement ray_box(origin, direction, box_min, box_max) with a [0,infinity) interval and parallel-axis handling.",
+    "focused_reading": "S04: BVH construction and traversal. R23: sphere intersections and numerical robustness. Distinguish build and traversal evidence."
+  },
+  {
+    "id": "22.1",
+    "title": "GPU work submission, resources and pipeline state",
+    "outcome": "Separate CPU recording from asynchronous GPU execution.",
+    "practical_assignment": "Create a window or offscreen target and report supported capabilities. Pass: render a clear color, capture validation output and explain which objects belong to CPU recording versus GPU execution.",
+    "assigned_reading": "R21: Introduction and Drawing a Triangle; alternatively R24 or R25 for one native platform; R22: SDL3 platform setup.",
+    "quiz_question_count": 3,
+    "module": 22,
+    "module_title": "Explicit GPU programming and graphics APIs",
+    "quiz": [
+      "Does queue submission mean the GPU has finished?",
+      "Why can immediate buffer destruction be unsafe?",
+      "Must a beginner implement three graphics APIs simultaneously?"
+    ],
+    "teaching": "### Two processors, several timelines\nA graphics program does not call a function and receive a finished image. The CPU constructs resources and records commands, then submits work that the GPU executes asynchronously. Separate the application timeline, command-recording lifetime, queue submission and completion. The return from a submit call is not evidence that a buffer is no longer in use.\n\nDescribe an initial frame as acquire target, record clear/draw operations, submit, present and eventually observe completion. Some APIs expose image acquisition directly; browser WebGPU manages more of the presentation machinery. The conceptual distinction still matters. A frame can be recorded but unsubmitted, submitted but incomplete, or complete but not yet visibly presented. An event loop must also remain responsive while these states change. [S05, S06]\n\n### Objects have different jobs\nThe device represents a selected implementation and enabled capability set. Buffers and textures provide storage. Views describe how storage is interpreted. A pipeline packages compatible shader stages and fixed-function state. Bindings connect shader-visible slots to particular resources and ranges. Command encoders or command buffers record operations, while queues execute submissions. A window or canvas surface is an output interface, not the device itself.\n\nOwnership follows the asynchronous consumer. A CPU object going out of scope may destroy its wrapper while GPU commands still reference the underlying allocation. In native APIs, arrange deferred destruction after the relevant completion point. In managed APIs, follow their explicit object validity and destruction rules; do not infer the exact native lifetime contract from JavaScript garbage collection. The package's ownership ledger models completion serials on the CPU; it cannot validate a driver. [S06, S09]\n\n### Choose one backend deliberately\nThe canonical routes are Vulkan, Direct3D 12 or Metal on a compatible platform. The included WebGPU example is an additional teaching bridge for command recording, shaders, resource binding and bounded compute; it is not a substitute for learning native barriers when native engine work is the target. Select one route for the module project. Do not spend the volume implementing every API abstraction before you can show a validated clear operation.\n\nRecord OS, adapter, driver where exposed, SDK/browser build, shader compiler and enabled features. Query rather than assume limits and formats. An integrated GPU can be sufficient for these small labs; no performance claim follows merely from a marketing name. A software-only route remains valid while access is unavailable, but its report must say GPU validation pending.\n\n### Start with observable failure\nCreate a labeled device and target, enable available validation, and capture errors in a file or a visible log. Then clear to an unmistakable color. Check creation failures, a missing adapter and shutdown before adding geometry. The useful first artifact is a capability report plus a correctly attributed clear operation, not a complex image with unexplained warnings.\n\nThe WebGPU example intentionally uses no optional advanced feature. It reports its actual device limits and failure messages when run. It is supplied as source; the package's automated CPU checks do not turn that source into hardware-tested evidence. This distinction is part of professional engineering, not a reason to skip the experiment.",
+    "worked": "Suppose the CPU finishes recording at 1.2 ms, submit returns at 1.3 ms, the GPU starts at 1.5 ms and finishes at 5.8 ms. The CPU recording cost is 1.2 ms under that timer scope. Submission latency is roughly 0.1 ms. GPU execution is 4.3 ms only if those GPU timestamps were actually measured on a compatible clock. A CPU timer around submit cannot establish the 4.3 ms number.\n\nA vertex buffer referenced by that submission may not be overwritten or freed merely because submit returned at 1.3 ms. Its last-use token corresponds to completion at 5.8 ms in this hypothetical timeline. A screenshot appearing at 16.7 ms would include presentation scheduling as well, and does not make the GPU work take 16.7 ms.\n\nWrite a lifetime ledger with columns resource, owner, last submission, completion test and retirement action. Populate it for the target, vertex buffer, uniform buffer and command storage before the first animated frame.",
+    "steps": [
+      "Select one backend and record the exact toolchain and hardware/implementation available. Keep the CPU reference usable.",
+      "Create an offscreen target or window/canvas, query required limits and enable available validation.",
+      "Clear one frame and capture output. Label every created object and save errors, even when the log is empty.",
+      "Draw a timeline separating record, submit, complete and present. Identify the completion evidence for every reusable resource.",
+      "Test a missing or unsupported capability and orderly shutdown. Mark unexecuted device tests pending, not passed."
+    ],
+    "checks": [
+      "A capability report names the actual selected route and enabled capabilities.",
+      "Clear output and validation evidence come from a real run or are explicitly marked pending.",
+      "The learner can identify at least one allocation whose lifetime extends beyond CPU submission."
+    ],
+    "troubleshooting": "A successful device handle with no image does not prove that the render pass executed. Check target format, attachment usage, command submission and error scopes in order. Avoid disabling validation to hide a warning.",
+    "extra_quiz": [
+      "A submit call returns after 0.2 ms. Can you conclude the GPU rendered in 0.2 ms? Explain.",
+      "A requested optional feature is absent. Give two valid policy responses and one invalid response."
+    ],
+    "answers": [
+      "No. It schedules work; completion requires the API-specific completion evidence.",
+      "Submitted or recorded work may still reference the allocation. Retire it only after all relevant users have finished.",
+      "No. Choose one compatible backend and learn its lifetime and synchronization rules.",
+      "No. That is CPU-side call duration, not a measured GPU execution interval. Use supported GPU timestamps or clearly labeled completion-latency observations.",
+      "Valid: disable the optional path and use a supported fallback, or reject startup with an actionable explanation when the feature is required. Invalid: use the feature anyway and claim support."
+    ],
+    "exercise": "Implement can_retire(last_submission, completed_submission) for a monotonic single-queue completion ledger with validated nonnegative integers.",
+    "focused_reading": "S05: frames in flight. S06: device, encoding and queue mental model. R21/R24/R25: one selected native backend setup."
+  },
+  {
+    "id": "22.2",
+    "title": "Buffers, shaders, layouts and resource binding",
+    "outcome": "Match data representations across CPU and GPU boundaries.",
+    "practical_assignment": "Upload a transform and vertex colors, then add a bounded compute operation. Pass: host/shader layouts are documented, a readback test checks results, and non-multiple work sizes remain correct.",
+    "assigned_reading": "R21: vertex buffers, uniform buffers and compute; R37: execution configuration and memory organization, only for the optional CUDA route.",
+    "quiz_question_count": 3,
+    "module": 22,
+    "module_title": "Explicit GPU programming and graphics APIs",
+    "quiz": [
+      "Why can matching field names still produce a layout bug?",
+      "How many 64-thread groups cover 1,000 elements?",
+      "What does a resource binding establish?"
+    ],
+    "teaching": "### Host and shader share bytes, not field names\nA shader reads a buffer according to its own layout rules. A C++ struct with identically named members can have different offsets, padding, array strides or matrix interpretation. Write the byte contract before uploading. Distinguish vertex attribute layout, storage-buffer layout and uniform-buffer layout: they are separate contracts even inside the same API.\n\nFor the browser example, vertex data is two vec4 values: position at byte 0 and linear color at byte 16, giving a 32-byte vertex stride. The transform uniform is a column-major mat4x4<f32>, occupying 64 bytes. In C++, static_assert and offsetof can check the matching host representation; in JavaScript, explicitly index the Float32Array. A correct size with a transposed matrix still produces wrong geometry. [S01]\n\nA particularly useful WGSL example is a struct containing position:vec3<f32> followed by scale:f32. The vector has alignment 16 and size 12, so scale may occupy offset 12 and the struct can occupy 16 bytes. But an array of vec3<f32> has a 16-byte element stride. Do not summarize this as either all vec3 values are 12 bytes or all are 16 bytes. Consult the rule for the actual address space and aggregate. Dynamic binding offsets have an additional device-limit alignment requirement. [S01]\n\n### Bindings are a resource interface\nA resource binding associates a shader location with a buffer or texture and a permitted range or view. Pipeline layouts constrain type, visibility and compatibility. Binding the right data to the wrong group or slot is not repaired by renaming a variable. Treat binding identifiers as part of the interface version and keep a table beside the shader.\n\nThe upload path must also state whether the API copies source bytes immediately, stages them, or permits persistent mapping under specified synchronization. Do not mutate CPU staging storage on the assumption that every API behaves like the one used in a previous lesson. A mapped GPU buffer generally needs a deliberate ownership transition before execution can consume it. [S06]\n\n### Compute covers work in groups\nFor N elements and group size G, launch ceil(N/G) groups. Global invocation i operates only when i<N. For N=1000 and G=64, sixteen groups create 1,024 invocations, so the last 24 must do no element access. Reject invalid sizes and query the selected device's limits rather than assuming any group shape is portable.\n\nUse a simple bounded function, such as output[i]=2*input[i]+1, and read the result back. A visible triangle alone does not check compute correctness. For float comparisons, choose an expected tolerance based on the operations; for exactly representable small integers in f32, exact comparison can be appropriate. Check N=0, 1, G-1, G and G+1. Zero work should be handled explicitly rather than creating a zero-size resource and hoping the API accepts it.\n\n### Build a diagnostic ladder\nTest raw bytes, then a known transform, then resource bindings, then readback. Only after these work should compute write data consumed by a draw. The included browser demonstration computes vertex output and draws from that storage, with a separate readback check. Hardware execution remains a learner validation step.",
+    "worked": "For a position/scale storage record, the chosen WGSL layout is position at 0, scale at 12, total 16. Two records occupy 32 bytes. A different record with position:vec3 followed by color:vec3 places color at offset 16 and has total size 32 because the aggregate is rounded to its 16-byte alignment.\n\nFor 1,000 elements and 64 threads per group, (1000+63)//64=16. The shader guard is if (i >= count) { return; }. A test with 1,025 elements would need 17 groups, making off-by-one assumptions visible.\n\nFor a column-major translation matrix, place tx,ty,tz in the first three elements of the last column. Multiplying the homogeneous point (0,0,0,1) must produce (tx,ty,tz,1). Test this special point before testing a rotating object, where a layout error is harder to diagnose.",
+    "steps": [
+      "Write a byte-offset table for one vertex record and one transform uniform; assert sizes or inspect the exact upload array.",
+      "Upload vertex colors and a translation matrix. Verify an origin point lands at the predicted position.",
+      "Implement a bounded compute operation with ceil-divided group counts and a shader bounds check.",
+      "Read back N=1,63,64,65 and 1000 results. Treat N=0 as an explicit no-work case.",
+      "Intentionally break a binding or offset in a scratch copy; capture how validation or numeric tests detect it, then restore the correct code."
+    ],
+    "checks": [
+      "Offsets, stride, matrix order and binding slots are documented.",
+      "Compute readback matches an independent CPU result for non-multiple sizes.",
+      "No out-of-bounds access or missing required shader-layout check is ignored."
+    ],
+    "troubleshooting": "Exploded geometry often comes from stride or matrix interpretation. Correct first elements with corrupted later elements often indicate array stride. A failure only at N=65 often indicates a missing bounds guard.",
+    "extra_quiz": [
+      "A WGSL storage struct contains vec3<f32> position and f32 scale. What are the member offsets and total size?",
+      "How many 64-thread groups cover 1,025 elements, and why is a bounds guard still required?"
+    ],
+    "answers": [
+      "The host and shader may disagree about alignment, padding, array stride, matrix order or scalar representation even when member names match.",
+      "16 groups; 1,024 invocations, of which 24 must not access an element.",
+      "It connects a shader-visible location to a specific resource/range/view under the pipeline interface and usage rules.",
+      "position at 0, scale at 12, total 16 for this layout. This does not imply a 12-byte array stride for vec3.",
+      "17 groups create 1,088 invocations; 63 lie beyond 1,025 and must not access the array."
+    ],
+    "exercise": "Implement dispatch_groups(element_count, group_size) using integer ceiling division and explicit zero-work behavior.",
+    "focused_reading": "S01: alignment, size, structure and array layout; compute built-ins. S06: buffer mapping and bindings. R21: upload and compute route."
+  },
+  {
+    "id": "22.3",
+    "title": "Synchronization, hazards and frames in flight",
+    "outcome": "Express dependencies without serializing the entire renderer.",
+    "practical_assignment": "Implement a compute-to-draw dependency and two reusable frame contexts. Pass: validation reports no relevant hazards and a stress test never resets a context still used by the GPU.",
+    "assigned_reading": "R21: synchronization, frames in flight and resource transitions; use R24 or R25 equivalents for the selected backend.",
+    "quiz_question_count": 3,
+    "module": 22,
+    "module_title": "Explicit GPU programming and graphics APIs",
+    "quiz": [
+      "Are execution ordering and memory visibility identical?",
+      "When may a frame context be reused?",
+      "Why is waiting for the whole GPU after each command a poor final design?"
+    ],
+    "teaching": "### Name the dependency before choosing a primitive\nA producer writes data that a consumer later reads: this is a read-after-write hazard. Execution order is necessary, but some APIs also require an explicit memory dependency making those writes available and visible in the consumer's access domain. A write-after-read dependency needs the old read to finish before new writes; a write-after-write dependency must order the writes appropriately. Start with resource, range, producer stage/access and consumer stage/access. Only then select the API mechanism. [S07]\n\nIn a Vulkan single-queue example, compute storage writes consumed as vertex input require a dependency from compute-shader writes to vertex-input reads of the correct range. A color attachment written by a render pass and sampled in a later fragment shader needs different stages and access masks, and possibly an image layout transition. A shader-stage barrier cannot be guessed from the word texture. Cross-queue work also requires appropriate submission synchronization and, where applicable, queue-family ownership transfer.\n\nDirect3D 12 exposes resource states and barriers with its own rules. Metal has resource tracking and synchronization modes that must be read in their native context. WebGPU validates usage scopes and manages many transitions automatically; sequencing separate legal compute and render passes is not evidence that a native barrier can be omitted. The abstract dependency is shared; the exact API expression is not. [S09, S10, S06]\n\n### Frames in flight need reusable ownership units\nA frame context groups mutable resources that will be reused together: command storage, per-frame uniform storage and relevant temporary allocations. Give each context a completion token. Before resetting or overwriting context k, establish that the submission last using k has completed. Two contexts allow useful overlap without treating the entire renderer as globally idle after every operation. Static read-only resources need not all be duplicated.\n\nFrame index and acquired presentation-image index are different. In Vulkan, presentation's wait on a render-finished binary semaphore can outlive the graphics submission fence. A fence for a frame is therefore not, by itself, proof that its present-wait semaphore is reusable. Follow a supported lifetime scheme, such as render-finished semaphores indexed by acquired swapchain image, and consult the relevant presentation-completion rules. This is a common bug in otherwise plausible two-frame tutorials. [S05, S08]\n\n### Completion controls retirement\nSuppose a texture's last use is submission 12. Replacing its handle at submission 13 does not immediately free the old allocation. Queue it for retirement and release it when the completion ledger includes 12, with every queue that used it accounted for. The monotonic serial model in this package is deliberately single-queue. A multi-queue renderer needs a completion set or equivalent dependency proof, not a single global number invented by the CPU.\n\n### Stress the boundary\nSlow the GPU path or increase work so premature reuse becomes visible. Alternate contexts, resize, reload a resource and exit while work is outstanding. Validation is necessary but not a complete proof; some logical lifetime bugs produce legal commands using wrong data. Pair validation logs with frame IDs encoded into output and readback where practical. Use coarse waiting for initial correctness and controlled teardown, then replace unnecessary waits with precise dependencies.",
+    "worked": "Context A was last submitted as serial 10, context B as 11, and the completed serial is 9. Neither can be reset. Once completion advances to 10, A may be reused for serial 12 while B remains busy. Merely calculating frame_number % 2 does not prove the chosen context is free.\n\nFor a compute-to-vertex-buffer path, the dependency ledger reads: resource generated_vertices; producer compute shader / storage write; consumer vertex input / attribute read; same queue; buffer range [0,vertex_bytes). A shader-storage read in a vertex shader would be a different consumer access than fixed-function vertex input. Name the actual consumption mechanism.\n\nIf three swapchain images coexist with two CPU frame contexts, valid image indices are 0,1,2 while context indices are 0,1. An image-indexed array of length two is an immediate bounds bug, and a frame-indexed present semaphore can have a subtler reuse bug even when every index stays in range.",
+    "steps": [
+      "Draw a dependency graph for upload, compute, draw and presentation, naming access types and ranges.",
+      "Implement a correct compute-to-draw dependency in the chosen backend; distinguish implicit WebGPU handling from native barriers.",
+      "Create two frame contexts with explicit completion state. Refuse to reset an incomplete context.",
+      "Stress context reuse, resource replacement and exit under load. Save validation plus frame-identity evidence.",
+      "For Vulkan, review present-wait semaphore reuse separately from command-buffer and frame-fence reuse."
+    ],
+    "checks": [
+      "A CPU-side negative test rejects reuse while last_use exceeds completed.",
+      "Hardware logs show no relevant hazard when that route is executed; otherwise the check remains pending.",
+      "The lifetime proof distinguishes frame contexts, presentation images and all queue users."
+    ],
+    "troubleshooting": "A flicker that disappears after wait-idle is a useful clue, not a finished fix. Find the specific missing dependency or premature overwrite. A native validation warning should not be dismissed because the equivalent browser example runs.",
+    "extra_quiz": [
+      "Context A last used serial 10 and completed serial is 9. Is frame_number modulo two sufficient to reuse A?",
+      "Why can a graphics submission fence be insufficient to prove that a Vulkan presentation-wait semaphore is reusable?"
+    ],
+    "answers": [
+      "No. Execution dependencies order work; memory dependencies also establish the required availability and visibility for relevant accesses.",
+      "After all submissions using its resettable or writable resources have completed under the selected API and queue model.",
+      "It destroys useful overlap, increases latency or idle time and hides the actual dependency structure. Coarse waits remain useful for bring-up and teardown.",
+      "No. The context is still in use until its completion condition is satisfied, regardless of index arithmetic.",
+      "The presentation engine can still be waiting on that semaphore after the graphics submission completes. Use a presentation-aware reuse scheme, such as correctly image-indexed semaphores."
+    ],
+    "exercise": "Implement choose_context(last_use_serials, completed_serial) to return the first reusable context or None without modifying the ledger.",
+    "focused_reading": "S07: compute/graphics dependencies. S05: frame contexts. S08: swapchain semaphore reuse. S09/S10: native backend equivalents."
+  },
+  {
+    "id": "22.4",
+    "title": "Presentation, resizing and device capability policy",
+    "outcome": "Treat the window system as a changing environment rather than a fixed image.",
+    "practical_assignment": "Stress resize, minimize, restore and orderly shutdown. Pass: no stale size-dependent resources, no division by zero, and a readable capability report explains enabled features and fallbacks.",
+    "assigned_reading": "R21: swapchain recreation and device selection; R22: window events; R24 or R25: presentation and resource lifetime.",
+    "quiz_question_count": 3,
+    "module": 22,
+    "module_title": "Explicit GPU programming and graphics APIs",
+    "quiz": [
+      "Why can resizing require more than changing the viewport?",
+      "What should happen for a zero-height drawable?",
+      "What is the purpose of an explicit feature policy?"
+    ],
+    "teaching": "### The drawable is changing state\nA window can be resized, minimized, moved between displays or closed during initialization. Its logical size may differ from its framebuffer pixel size. Query the drawable size in pixels for render-target allocation and aspect ratio; do not assume a high-density display uses one pixel per window-coordinate unit. A zero width or height is a valid state to handle, not a valid render-target extent for the normal path. [S11]\n\nWrite a surface state machine: unavailable, ready, resize pending, rebuilding, lost and stopping. Rendering only consumes a ready surface. A resize event records the new desired extent; rebuild at a controlled boundary after handling resources still in flight. Do not rebuild independently inside an event callback that can race the render path.\n\n### Recreate a dependency set, not just a viewport\nSize-dependent resources may include depth, multisample color, post-processing targets, history buffers, framebuffers and projection data. Temporal history often becomes invalid when size or projection changes. Build the new set transactionally: validate extents, allocate compatible resources, then publish it. Retire old resources only after their last use. Under allocation failure, preserve a known valid state or stop with an explanation.\n\nIn Vulkan, handle out-of-date and suboptimal results according to policy, including acquisition and presentation paths. A common deadlock arises when a fence is reset and acquisition then returns early without a submission that will signal it. Delay reset until the code is committed to submission, or otherwise repair the state. A minimal renderer may wait for idle during recreation; make that deliberate, not a per-frame habit. [S12]\n\n### Capabilities become product policy\nDivide features into required, optional and disabled. Required features gate startup. Optional features select a tested fallback when absent. Disabled features are excluded even if the adapter advertises them, because this build has no validated implementation. Record enabled device capabilities rather than merely the maximum capabilities advertised by the adapter.\n\nShader compilation and pipeline creation can fail. Device loss is a distinct condition from window resize: a lost device may invalidate the entire device-owned resource set. The included browser bridge stops, reports loss and requires reinitialization through a fresh page run; it does not claim seamless recovery. An engine may choose a controlled restart rather than implementing transparent recreation of every subsystem.\n\n### Teardown is an ordinary execution path\nStop scheduling new work, cancel pending loads, wait or otherwise satisfy the required completion conditions, release resources in an ownership-safe order, and close platform objects. Test shutdown after each initialization stage, not only after a successful frame. Use an initialization record or RAII owners so cleanup acts on exactly the objects that exist.\n\nYour compatibility matrix is evidence, not a wish list. Record actual runs separately from plausible support. A software fallback with honest limitations is more useful than a GPU path whose warnings and failures have been edited out of the report.",
+    "worked": "A window reports logical size 800-by-600 but drawable size 1600-by-1200. A depth target allocated at logical resolution would not match a full-resolution color target. At four bytes per depth sample, the correct single-sample depth allocation is 1600*1200*4=7,680,000 payload bytes, before API alignment and metadata.\n\nA stress sequence is (1280,720), (0,0), (800,600), (1600,1200), close. The zero extent should suspend size-dependent rendering without dividing by height or allocating an ordinary zero-size target. Restoration invalidates size-dependent history and creates the new target set.\n\nIn the early-return fence bug, wait succeeds, reset makes the fence unsignaled, acquisition returns out-of-date, and the function returns. The next wait can hang forever because no submission was issued to signal that fence. Draw the state transition to explain why the reset belongs after a successful acquisition decision.",
+    "steps": [
+      "Add explicit surface and shutdown states and a required/optional/disabled feature table.",
+      "Use pixel drawable extents. Test zero extent, rapid resizing and restoration; invalidate temporal history on incompatible changes.",
+      "Recreate all size-dependent resources at a controlled boundary and retire the old set safely.",
+      "Inject failure after each initialization stage and test cleanup. For native Vulkan, test the acquire-out-of-date early-return path.",
+      "Capture an actual compatibility row and preserve untested combinations as pending. Document device-loss behavior."
+    ],
+    "checks": [
+      "No division by zero, stale target mismatch or unsignaled-fence deadlock occurs in supported stress paths.",
+      "The report distinguishes logical size, drawable size and resource extent.",
+      "Shutdown and partial initialization do not leak owned resources under the tested model."
+    ],
+    "troubleshooting": "A stretched image suggests aspect ratio or logical/pixel size confusion. A hang after minimizing can indicate a fence reset with no subsequent submission. Persistent ghosts after resize suggest history was not invalidated.",
+    "extra_quiz": [
+      "An 800-by-600 logical window has scale factor two in both dimensions. What drawable extent and four-byte depth payload result?",
+      "Explain how resetting a fence before an acquire-out-of-date early return can deadlock the next frame."
+    ],
+    "answers": [
+      "Depth, multisample, history and other attachments can depend on extent and compatibility; projection and presentation resources may also change.",
+      "Suspend or skip size-dependent rendering and wait for a usable extent while continuing the appropriate event handling.",
+      "It makes required capabilities, optional fallbacks and intentionally unsupported paths explicit and testable.",
+      "1600-by-1200 and 7,680,000 bytes for the depth payload, excluding implementation overhead.",
+      "The fence becomes unsignaled, but the early return issues no submission to signal it. The next wait has no completion event to observe."
+    ],
+    "exercise": "Implement drawable_extent(width, height, scale, limit) returning None for a zero drawable and a clamped positive extent otherwise.",
+    "focused_reading": "S11: pixel drawable size. S12: swapchain recreation and fence-reset placement. S06: device loss and canvas lifecycle."
+  },
+  {
+    "id": "23.1",
+    "title": "Radiometry, reflectance and physically based materials",
+    "outcome": "Explain how lighting models approximate light transport.",
+    "practical_assignment": "Implement diffuse lighting and one documented microfacet model. Pass: test a constant environment, grazing angles and roughness limits, and state approximations rather than labeling any shiny shader physically exact.",
+    "assigned_reading": "R23: Radiometry, Reflection Models and Light Transport; R19: shading.",
+    "quiz_question_count": 3,
+    "module": 23,
+    "module_title": "Lighting, materials and real-time image quality",
+    "quiz": [
+      "What does a BRDF relate?",
+      "What is the Lambertian BRDF for reflectance rho?",
+      "Why document roughness encoding?"
+    ],
+    "teaching": "### Name the quantity before choosing the formula\nRadiant flux is power, measured in watts. Irradiance is incident power per area, measured in W/m^2. Radiance adds a directional density, measured in W/(m^2 sr). These distinctions keep a light's intensity, a surface's reflectance and the displayed pixel value from becoming interchangeable sliders. In this volume, RGB lighting is a fixed-primary approximation to spectral transport, not a claim to represent every spectrum exactly. [S13]\n\nA bidirectional reflectance distribution function, or BRDF, relates incident radiance from one direction to reflected radiance toward another direction at a surface. Its units are inverse steradians. The rendering equation integrates incoming radiance times the BRDF and the incident cosine over the hemisphere, with emission added separately. For an ideal Lambertian reflector of reflectance rho, f=rho/pi. The pi normalizes the cosine-weighted hemisphere integral; dropping it changes energy, not just artistic brightness. [R23]\n\n### Build one explicit material model\nStart with diffuse reflectance, then add a single documented microfacet model. This package uses the common GGX normal distribution, Schlick Fresnel and separable Smith masking-shadowing as a teaching model. Let r be perceptual roughness and alpha=max(r*r,0.001). Let h be the normalized halfway vector of the unit light and view directions. With nh=max(dot(n,h),0), D=alpha^2/[pi*(nh^2*(alpha^2-1)+1)^2]. The specular BRDF is D*G*F/(4*nl*nv) for positive nl and nv. At or below the surface, return zero instead of dividing by a tiny or negative denominator. [S14]\n\nSchlick's approximation uses F=F0+(1-F0)*(1-vh)^5. For an illustrative dielectric with index of refraction 1.5 against air, normal-incidence reflectance is ((1.5-1)/(1.5+1))^2=0.04. Do not make 0.04 a universal material constant. Metals generally require colored specular response and do not use the same diffuse lobe as the simple dielectric route. A metallic workflow blends parameters under a stated convention; its sliders are not arbitrary color operations. [S03]\n\n### Normals and frames are part of the material\nTransform normals using the inverse transpose of the linear model transform when needed, then normalize. Nonuniform scaling is the counterexample that exposes using the position matrix directly. Tangent frames, UV handedness and light directions must all agree about space. Decide whether a quantity is world-space, view-space or tangent-space before taking a dot product.\n\n### Plausibility is not validation\nTest zero light, zero reflectance, normal incidence, grazing angles and roughness limits. Guard nonfinite inputs and an undefined halfway vector when view and light oppose one another. Clamp only at documented model boundaries; clamping the final HDR result to one hides missing exposure handling and can conceal energy mistakes.\n\nA microfacet implementation can be physically motivated without being physically exact. The simple single-scattering model can lose energy for rough surfaces; it is not a complete multiple-scattering solution. A white-furnace experiment must use a correctly integrated environment and isolate the model's assumptions. Do not claim energy conservation because one shiny sphere looks convincing. Preserve raw linear values alongside the display image.",
+    "worked": "For rho=0.5 and irradiance E=10 W/m^2, an ideal diffuse reflector produces outgoing radiance L=rho*E/pi, approximately 1.59155 W/(m^2 sr), independently of view direction for this idealized model.\n\nFor the teaching specular model at normal incidence with roughness r=0.5, alpha=0.25. Therefore D=1/(pi*0.25^2), approximately 5.09296. With G=1 and F0=0.04, the specular BRDF is 5.09296*0.04/4, approximately 0.05093 sr^-1. D exceeding one is not by itself an energy violation; it is a density whose relevant integral matters.\n\nAs a geometry test, a normal (1,1,0) under nonuniform scale diag(2,1,1) should transform proportionally to (0.5,1,0), then be normalized. Transforming it as a position direction gives (2,1,0), a different orientation. Verify the transformed normal remains perpendicular to transformed tangent directions.",
+    "steps": [
+      "Write a units and space table for every lighting input. Implement Lambertian diffuse and verify the numerical irradiance fixture.",
+      "Implement one GGX/Smith/Schlick model with documented roughness encoding and dielectric/metallic policy.",
+      "Test normal transformations under nonuniform scale and reject invalid/zero-length direction vectors.",
+      "Build a material grid varying roughness and metallic input under a controlled light. Save raw linear outputs and display mapping settings.",
+      "Test grazing directions, no light and roughness limits. Explain the single-scattering approximation and the limits of the validation performed."
+    ],
+    "checks": [
+      "The diffuse fixture gives 1.59155 within the chosen tolerance.",
+      "No NaN or infinity escapes at tested grazing or roughness limits.",
+      "The report names the BRDF, parameter encoding, coordinate space and known approximation limits."
+    ],
+    "troubleshooting": "Plastic-looking metals often indicate an unintended diffuse lobe. Highlights that move under object scaling suggest incorrect normal transforms. A roughness slider with an inverted effect may have confused roughness, smoothness and alpha.",
+    "extra_quiz": [
+      "For rho=0.5 and E=10, compute ideal diffuse outgoing radiance.",
+      "Why does a BRDF or normal-distribution value above one not automatically imply energy creation?"
+    ],
+    "answers": [
+      "It relates incoming directional radiance to reflected outgoing radiance density at a surface, with the incident cosine accounted for in the transport integral.",
+      "rho/pi, in inverse steradians.",
+      "Different models use different mappings, such as alpha=r^2. Without the encoding, the same stored value has different highlight behavior.",
+      "5/pi, approximately 1.59155 W/(m^2 sr).",
+      "These are densities, not total reflected fractions. Energy constraints apply to the appropriately weighted integral, not a pointwise upper bound of one."
+    ],
+    "exercise": "Implement lambert(rho, irradiance) with finite inputs, 0<=rho<=1 and nonnegative irradiance.",
+    "focused_reading": "S13: radiometric quantities. S14: microfacet distributions. S03: metallic-roughness parameter semantics. R23: diffuse and light transport."
+  },
+  {
+    "id": "23.2",
+    "title": "Textures, mipmaps, filtering and tangent-space detail",
+    "outcome": "Control aliasing while preserving the meaning of texture data.",
+    "practical_assignment": "Render a receding textured floor with and without mipmaps and inspect a normal-mapped seam. Pass: report texture storage including mip levels and explain why non-color data needs its own filtering policy.",
+    "assigned_reading": "R23: Textures and Sampling and Reconstruction; R21: texture images, samplers and mipmaps.",
+    "quiz_question_count": 3,
+    "module": 23,
+    "module_title": "Lighting, materials and real-time image quality",
+    "quiz": [
+      "What problem do mipmaps primarily address?",
+      "What is the approximate total mip-chain storage factor?",
+      "Why can mirrored UVs break normal mapping?"
+    ],
+    "teaching": "### Textures are sampled signals\nA texture is a discrete signal evaluated over a surface footprint. When many texels project onto one pixel, selecting a single nearest sample does not summarize that footprint; it aliases. Bilinear interpolation smooths between nearby samples but does not by itself provide the required large-footprint prefilter. A mip pyramid stores progressively filtered resolutions so minifying samples can use a coarser representation. [S15]\n\nA full square power-of-two pyramid has N^2+(N/2)^2+...+1 texels. The geometric series approaches 4/3 of the base size. This factor is about texel count under those assumptions; row alignment, block compression, array layers and implementation allocation rules can change actual memory. Count the real level dimensions when sizes are not powers of two.\n\n### Filter according to meaning\nDecode color into the chosen linear-light working representation before averaging it for mip generation. Then encode or store the result according to the runtime texture format. Averaging nonlinear color bytes changes the represented energy. Conversely, roughness, occlusion and normals are not color and should not receive an automatic sRGB decode. Normal-vector filtering may require renormalization and a policy for the lost subpixel distribution; renormalization alone is not a full antialiasing model for specular response. [S03, S15]\n\nAlpha needs its own contract. Straight-alpha and premultiplied-alpha content require different filtering and compositing treatment. For cutout foliage, ordinary averaging can change apparent coverage at distant mip levels. Document whether the experiment preserves alpha coverage; do not silently call any averaged mask equivalent.\n\n### A tangent frame has handedness\nA tangent-space normal is decoded, transformed by the tangent/bitangent/normal frame and normalized. If tangent t and geometric normal n are orthogonalized, a common bitangent construction is b=sign*cross(n,t), where sign records handedness. Mirrored UV islands can flip that sign. A tangent basis created by one convention and a normal map baked using another can produce a seam despite individually valid vectors. [S03]\n\nDegenerate UV parameterizations cannot provide a meaningful inverse mapping for a tangent basis. Detect them and choose a documented fallback rather than dividing by a near-zero UV determinant. Include a mirrored-UV seam and nonuniformly scaled object in the validation scene.\n\n### Isotropic and anisotropic footprints\nA receding floor produces a long, thin texture footprint. An isotropic mip choice must compromise between aliasing along one direction and unnecessary blur along the other. Anisotropic filtering samples a more elongated footprint within hardware and sampler limits. It is a quality/cost decision, not a guarantee that every high-frequency pattern can be perfectly reconstructed.\n\nBegin with nearest and bilinear sampling, then mip selection, then compare supported anisotropy. Keep camera, resolution, texture and motion identical. Record the selected level or footprint estimate in a debug view. A nicer still screenshot can hide shimmer during motion, so include a fixed camera path as well as a single image.",
+    "worked": "A 256-by-256 base texture has 65,536 texels. The full chain is 65,536+16,384+4,096+1,024+256+64+16+4+1=87,381 texels. At four bytes per texel, that is 349,524 payload bytes, before alignment or metadata. The exact factor is 87,381/65,536, slightly less than 4/3.\n\nFor color samples black and white, linear averaging gives 0.5, which becomes approximately 0.7354 under sRGB encoding. For a normal channel storing 0.5, the intended decoded signed component may be zero; applying sRGB decoding first would yield about 0.214 and then approximately -0.572 after remapping, an entirely different vector component.\n\nFor n=(0,0,1), t=(1,0,0), cross(n,t)=(0,1,0). A mirrored island with sign=-1 needs b=(0,-1,0). Omitting that sign flips how the normal map's second axis is interpreted.",
+    "steps": [
+      "Generate a mip chain for a small known color texture in linear light and verify exact dimensions and texel counts.",
+      "Render a receding checkerboard with nearest sampling, bilinear sampling and mip sampling at identical resolution.",
+      "Add a tangent-space normal test with a mirrored UV island and explicit handedness.",
+      "Record texture payload, selected levels and any supported anisotropic filtering setting. Include a short repeatable camera-motion sequence.",
+      "Test one non-color map and explain its filtering policy separately from the color map."
+    ],
+    "checks": [
+      "A 256-square RGBA8 chain has 87,381 texels and 349,524 payload bytes.",
+      "The seam test correctly accounts for tangent handedness.",
+      "Color mip generation and non-color data handling are distinct and reproducible."
+    ],
+    "troubleshooting": "A stable blur is not proof that aliasing was solved correctly. Inspect motion and level selection. A single mirrored seam usually points to tangent conventions; uniformly wrong normal directions can instead indicate channel or color decoding.",
+    "extra_quiz": [
+      "How many texels and RGBA8 payload bytes are in the full 256-by-256 mip chain?",
+      "For n=(0,0,1), t=(1,0,0) and handedness -1, what bitangent is required?"
+    ],
+    "answers": [
+      "Aliasing under minification by supplying prefiltered lower-resolution representations; they do not automatically solve every sampling problem.",
+      "Approximately 4/3 of the base texel count for a full square power-of-two chain.",
+      "They can reverse the tangent frame orientation. A mismatched or omitted handedness sign transforms tangent-space detail incorrectly.",
+      "87,381 texels and 349,524 bytes, excluding allocation overhead.",
+      "(0,-1,0), because b=-cross(n,t)."
+    ],
+    "exercise": "Implement mip_texels(width, height) using floor-halving to a minimum of one on each axis until both reach one.",
+    "focused_reading": "S15: image-texture filtering and mipmaps. S03: color/data and tangent conventions. R23: sampled reconstruction."
+  },
+  {
+    "id": "23.3",
+    "title": "Shadows, light selection and rendering-path tradeoffs",
+    "outcome": "Choose a lighting architecture from scene and bandwidth requirements.",
+    "practical_assignment": "Implement shadow mapping and compare a simple forward path with tiled light selection or a small deferred prototype. Pass: disclose buffer sizes, light counts, transparency limitations and measured frame costs.",
+    "assigned_reading": "R19: real-time rendering and shadows; R23: Lights and Light Transport.",
+    "quiz_question_count": 3,
+    "module": 23,
+    "module_title": "Lighting, materials and real-time image quality",
+    "quiz": [
+      "Why can excessive shadow bias be visible?",
+      "Does deferred rendering remove bandwidth cost?",
+      "What determines whether clustered lighting helps?"
+    ],
+    "teaching": "### A shadow map is another visibility computation\nRender depth from the light's viewpoint. For a visible camera sample, transform its position into the same light clip convention and compare its depth with the stored light-visible depth. Samples outside the light's coverage need an explicit policy, not an accidental clamped texture lookup. A shadow map is finite-resolution evidence of visibility from one light, not a complete solution to global illumination.\n\nSelf-shadowing can arise from finite precision and different sampling of the receiver. A small depth bias can reduce this acne, but excessive bias detaches the shadow from the object, often called peter-panning. The sign and scale depend on the chosen depth convention, comparison and projection. Slope-sensitive bias and normal offsets address different geometric effects. First test a flat receiver and a small hovering object so the tradeoff is visible. [R19]\n\nPercentage-closer filtering averages nearby depth-comparison results. It does not simply blur the depth texture and then compare once; those operations are not equivalent. Cascades, temporal stabilization and advanced soft-shadow methods are extensions after the basic comparison passes. A directional-light shadow should not swim merely because a camera moved a tiny amount without an explained projection change.\n\n### Choose where lighting work happens\nIn a simple forward renderer, geometry is drawn and shaded with selected lights directly into the color target. Its simplicity is useful for the small engine. In deferred shading, a geometry pass stores surface attributes in a G-buffer and a later pass performs lighting. That can reduce repeated shading for certain scenes, but introduces storage and bandwidth and complicates some combinations of transparency, material diversity and multisampling.\n\nTiled or clustered light selection assigns candidate lights to screen-space or screen/depth regions. It can benefit either forward or deferred rendering by reducing irrelevant light evaluations. Its cost includes building the lists, storing them, managing overflow and looking them up. Scene-dependent rejection is the mechanism; the word clustered is not itself a performance result. [R19]\n\n### Build a cost model you can test\nEstimate pixels, light candidates, render-target bytes and passes. Then measure the declared scene. For each path, hold resolution, camera, visible content, light set and quality constant. A path that quietly drops lights is not a fair speed comparison. Overflow handling is part of correctness: a fixed-size list must either use a supported fallback, spill safely or report a documented quality reduction.\n\nTrack transparent geometry separately. A deferred opaque pass does not automatically solve ordered translucent composition. Keep the initial scope small: opaque objects, one directional shadow and a controlled point-light set. Add a transparent test only with a declared path and limitations.\n\n### Interpret the evidence carefully\nSeparate CPU list-building time from GPU lighting time and full-frame time. Report distributions, not only one number. A simplified arithmetic bandwidth estimate is a planning bound, not measured memory traffic; caches, compression, tiling and implementation details matter. The module's outcome is the ability to justify a renderer configuration and demonstrate its limits, not to prove that one architecture wins every scene.",
+    "worked": "Suppose a 1920-by-1080 G-buffer stores 16 bytes per sample across its chosen attachments. One complete logical write is 1920*1080*16=33,177,600 bytes, about 31.64 MiB. At 60 frames per second, that alone is roughly 1.99 GB/s of logical payload. Reading it once for lighting doubles this simplified traffic estimate; depth, final color, cache behavior and compression are not included.\n\nWith 256 lights and 2,073,600 visible pixels, naive all-lights shading evaluates about 530.8 million pixel/light candidates before rejection inside the shader. If clustering reduces the average candidate set to 12, the analogous count is 24.9 million, plus list-building and lookup overhead. That is a hypothesis for measurement, not a guaranteed 21-fold speedup.\n\nFor conventional increasing depth, compare receiver_depth-bias <= shadow_depth. Increasing a positive bias makes the test more permissive and can detach contact shadows. Reverse depth needs a correspondingly consistent rule rather than copying this sign blindly.",
+    "steps": [
+      "Implement a single shadow map with an explicit light transform, depth convention and outside-coverage policy.",
+      "Test acne and detachment on a flat plane, varying bias while holding everything else fixed.",
+      "Implement a simple forward baseline and one light-selection or deferred comparison path.",
+      "Test zero, few and many lights, plus list overflow and one transparency limitation.",
+      "Record attachment payload, actual light candidates, CPU/GPU timing scopes and equal-quality comparison images."
+    ],
+    "checks": [
+      "The shadow test demonstrates both insufficient and excessive bias without hiding either.",
+      "The comparison keeps scene and quality fixed and does not silently discard overflowing lights.",
+      "Reported bandwidth arithmetic is distinguished from hardware measurement."
+    ],
+    "troubleshooting": "Floating shadows suggest excessive bias or a depth-sign error. Shadows only on one side suggest light projection or clipping. A faster clustered path with missing lights is a correctness failure until a deliberate quality policy is documented.",
+    "extra_quiz": [
+      "What is the logical payload of a 1920-by-1080, 16-byte-per-pixel G-buffer write?",
+      "A tile light list has capacity 64 but receives 80 lights. What makes overflow handling an engineering requirement rather than an optional optimization?"
+    ],
+    "answers": [
+      "It can detach shadows from their casters or erase contact shadows, trading one artifact for another.",
+      "No. It adds or reorganizes attribute storage and traffic; actual performance depends on the implementation and scene.",
+      "The distribution and count of lights and visible geometry, rejection effectiveness, list-building cost, memory traffic and hardware execution behavior.",
+      "33,177,600 bytes, about 31.64 MiB, before other attachments or implementation overhead.",
+      "Out-of-bounds writes are unsafe and silent light loss changes the result. The implementation needs a bounded spill, supported fallback or explicit measured quality policy."
+    ],
+    "exercise": "Implement attachment_bytes(width, height, bytes_per_pixel, samples) with positive integer validation.",
+    "focused_reading": "R19: shadow mapping and real-time rendering paths. R23: lights and visibility. S07: depth-write to shader-read dependency for a native shadow map."
+  },
+  {
+    "id": "23.4",
+    "title": "HDR, tone mapping, temporal reconstruction and validation",
+    "outcome": "Separate display mapping from reconstruction and simulation correctness.",
+    "practical_assignment": "Add exposure, a documented tone mapper and a basic temporal accumulation experiment. Pass: capture a camera cut and disocclusion test, show failure modes, and compare both still-image error and motion behavior.",
+    "assigned_reading": "R23: Film and Imaging and Sampling; R19: anti-aliasing and image processing.",
+    "quiz_question_count": 3,
+    "module": 23,
+    "module_title": "Lighting, materials and real-time image quality",
+    "quiz": [
+      "Are tone mapping and correct light transport the same task?",
+      "Why reject history at a camera cut?",
+      "Why are still screenshots insufficient for temporal methods?"
+    ],
+    "teaching": "### HDR storage and HDR display are different claims\nAn internal high-dynamic-range buffer can store scene values above one without implying that the application drives an HDR display. The first engine can render into floating-point linear RGB, apply exposure and a tone mapper, and present a standard-dynamic-range sRGB output. State this precisely. Clamping intermediate lighting to [0,1] destroys highlight information before the display mapping can use it.\n\nExposure scales the scene-linear value; an exposure change of e stops multiplies it by 2^e. A simple teaching tone mapper is T(x)=x/(1+x) for nonnegative x. It compresses highlights but is not a complete photographic or color-appearance model. Applying it independently per RGB channel can shift chromatic relationships. Document that limitation instead of naming the result physically correct. Output transfer encoding comes after tone mapping, exactly once. [R23]\n\n### Temporal reuse needs correspondence\nTemporal accumulation combines a current sample with history, often Hnew=(1-w)*C+w*Hreprojected. The history must represent the same visible surface or signal. Reprojection uses current and previous transforms or motion vectors under an explicit pixel/UV convention. Camera motion and object motion are distinct sources; omitting either can put history on the wrong object.\n\nA camera cut breaks the correspondence. Disocclusion reveals surfaces whose useful history may not exist. Resolution changes, projection changes, large exposure changes and changes to jitter policy can also invalidate or require transforming history. Compare depth, identity or other available signals conservatively, and reject or reduce history when correspondence is not credible. An old sample is not inherently better because it was expensive to compute. [R19]\n\n### Jitter and motion are not interchangeable\nSubpixel camera jitter varies sample locations so multiple frames can gather additional information. Motion vectors describe movement of the represented surface between frames. Their conventions must account for whether jitter is included or excluded. Incorrectly mixing these transforms can cause a static scene to blur or crawl. Begin with an unjittered static accumulation experiment, then add a known subpixel pattern and a controlled camera path.\n\nNeighborhood clipping or clamping can suppress ghosting but can also bias the result or remove detail. Treat it as a heuristic with visible tradeoffs. A basic temporal experiment is not equivalent to a production reconstruction system, frame generation or a vendor upscaler.\n\n### Validate space and time\nA still image may look cleaner while motion produces long trails. Preserve both a fixed-frame image comparison and a repeatable sequence containing a camera cut, fast object motion, disocclusion and thin geometry. Compare to a more heavily sampled reference when possible. State whether error is measured in linear scene values, tone-mapped linear values or encoded display values; the choice changes the meaning of the number.\n\nA useful test makes history obviously wrong: current value 0.2, old value 1.0 and a camera cut. With history weight 0.9, accidental reuse yields 0.92. Correct rejection yields 0.2. This numerical fixture cannot validate all visual quality, but it decisively detects a missing reset path.",
+    "worked": "For scene-linear luminance x=4 and exposure -1 stop, the exposed value is 4*2^-1=2. The teaching tone mapper gives 2/(1+2)=2/3. sRGB encoding gives approximately 0.8360. Calling 2/3 the final encoded pixel would skip the output transfer step.\n\nFor C=0.2, H=1.0 and history weight w=0.9, the blend is 0.1*0.2+0.9*1=0.92. At a camera cut, reject history so the result is C=0.2. With a valid static history of H=0.21, the same weight gives 0.209, illustrating why correspondence determines whether averaging is useful.\n\nFor a 10-by-10 RGB comparison with absolute channel errors totaling 6.0, mean absolute error is 6/(10*10*3)=0.02. Label the color domain and reference image; without them, the number is not reproducible or interpretable.",
+    "steps": [
+      "Add a floating-point linear intermediate, exposure in stops and the documented teaching tone mapper.",
+      "Keep raw HDR values and encoded previews separate. Test values 0,0.18,1,4 and a nonfinite input.",
+      "Implement a basic temporal accumulation experiment with a visible history-valid flag.",
+      "Run camera-cut, disocclusion, resize and fast-motion sequences; capture failure cases as well as corrected output.",
+      "Report a still-image error metric in a stated domain and describe motion behavior separately."
+    ],
+    "checks": [
+      "Exposure -1 stop maps input 4 to exposed 2, tone-mapped 2/3 and encoded about 0.836.",
+      "Camera-cut fixture outputs 0.2 rather than the stale-history result 0.92.",
+      "The report distinguishes internal HDR, SDR presentation, tone mapping and temporal reconstruction."
+    ],
+    "troubleshooting": "A dark output can result from encoding being skipped; fading trails indicate stale correspondence. A metric improving while thin objects vanish suggests the chosen metric is not sufficient to judge the temporal failure.",
+    "extra_quiz": [
+      "Apply -1 exposure stop and T(x)=x/(1+x) to scene value 4. What value reaches the output transfer encoder?",
+      "Current sample is 0.2, history 1.0, weight 0.9. What are the blended value and correct camera-cut value?"
+    ],
+    "answers": [
+      "No. Tone mapping transforms values for presentation; it does not repair incorrect transport or lighting units.",
+      "The old image generally does not correspond to the newly visible surfaces or sample positions, so reuse can create severe ghosting.",
+      "They hide motion trails, instability, disocclusion failures and history behavior over time.",
+      "2/3. Exposure gives 2, then tone mapping gives 2/(1+2).",
+      "Blended 0.92; after rejecting history at the cut, 0.2."
+    ],
+    "exercise": "Implement temporal_sample(current, history, weight, history_valid) with finite values and a weight constrained to [0,1].",
+    "focused_reading": "R23: film, imaging and sampling. R19: antialiasing and reconstruction. S03: distinguish display color encoding from data handling."
+  },
+  {
+    "id": "24.1",
+    "title": "Fixed updates, interpolation and overload policy",
+    "outcome": "Separate simulation time from rendering time and real elapsed time.",
+    "practical_assignment": "Implement an accumulator loop and inject long frames. Pass: simulation advances consistently under normal load, interpolation is bounded, and the overload behavior is tested rather than silently spiraling.",
+    "assigned_reading": "R27: Fix Your Timestep!; R20: game loops and timing. Use the article as a starting model, not a guarantee of determinism.",
+    "quiz_question_count": 3,
+    "module": 24,
+    "module_title": "Engine architecture, simulation and resource ownership",
+    "quiz": [
+      "What fraction remains after two 10 ms steps from 25 ms?",
+      "Does a fixed timestep alone guarantee determinism?",
+      "Why must catch-up work be bounded or otherwise controlled?"
+    ],
+    "teaching": "### Simulation time is a design choice\nA rendering callback arrives according to scheduling, device load and presentation constraints. Game rules should not silently inherit that variable interval. Maintain a fixed simulation step h and an accumulator of accepted elapsed time. Add elapsed time, run complete steps while enough time remains, and retain the fractional remainder for rendering. The simulation advances in whole ticks, while rendering can interpolate between saved states. [R27]\n\nKeep previous and current simulation snapshots. After completing available steps, alpha=accumulator/h should lie in [0,1) under the selected policy. Rendering lerp(previous,current,alpha) intentionally displays a state between two completed ticks, generally about one tick behind the latest real-time trajectory. It avoids predicting an uncomputed future state but introduces that interpolation delay. Camera or user-interface elements may need their own latency policy.\n\n### Inputs belong to ticks\nSample or receive input events with enough timing information to assign them consistently to simulation ticks. Do not apply the same press repeatedly merely because multiple catch-up ticks occur. Separate continuous state, such as a held movement direction, from discrete edges, such as a one-time jump press. Record tick-indexed input when building replay tests.\n\nFixed h is not a universal determinism switch. Random-number order, floating-point behavior, unordered iteration, task races, input assignment and external I/O can all change results. State the reproducibility level actually supported: same executable and input stream, same platform family, or cross-platform bit identity. A successful same-process test does not prove the strongest claim.\n\n### Overload needs an explicit response\nAn application that always tries to simulate all accumulated time can fall behind: catch-up work causes a longer frame, which creates still more catch-up work. Choose a policy. A teaching interactive policy clamps an extreme incoming frame interval, performs at most K steps, then discards whole remaining ticks while retaining a sub-tick remainder. Record every discarded interval. This sacrifices synchronization with real elapsed time to protect responsiveness; it must not be used silently in a network-authoritative simulation or scientific model.\n\nAlternatives include slowing presentation, reducing optional work, pausing with a warning or running a headless simulation without dropping ticks. The correct policy depends on product requirements. A cap of eight steps is not automatically better than four; it changes the maximum compute burst and tolerated latency.\n\n### Measure three clocks\nReport real elapsed time, accepted simulation time and dropped time separately. The invariant for the simple drop policy is old_accumulator+elapsed = steps*h + new_accumulator + dropped, with all terms in the same units. Use integer time units in small tests so fractional-millisecond arithmetic does not obscure the policy. The C++ reference uses a checked integer-microsecond budget helper.\n\nTest normal cadence, a 100-ms stall, repeated stalls, zero elapsed time and invalid negative input. Then verify a world update with constant velocity. Keep a render interpolation test separate from the simulation state test; comparing rendered positions at different callback times is not the same as comparing states after the same tick count.",
+    "worked": "With h=10 ms and accumulated time 25 ms, execute two steps and retain 5 ms. The interpolation fraction is 5/10=0.5, matching the original quiz. If previous x=1.0 and current x=1.2, render x=1.1.\n\nUnder a maximum of four steps, a 105-ms accumulator executes 40 ms of simulation. The 65-ms remainder contains six whole 10-ms ticks and 5 ms. The teaching drop policy records 60 ms dropped and retains 5 ms, so alpha=0.5. The accounting is 105=40+60+5.\n\nFor velocity 3 units/s and h=0.01 s, each tick adds 0.03 units. One hundred ticks advance 3 units under this simple integration rule. Ten calls carrying 100 ms each can produce a different tick count when the overload cap discards time, so do not expect the same result without considering the policy.",
+    "steps": [
+      "Implement a fixed-step accumulator with previous/current snapshots and a documented integer or floating time representation.",
+      "Assign discrete and held input consistently to ticks. Add a deterministic tick-indexed input fixture.",
+      "Implement and name an overload policy; track dropped time rather than hiding it.",
+      "Test the 25-ms and 105-ms fixtures and a constant-velocity world with different normal rendering cadences.",
+      "Report simulation state separately from interpolated presentation, and state the supported determinism scope."
+    ],
+    "checks": [
+      "25 ms with h=10 produces two steps, remainder 5 and alpha 0.5.",
+      "105 ms with h=10 and cap four produces four steps, remainder 5 and dropped 60 under the teaching policy.",
+      "The time-accounting identity holds and alpha remains in [0,1)."
+    ],
+    "troubleshooting": "Objects that speed up at high frame rates may still use callback delta inside fixed rules. A jump applied several times after a stall suggests discrete input was not consumed per tick. Smooth output can hide dropped simulation time; inspect counters.",
+    "extra_quiz": [
+      "Under the teaching drop policy, h=10 ms, max steps=4 and accumulated time=105 ms. Give steps, remainder, dropped time and alpha.",
+      "Why can two runs using the same fixed h still diverge? Give two causes other than h."
+    ],
+    "answers": [
+      "5 ms remains, which is a fraction 0.5 of a 10-ms step.",
+      "No. It controls the integration interval but not all sources of nondeterministic behavior.",
+      "Unbounded catch-up can generate more lateness than it removes, starving presentation and input or causing an overload spiral.",
+      "Four steps; 5 ms remainder; 60 ms dropped; alpha 0.5.",
+      "Examples include different input-to-tick assignment, random-number order, floating-point behavior, unstable container iteration or thread races."
+    ],
+    "exercise": "Implement step_budget(accumulator_us, elapsed_us, step_us, max_steps) returning steps, remainder_us and dropped_us under the documented whole-tick drop policy.",
+    "focused_reading": "R27: accumulator and overload model. R20: engine timing. Treat the worked policy as an explicit design choice, not universal advice."
+  },
+  {
+    "id": "24.2",
+    "title": "Entities, components, handles and data-oriented storage",
+    "outcome": "Design identity separately from memory location.",
+    "practical_assignment": "Implement a small generational entity store with two components and deferred destruction. Pass: stale handles fail safely, iteration survives queued changes, and benchmarks include creation, deletion and common queries.",
+    "assigned_reading": "R20: game-state organization; R26: gameplay architecture for comparison; R11: lifetime and interface guidance.",
+    "quiz_question_count": 3,
+    "module": 24,
+    "module_title": "Engine architecture, simulation and resource ownership",
+    "quiz": [
+      "Why separate identity from an object address?",
+      "Is handle (7,3) valid for a slot now at generation 4?",
+      "Why defer structural changes during a component iteration?"
+    ],
+    "teaching": "### Identity must survive storage changes\nAn entity is an identity in the simulated world. Its memory address is one possible temporary location, not its durable name. A vector can reallocate, a dense component store can move its last element into a removed slot, and an allocator can reuse a freed address for a different object. A pointer that still has plausible bits may therefore refer to the wrong lifetime.\n\nUse a handle consisting of slot index and generation. A live slot stores its current generation; lookup succeeds only if the index is in range, the slot is alive and generations match. On destruction, invalidate the slot and advance its generation before reuse. A stale handle then fails instead of silently referring to the replacement entity. A finite generation counter can wrap, so choose a sufficiently wide counter and a stated wrap policy, such as permanently retiring an exhausted slot. [R11]\n\n### Components organize data around access\nBegin with position and velocity components. An array-of-structures representation groups one entity's fields; a structure-of-arrays representation groups the same field across entities. The best choice depends on the hot queries and mutation patterns. Updating every position from every velocity may favor contiguous field arrays, but frequent heterogeneous operations can change the tradeoff. Measure a relevant workload rather than adopting data-oriented terminology as proof of speed.\n\nA sparse-set design commonly maps entity slots to dense component indices and maps dense indices back to entities. Removal can swap the last dense element into a hole and update the moved entity's reverse mapping. This is efficient but makes borrowed references short-lived. A handle lookup at a synchronization boundary is safer than keeping an unchecked component pointer across structural changes.\n\n### Iteration and mutation need a transaction boundary\nDestroying or creating entities while traversing a dense store can invalidate iteration and skip or repeat items. Queue structural commands during the update, then apply them at a defined boundary. Settle conflicting commands deterministically: a queued destroy followed by a write to the same handle should reject or follow a documented policy. Do not let vector iteration order determine the outcome accidentally.\n\nDeferred destruction does not mean an entity is safe for all uses until memory is freed. The world must define whether a pending-destroy entity participates in later systems within the same tick. GPU resource retirement is another layer: removing an entity does not free a mesh still referenced by in-flight draws.\n\n### Durable IDs and runtime handles are different\nA save file may use stable scene IDs and translate them to runtime handles when loaded. Saving only slot index and generation couples the format to a transient allocation history. Preserve relationships using the durable identity scheme, then resolve them transactionally after creating the new world.\n\nThe required evidence includes stale-handle tests, duplicate destruction, invalid index, slot reuse and mutation during iteration. Benchmarks should include creation, destruction and common queries, with input size and iteration order stated. A faster store that accepts stale handles has failed the problem it was meant to solve.",
+    "worked": "Handle (7,3) references slot 7 at generation 3. Destroy the entity, increment that slot to generation 4 and reuse it. Lookup of (7,3) must fail; lookup of the new (7,4) succeeds. Comparing only index 7 would confuse two different lifetimes.\n\nIn a dense position array, entity A is at index 0, B at 1 and C at 2. Remove B by moving C into index 1. Update C's sparse mapping to 1, shorten the dense array, and invalidate B's mapping. A borrowed pointer to index 1 now names C, demonstrating why address-based identity is unsafe.\n\nDuring a tick, queue destroy(B) while iterating A,B,C. Complete the selected iteration policy, then apply the command once at the barrier. Test that C was not accidentally skipped by an immediate erase and that a repeated destroy(B) is rejected or treated idempotently according to the documented API.",
+    "steps": [
+      "Implement a generational entity store with checked lookup and a generation-exhaustion policy.",
+      "Add position and velocity components. Choose AoS or SoA based on a written expected query.",
+      "Queue structural changes during iteration and apply them at a defined boundary.",
+      "Test slot reuse, stale handle, duplicate destruction, invalid index and conflicting deferred commands.",
+      "Benchmark creation, destruction and a position/velocity query with a reproducible dataset. Keep correctness tests enabled separately."
+    ],
+    "checks": [
+      "Handle (7,3) is rejected after slot 7 advances to generation 4.",
+      "Deferred mutation neither skips nor repeats unintended entities.",
+      "Durable save identity is not an unchecked raw pointer or dense-array index."
+    ],
+    "troubleshooting": "A deletion bug that appears only when removing a middle element often indicates an uncorrected reverse mapping. A stale handle that resolves after reuse means the generation comparison or alive check is missing.",
+    "extra_quiz": [
+      "After swap-removing dense element B and moving C into its slot, which mapping must change?",
+      "Why should a durable scene ID normally be separate from a runtime slot/generation handle?"
+    ],
+    "answers": [
+      "Storage can move or be reused independently of the logical entity lifetime. Identity must not depend on an address remaining fixed.",
+      "No. The generations differ, so it references an expired lifetime.",
+      "Immediate insertion or removal can invalidate references and iteration, skip elements or create order-dependent behavior.",
+      "C's entity-to-dense-index mapping must point to the vacated slot now containing C. B's mapping must be invalidated.",
+      "The runtime handle depends on allocation history and slot reuse. A stable scene identity can be resolved to fresh handles after loading without preserving memory layout."
+    ],
+    "exercise": "Implement handle_valid(index, generation, slots), where each slot stores alive and generation, with range-safe lookup.",
+    "focused_reading": "R11: lifetime, ownership and interfaces. R20: game-state organization. R26: compare, rather than replace, the small implementation."
+  },
+  {
+    "id": "24.3",
+    "title": "Allocators, task graphs and frame-resource lifetime",
+    "outcome": "Make temporary storage and parallel dependencies observable.",
+    "practical_assignment": "Create a serial-then-parallel task graph and a checked temporary arena. Pass: resetting live storage is detected in tests, dependency order is verified, and the critical path is identified from a trace.",
+    "assigned_reading": "R11: ownership and concurrency; R20: engine architecture; R26: engine systems as a comparative implementation.",
+    "quiz_question_count": 3,
+    "module": 24,
+    "module_title": "Engine architecture, simulation and resource ownership",
+    "quiz": [
+      "When is resetting an arena safe?",
+      "Can task C consume A before A has completed its required output?",
+      "Why implement a serial graph executor first?"
+    ],
+    "teaching": "### Temporary memory is a lifetime claim\nA linear arena allocates by advancing an offset through a fixed block. Resetting the offset is cheap only because the program promises that no remaining consumer will use any old allocation. That promise includes worker tasks, callbacks and GPU work, not just the function that allocated the memory. An arena's convenience does not exempt it from alignment, bounds or object-lifetime rules.\n\nFor size n and alignment a, round the current offset up to an aligned position before checking that n fits. Use overflow-safe arithmetic. A C++ byte arena that returns raw storage does not automatically construct objects or call destructors. The small exercise allocates byte ranges only; extending it to nontrivial C++ objects requires explicit lifetime management. [R11]\n\n### A task graph exposes ordering\nA task is work with declared inputs, outputs and dependencies. A directed acyclic graph permits a task only after its predecessors have produced the required outputs. First implement a serial topological executor with cycle detection and stable tie order. This provides a reference execution order and makes missing dependencies easier to reproduce before adding scheduling nondeterminism.\n\nEdges alone are not a complete race proof. If two tasks write the same array but neither depends on the other, a graph scheduler may legally run them together while the program races. Declare resource access or partition ownership so the graph can be checked against the actual data. Separate a logical task graph from the scheduling strategy that maps ready tasks to worker threads.\n\n### The critical path bounds improvement\nIf A and B can run independently and C consumes both, ideal parallel time is at least max(time(A),time(B))+time(C), not the sum divided by worker count. More workers do not shorten a serial dependency chain. Scheduling overhead, cache behavior, contention and load imbalance can increase actual time beyond that lower bound.\n\nUse a trace with start, finish, worker, dependencies and named resources. A bar chart is less useful when tasks are labeled only job1 and job2. Compare a serial run and a parallel run on identical inputs and validate results before analyzing speedup. A parallel task graph that produces wrong output has no meaningful performance win.\n\n### Frame ownership joins CPU and GPU lifetimes\nA frame arena can contain CPU draw packets, while a staging arena may contain bytes needed for GPU upload. Those may have different retirement points. The CPU packet arena can reset after all CPU consumers copy what they need; GPU-visible staging storage may require submission completion. Grouping both under the name frame memory does not make their lifetimes equal.\n\nUse a live-use token or completion serial in the reference model. Refuse reset while any use is outstanding. In a multiqueue or multithreaded engine, the token must actually represent every consumer. A counter modified without synchronization merely replaces one lifetime bug with a race.\n\n### Make failure tests constructive\nSubmit a task that retains a range, then attempt reset; the checked model must reject it. Add a dependency cycle and verify an actionable error. Remove a required edge in a scratch copy and demonstrate the discrepancy with the serial oracle. Record the limitation that the packaged scheduler model is serial; a race-free parallel executor is part of the full lab, not proven by a topological-sort test.",
+    "worked": "An arena has capacity 64 bytes and offset 17. A request for 8 bytes aligned to 16 begins at 32 and ends at 40. The padding is 15 bytes, and the next offset is 40. A request that would end above 64 must fail without changing the previous offset.\n\nTasks A=2 ms and B=5 ms are independent; C=3 ms requires both. Serial time is 10 ms. Ideal unlimited-worker time is at least 5+3=8 ms, for a maximum speedup of 1.25 under this model. Scheduling overhead can make the actual speedup smaller.\n\nIf a frame arena's last use is submission 42 and the completed serial is 41, resetting it is invalid even when the CPU has already recorded frame 43. Its lifecycle follows the consumer's completion, not the producer's frame number.",
+    "steps": [
+      "Implement a checked aligned byte arena with nonmutating failure and a live-use reset guard.",
+      "Create a serial topological graph executor with unknown-dependency and cycle detection.",
+      "Declare task reads/writes and identify which independent tasks truly access disjoint or read-only data.",
+      "Add a small parallel executor in the full lab, compare results to the serial oracle and collect task traces.",
+      "Test resetting live storage, missing dependencies and a cycle. Compute the example critical-path bound before measuring."
+    ],
+    "checks": [
+      "The alignment fixture starts at 32 and ends at 40; failed allocations preserve the old offset.",
+      "Cycles and missing prerequisite names produce readable failures.",
+      "Arena reset waits for every declared consumer; parallel output matches the reference under the tested model."
+    ],
+    "troubleshooting": "Random data corruption after a frame boundary often indicates premature arena reuse. Poor scaling with idle workers can indicate a long critical path, not a broken thread pool. Shared writes without dependency or partitioning are races regardless of the graph's acyclic shape.",
+    "extra_quiz": [
+      "At offset 17, what range is used by an 8-byte allocation aligned to 16, and how much padding is inserted?",
+      "For independent A=2 ms, B=5 ms and C=3 ms after both, what are serial time and ideal parallel lower bound?"
+    ],
+    "answers": [
+      "Only after every CPU and GPU consumer of all old allocations is finished and any required object destruction has occurred.",
+      "No. The required producer output must be complete and visible under the data-sharing model before the consumer proceeds.",
+      "It creates a deterministic correctness reference, validates dependencies and detects cycles before scheduling complexity is added.",
+      "Bytes [32,40), with 15 bytes of padding; next offset 40.",
+      "Serial 10 ms, ideal lower bound 8 ms. Additional overhead can increase actual parallel time."
+    ],
+    "exercise": "Implement topo_order(dependencies) with deterministic ready-task order, unknown-node checks and cycle rejection.",
+    "focused_reading": "R11: ownership and concurrency. R20: engine architecture. S05/S07: extend the ownership proof through GPU completion."
+  },
+  {
+    "id": "24.4",
+    "title": "Subsystem boundaries, save formats and reloadability",
+    "outcome": "Choose interfaces that make change and failure manageable.",
+    "practical_assignment": "Add versioned saves and one reloadable asset type. Pass: old supported data migrates, malformed data is rejected without partial world corruption, and subsystem shutdown works after injected initialization failure.",
+    "assigned_reading": "R20: resource management and tools; R26: serialization and gameplay architecture; R11: interfaces and error handling.",
+    "quiz_question_count": 3,
+    "module": 24,
+    "module_title": "Engine architecture, simulation and resource ownership",
+    "quiz": [
+      "Why is a raw memory pointer unsuitable for a durable save?",
+      "What must a format version enable?",
+      "Why test partial initialization failure?"
+    ],
+    "teaching": "### Boundaries should reduce the cost of change\nSeparate world rules from rendering, platform I/O and asset loading. A headless world update should not need a window or a graphics device. The renderer consumes a snapshot or draw description, not unrestricted ownership of every mutable game object. The resource manager resolves asset identities to runtime resources under a declared lifetime policy. The editor requests validated changes through a command interface rather than directly corrupting internal arrays.\n\nAn interface should say who owns inputs, how long borrowed data remains valid, which thread may call it and how failure is reported. A function name like load is not enough: does it block, return a ticket, mutate the live world or build a separate candidate? Choosing these semantics is more important than producing a large inheritance hierarchy. [R11]\n\n### Saves are a schema, not a memory dump\nA durable save stores supported data under an explicit format version. Use stable object IDs, scalar values in declared units and references to named or hashed assets. Do not serialize pointers, container implementation bytes, device handles or accidental padding. Validate types, bounds, finite numbers and referential integrity before committing data to a world.\n\nMigration converts a supported old schema into the current logical model. Unknown future versions should fail clearly unless a deliberate compatibility policy exists. Preserve the original file on a failed migration. A successful parse is not a successful load if it leaves half of the old world replaced by half of the new one.\n\n### Load transactionally\nRead into bounded temporary storage, validate the complete candidate, resolve its references and then publish it at a controlled boundary. The old world remains usable if any earlier step fails. For saving, write a temporary sibling, flush as required, then replace the destination according to the platform's documented behavior. Atomic replacement is not the same as guaranteed durability after power loss; durability requirements can need additional filesystem and directory synchronization.\n\nA small JSON teaching schema is useful because it is inspectable, but JSON does not remove validation duties. Some parsers accept nonstandard NaN values; reject nonfinite transforms explicitly. Limit file bytes, entity counts, strings and nesting appropriate to the declared threat model. A toy parser is not a sandbox for hostile arbitrary files.\n\n### Reload creates overlapping generations\nWhen a shader or texture changes, create a candidate resource while the old resource remains active. Validate the candidate, switch the public handle at a safe boundary and retire the old generation only after its users finish. A failed candidate should leave the old working resource intact. Watch for stale asynchronous completions overwriting a newer successful version; associate requests with a generation or revision token.\n\n### Shutdown tests the architecture\nInitialize subsystems in an order that matches dependencies and clean up in reverse ownership order. Inject failure after platform initialization, after device creation and after partial asset creation. RAII and scoped ownership help only when wrappers encode the real asynchronous lifetime. A destructor that frees GPU-visible memory too soon is still wrong even though it runs automatically.\n\nThe full lab requires one version migration, one malformed-load preservation test, one reloadable asset type and partial-initialization cleanup. The packaged Python schema helper demonstrates validation and migration; it is not a claim that a complete engine's shutdown has already been verified.",
+    "worked": "Version 1 stores an entity's position as x,y,z fields. Version 2 stores position as a three-number array and adds a stable string id. A migration must define where that ID comes from; the teaching fixture uses a known legacy id field and refuses data without it rather than inventing unstable identities.\n\nLoad a candidate containing position=[1,2,NaN]. A permissive JSON parser may produce a floating NaN, but schema validation rejects it. The existing world must retain its prior position. Testing only that an exception occurs is insufficient; assert the old world is unchanged.\n\nA texture reload request for revision 5 finishes after revision 6 has already been published. Compare the completion's revision with the current request token. Discard the stale revision-5 result and retire its temporary allocation; never overwrite revision 6 merely because a callback happened later.",
+    "steps": [
+      "Draw subsystem boundaries with ownership, thread affinity and failure behavior for each interface.",
+      "Define a versioned save schema with stable IDs, finite transforms, size limits and explicit unsupported-version behavior.",
+      "Implement one migration and a candidate-world load path that commits only after full validation.",
+      "Implement one asset reload with revision tokens, preserving the old asset when the candidate fails.",
+      "Inject malformed saves and partial initialization failures; verify old-world preservation and cleanup of exactly the resources that were created."
+    ],
+    "checks": [
+      "Supported legacy data migrates predictably and unsupported versions fail clearly.",
+      "Malformed data does not partially mutate the live world.",
+      "A stale reload completion cannot replace a newer revision."
+    ],
+    "troubleshooting": "A save that works only in the same process may contain pointers or runtime indices. A failed load that leaves missing entities is not transactional. A newly edited texture reverting later suggests out-of-order reload completion.",
+    "extra_quiz": [
+      "Why does atomic file replacement not automatically prove durability after sudden power loss?",
+      "Revision 5 completes after revision 6 is active. What should the reload system do and why?"
+    ],
+    "answers": [
+      "The pointer is a process-specific memory location whose lifetime and address do not survive loading into another process.",
+      "It enables validation of the schema and an explicit migration or rejection policy for supported and unsupported data.",
+      "It exposes leaks, invalid cleanup order and assumptions that every later subsystem was successfully created.",
+      "Atomicity describes which file version is visible as an operation; durability depends on flush and filesystem/platform guarantees for data and metadata.",
+      "Reject or retire the stale revision-5 result without publishing it. Completion order is not request freshness, and revision 6 must remain active."
+    ],
+    "exercise": "Implement validate_scene(document) to migrate the declared version-1 fixture to version 2 and reject duplicate IDs, nonfinite positions and unsupported versions.",
+    "focused_reading": "R11: interfaces and ownership. R20/R26: resources and serialization. Carry Module 20 transactional and failure-testing practices into the engine."
+  },
+  {
+    "id": "25.1",
+    "title": "Importing, cooking and content-addressed asset builds",
+    "outcome": "Treat assets as compiled inputs with dependency tracking.",
+    "practical_assignment": "Build a cooker for one mesh and one image representation. Pass: identical declared inputs reproduce the same result, changed settings invalidate the cache, and corrupted sources produce readable failures.",
+    "assigned_reading": "R20: asset pipelines; R26: asset management and content tools. Apply Module 20 dependency and provenance practices.",
+    "quiz_question_count": 3,
+    "module": 25,
+    "module_title": "Asset pipelines, editors and an integrated engine",
+    "quiz": [
+      "Why distinguish source assets from runtime assets?",
+      "Must a compression-setting change invalidate a cached build?",
+      "Why include tool version in a cache key?"
+    ],
+    "teaching": "### Treat content as compiled input\nSource assets are convenient for authors; runtime assets are convenient for loading, validation and execution. An importer interprets a source representation. A cooker converts it into the engine's declared runtime representation. A build system decides whether the conversion is necessary and records dependencies. Keeping these roles separate makes a failed asset build understandable and prevents the shipping runtime from depending on every authoring tool. [R20, R26]\n\nStart with a deliberately small source schema: an authored triangle mesh and a tiny RGB image. Validate counts, finite coordinates, channel ranges and schema versions before allocating from untrusted sizes. Declare supported units, coordinate conventions, vertex layout and color semantics. Supporting one representation correctly is more useful than accepting an arbitrary filename and crashing later.\n\n### A cache key must describe every relevant input\nA content-addressed build key should cover source bytes or a canonical source representation, dependency digests, importer/cooker version, target format and settings. A change to compression, color treatment or coordinate conversion changes the output contract and must invalidate the old result. A timestamp alone is not a trustworthy content identity.\n\nUse an unambiguous encoding for the key description. Raw concatenation can collide structurally: bytes ab followed by c are indistinguishable from a followed by bc unless lengths or structure are encoded. The teaching cooker hashes a canonical JSON description containing named fields and dependency digests. Sorted keys and fixed separators remove irrelevant serialization differences in that description; they do not make every floating-point or source-format conversion universally deterministic.\n\n### Dependencies make rebuilds transitive\nIf a material depends on a texture and the texture changes, the material's build decision must see the updated dependency digest. A mesh may depend on conversion settings or referenced material definitions even when vertex bytes stay identical. Write the dependency graph, reject cycles where unsupported and store a manifest identifying exactly which inputs produced each output.\n\nSeparate reproducibility from portability. Identical bytes under the declared cooker/toolchain are a testable target. Different compilers or compression libraries may produce different but valid outputs. Include versions in the record and do not promise bit-identical cross-platform results without evidence.\n\n### Publish only complete artifacts\nBuild into a temporary location, validate the output, then publish it. Keep existing valid artifacts intact when a source is corrupted. A cache hit should verify the expected artifact digest or other appropriate integrity check; the existence of a filename is not proof that its contents are complete. Keep diagnostic messages tied to source path and field or element index.\n\nThe included Python cooker uses the standard library and a documented small format, not glTF or a production image compressor. It emits a triangle stream for the C++ CPU renderer and a linear-RGB image mip payload, plus a manifest. Its source image and mesh are original teaching fixtures with a provenance record. The image payload demonstrates cooking and can be inspected by tests; integrating that payload into the runtime texture sampler is a learner task.\n\n### Measure the cold and warm paths\nRun a clean cook, then an unchanged cook, then a setting change, then a dependency change. Record which keys and outputs change. A malformed-source test must leave a readable error, not a half-valid runtime asset. This is the same engineering discipline used for compiling source code, now applied to the engine's content.",
+    "worked": "Let the key description contain source_sha256, dependency_sha256, cooker_version='ge6-1', target='mesh-f32le-v1' and settings={scale:1.0}. Changing scale to 0.01 changes the key even if the source bytes are identical. Changing an absolute checkout directory should not change it because that path is not a semantic input.\n\nThe teaching GEM1 mesh format starts with four magic bytes, a little-endian uint32 vertex count, then eight little-endian f32 values per vertex: x,y,z,u,v,r,g,b. Six vertices use 8+6*32=200 bytes. The loader rejects a count not divisible by three, truncated bytes, extra unexpected payload and nonfinite fields.\n\nAn unchanged build in two fresh output directories should produce the same artifact bytes and manifest under the tested environment. That demonstrates the declared fixture's reproducibility; it does not prove that every future importer will behave identically.",
+    "steps": [
+      "Define and validate one mesh source and one image source, with units, color semantics and bounded sizes.",
+      "Implement a cooker key containing all semantic inputs, dependencies, settings and tool version.",
+      "Cook into temporary files, validate and publish complete artifacts with hashes in a manifest.",
+      "Compare two clean cooks, an unchanged warm run, a setting change and a dependency change.",
+      "Inject malformed source and corrupt cached output; preserve the previous valid artifact or rebuild safely with a readable failure report."
+    ],
+    "checks": [
+      "Identical declared inputs reproduce identical tested artifact bytes.",
+      "Settings and dependency changes invalidate affected keys.",
+      "Corrupt sources or artifacts cannot silently become accepted runtime data."
+    ],
+    "troubleshooting": "An asset that looks stale after editing usually indicates a missing dependency or setting in the key. A rebuild on every machine with unchanged semantic inputs may be hashing absolute paths or timestamps. A cache hit with corrupt bytes means existence was mistaken for integrity.",
+    "extra_quiz": [
+      "Why is hashing raw concatenation of variable-length input blobs risky without framing?",
+      "How many bytes does a GEM1 asset with six vertices occupy under the stated eight-f32-per-vertex layout?"
+    ],
+    "answers": [
+      "They serve different authoring and runtime requirements; cooking provides validated, target-specific data and avoids runtime dependence on authoring formats.",
+      "Yes, when it affects the artifact or its contract. The new setting must be represented in the key.",
+      "A changed converter can change output semantics or bytes for the same source. Versioning makes that dependency explicit.",
+      "Different sequences of blobs can have identical concatenated bytes, such as ab+c and a+bc. Use lengths or a structured canonical description.",
+      "200 bytes: 8-byte header plus 6*32 bytes of vertices."
+    ],
+    "exercise": "Implement asset_key(source_bytes, settings, dependencies, tool_version) with SHA-256 and a canonical structured descriptor.",
+    "focused_reading": "R20/R26: asset pipeline roles. S03: compare a real interchange schema to the small teaching schema. Reuse Module 20 provenance and dependency practices."
+  },
+  {
+    "id": "25.2",
+    "title": "Streaming, residency and memory budgets",
+    "outcome": "Load content without allowing asynchronous work to violate ownership.",
+    "practical_assignment": "Implement a bounded streaming queue with placeholder assets and cancellation. Pass: a forced small budget produces graceful fallback, no use-after-free, and a report of peak rather than only steady-state memory.",
+    "assigned_reading": "R20: resource loading; R26: asset management, asynchronous loading and streaming concepts.",
+    "quiz_question_count": 3,
+    "module": 25,
+    "module_title": "Asset pipelines, editors and an integrated engine",
+    "quiz": [
+      "Why is compressed file size not the complete memory budget?",
+      "What should rendering do while an optional asset is unavailable?",
+      "Why model loading as explicit states?"
+    ],
+    "teaching": "### Loading is a state machine with ownership\nAn asynchronous request should move through explicit states such as requested, reading, decoding, waiting-for-upload, uploading, resident, retiring, cancelled and failed. Each state has an owner and a permitted resource set. The renderer uses a stable placeholder until the required representation is resident. A file read completing does not mean a usable GPU texture exists. [R20, R26]\n\nSeparate the request identity from the resource identity. A handle names the desired asset; a ticket identifies this particular load attempt. Reload, scene change or cancellation can make a completion stale. Check a generation or revision token before publishing the result. Late completions must release their temporary allocations without reviving an unwanted asset.\n\n### Bound every expensive stage\nA small compressed file can expand into a much larger decoded image. During transition, memory can include compressed input, decoded CPU bytes, staging/upload storage, new GPU resident bytes and an old generation waiting for retirement. Count peak overlap, not merely steady-state resident payload.\n\nMaintain separate budgets when memory pools are separate, such as CPU decode and GPU device-local memory. A combined budget model is useful for a simplified exercise but must not be mislabeled as actual hardware accounting. On unified-memory systems, logical CPU/GPU payload counters can double-count shared allocations unless their ownership is understood. Record the estimator's assumptions.\n\nLimit queue depth and in-flight decoded bytes, not just the number of worker threads. Two workers each holding several enormous decoded assets can exceed a memory budget despite a small thread pool. Admission should reserve the expected peak cost before beginning a stage or choose a fallback when an estimate is unavailable.\n\n### Cancellation is not magic reclamation\nA cancellation flag can prevent future stages or publication, but it may not interrupt an operating-system read or a submitted GPU upload. Keep the allocation until the active consumer finishes, then retire it. Never free upload storage simply because the user changed scenes. A state machine should distinguish cancelled-but-in-flight from fully reclaimed.\n\nEviction also has conditions. An asset may be logically unused by the world but still referenced by a submitted frame. Use reference or pin counts for current owners and completion tracking for asynchronous users. Avoid evicting a fallback asset that every missing texture relies on.\n\n### Budget failure is an ordinary case\nForce a tiny budget so the test can reliably exercise rejection and fallback. Select lower-resolution content, defer an optional request, evict eligible content or retain the placeholder according to an explicit priority policy. Essential content can fail the scene load with an actionable error. An endless retry loop that repeatedly decodes an impossible asset is not graceful degradation.\n\nRecord request count, rejected admissions, pending bytes, peak decoded bytes, resident bytes and retirement backlog. Add a cancellation test immediately before completion. The teaching budget and state models help reason about these cases; the complete multithreaded streaming subsystem and GPU-residency measurement remain lab work.",
+    "worked": "Assume an explicitly combined teaching budget of 100 MiB. The engine holds 40 MiB resident data and 20 MiB of existing temporary/retiring data. A new request needs 30 MiB decoded staging plus 20 MiB of new resident data at peak. Its estimated peak is 40+20+30+20=110 MiB, so admission fails even though final resident data would be only 60 MiB after cleanup.\n\nThe valid response may be to finish retiring the 20-MiB old allocation, then admit the request at a 90-MiB peak. It is invalid to free that old allocation early while an in-flight command still references it.\n\nRequest ticket 12 is cancelled while upload is submitted. Completion can move it to retired, releasing staging after the consumer finishes, but cannot publish it as resident. A newer request ticket 13 for the same asset is a separate lifetime and must not inherit ticket 12's cancellation or completion accidentally.",
+    "steps": [
+      "Define load states and which owner holds compressed, decoded, staging, resident and retiring storage in each.",
+      "Implement a bounded request queue with a placeholder and a request revision token.",
+      "Reserve peak memory before admission and distinguish combined teaching estimates from real CPU/GPU pool measurements.",
+      "Cancel at every stage, including after upload submission. Verify late completions never publish stale assets.",
+      "Force a budget too small for one request; verify bounded retry behavior, graceful fallback and a peak-memory report."
+    ],
+    "checks": [
+      "The 110-MiB peak request is rejected under a 100-MiB combined budget.",
+      "Cancelled in-flight work retains storage until its consumers finish.",
+      "Late completions cannot overwrite a newer request or remove its ownership state."
+    ],
+    "troubleshooting": "An out-of-memory event despite low resident usage often comes from overlapping decode/staging/retirement allocations. Assets reappearing after scene changes suggest missing request-generation checks. A cancellation crash often indicates storage was freed before a consumer stopped.",
+    "extra_quiz": [
+      "Under the example 100-MiB budget, why is a request ending at 60 MiB resident still rejected?",
+      "Does cancelling an already submitted upload make its staging allocation immediately reusable?"
+    ],
+    "answers": [
+      "Decoded, staging, GPU-resident and old in-flight generations can coexist; compressed bytes represent only one stage.",
+      "Use an appropriate stable placeholder or supported lower-detail fallback while respecting the feature policy.",
+      "They make ownership, completion, failure, cancellation and valid transitions explicit rather than hidden in callbacks.",
+      "Its temporary overlap reaches 110 MiB. Admission must account for peak concurrent allocations, not only the eventual steady-state resident total.",
+      "No. The consumer may still use it. Wait for the relevant completion before reclaiming it, while suppressing publication of the cancelled result."
+    ],
+    "exercise": "Implement admit_bytes(budget, resident, existing_temporary, new_staging, new_resident) using validated nonnegative integer byte counts.",
+    "focused_reading": "R20/R26: asynchronous loading and streaming. S05/S07: retirement follows actual consumers. Keep the memory estimator distinct from device measurement."
+  },
+  {
+    "id": "25.3",
+    "title": "Editors, inspection and undoable commands",
+    "outcome": "Make engine state understandable and safely editable.",
+    "practical_assignment": "Create a scene inspector with transform editing and a ten-command undo/redo test. Pass: invalid inputs are rejected, focus does not trigger unintended gameplay, and save/reload preserves committed changes.",
+    "assigned_reading": "R20: game tools; R26: editor and reflection concepts. Use a minimal UI toolkit appropriate to the selected platform.",
+    "quiz_question_count": 3,
+    "module": 25,
+    "module_title": "Asset pipelines, editors and an integrated engine",
+    "quiz": [
+      "What is the model/view distinction useful for?",
+      "What data can make a transform move reversible?",
+      "Why distinguish preview state from committed authoring state?"
+    ],
+    "teaching": "### An inspector is a controlled view of the model\nAn editor makes engine state inspectable without becoming a second inconsistent copy of the world. The model owns authoritative entity and asset data. The view presents that data and captures user intent. A controller or command layer validates changes, applies them at a safe boundary and reports failure. A text inspector is acceptable for this small engine; correctness matters more than widget count. [R20, R26]\n\nShow stable identity, transform values, component presence and relevant resource status. Distinguish authoring state from transient simulation state. Editing a simulated position may update an authoring transform, teleport a live body or be disallowed while playing; choose and label the behavior. Do not silently save transient physics output as the source scene.\n\n### Commands make changes reversible\nRepresent a committed transform edit as a command containing entity identity, before value and after value. Apply validates the current target and new value; undo restores the before value under the appropriate conflict policy. Redo reapplies the after value. A new edit after an undo invalidates the redo branch unless the editor deliberately supports branching history.\n\nA mouse drag can emit hundreds of previews but should usually commit one meaningful command. Save the initial value when the drag begins, update a temporary preview while dragging, and push a single before/after command on commit. Cancel discards the preview. This distinction keeps undo useful and prevents partially edited state from becoming a durable save.\n\n### Validation belongs below the UI\nReject nonfinite numbers, missing entities, invalid scale ranges under the chosen model and unsupported operations. A text box can be bypassed by a script or file import; validate at the command/model boundary as well. A negative scale may be valid if the engine handles reflected winding and tangent frames, but it should not be accidentally accepted by a renderer that assumes only positive scales.\n\nUndo is a state transition, not an exemption from validation. The target entity may have been deleted or reloaded. Define how stable IDs resolve and how incompatible history is cleared. In this teaching engine, a scene load clears history because commands refer to the previous scene revision. A richer editor may instead store explicit revision-aware commands.\n\n### Input focus prevents unintended actions\nKeyboard input intended for a numeric field must not simultaneously move the camera or trigger gameplay. Route events through a declared focus/capture policy. Pressing a gameplay key while a field has focus should edit or be ignored according to the UI, not issue an unrelated world command. Losing focus during a drag needs a commit or cancel policy.\n\n### Test histories, not only buttons\nCreate ten transform commands, undo all ten, redo all ten and compare exact logical state. Then undo three and make a new edit; verify redo is empty. Attempt an invalid command and ensure neither world state nor history changes. Save, reload and compare committed values. The supplied command-history helper demonstrates the data model; the full inspector, focus integration and engine coupling remain required practical work.",
+    "worked": "Entity lamp has position (0,0,0). A committed move stores before=(0,0,0), after=(2,0,0). Undo restores the former; redo restores the latter. Three previews at x=0.5,1.0,2.0 during one drag still produce just one command when committed.\n\nAfter commands A,B,C, undo C and B. The model is at A and the redo stack can restore B then C. Commit new command D now: the correct ordinary linear history is A,D, and the redo branch containing B,C is cleared. Keeping it would allow replaying commands whose assumed before-state is no longer the current history.\n\nA request to set x to NaN is rejected before mutation. Verify both the entity transform and the lengths of undo/redo history are unchanged. The absence of a crash is not sufficient; the command must be transactionally rejected.",
+    "steps": [
+      "Implement a scene inspector that shows stable entity IDs, committed transforms and resource status.",
+      "Route edits through a validated before/after command, separating drag preview from commit and cancel.",
+      "Implement undo and redo with new-edit branch invalidation and an explicit scene-load history policy.",
+      "Run ten edits, ten undos and ten redos; then test undo followed by a new branch and invalid input.",
+      "Exercise field focus, camera controls and save/reload. Preserve only committed authoring changes."
+    ],
+    "checks": [
+      "Ten-command undo/redo round-trips return the expected logical states.",
+      "A new edit after undo clears the ordinary redo branch.",
+      "Invalid input leaves model and history unchanged; focused editing does not trigger gameplay."
+    ],
+    "troubleshooting": "Undo that works once but not after scene load may use stale runtime handles. A camera moving while typing indicates missing focus routing. An enormous undo stack after one drag suggests previews were committed individually.",
+    "extra_quiz": [
+      "After undoing two commands, what should a new edit do to an ordinary linear redo stack?",
+      "Why should a drag preview not normally be written directly into the saved authoring scene before commit?"
+    ],
+    "answers": [
+      "It separates authoritative state and validation from presentation, so multiple views do not maintain conflicting copies of the engine model.",
+      "Stable entity identity plus before and after values, with enough revision/context information to apply and reverse the change safely.",
+      "Preview can be cancelled and may be temporarily invalid. Committed authoring state is what undo, saves and reproducible builds should represent.",
+      "Clear it. The new edit creates a new linear branch whose prior assumptions differ from the old redo commands.",
+      "It would make cancellation and transactional validation difficult and could persist a partial gesture. Keep preview separate, then commit one validated command."
+    ],
+    "exercise": "Implement apply_edit(state, undo_stack, redo_stack, entity_id, new_position) so invalid input is nonmutating and a valid new edit clears redo.",
+    "focused_reading": "R20/R26: tools and model inspection. R11: command interface contracts. Apply Module 20 input-validation and transactional-state habits."
+  },
+  {
+    "id": "25.4",
+    "title": "Engine integration and reproducible demonstration",
+    "outcome": "Deliver a small complete system whose limitations are measurable.",
+    "practical_assignment": "Complete Gate E using the project specification in the handbook. Pass: another person follows the README, a headless test scene passes, all assets have provenance, and a limitations section identifies remaining correctness or performance risks.",
+    "assigned_reading": "R20: project completion; R26: profiling and engine architecture comparison; revisit Module 20 release and review practices.",
+    "quiz_question_count": 3,
+    "module": 25,
+    "module_title": "Asset pipelines, editors and an integrated engine",
+    "quiz": [
+      "What frame interval corresponds to 60 frames per second?",
+      "Why report more than average frame time?",
+      "What does a clean-machine build test reveal?"
+    ],
+    "teaching": "### Integration proves the boundaries agree\nGate E is a small complete engine demonstration, not a collection of disconnected attractive screenshots. Its CPU reference renderer, selected GPU route where available, fixed-step world, entity/resource ownership, asset cooker, inspector, versioned saves and diagnostics must agree about units, identity, coordinates and lifetime. The project can be visually simple. A few meshes, a controlled light and a moving entity are enough to expose real architecture problems.\n\nPreserve a headless world path so tests run without a display. Keep a fixed reference scene with original or properly attributed assets, a deterministic input sequence under the declared reproducibility scope, and a saved camera. Build and cook commands should work from a clean extracted tree, not depend on an absolute path or a file that exists only in a developer's cache.\n\n### Budget against a declared machine\nChoose resolution, quality settings, scene contents and a test environment. A 60-fps target corresponds to about 16.667 ms per presented frame, but it is an example budget, not a universal passing score. A CPU reference renderer may have a much slower target and still provide valuable correctness evidence. State separate budgets for CPU simulation/recording, GPU execution when measured, full-frame pacing and memory.\n\nRecord warm-up, sample count, timer scopes and raw samples. Report median, p95, p99 and maximum for the selected workload, using a stated percentile definition. Never relabel a CPU timer around submission as GPU time. API timestamp queries require their own support, units and synchronization. Separate initialization and asset-cook time from steady-state frame time.\n\n### Use adversarial integration scenes\nTest a triangle crossing the near plane, rapid resize/minimize/restore, stale handles, malformed assets, cancelled loads, save migration, invalid editor input and shutdown with pending work. Failure injection should have a predictable expected state. An application that survives by silently disabling half its features needs that quality change in the report.\n\nImage comparisons require a known reference, matching camera, extent, sample convention and color domain. The supplied CPU renderer's integer-quantized coverage can differ from hardware at edges. Compare interiors with an appropriate tolerance and separately inspect edges; do not use a broad tolerance to hide a flipped image or incorrect UV interpolation.\n\n### Reproducibility needs another set of hands\nThe canonical checkpoint requires a second person to build and run the engine from its README. A clean-directory automated test is useful but not the same evidence. Give the reviewer the source tree and commands, record what they did, and fix every undocumented assumption. Ask them to reproduce one boundary test and one live edit, then inspect a save/reload result.\n\nThe learner must explain one CPU/GPU dependency and one quality/performance tradeoff. A reference implementation copied without understanding does not pass the oral review. Existing engines may be used for comparison, but cannot replace the central implementation and still meet this checkpoint's objective.\n\n### Close with a limitations record\nMark capabilities implemented, tested, pending or deliberately out of scope. The bundle itself includes educational components and reference tests; it does not certify the learner's Gate E engine or claim a hardware run not performed. A trustworthy limitations section makes the next volume possible: Game Systems and Production builds on the engine's actual contracts, not its aspirational feature list.",
+    "worked": "At 60 frames per second, the ideal interval is 1000/60=16.6667 ms. If 99 frames take 10 ms and one takes 200 ms, the mean is 11.9 ms, which sounds comfortably below the budget. Yet the 200-ms stall remains visible. Under nearest-rank percentiles, p95=10 ms, p99=10 ms and maximum=200 ms for this particular 100-sample set. This demonstrates why a maximum, hitch count and sufficient sample count matter even when percentiles are reported.\n\nFor ten sorted samples [8,8,9,9,10,10,11,12,18,40], nearest-rank p95 is the element at ceil(0.95*10)-1, which is index 9: 40 ms. State the definition so another implementation can reproduce the number.\n\nA clean build in an empty directory can reveal a missing generated header or uncooked asset. A second-person build can additionally reveal an ambiguous instruction such as run the engine without saying which working directory or executable. Both tests have value, but they answer different questions.",
+    "steps": [
+      "Assemble the five module projects into the Gate E engine; retain the CPU reference and declare the selected GPU route or pending hardware work.",
+      "Write clean build/cook/run/test commands and a compatibility/feature matrix. Include asset provenance and exact quality settings.",
+      "Run the adversarial integration matrix, preserve raw timing samples and measure peak memory using an identified method.",
+      "Have a second person perform the clean build and reproduce a boundary test, edit and save/reload. Record their actual result.",
+      "Complete the oral review and limitations document; do not claim unrun hardware or reviewer checks as passed."
+    ],
+    "checks": [
+      "The README enables a real clean-source build and a documented second-person run.",
+      "All mandatory correctness cases pass or unsupported GPU work is clearly excluded under the software-only allowance.",
+      "Frame/memory budgets, raw evidence, provenance and limitations accompany the engine."
+    ],
+    "troubleshooting": "A result that only works in the original working directory usually depends on implicit paths. A smooth average with obvious stutter requires raw frame distributions. A successful build without assets is not a reproducible engine demonstration.",
+    "extra_quiz": [
+      "For 99 frames at 10 ms and one at 200 ms, compute the mean and explain why it hides a problem.",
+      "Why is a clean-directory automated build not sufficient to mark the second-person review complete?"
+    ],
+    "answers": [
+      "1000/60 ms, approximately 16.667 ms.",
+      "Averages hide stalls, tails, variability and distinct loading or presentation behavior. Preserve raw samples and suitable distribution summaries.",
+      "Missing dependencies, undocumented environment assumptions, absent generated files, implicit paths and packaging problems.",
+      "Mean=(99*10+200)/100=11.9 ms. The mean hides a 200-ms hitch; max and hitch counts expose it.",
+      "It tests automation in a clean environment, not whether another person can follow the instructions and reproduce the required interactions. Record actual reviewer evidence separately."
+    ],
+    "exercise": "Implement nearest_rank(samples, percentile) with finite nonempty samples and 0<percentile<=100; document that this is not interpolated quantiles.",
+    "focused_reading": "Canonical Gate E specification; R20/R26: engine integration and profiling. Revisit Module 20 clean-build, provenance and review requirements."
+  }
+]

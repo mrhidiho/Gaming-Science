@@ -1,0 +1,35 @@
+{
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "python_compatible": true,
+  "tools": {
+    "iverilog": {
+      "available": false,
+      "path": null
+    },
+    "vvp": {
+      "available": false,
+      "path": null
+    },
+    "verilator": {
+      "available": false,
+      "path": null
+    },
+    "yosys": {
+      "available": false,
+      "path": null
+    },
+    "ngspice": {
+      "available": false,
+      "path": null
+    },
+    "sby": {
+      "available": false,
+      "path": null
+    },
+    "boolector": {
+      "available": false,
+      "path": null
+    }
+  }
+}

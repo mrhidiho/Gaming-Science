@@ -1,0 +1,29 @@
+[
+  {
+    "id": "DEMO-C1",
+    "tier": "functional_model",
+    "artifact": "model_results.json",
+    "sha256": "065c1a197164a7b38cdd0d842eccd026b6f9fcbd0ae0a432333fafb661ce4364",
+    "requirement": "DEMO-REQ",
+    "claim": "All reference pipeline cases matched the integer oracle.",
+    "limitations": "Only supplied patterns and bounded arithmetic are tested."
+  },
+  {
+    "id": "DEMO-C2",
+    "tier": "analytical",
+    "artifact": "model_results.json",
+    "sha256": "065c1a197164a7b38cdd0d842eccd026b6f9fcbd0ae0a432333fafb661ce4364",
+    "requirement": "DEMO-REQ",
+    "claim": "Compare end-to-end timing under explicitly assumed clock and bandwidth.",
+    "limitations": "No synthesis, placement, routing or hardware timing validation."
+  },
+  {
+    "id": "DEMO-C3",
+    "tier": "host_measurement",
+    "artifact": "environment.json",
+    "sha256": "b3eb6d1850ef58ab637c07a37e29f0da131f99c383efa277129ec158b12cdc61",
+    "requirement": "DEMO-REQ",
+    "claim": "Record the execution environment and native-run status.",
+    "limitations": "Metadata is not proof of portability."
+  }
+]

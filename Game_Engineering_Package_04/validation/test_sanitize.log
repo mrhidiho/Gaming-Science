@@ -1,0 +1,63 @@
+Internal ctest changing into directory: /mnt/data/_build/sanitize
+Test project /mnt/data/_build/sanitize
+      Start  1: reference_11_1
+ 1/24 Test  #1: reference_11_1 ...................   Passed    0.01 sec
+      Start  2: reference_11_2
+ 2/24 Test  #2: reference_11_2 ...................   Passed    0.01 sec
+      Start  3: reference_11_3
+ 3/24 Test  #3: reference_11_3 ...................   Passed    0.01 sec
+      Start  4: reference_11_4
+ 4/24 Test  #4: reference_11_4 ...................   Passed    0.02 sec
+      Start  5: reference_12_1
+ 5/24 Test  #5: reference_12_1 ...................   Passed    0.03 sec
+      Start  6: reference_12_2
+ 6/24 Test  #6: reference_12_2 ...................   Passed    0.02 sec
+      Start  7: reference_12_3
+ 7/24 Test  #7: reference_12_3 ...................   Passed    0.03 sec
+      Start  8: reference_12_4
+ 8/24 Test  #8: reference_12_4 ...................   Passed    0.02 sec
+      Start  9: reference_13_1
+ 9/24 Test  #9: reference_13_1 ...................   Passed    0.16 sec
+      Start 10: reference_13_2
+10/24 Test #10: reference_13_2 ...................   Passed    0.02 sec
+      Start 11: reference_13_3
+11/24 Test #11: reference_13_3 ...................   Passed    0.24 sec
+      Start 12: reference_13_4
+12/24 Test #12: reference_13_4 ...................   Passed    0.04 sec
+      Start 13: reference_14_1
+13/24 Test #13: reference_14_1 ...................   Passed    0.08 sec
+      Start 14: reference_14_2
+14/24 Test #14: reference_14_2 ...................   Passed    0.03 sec
+      Start 15: reference_14_3
+15/24 Test #15: reference_14_3 ...................   Passed    0.10 sec
+      Start 16: reference_14_4
+16/24 Test #16: reference_14_4 ...................   Passed    0.03 sec
+      Start 17: reference_15_1
+17/24 Test #17: reference_15_1 ...................   Passed    0.02 sec
+      Start 18: reference_15_2
+18/24 Test #18: reference_15_2 ...................   Passed    0.03 sec
+      Start 19: reference_15_3
+19/24 Test #19: reference_15_3 ...................   Passed    0.03 sec
+      Start 20: reference_15_4
+20/24 Test #20: reference_15_4 ...................   Passed    0.06 sec
+      Start 21: reference_c01_basics
+21/24 Test #21: reference_c01_basics .............   Passed    0.02 sec
+      Start 22: reference_c02_ownership
+22/24 Test #22: reference_c02_ownership ..........   Passed    0.02 sec
+      Start 23: reference_c03_layout
+23/24 Test #23: reference_c03_layout .............   Passed    0.01 sec
+      Start 24: reference_c04_errors
+24/24 Test #24: reference_c04_errors .............   Passed    0.02 sec
+
+100% tests passed, 0 tests failed out of 24
+
+Label Time Summary:
+c_bridge     =   0.07 sec*proc (4 tests)
+module_11    =   0.05 sec*proc (4 tests)
+module_12    =   0.10 sec*proc (4 tests)
+module_13    =   0.46 sec*proc (4 tests)
+module_14    =   0.23 sec*proc (4 tests)
+module_15    =   0.14 sec*proc (4 tests)
+reference    =   1.05 sec*proc (24 tests)
+
+Total Test time (real) =   1.06 sec

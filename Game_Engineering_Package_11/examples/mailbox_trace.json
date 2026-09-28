@@ -1,0 +1,835 @@
+{
+  "accepted": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "delivered": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "epoch": 0,
+  "trace": [
+    {
+      "accepted": 0,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 0
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 2
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 3
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 4
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 6
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 8
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 9
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 10
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 12
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 14
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 15
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 16
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 18
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 20
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 21
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 22
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 24
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 26
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 27
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 28
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": 0,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 30
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 32
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 33
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": true,
+      "req": 1,
+      "source_edge": true,
+      "tick": 34
+    },
+    {
+      "accepted": 1,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 36
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 38
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 39
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 40
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 42
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 44
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": 1,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 45
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 46
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 0,
+      "source_edge": true,
+      "tick": 48
+    },
+    {
+      "accepted": 2,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 50
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 51
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 52
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 54
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 56
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": 2,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 57
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 58
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 1,
+      "source_edge": true,
+      "tick": 60
+    },
+    {
+      "accepted": 3,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 62
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 63
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 64
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 66
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 68
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": 3,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 69
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 70
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 0,
+      "source_edge": true,
+      "tick": 72
+    },
+    {
+      "accepted": 4,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 74
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 75
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 76
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 78
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 80
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": 4,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 81
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 82
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 1,
+      "source_edge": true,
+      "tick": 84
+    },
+    {
+      "accepted": 5,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 86
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 87
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 88
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 90
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 92
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": 5,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 93
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 94
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 0,
+      "source_edge": true,
+      "tick": 96
+    },
+    {
+      "accepted": 6,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 98
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 99
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 100
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 102
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 104
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": 6,
+      "destination_edge": true,
+      "ready": false,
+      "req": 1,
+      "source_edge": false,
+      "tick": 105
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 1,
+      "source_edge": true,
+      "tick": 106
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 1,
+      "source_edge": true,
+      "tick": 108
+    },
+    {
+      "accepted": 7,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 110
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 111
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 112
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 114
+    },
+    {
+      "accepted": null,
+      "ack": 1,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 116
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": 7,
+      "destination_edge": true,
+      "ready": false,
+      "req": 0,
+      "source_edge": false,
+      "tick": 117
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": false,
+      "ready": false,
+      "req": 0,
+      "source_edge": true,
+      "tick": 118
+    },
+    {
+      "accepted": null,
+      "ack": 0,
+      "delivered": null,
+      "destination_edge": true,
+      "ready": true,
+      "req": 0,
+      "source_edge": true,
+      "tick": 120
+    }
+  ]
+}

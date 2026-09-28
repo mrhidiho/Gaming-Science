@@ -1,0 +1,402 @@
+[
+  {
+    "lesson": "46.1",
+    "questions": [
+      {
+        "id": "46.1.Q1",
+        "question": "After A writes seven while B holds a shared copy, what ownership condition must hold before A is considered Modified?",
+        "answer": "B must be invalidated and exclusive permission established. In an asynchronous implementation, pending invalidation acknowledgments require a transient state; granting M before exclusivity is established is unsafe."
+      },
+      {
+        "id": "46.1.Q2",
+        "question": "Why is a coherent cache system insufficient justification for a C++ producer using a relaxed ready flag with a non-atomic payload?",
+        "answer": "Coherence does not supply the required language-level happens-before relation. A release store and an acquire load that observes it can publish the preceding payload write. A relaxed flag alone does not establish that relation; conflicting non-atomic accesses can be a data race."
+      },
+      {
+        "id": "46.1.Q3",
+        "question": "Under sequential consistency, why is the zero/zero store-buffering outcome impossible, and why is “not observed” weaker than “forbidden”?",
+        "answer": "The two program-order edges plus the read-before-other-store requirements form a cycle in a proposed total order. A finite run samples executions; it cannot exclude an allowed but rare execution."
+      }
+    ]
+  },
+  {
+    "lesson": "46.2",
+    "questions": [
+      {
+        "id": "46.2.Q1",
+        "question": "Which dependencies can register renaming remove, and which dependency must remain?",
+        "answer": "Renaming can remove WAR and WAW name dependencies by assigning distinct physical destinations. A RAW dependency supplies a required value and remains."
+      },
+      {
+        "id": "46.2.Q2",
+        "question": "In the worked four-instruction example, why can earlier completion of C and D fail to reduce total retirement time?",
+        "answer": "In-order retirement and retirement width one serialize A, B, C and D after the oldest results become available. Completion overlap is not automatically a reduction in the critical retirement path."
+      },
+      {
+        "id": "46.2.Q3",
+        "question": "If B faults after C has completed, which results may appear in precise architectural state?",
+        "answer": "Only effects older than B, here A, may be committed. B and younger C/D cannot be architectural, even if they finished execution."
+      }
+    ]
+  },
+  {
+    "lesson": "46.3",
+    "questions": [
+      {
+        "id": "46.3.Q1",
+        "question": "Why does changing from two direct-mapped sets to two two-way sets fail to isolate associativity?",
+        "answer": "It changes capacity from two to four lines as well as associativity. Hold total lines constant, or explicitly describe both factors changing."
+      },
+      {
+        "id": "46.3.Q2",
+        "question": "Under the additional-miss-penalty convention, what is the modeled cost for N=100, M=10, h=2 and p=30?",
+        "answer": "100*2 + 10*30 = 500 modeled serial cycles. If 30 were the entire miss cost, the result would instead be 480; the convention must be recorded."
+      },
+      {
+        "id": "46.3.Q3",
+        "question": "How do verification, calibration and validation differ in an architecture study?",
+        "answer": "Verification checks implementation against specification; calibration estimates parameters; validation tests predictive usefulness against separate evidence. Reusing calibration observations as validation overstates independence."
+      }
+    ]
+  },
+  {
+    "lesson": "46.4",
+    "questions": [
+      {
+        "id": "46.4.Q1",
+        "question": "Which of A, B, C and D is dominated in the worked example, and by which design?",
+        "answer": "C is dominated by A: 10<12 ms, 40<45 W and 20<22 area units. A, B and D trade objectives and remain on the point-estimate frontier."
+      },
+      {
+        "id": "46.4.Q2",
+        "question": "Why does a 42 W/24-area constraint select A, while a 42 W/26-area constraint can select D?",
+        "answer": "B exceeds the power ceiling, C is slower/dominated and exceeds power, and D initially exceeds area. With area 26, D becomes feasible and wins under a minimum-latency policy."
+      },
+      {
+        "id": "46.4.Q3",
+        "question": "What information is missing when someone uses peak link bandwidth alone to predict frame latency?",
+        "answer": "Fixed and queueing latency, request dependencies, usable rather than signaling bandwidth, burstiness, contention, transfer sizes, protocol traffic and the workload critical path are missing."
+      }
+    ]
+  },
+  {
+    "lesson": "47.1",
+    "questions": [
+      {
+        "id": "47.1.Q1",
+        "question": "Why can increasing an output gate’s drive strength worsen the complete path?",
+        "answer": "The larger gate adds input capacitance to the preceding stage, and may add parasitic capacitance and power. The complete path and interface load must be included."
+      },
+      {
+        "id": "47.1.Q2",
+        "question": "For H=64 and p=1, what is the three-stage equal-effort delay and what are the normalized sizes?",
+        "answer": "Each effort is four, so D=3*(4+1)=15. With first-stage input one and final load 64, sizes are 1,4,16. Three inversions invert polarity."
+      },
+      {
+        "id": "47.1.Q3",
+        "question": "Why is a delay reported in normalized units not a measured nanosecond delay?",
+        "answer": "The normalization lacks characterized physical constants and corner-specific slew/load behavior. A conversion needs a valid technology model or measured calibration, not an assumed clock rate."
+      }
+    ]
+  },
+  {
+    "lesson": "47.2",
+    "questions": [
+      {
+        "id": "47.2.Q1",
+        "question": "Using the worked values, what are setup and hold slack at T=2.0 ns?",
+        "answer": "Setup is +0.25 ns. Hold is −0.06 ns. At T=1.6 ns setup becomes −0.15 ns and the simple hold slack remains −0.06 ns."
+      },
+      {
+        "id": "47.2.Q2",
+        "question": "With positive skew defined as capture minus launch arrival, why does positive skew help setup but hurt hold?",
+        "answer": "The next capture edge moves later, giving new data more setup time. The same-edge hold window also moves later, requiring old data to remain stable longer."
+      },
+      {
+        "id": "47.2.Q3",
+        "question": "Why is “zero violations” insufficient when assessing a timing report?",
+        "answer": "Unconstrained endpoints, missing clocks, incorrect corner assumptions or unjustified false paths can eliminate required checks. Coverage and exceptions must be audited alongside slack."
+      }
+    ]
+  },
+  {
+    "lesson": "47.3",
+    "questions": [
+      {
+        "id": "47.3.Q1",
+        "question": "Why should a FIFO’s full-and-simultaneous-pop behavior be fixed before comparing implementations?",
+        "answer": "It is part of the accepted-transaction/throughput contract. Different acceptance rules can change useful work and latency, invalidating a supposedly like-for-like physical comparison."
+      },
+      {
+        "id": "47.3.Q2",
+        "question": "Why can the worst setup slack change after routing without a change in RTL function?",
+        "answer": "Wire parasitics, buffering and clock paths become more concrete; the critical path may also change. Logical equivalence and timing are different properties."
+      },
+      {
+        "id": "47.3.Q3",
+        "question": "What does producing a GDS file fail to establish?",
+        "answer": "It does not by itself establish functional correctness, complete DRC/LVS, timing closure, power integrity, manufacturing approval, licensing clearance or commercial signoff."
+      }
+    ]
+  },
+  {
+    "lesson": "47.4",
+    "questions": [
+      {
+        "id": "47.4.Q1",
+        "question": "Compute the dynamic-power estimate for alpha=0.2, C=10 pF, V=1 V and f=100 MHz.",
+        "answer": "0.2*10e-12*1^2*100e6=0.0002 W=0.2 mW under the stated charging-event convention."
+      },
+      {
+        "id": "47.4.Q2",
+        "question": "Why can a 3 mW design be more energy-efficient than a 2 mW design?",
+        "answer": "Energy per item is power divided by useful throughput. At 2 million items/s, 3 mW is 1.5 nJ/item; at 1 million items/s, 2 mW is 2 nJ/item. A hard power limit can still reject the former."
+      },
+      {
+        "id": "47.4.Q3",
+        "question": "What must be held constant or disclosed when comparing PPA for two RTL implementations?",
+        "answer": "Functional contract, workload, precision, clock and I/O constraints, platform/library/corners, tool revisions, area definition, activity coverage and estimation assumptions must match or be explicitly accounted for."
+      }
+    ]
+  },
+  {
+    "lesson": "48.1",
+    "questions": [
+      {
+        "id": "48.1.Q1",
+        "question": "Why does occupancy staying in range fail to prove FIFO ordering?",
+        "answer": "An implementation can maintain the correct number of entries while returning the wrong entry, such as LIFO order or a duplicate. Ordering needs a data property or reference relation."
+      },
+      {
+        "id": "48.1.Q2",
+        "question": "What is the difference between a depth-20 bounded pass, an unbounded proof under assumptions, and a timeout?",
+        "answer": "A bounded pass excludes counterexamples only within the checked depth/model. An unbounded proof establishes the property for all modeled reachable time under its assumptions. A timeout is unknown, not a pass."
+      },
+      {
+        "id": "48.1.Q3",
+        "question": "How can a cover goal and a deliberately injected bug expose a vacuous property?",
+        "answer": "A cover checks that the triggering situation is reachable. A bug that should violate the property must produce a failure; otherwise assumptions, activation or the property itself may exclude the relevant behavior."
+      }
+    ]
+  },
+  {
+    "lesson": "48.2",
+    "questions": [
+      {
+        "id": "48.2.Q1",
+        "question": "Why must the source hold mailbox data stable until the acknowledgment returns?",
+        "answer": "The destination captures the multi-bit payload after the request crosses. Overwriting it early can associate the event with a later or mixed payload. The acknowledgment establishes completion before reuse."
+      },
+      {
+        "id": "48.2.Q2",
+        "question": "Why does Gray-coding a FIFO pointer not eliminate the need for physical CDC constraints?",
+        "answer": "Gray coding limits changes between adjacent source values, but inter-bit routing skew and synchronization behavior still affect what is sampled. Digital protocol correctness is not analog metastability or implementation signoff."
+      },
+      {
+        "id": "48.2.Q3",
+        "question": "What guarantee does the reference handshake make across a coordinated reset, and why is unilateral reset rejected?",
+        "answer": "It flushes in-flight data and starts a new explicitly labeled epoch; it does not guarantee delivery across reset. Resetting only one toggle can create false or lost events without a resynchronization protocol."
+      }
+    ]
+  },
+  {
+    "lesson": "48.3",
+    "questions": [
+      {
+        "id": "48.3.Q1",
+        "question": "What do syndrome nonzero and even overall parity mean under the SECDED fault model?",
+        "answer": "It is the double-error-detected case. The decoder must not present the payload as trusted corrected data; the recovery policy should handle an uncorrectable word."
+      },
+      {
+        "id": "48.3.Q2",
+        "question": "How many single-bit and double-bit cases must be tested over all sixteen four-bit payloads?",
+        "answer": "16*8=128 single-bit cases and 16*C(8,2)=448 double-bit cases, plus 16 clean words."
+      },
+      {
+        "id": "48.3.Q3",
+        "question": "Why can a triple-bit error be miscorrected despite a correct SECDED implementation?",
+        "answer": "The supported guarantee is limited to one-bit correction/two-bit detection. A three-bit pattern can produce the same syndrome and overall parity as a single error, so the decoder may flip another bit and produce the wrong valid codeword."
+      }
+    ]
+  },
+  {
+    "lesson": "48.4",
+    "questions": [
+      {
+        "id": "48.4.Q1",
+        "question": "Why is length <= capacity−offset preferable to blindly checking offset+length <= capacity on a fixed-width machine?",
+        "answer": "After validating offset within range and nonnegative inputs, subtraction avoids overflow in the sum. Types, alignment and ownership still need separate validation."
+      },
+      {
+        "id": "48.4.Q2",
+        "question": "What does an epoch/generation check prevent after reset, and what does it not undo?",
+        "answer": "It rejects stale work or completions from a previous generation. It cannot undo partial writes or external effects already performed before reset."
+      },
+      {
+        "id": "48.4.Q3",
+        "question": "Why does a passing Python descriptor test not establish real DMA isolation or safe thermal operation?",
+        "answer": "The model omits device mappings, IOMMU configuration, hardware faults and physical heat transfer. Those require separate authorized implementation and measurement evidence."
+      }
+    ]
+  },
+  {
+    "lesson": "49.1",
+    "questions": [
+      {
+        "id": "49.1.Q1",
+        "question": "What five elements make a broad “better hardware” topic into a testable thesis question?",
+        "answer": "A mechanism/intervention, defined workload/population, comparator, measurable outcome and stated constraints/fidelity boundary are essential; a refutation condition makes the test sharper."
+      },
+      {
+        "id": "49.1.Q2",
+        "question": "How can a reproduction or negative result still be a defensible contribution?",
+        "answer": "A careful reproduction establishes what can actually be regenerated, and a well-controlled negative result can identify limits or refute an expected gain. Both require rigorous baselines, transparent evidence and accurately bounded novelty."
+      },
+      {
+        "id": "49.1.Q3",
+        "question": "Why should the literature map include a source that challenges the proposal’s assumptions?",
+        "answer": "It exposes prior counterexamples, confounders and established limitations before expensive work. A map containing only supportive abstracts risks an uninformative or already-refuted study."
+      }
+    ]
+  },
+  {
+    "lesson": "49.2",
+    "questions": [
+      {
+        "id": "49.2.Q1",
+        "question": "Why is a working baseline with a correctness oracle more valuable than a large unvalidated prototype at the first milestone?",
+        "answer": "It establishes that the comparator and measurement path can test the question. Without it, a prototype can produce impressive but uninterpretable performance numbers."
+      },
+      {
+        "id": "49.2.Q2",
+        "question": "For 20 scenes, 3 configurations, 10 runs and 5 minutes per run, what is the execution budget?",
+        "answer": "20*3*10*5=3000 minutes=50 hours, excluding setup, compilation, analysis, retries and failures."
+      },
+      {
+        "id": "49.2.Q3",
+        "question": "What distinguishes a legitimate protocol amendment from changing the question to fit results?",
+        "answer": "A legitimate amendment is versioned, justified and reviewed, with its timing relative to observed data disclosed. Post-hoc metric or workload changes must be labeled exploratory rather than presented as prespecified confirmation."
+      }
+    ]
+  },
+  {
+    "lesson": "49.3",
+    "questions": [
+      {
+        "id": "49.3.Q1",
+        "question": "How does an ablation differ from a sensitivity study?",
+        "answer": "An ablation removes a component to isolate its contribution. A sensitivity study varies a parameter or assumption to test robustness. They answer different causal and stability questions."
+      },
+      {
+        "id": "49.3.Q2",
+        "question": "If baseline time is 10 ms and candidate time is 8 ms, what are speedup and time reduction?",
+        "answer": "Speedup is 10/8=1.25x; time reduction is (10−8)/10=20%. At equal work this corresponds to 25% higher throughput, not 25% less time."
+      },
+      {
+        "id": "49.3.Q3",
+        "question": "Why is resampling thousands of frames from one run not equivalent to collecting thousands of independent runs?",
+        "answer": "Frames share state, scene, thermal conditions and execution history. Dependence means the effective information differs from independent runs; the resampling unit must match the study design."
+      }
+    ]
+  },
+  {
+    "lesson": "49.4",
+    "questions": [
+      {
+        "id": "49.4.Q1",
+        "question": "What is the purpose of a claim-to-evidence ledger?",
+        "answer": "It connects each exact claim to assumptions, raw evidence, generating commands, output and limitations, allowing an independent reviewer to audit the argument."
+      },
+      {
+        "id": "49.4.Q2",
+        "question": "Why does a matching SHA-256 file manifest not prove that a research conclusion is correct?",
+        "answer": "A hash comparison establishes byte consistency relative to the manifest. It does not establish trusted origin, absence of methodological error, valid statistics or correctness of the claimed inference."
+      },
+      {
+        "id": "49.4.Q3",
+        "question": "How should reproduction criteria differ between a deterministic cache count and a cross-machine timing experiment?",
+        "answer": "Deterministic counts can require exact equality. Cross-machine timing needs prespecified numerical/statistical criteria and environment disclosure; identical absolute times may be inappropriate."
+      }
+    ]
+  },
+  {
+    "lesson": "50.1",
+    "questions": [
+      {
+        "id": "50.1.Q1",
+        "question": "Why is a second run by the author on the same prepared machine not independent artifact reproduction?",
+        "answer": "It does not test whether another person can operate the release from its documented entry point without hidden setup or author-specific knowledge. It remains useful internal validation."
+      },
+      {
+        "id": "50.1.Q2",
+        "question": "What should happen when a reviewer cannot reproduce the central ranking?",
+        "answer": "Preserve both runs, investigate identities and methodology, record the discrepancy and require revision. Narrow or suspend the affected claim until supported; do not discard the reviewer’s result."
+      },
+      {
+        "id": "50.1.Q3",
+        "question": "Can a favorable average result override a violated hard correctness or adverse-case requirement?",
+        "answer": "No. Hard constraints are gates. A bounded negative finding can still be a valid thesis contribution, but the original acceptance claim must be revised honestly."
+      }
+    ]
+  },
+  {
+    "lesson": "50.2",
+    "questions": [
+      {
+        "id": "50.2.Q1",
+        "question": "Why should a performance patch include correctness and adverse-case evidence?",
+        "answer": "An apparent speed gain can result from changed work or broken outputs, and representative averages can hide unacceptable regressions. The patch must preserve the required contract."
+      },
+      {
+        "id": "50.2.Q2",
+        "question": "What is the strongest basic evidence for a bug-fix regression test?",
+        "answer": "The test fails for the intended reason on the base revision and passes with the patch, with enough context to exclude unrelated environmental failures."
+      },
+      {
+        "id": "50.2.Q3",
+        "question": "Does an upstream project have to accept the patch for this lesson to be complete?",
+        "answer": "No. A focused tested patch in an authorized maintained local fork, with rationale, reviewer response and handoff, can satisfy the task. Upstream acceptance must not be falsely claimed."
+      }
+    ]
+  },
+  {
+    "lesson": "50.3",
+    "questions": [
+      {
+        "id": "50.3.Q1",
+        "question": "What makes a portfolio case study more credible than a list of tools?",
+        "answer": "It shows a specific problem, personal contribution, constraints, correctness checks, reproducible results and limitations, with attribution and artifact links."
+      },
+      {
+        "id": "50.3.Q2",
+        "question": "How should the learner describe completing this program?",
+        "answer": "As completion of a self-study curriculum with specific demonstrated artifacts, not an accredited bachelor’s/master’s degree or institutional endorsement."
+      },
+      {
+        "id": "50.3.Q3",
+        "question": "Why can a well-explained negative result belong in a technical portfolio?",
+        "answer": "It can demonstrate rigorous evaluation, understanding of failure modes and sound deployment judgment, provided the baseline and evidence are trustworthy."
+      }
+    ]
+  },
+  {
+    "lesson": "50.4",
+    "questions": [
+      {
+        "id": "50.4.Q1",
+        "question": "Why should a trusted checksum manifest be retained separately from the archive it describes?",
+        "answer": "An attacker or accidental edit can change both files and the local manifest. A separately trusted record provides a comparison anchor; hashes still do not establish scientific correctness."
+      },
+      {
+        "id": "50.4.Q2",
+        "question": "What distinguishes a maintainer handoff test from an author-led demonstration?",
+        "answer": "The reviewer operates from the release documentation and exposes missing assumptions or setup. An author-led demonstration can conceal undocumented knowledge and manual fixes."
+      },
+      {
+        "id": "50.4.Q3",
+        "question": "What should the 90-day plan prioritize after Gate J?",
+        "answer": "One evidence-backed primary skill gap and one real reviewed contribution goal, with staged outcomes, sustainable effort and reassessment rather than many unrelated topics."
+      }
+    ]
+  }
+]

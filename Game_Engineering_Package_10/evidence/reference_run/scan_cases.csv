@@ -1,0 +1,7 @@
+n,equal,sum
+0,True,0
+1,True,1
+3,True,7
+1023,True,4661
+1024,True,4641
+1025,True,4824

@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "save_old_value_survived": true,
+  "old_release_until_activation": true,
+  "new_release_after_activation": true,
+  "limits": "Local exception injection; hash is integrity check only; no signed updates or power-loss certification."
+}

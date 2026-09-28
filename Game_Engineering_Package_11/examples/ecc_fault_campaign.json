@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "clean": 16,
+    "double": 448,
+    "single": 128
+  },
+  "evidence": "exhaustive finite codeword fault model",
+  "triple_counterexample": {
+    "flipped_positions": [
+      1,
+      2,
+      3
+    ],
+    "original_payload": 0,
+    "result": {
+      "corrected_word": 135,
+      "payload": 1,
+      "status": "corrected_overall_parity",
+      "syndrome": 0
+    }
+  }
+}

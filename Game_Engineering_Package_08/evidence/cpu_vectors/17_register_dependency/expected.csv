@@ -1,0 +1,5 @@
+index,pc,instr,next_pc,reg_we,rd,reg_value,mem_we,mem_addr,mem_value,halt
+0,0,4612,1,1,1,4,0,0,0,0
+1,1,8776,2,1,1,8,0,0,0,0
+2,2,9288,3,1,2,16,0,0,0,0
+3,3,61440,4,0,0,0,0,0,0,1

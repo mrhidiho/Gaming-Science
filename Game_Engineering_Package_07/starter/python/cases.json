@@ -1,0 +1,1804 @@
+{
+  "26.1": {
+    "title": "Conservative grid and circle contacts",
+    "contract": "Input: circles as [integer_id, x, y, radius] and positive cell_size. IDs are unique; radii are positive. At most 512 circles and 4096 occupied cells per circle. Return sorted canonical candidate pairs and sorted true contact pairs. Closed-set touching counts as contact. Reject non-finite data and excessive cell coverage before populating the grid.",
+    "cases": [
+      {
+        "input": {
+          "circles": [
+            [
+              2,
+              -0.1,
+              0,
+              0.2
+            ],
+            [
+              1,
+              0.15,
+              0,
+              0.1
+            ]
+          ],
+          "cell_size": 1
+        },
+        "output": {
+          "candidates": [
+            [
+              1,
+              2
+            ]
+          ],
+          "contacts": [
+            [
+              1,
+              2
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "circles": [
+            [
+              0,
+              0,
+              0,
+              0.25
+            ],
+            [
+              1,
+              0.5,
+              0,
+              0.25
+            ]
+          ],
+          "cell_size": 1
+        },
+        "output": {
+          "candidates": [
+            [
+              0,
+              1
+            ]
+          ],
+          "contacts": [
+            [
+              0,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "circles": [
+            [
+              0,
+              0.1,
+              0.1,
+              0.01
+            ],
+            [
+              1,
+              0.8,
+              0.8,
+              0.01
+            ]
+          ],
+          "cell_size": 1
+        },
+        "output": {
+          "candidates": [
+            [
+              0,
+              1
+            ]
+          ],
+          "contacts": []
+        }
+      },
+      {
+        "input": {
+          "circles": [],
+          "cell_size": 1
+        },
+        "output": {
+          "candidates": [],
+          "contacts": []
+        }
+      },
+      {
+        "input": {
+          "circles": [
+            [
+              0,
+              0,
+              0,
+              -1
+            ]
+          ],
+          "cell_size": 1
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "circles": [
+            [
+              0,
+              0,
+              0,
+              1000
+            ]
+          ],
+          "cell_size": 1
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "circles": [],
+          "cell_size": 0
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "26.2": {
+    "title": "One-dimensional collision impulse",
+    "contract": "Input: va, vb, inverse masses wa, wb, and restitution e in [0,1]. Normal points from A to B along +x. Return va, vb and scalar impulse. Separating contacts and static-static pairs receive zero impulse. Inverse masses must be nonnegative; zero inverse mass is a static body.",
+    "cases": [
+      {
+        "input": {
+          "va": 3,
+          "vb": 0,
+          "wa": 0.5,
+          "wb": 0.5,
+          "e": 0.5
+        },
+        "output": {
+          "va": 0.75,
+          "vb": 2.25,
+          "impulse": 4.5
+        }
+      },
+      {
+        "input": {
+          "va": 1,
+          "vb": 0,
+          "wa": 1,
+          "wb": 0,
+          "e": 1
+        },
+        "output": {
+          "va": -1,
+          "vb": 0,
+          "impulse": 2
+        }
+      },
+      {
+        "input": {
+          "va": 0,
+          "vb": 1,
+          "wa": 1,
+          "wb": 1,
+          "e": 1
+        },
+        "output": {
+          "va": 0,
+          "vb": 1,
+          "impulse": 0
+        }
+      },
+      {
+        "input": {
+          "va": 1,
+          "vb": 0,
+          "wa": 0,
+          "wb": 0,
+          "e": 1
+        },
+        "output": {
+          "va": 1,
+          "vb": 0,
+          "impulse": 0
+        }
+      },
+      {
+        "input": {
+          "va": 0,
+          "vb": 0,
+          "wa": -1,
+          "wb": 1,
+          "e": 1
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "va": 0,
+          "vb": 0,
+          "wa": 1,
+          "wb": 1,
+          "e": 2
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "26.3": {
+    "title": "Swept point versus one-dimensional slab",
+    "contract": "Input x, velocity v, slab lo<=hi, and dt>=0. Motion is linear; slab is static and closed. Return earliest time in [0,dt], including 0 for initial overlap, or null for no hit. No rotation or multi-impact solver is implied.",
+    "cases": [
+      {
+        "input": {
+          "x": 0,
+          "v": 30,
+          "lo": 0.24,
+          "hi": 0.26,
+          "dt": 0.016666666666666666
+        },
+        "output": 0.008
+      },
+      {
+        "input": {
+          "x": 1,
+          "v": -2,
+          "lo": 0.4,
+          "hi": 0.6,
+          "dt": 1
+        },
+        "output": 0.2
+      },
+      {
+        "input": {
+          "x": 0.5,
+          "v": 0,
+          "lo": 0.4,
+          "hi": 0.6,
+          "dt": 0
+        },
+        "output": 0
+      },
+      {
+        "input": {
+          "x": 0,
+          "v": 0,
+          "lo": 0.4,
+          "hi": 0.6,
+          "dt": 1
+        },
+        "output": null
+      },
+      {
+        "input": {
+          "x": 0,
+          "v": 1,
+          "lo": 1,
+          "hi": 2,
+          "dt": 1
+        },
+        "output": 1
+      },
+      {
+        "input": {
+          "x": 0,
+          "v": -1,
+          "lo": 1,
+          "hi": 2,
+          "dt": 1
+        },
+        "output": null
+      },
+      {
+        "input": {
+          "x": 0,
+          "v": 1,
+          "lo": 2,
+          "hi": 1,
+          "dt": 1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "26.4": {
+    "title": "Canonical replay and first divergence",
+    "contract": "Input left and right lists of JSON-compatible state dictionaries. Return the zero-based first differing state index, or null when equal. Different lengths diverge at the first missing state. Canonicalize with sorted string keys and compact JSON, reject non-finite floats, cap trace length at 10000. This is a Python-environment encoding, not a cross-language wire specification.",
+    "cases": [
+      {
+        "input": {
+          "left": [
+            {
+              "x": 0,
+              "v": 1
+            },
+            {
+              "x": 1
+            }
+          ],
+          "right": [
+            {
+              "v": 1,
+              "x": 0
+            },
+            {
+              "x": 2
+            }
+          ]
+        },
+        "output": 1
+      },
+      {
+        "input": {
+          "left": [
+            {
+              "x": 0,
+              "v": 1
+            }
+          ],
+          "right": [
+            {
+              "v": 1,
+              "x": 0
+            }
+          ]
+        },
+        "output": null
+      },
+      {
+        "input": {
+          "left": [],
+          "right": [
+            {
+              "x": 0
+            }
+          ]
+        },
+        "output": 0
+      },
+      {
+        "input": {
+          "left": [],
+          "right": []
+        },
+        "output": null
+      },
+      {
+        "input": {
+          "left": [
+            {
+              "x": true
+            }
+          ],
+          "right": "not a trace"
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "27.1": {
+    "title": "Parent-first two-dimensional pose evaluation",
+    "contract": "Input parents (root=-1) and local transforms [x,y,angle_radians], at most 256 joints. Return world transforms in original joint-index order. Imported order may be arbitrary. Reject cycles, invalid parents, non-finite transforms and mismatched counts. Column-vector parent*local convention; no scale/skinning in the kernel.",
+    "cases": [
+      {
+        "input": {
+          "parents": [
+            -1,
+            0
+          ],
+          "local": [
+            [
+              0,
+              0,
+              1.5707963267948966
+            ],
+            [
+              1,
+              0,
+              0
+            ]
+          ]
+        },
+        "output": [
+          [
+            0,
+            0,
+            1.5707963267948966
+          ],
+          [
+            0,
+            1,
+            1.5707963267948966
+          ]
+        ]
+      },
+      {
+        "input": {
+          "parents": [
+            1,
+            -1
+          ],
+          "local": [
+            [
+              2,
+              0,
+              0
+            ],
+            [
+              3,
+              4,
+              0
+            ]
+          ]
+        },
+        "output": [
+          [
+            5,
+            4,
+            0
+          ],
+          [
+            3,
+            4,
+            0
+          ]
+        ]
+      },
+      {
+        "input": {
+          "parents": [],
+          "local": []
+        },
+        "output": []
+      },
+      {
+        "input": {
+          "parents": [
+            1,
+            0
+          ],
+          "local": [
+            [
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "parents": [
+            2
+          ],
+          "local": [
+            [
+              0,
+              0,
+              0
+            ]
+          ]
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "27.2": {
+    "title": "Analytic two-link inverse kinematics",
+    "contract": "Input positive lengths l1,l2 and finite target x,y. Return shoulder, elbow, endpoint and reachable flag. Choose nonnegative elbow angle. Clamp target radius to [abs(l1-l2),l1+l2]; at zero target direction use +x. Equality is reachable; no joint-angle limits or 3D model.",
+    "cases": [
+      {
+        "input": {
+          "l1": 1,
+          "l2": 1,
+          "x": 1,
+          "y": 1
+        },
+        "output": {
+          "shoulder": 0,
+          "elbow": 1.5707963267948966,
+          "endpoint": [
+            1,
+            1
+          ],
+          "reachable": true
+        }
+      },
+      {
+        "input": {
+          "l1": 1,
+          "l2": 1,
+          "x": 3,
+          "y": 0
+        },
+        "output": {
+          "shoulder": 0,
+          "elbow": 0,
+          "endpoint": [
+            2,
+            0
+          ],
+          "reachable": false
+        }
+      },
+      {
+        "input": {
+          "l1": 1,
+          "l2": 1,
+          "x": 0,
+          "y": 0
+        },
+        "output": {
+          "shoulder": 0,
+          "elbow": 3.141592653589793,
+          "endpoint": [
+            0,
+            0
+          ],
+          "reachable": true
+        }
+      },
+      {
+        "input": {
+          "l1": 0,
+          "l2": 1,
+          "x": 1,
+          "y": 1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "27.3": {
+    "title": "Offline phase-continuous tone mixer",
+    "contract": "Input sample_rate>0, frames 0..65536, 1..8 frequencies strictly between 0 and Nyquist, matching gains and optional phases in radians. Sum absolute gains <=1. Return mono samples and wrapped final phases. This offline Python kernel is not a real-time callback; native/device work remains in the full lab.",
+    "cases": [
+      {
+        "input": {
+          "sample_rate": 8,
+          "frames": 4,
+          "frequencies": [
+            1
+          ],
+          "gains": [
+            0.5
+          ]
+        },
+        "output": {
+          "samples": [
+            0,
+            0.3535533905932738,
+            0.5,
+            0.3535533905932738
+          ],
+          "phases": [
+            3.141592653589793
+          ]
+        }
+      },
+      {
+        "input": {
+          "sample_rate": 8,
+          "frames": 0,
+          "frequencies": [
+            1
+          ],
+          "gains": [
+            0
+          ]
+        },
+        "output": {
+          "samples": [],
+          "phases": [
+            0
+          ]
+        }
+      },
+      {
+        "input": {
+          "sample_rate": 8,
+          "frames": 4,
+          "frequencies": [
+            4
+          ],
+          "gains": [
+            0.5
+          ]
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "sample_rate": 8,
+          "frames": 4,
+          "frequencies": [
+            1,
+            2
+          ],
+          "gains": [
+            0.8,
+            0.8
+          ]
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "27.4": {
+    "title": "Equal-power pan and stable presentation events",
+    "contract": "Input pan in [-1,1], seen/events lists of [epoch_string,tick,entity,index], and min_tick>=0. Return gains [left,right], emitted unique events in arrival order, and retained identities sorted. Ignore events older than min_tick. Inputs at most 4096 identities each; retained union cap 8192. Epoch is part of identity. Full runtime must prune by its rollback horizon.",
+    "cases": [
+      {
+        "input": {
+          "pan": 0,
+          "seen": [
+            [
+              "m",
+              90,
+              12,
+              0
+            ]
+          ],
+          "events": [
+            [
+              "m",
+              90,
+              12,
+              0
+            ],
+            [
+              "m",
+              90,
+              12,
+              1
+            ]
+          ]
+        },
+        "output": {
+          "gains": [
+            0.7071067811865476,
+            0.7071067811865476
+          ],
+          "emitted": [
+            [
+              "m",
+              90,
+              12,
+              1
+            ]
+          ],
+          "retained": [
+            [
+              "m",
+              90,
+              12,
+              0
+            ],
+            [
+              "m",
+              90,
+              12,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "pan": -1,
+          "seen": [],
+          "events": []
+        },
+        "output": {
+          "gains": [
+            1,
+            0
+          ],
+          "emitted": [],
+          "retained": []
+        }
+      },
+      {
+        "input": {
+          "pan": 1,
+          "seen": [
+            [
+              "old",
+              1,
+              1,
+              0
+            ]
+          ],
+          "events": [
+            [
+              "new",
+              2,
+              1,
+              0
+            ]
+          ],
+          "min_tick": 2
+        },
+        "output": {
+          "gains": [
+            0,
+            1
+          ],
+          "emitted": [
+            [
+              "new",
+              2,
+              1,
+              0
+            ]
+          ],
+          "retained": [
+            [
+              "new",
+              2,
+              1,
+              0
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "pan": 2,
+          "seen": [],
+          "events": []
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "28.1": {
+    "title": "Budgeted four-connected A-star",
+    "contract": "Input rectangular grid strings ('.' free, '#' blocked), start/goal [x,y], budget>=0. Maximum 128 by 128. Return status found/unreachable/budget_exhausted, path and expanded count. Unit moves, Manhattan heuristic, lexicographic heap tie-break. Blocked start/goal is unreachable. Goal removal counts as an expansion.",
+    "cases": [
+      {
+        "input": {
+          "grid": [
+            "..."
+          ],
+          "start": [
+            0,
+            0
+          ],
+          "goal": [
+            2,
+            0
+          ],
+          "budget": 10
+        },
+        "output": {
+          "status": "found",
+          "path": [
+            [
+              0,
+              0
+            ],
+            [
+              1,
+              0
+            ],
+            [
+              2,
+              0
+            ]
+          ],
+          "expanded": 3
+        }
+      },
+      {
+        "input": {
+          "grid": [
+            "..."
+          ],
+          "start": [
+            0,
+            0
+          ],
+          "goal": [
+            2,
+            0
+          ],
+          "budget": 0
+        },
+        "output": {
+          "status": "budget_exhausted",
+          "path": [],
+          "expanded": 0
+        }
+      },
+      {
+        "input": {
+          "grid": [
+            ".#."
+          ],
+          "start": [
+            0,
+            0
+          ],
+          "goal": [
+            2,
+            0
+          ],
+          "budget": 10
+        },
+        "output": {
+          "status": "unreachable",
+          "path": [],
+          "expanded": 1
+        }
+      },
+      {
+        "input": {
+          "grid": [
+            "."
+          ],
+          "start": [
+            0,
+            0
+          ],
+          "goal": [
+            0,
+            0
+          ],
+          "budget": 1
+        },
+        "output": {
+          "status": "found",
+          "path": [
+            [
+              0,
+              0
+            ]
+          ],
+          "expanded": 1
+        }
+      },
+      {
+        "input": {
+          "grid": [
+            "..",
+            "."
+          ],
+          "start": [
+            0,
+            0
+          ],
+          "goal": [
+            1,
+            0
+          ],
+          "budget": 5
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "28.2": {
+    "title": "Deterministic utility selection with hysteresis",
+    "contract": "Input scores mapping nonempty action names to finite scores or null (invalid), current action or null, and nonnegative margin. Return action and reason. Highest score wins, lexicographic name breaks ties. Retain a valid current action unless alternative score is strictly greater than current+margin.",
+    "cases": [
+      {
+        "input": {
+          "scores": {
+            "attack": 0.64,
+            "retreat": 0.6
+          },
+          "current": "retreat",
+          "margin": 0.05
+        },
+        "output": {
+          "action": "retreat",
+          "reason": "retained"
+        }
+      },
+      {
+        "input": {
+          "scores": {
+            "attack": 0.7,
+            "retreat": 0.5
+          },
+          "current": "retreat",
+          "margin": 0.05
+        },
+        "output": {
+          "action": "attack",
+          "reason": "selected"
+        }
+      },
+      {
+        "input": {
+          "scores": {
+            "a": 1,
+            "b": 1
+          },
+          "current": null,
+          "margin": 0
+        },
+        "output": {
+          "action": "a",
+          "reason": "selected"
+        }
+      },
+      {
+        "input": {
+          "scores": {
+            "a": null
+          },
+          "current": "a",
+          "margin": 0
+        },
+        "output": {
+          "action": null,
+          "reason": "no_valid_action"
+        }
+      },
+      {
+        "input": {
+          "scores": {
+            "a": 1
+          },
+          "margin": -1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "28.3": {
+    "title": "Node-bounded alpha-beta value search",
+    "contract": "Input tree nested nonempty lists with finite numeric leaves, budget>=0 and maximizing boolean (default true). Return value, nodes and complete. Validation caps structure at 10000 nodes/depth 64 before search; node budget counts visited evaluation nodes including root. On budget exhaustion return value null rather than an incomplete value. Full lab adds legal actions, iterative deepening and fallback.",
+    "cases": [
+      {
+        "input": {
+          "tree": [
+            [
+              3,
+              5
+            ],
+            [
+              2,
+              100
+            ]
+          ],
+          "budget": 100
+        },
+        "output": {
+          "value": 3,
+          "nodes": 6,
+          "complete": true
+        }
+      },
+      {
+        "input": {
+          "tree": [
+            [
+              3,
+              5
+            ],
+            [
+              2,
+              100
+            ]
+          ],
+          "budget": 2
+        },
+        "output": {
+          "value": null,
+          "nodes": 2,
+          "complete": false
+        }
+      },
+      {
+        "input": {
+          "tree": 7,
+          "budget": 1
+        },
+        "output": {
+          "value": 7,
+          "nodes": 1,
+          "complete": true
+        }
+      },
+      {
+        "input": {
+          "tree": 7,
+          "budget": 0
+        },
+        "output": {
+          "value": null,
+          "nodes": 0,
+          "complete": false
+        }
+      },
+      {
+        "input": {
+          "tree": [],
+          "budget": 1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "28.4": {
+    "title": "One stable logistic gradient step",
+    "contract": "Input matching finite feature x and weight w lists (1..64), bias b, label y exactly 0 or 1, and positive learning rate lr<=1. Return updated w,b and probability_before. Stable sigmoid avoids overflow. This kernel is one update, not a completed evaluation or trained policy.",
+    "cases": [
+      {
+        "input": {
+          "x": [
+            1,
+            2
+          ],
+          "w": [
+            0,
+            0
+          ],
+          "b": 0,
+          "y": 1,
+          "lr": 0.1
+        },
+        "output": {
+          "w": [
+            0.05,
+            0.1
+          ],
+          "b": 0.05,
+          "probability_before": 0.5
+        }
+      },
+      {
+        "input": {
+          "x": [
+            1
+          ],
+          "w": [
+            1000
+          ],
+          "b": 0,
+          "y": 1,
+          "lr": 0.1
+        },
+        "output": {
+          "w": [
+            1000
+          ],
+          "b": 0,
+          "probability_before": 1
+        }
+      },
+      {
+        "input": {
+          "x": [
+            1
+          ],
+          "w": [
+            -1000
+          ],
+          "b": 0,
+          "y": 0,
+          "lr": 0.1
+        },
+        "output": {
+          "w": [
+            -1000
+          ],
+          "b": 0,
+          "probability_before": 0
+        }
+      },
+      {
+        "input": {
+          "x": [
+            1,
+            2
+          ],
+          "w": [
+            0
+          ],
+          "b": 0,
+          "y": 1,
+          "lr": 0.1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "29.1": {
+    "title": "Input acknowledgment and reconciliation",
+    "contract": "Input authoritative integer position, ack>=0, pending list [sequence,delta]. Sequence is nonnegative; delta is integer -1,0,1. Position is clamped per input to [-100,100]. Deduplicate identical sequences, reject conflicting duplicates, replay only sequence>ack sorted. Return position and remaining pending pairs. Kernel assumes ack really denotes contiguous processed input.",
+    "cases": [
+      {
+        "input": {
+          "position": 10,
+          "ack": 40,
+          "pending": [
+            [
+              44,
+              1
+            ],
+            [
+              40,
+              1
+            ],
+            [
+              41,
+              1
+            ],
+            [
+              43,
+              1
+            ],
+            [
+              42,
+              1
+            ]
+          ]
+        },
+        "output": {
+          "position": 14,
+          "pending": [
+            [
+              41,
+              1
+            ],
+            [
+              42,
+              1
+            ],
+            [
+              43,
+              1
+            ],
+            [
+              44,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "position": 0,
+          "ack": 0,
+          "pending": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ]
+        },
+        "output": {
+          "position": 1,
+          "pending": [
+            [
+              1,
+              1
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "position": 100,
+          "ack": 0,
+          "pending": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              -1
+            ]
+          ]
+        },
+        "output": {
+          "position": 99,
+          "pending": [
+            [
+              1,
+              1
+            ],
+            [
+              2,
+              -1
+            ]
+          ]
+        }
+      },
+      {
+        "input": {
+          "position": 0,
+          "ack": 0,
+          "pending": [
+            [
+              1,
+              50
+            ]
+          ]
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "position": 0,
+          "ack": 0,
+          "pending": [
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              -1
+            ]
+          ]
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "29.2": {
+    "title": "Timestamped snapshot interpolation",
+    "contract": "Input nonempty snapshots [server_time,position], time render target. Maximum 4096 samples. Sort timestamps, deduplicate identical values, reject conflicting duplicate times and non-finite values. Linear interpolation inside bracket; hold nearest endpoint outside. Return position only; full lab must track hold/delay/recovery telemetry.",
+    "cases": [
+      {
+        "input": {
+          "snapshots": [
+            [
+              1.1,
+              4
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "time": 1.04
+        },
+        "output": 2.8
+      },
+      {
+        "input": {
+          "snapshots": [
+            [
+              1,
+              2
+            ],
+            [
+              1.1,
+              4
+            ]
+          ],
+          "time": 0.9
+        },
+        "output": 2
+      },
+      {
+        "input": {
+          "snapshots": [
+            [
+              1,
+              2
+            ],
+            [
+              1.1,
+              4
+            ]
+          ],
+          "time": 2
+        },
+        "output": 4
+      },
+      {
+        "input": {
+          "snapshots": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              2
+            ]
+          ],
+          "time": 1
+        },
+        "output": 2
+      },
+      {
+        "input": {
+          "snapshots": [
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ]
+          ],
+          "time": 1
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "snapshots": [],
+          "time": 1
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "29.3": {
+    "title": "Rollback to the pre-tick state",
+    "contract": "Input integer initial, inputs list of integer deltas -1,0,1, corrections list [tick,delta], and oldest retained pre-tick index. Maximum 10000 inputs. Build predicted history, restore earliest corrected S_tick, replay through end, return states including S_0. Reject corrections older than oldest or outside tape, and conflicting duplicates. This bounded scalar model does not snapshot a full physics engine.",
+    "cases": [
+      {
+        "input": {
+          "initial": 0,
+          "inputs": [
+            1,
+            1,
+            0,
+            1
+          ],
+          "corrections": [
+            [
+              2,
+              -1
+            ]
+          ],
+          "oldest": 0
+        },
+        "output": [
+          0,
+          1,
+          2,
+          1,
+          2
+        ]
+      },
+      {
+        "input": {
+          "initial": 0,
+          "inputs": [
+            1,
+            1
+          ],
+          "corrections": [
+            [
+              0,
+              -1
+            ]
+          ],
+          "oldest": 0
+        },
+        "output": [
+          0,
+          -1,
+          0
+        ]
+      },
+      {
+        "input": {
+          "initial": 5,
+          "inputs": [],
+          "corrections": [],
+          "oldest": 0
+        },
+        "output": [
+          5
+        ]
+      },
+      {
+        "input": {
+          "initial": 0,
+          "inputs": [
+            1,
+            1
+          ],
+          "corrections": [
+            [
+              0,
+              -1
+            ]
+          ],
+          "oldest": 1
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "initial": 0,
+          "inputs": [
+            1,
+            1
+          ],
+          "corrections": [
+            [
+              2,
+              -1
+            ]
+          ],
+          "oldest": 0
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "29.4": {
+    "title": "Idempotent result-store model",
+    "contract": "Input principal must equal match_authority; operation has exactly id/player/points with nonempty bounded strings and integer points 0..1000. ledger is a list of previous operations; balances is a mapping to nonnegative integer points. Return copied ledger/balances and applied boolean. Exact retries have no effect; same ID/different payload is a conflict. Synthetic principal is NOT authentication. Full lab uses a database transaction and process restart.",
+    "cases": [
+      {
+        "input": {
+          "principal": "match_authority",
+          "operation": {
+            "id": "R17",
+            "player": "P",
+            "points": 50
+          },
+          "ledger": [],
+          "balances": {}
+        },
+        "output": {
+          "ledger": [
+            {
+              "id": "R17",
+              "player": "P",
+              "points": 50
+            }
+          ],
+          "balances": {
+            "P": 50
+          },
+          "applied": true
+        }
+      },
+      {
+        "input": {
+          "principal": "match_authority",
+          "operation": {
+            "id": "R17",
+            "player": "P",
+            "points": 50
+          },
+          "ledger": [
+            {
+              "id": "R17",
+              "player": "P",
+              "points": 50
+            }
+          ],
+          "balances": {
+            "P": 50
+          }
+        },
+        "output": {
+          "ledger": [
+            {
+              "id": "R17",
+              "player": "P",
+              "points": 50
+            }
+          ],
+          "balances": {
+            "P": 50
+          },
+          "applied": false
+        }
+      },
+      {
+        "input": {
+          "principal": "player",
+          "operation": {
+            "id": "R17",
+            "player": "P",
+            "points": 50
+          },
+          "ledger": [],
+          "balances": {}
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "principal": "match_authority",
+          "operation": {
+            "id": "R17",
+            "player": "P",
+            "points": 500
+          },
+          "ledger": [
+            {
+              "id": "R17",
+              "player": "P",
+              "points": 50
+            }
+          ],
+          "balances": {
+            "P": 50
+          }
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "30.1": {
+    "title": "Nearest-rank frame statistics",
+    "contract": "Input nonempty finite positive times_ms list (max 100000) and positive budget_ms. Return count, mean_ms, p50_ms,p95_ms,p99_ms,max_ms,over_budget. Percentiles use ceil(p*N)-1. These input samples are not automatically real measurements; record their provenance separately.",
+    "cases": [
+      {
+        "input": {
+          "times_ms": [
+            10,
+            10,
+            10,
+            10,
+            50
+          ],
+          "budget_ms": 16.67
+        },
+        "output": {
+          "count": 5,
+          "mean_ms": 18,
+          "p50_ms": 10,
+          "p95_ms": 50,
+          "p99_ms": 50,
+          "max_ms": 50,
+          "over_budget": 1
+        }
+      },
+      {
+        "input": {
+          "times_ms": [
+            5
+          ],
+          "budget_ms": 5
+        },
+        "output": {
+          "count": 1,
+          "mean_ms": 5,
+          "p50_ms": 5,
+          "p95_ms": 5,
+          "p99_ms": 5,
+          "max_ms": 5,
+          "over_budget": 0
+        }
+      },
+      {
+        "input": {
+          "times_ms": [],
+          "budget_ms": 16
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "times_ms": [
+            0,
+            1
+          ],
+          "budget_ms": 16
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "30.2": {
+    "title": "Pseudo-localization and current binding prompt",
+    "contract": "Input text (max 4096 characters), bindings mapping unique action names to unique nonempty key labels, and action. Double literal vowels, preserve {identifier} placeholders, bracket the text. Reject malformed braces, absent action or conflicting key labels. Return text and prompt derived from current binding. This is an intentionally narrow localization model.",
+    "cases": [
+      {
+        "input": {
+          "text": "Hi {name}",
+          "bindings": {
+            "interact": "Space"
+          },
+          "action": "interact"
+        },
+        "output": {
+          "text": "[Hii {name}]",
+          "prompt": "Press Space"
+        }
+      },
+      {
+        "input": {
+          "text": "Go",
+          "bindings": {
+            "interact": "E"
+          },
+          "action": "interact"
+        },
+        "output": {
+          "text": "[Goo]",
+          "prompt": "Press E"
+        }
+      },
+      {
+        "input": {
+          "text": "Hi {name",
+          "bindings": {
+            "interact": "E"
+          },
+          "action": "interact"
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "text": "Go",
+          "bindings": {
+            "a": "E",
+            "b": "E"
+          },
+          "action": "a"
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "30.3": {
+    "title": "Bounded data-only mod schema",
+    "contract": "Input is the mod object itself: exactly version=1, title (1..80 chars), textures (<=16) each exactly name,width,height. Name is unique [A-Za-z0-9_-]{1,64}; integer dimensions 1..2048; RGBA8; total <=16 MiB. Return texture_count,total_bytes. Reject unknown fields, booleans as dimensions, unsupported versions and excessive resources before allocating texture payloads.",
+    "cases": [
+      {
+        "input": {
+          "version": 1,
+          "title": "Relay",
+          "textures": [
+            {
+              "name": "icon",
+              "width": 64,
+              "height": 64
+            }
+          ]
+        },
+        "output": {
+          "texture_count": 1,
+          "total_bytes": 16384
+        }
+      },
+      {
+        "input": {
+          "version": 1,
+          "title": "Empty",
+          "textures": []
+        },
+        "output": {
+          "texture_count": 0,
+          "total_bytes": 0
+        }
+      },
+      {
+        "input": {
+          "version": 99,
+          "title": "Bad",
+          "textures": []
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "version": 1,
+          "title": "Bad",
+          "textures": [
+            {
+              "name": "huge",
+              "width": 100000,
+              "height": 100000
+            }
+          ]
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "version": 1,
+          "title": "Bad",
+          "textures": [],
+          "script": "run"
+        },
+        "error": "ValueError"
+      },
+      {
+        "input": {
+          "version": 1,
+          "title": "Bad",
+          "textures": [
+            {
+              "name": "../escape",
+              "width": 1,
+              "height": 1
+            }
+          ]
+        },
+        "error": "ValueError"
+      }
+    ]
+  },
+  "30.4": {
+    "title": "Evidence-gate rubric evaluator",
+    "contract": "Input scores with exactly gameplay,systems,correctness,production,performance,documentation,oral; maxima 20,20,20,15,10,10,5. checks with exactly clean_launch,save_recovery,critical_defects_resolved,independent_loop,live_change,network_demo (boolean). Return score,passed,blockers. Pass requires score>=80 and all checks true. This evaluates supplied claims only; it cannot verify human review or approve a capstone automatically.",
+    "cases": [
+      {
+        "input": {
+          "scores": {
+            "gameplay": 20,
+            "systems": 20,
+            "correctness": 20,
+            "production": 15,
+            "performance": 10,
+            "documentation": 10,
+            "oral": 5
+          },
+          "checks": {
+            "clean_launch": true,
+            "save_recovery": true,
+            "critical_defects_resolved": true,
+            "independent_loop": true,
+            "live_change": true,
+            "network_demo": true
+          }
+        },
+        "output": {
+          "score": 100,
+          "passed": true,
+          "blockers": []
+        }
+      },
+      {
+        "input": {
+          "scores": {
+            "gameplay": 20,
+            "systems": 20,
+            "correctness": 20,
+            "production": 15,
+            "performance": 10,
+            "documentation": 10,
+            "oral": 5
+          },
+          "checks": {
+            "clean_launch": true,
+            "save_recovery": false,
+            "critical_defects_resolved": true,
+            "independent_loop": true,
+            "live_change": true,
+            "network_demo": true
+          }
+        },
+        "output": {
+          "score": 100,
+          "passed": false,
+          "blockers": [
+            "save_recovery"
+          ]
+        }
+      },
+      {
+        "input": {
+          "scores": {},
+          "checks": {}
+        },
+        "error": "ValueError"
+      }
+    ]
+  }
+}

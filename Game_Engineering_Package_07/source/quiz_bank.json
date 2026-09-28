@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "26.1.Q1",
+    "lesson": "26.1",
+    "type": "original",
+    "question": "May a correct broad phase return false positives?",
+    "answer": "Yes. Narrow-phase tests can reject them; false negatives are the dangerous case.",
+    "points": 2
+  },
+  {
+    "id": "26.1.Q2",
+    "lesson": "26.1",
+    "type": "original",
+    "question": "How many unordered pairs exist for 100 objects?",
+    "answer": "4,950.",
+    "points": 2
+  },
+  {
+    "id": "26.1.Q3",
+    "lesson": "26.1",
+    "type": "original",
+    "question": "Why document contact-normal orientation?",
+    "answer": "Impulse and separation calculations depend on a consistent direction between the two bodies.",
+    "points": 2
+  },
+  {
+    "id": "26.1.Q4",
+    "lesson": "26.1",
+    "type": "application",
+    "question": "With 250 bodies, how many exhaustive unordered pairs are possible? What relationship must hold between true-contact and candidate sets?",
+    "answer": "250 x 249 / 2 = 31,125. Every true-contact pair must occur in the candidate set; the reverse inclusion is unnecessary. Extra candidates are a cost, not a correctness defect.",
+    "points": 2
+  },
+  {
+    "id": "26.1.Q5",
+    "lesson": "26.1",
+    "type": "application",
+    "question": "A circle spans four cells but its center occupies one. Is center-only insertion sufficient? Give a repair and a duplicate-pair policy.",
+    "answer": "No. A neighbor can intersect the circle outside its center cell. Insert its complete bounding box into every intersected cell, emit canonical body-ID pairs, and deduplicate before applying impulses.",
+    "points": 2
+  },
+  {
+    "id": "26.2.Q1",
+    "lesson": "26.2",
+    "type": "original",
+    "question": "What velocity change follows from 6 N*s applied to 2 kg?",
+    "answer": "3 m/s in the impulse direction.",
+    "points": 2
+  },
+  {
+    "id": "26.2.Q2",
+    "lesson": "26.2",
+    "type": "original",
+    "question": "Why can an off-center impulse cause rotation?",
+    "answer": "It changes angular momentum through the lever arm relative to the center of mass.",
+    "points": 2
+  },
+  {
+    "id": "26.2.Q3",
+    "lesson": "26.2",
+    "type": "original",
+    "question": "Why use zero inverse mass for a static body?",
+    "answer": "It naturally produces no velocity change under impulse calculations without relying on infinite numerical values.",
+    "points": 2
+  },
+  {
+    "id": "26.2.Q4",
+    "lesson": "26.2",
+    "type": "application",
+    "question": "Two 2 kg bodies have velocities 3 and 0 m/s and restitution 0.5. Compute impulse, final velocities and total final kinetic energy.",
+    "answer": "With n from A to B, relative speed is -3, effective inverse mass is 1, and j = 4.5 N*s. A ends at 0.75 m/s; B at 2.25 m/s. Final kinetic energy is 0.5*2*(0.75^2+2.25^2) = 5.625 J. Momentum remains 6 kg*m/s.",
+    "points": 2
+  },
+  {
+    "id": "26.2.Q5",
+    "lesson": "26.2",
+    "type": "application",
+    "question": "A 6 N*s horizontal impulse acts 0.5 m above the center of a body with inertia 0.25 kg*m^2. What angular-velocity change results?",
+    "answer": "Using r=(0,0.5) and J=(6,0), cross(r,J)=-3 kg*m^2/s, so delta omega=-3/0.25=-12 rad/s. Reversing the stated axis convention changes the represented sign, not the physical motion.",
+    "points": 2
+  },
+  {
+    "id": "26.3.Q1",
+    "lesson": "26.3",
+    "type": "original",
+    "question": "How far does 30 m/s travel in 1/60 second?",
+    "answer": "0.5 m.",
+    "points": 2
+  },
+  {
+    "id": "26.3.Q2",
+    "lesson": "26.3",
+    "type": "original",
+    "question": "Why can increasing solver iterations help?",
+    "answer": "It can reduce residual constraint error, though cost rises and other modeling problems can remain.",
+    "points": 2
+  },
+  {
+    "id": "26.3.Q3",
+    "lesson": "26.3",
+    "type": "original",
+    "question": "Does CCD remove every numerical simulation problem?",
+    "answer": "No. It addresses certain between-step collision failures under its motion and solver assumptions.",
+    "points": 2
+  },
+  {
+    "id": "26.3.Q4",
+    "lesson": "26.3",
+    "type": "application",
+    "question": "A point starts at 0 m and moves at 30 m/s toward the slab [0.24,0.26] m during a 1/60 s tick. What is the entry time, and why does an endpoint test miss it?",
+    "answer": "Entry is 0.24/30 = 0.008 s. The final point is at 0.5 m, beyond the slab, so neither endpoint overlaps even though the motion crosses it.",
+    "points": 2
+  },
+  {
+    "id": "26.3.Q5",
+    "lesson": "26.3",
+    "type": "application",
+    "question": "A chain becomes less stretchy when solver iterations increase. Does this prove conservation of energy or solve projectile tunneling?",
+    "answer": "Neither. It shows reduced constraint residual in that experiment. Energy must be measured under the chosen correction model; endpoint collision detection can still miss a between-step crossing.",
+    "points": 2
+  },
+  {
+    "id": "26.4.Q1",
+    "lesson": "26.4",
+    "type": "original",
+    "question": "Is same-machine repeatability proof of cross-platform determinism?",
+    "answer": "No. Compiler, arithmetic and implementation differences can still matter.",
+    "points": 2
+  },
+  {
+    "id": "26.4.Q2",
+    "lesson": "26.4",
+    "type": "original",
+    "question": "Why identify the first divergent tick?",
+    "answer": "It localizes the origin of disagreement before later effects amplify it.",
+    "points": 2
+  },
+  {
+    "id": "26.4.Q3",
+    "lesson": "26.4",
+    "type": "original",
+    "question": "What should happen when a simulation first creates a NaN?",
+    "answer": "Capture a useful diagnostic and reject or isolate invalid state according to policy rather than letting it propagate silently.",
+    "points": 2
+  },
+  {
+    "id": "26.4.Q4",
+    "lesson": "26.4",
+    "type": "application",
+    "question": "Using semi-implicit Euler with acceleration -10 m/s^2, zero initial velocity, t=1 s and h=1/60 s, what is the position error against the analytic solution?",
+    "answer": "The error is 0.5*a*t*h = -5/60 = -0.083333... m. The numerical position is about -5.083333 m rather than -5 m. Halving h halves this error in this constant-acceleration setup.",
+    "points": 2
+  },
+  {
+    "id": "26.4.Q5",
+    "lesson": "26.4",
+    "type": "application",
+    "question": "Two replay hashes agree, but an omitted AI cooldown differs. What has been proved, and what must change?",
+    "answer": "Only the serialized subset agreed. Include every future-affecting authoritative field, including cooldowns and random state; use explicit schema ordering, then compare the next transition after restore as well as the current snapshot.",
+    "points": 2
+  },
+  {
+    "id": "M26.R1",
+    "module": 26,
+    "type": "module_review",
+    "question": "A projectile is missed only near cell boundaries. Which intermediate artifacts distinguish a broad-phase defect from a narrow-phase defect?",
+    "answer": "Capture full shape bounds, covered cells, canonical candidate pairs, filtering decisions and final contacts at the same tick. If the true pair is absent from candidates, inspect membership/filtering; if present but rejected, inspect geometry/tolerance policy. Use an independent oracle.",
+    "points": 2
+  },
+  {
+    "id": "M26.R2",
+    "module": 26,
+    "type": "module_review",
+    "question": "Why can an off-center contact require a smaller impulse than a center-only calculation for the same initial normal speed?",
+    "answer": "The contact-point effective inverse mass includes rotational response. A positive rotational term increases K, reducing J for the same restitution target. The impulse changes both translation and rotation; comparing only center speed is incomplete.",
+    "points": 2
+  },
+  {
+    "id": "M26.R3",
+    "module": 26,
+    "type": "module_review",
+    "question": "An engineer doubles solver iterations and calls it equivalent to halving the timestep. Explain the error.",
+    "answer": "Iterations reduce algebraic constraint error within a step; a smaller timestep changes integration, collision sampling and force accumulation. They can interact but are not equivalent. Compare separate tables for iteration count and timestep.",
+    "points": 2
+  },
+  {
+    "id": "M26.R4",
+    "module": 26,
+    "type": "module_review",
+    "question": "What extra evidence is needed beyond matching two final-state hashes?",
+    "answer": "Per-tick canonical states/hashes, a defined complete state schema, seeded inputs, exact environment/build, deliberate divergence detection, physical invariants and analytic checks. A match says little about physical accuracy or an untested platform.",
+    "points": 2
+  },
+  {
+    "id": "M26.R5",
+    "module": 26,
+    "type": "module_review",
+    "question": "Your simple engine and a maintained library disagree on bounce height. What should be controlled before deciding either is wrong?",
+    "answer": "Units, shapes/skins, timestep/substeps, gravity, integration method, restitution threshold, contact offset, solver iterations, damping, sleep settings and library version. State known approximations and compare an isolated analytic case first.",
+    "points": 2
+  },
+  {
+    "id": "27.1.Q1",
+    "lesson": "27.1",
+    "type": "original",
+    "question": "Why evaluate parent transforms before dependent children?",
+    "answer": "A child world transform depends on the parent world transform.",
+    "points": 2
+  },
+  {
+    "id": "27.1.Q2",
+    "lesson": "27.1",
+    "type": "original",
+    "question": "What should ordinary normalized skinning weights sum to?",
+    "answer": "One.",
+    "points": 2
+  },
+  {
+    "id": "27.1.Q3",
+    "lesson": "27.1",
+    "type": "original",
+    "question": "Why avoid directly interpolating arbitrary rotation-matrix entries?",
+    "answer": "The result may cease to be a valid pure rotation and can introduce scale or shear.",
+    "points": 2
+  },
+  {
+    "id": "27.1.Q4",
+    "lesson": "27.1",
+    "type": "application",
+    "question": "A root rotates 90 degrees and its child has local translation (1,0). Where is the child in world coordinates under column-vector parent*local composition?",
+    "answer": "At (0,1), assuming the root is at the world origin. The parent rotation acts on the child translation; adding the unrotated translation would mix spaces.",
+    "points": 2
+  },
+  {
+    "id": "27.1.Q5",
+    "lesson": "27.1",
+    "type": "application",
+    "question": "Why should G_j * inverse(B_j) be identity in the bind pose, and what extra transform is needed for a mesh-local output buffer?",
+    "answer": "At bind pose G_j equals B_j, so their product cancels. For mesh-local output, prepend inverse(mesh_world) when G_j and B_j are defined consistently in world space; the exact convention must match the imported asset.",
+    "points": 2
+  },
+  {
+    "id": "27.2.Q1",
+    "lesson": "27.2",
+    "type": "original",
+    "question": "Can every IK target be reached?",
+    "answer": "No. Geometry, joint limits and constraints can make targets unreachable.",
+    "points": 2
+  },
+  {
+    "id": "27.2.Q2",
+    "lesson": "27.2",
+    "type": "original",
+    "question": "What is the maximum reach of two collinear links of length 1 each?",
+    "answer": "2 units.",
+    "points": 2
+  },
+  {
+    "id": "27.2.Q3",
+    "lesson": "27.2",
+    "type": "original",
+    "question": "Why define root-motion ownership?",
+    "answer": "Animation and physical simulation otherwise may apply incompatible displacement to the same object.",
+    "points": 2
+  },
+  {
+    "id": "27.2.Q4",
+    "lesson": "27.2",
+    "type": "application",
+    "question": "For links of length 1 and 1 and target (1,1), compute one elbow and shoulder solution. Verify it with forward kinematics.",
+    "answer": "One branch has theta2=pi/2 and theta1=0. The endpoint is (cos(0)+cos(pi/2), sin(0)+sin(pi/2))=(1,1). The other elbow branch is also possible under an appropriate shoulder angle.",
+    "points": 2
+  },
+  {
+    "id": "27.2.Q5",
+    "lesson": "27.2",
+    "type": "application",
+    "question": "An action clip moves the root 0.3 m while the physics controller also moves it 0.3 m in the same tick. What contract is missing?",
+    "answer": "Root-motion authority. Animation should either supply a displacement for collision-resolved movement or remain visual while physics supplies movement; adding both gives an unintended 0.6 m step.",
+    "points": 2
+  },
+  {
+    "id": "27.3.Q1",
+    "lesson": "27.3",
+    "type": "original",
+    "question": "What duration does 256 frames represent at 48 kHz?",
+    "answer": "Approximately 5.33 ms.",
+    "points": 2
+  },
+  {
+    "id": "27.3.Q2",
+    "lesson": "27.3",
+    "type": "original",
+    "question": "Why avoid disk reads inside an audio callback?",
+    "answer": "Their unpredictable blocking time can exceed the audio deadline.",
+    "points": 2
+  },
+  {
+    "id": "27.3.Q3",
+    "lesson": "27.3",
+    "type": "original",
+    "question": "Does halving the buffer automatically improve every aspect of audio?",
+    "answer": "No. It can reduce buffering latency while increasing deadline pressure and underrun risk.",
+    "points": 2
+  },
+  {
+    "id": "27.3.Q4",
+    "lesson": "27.3",
+    "type": "application",
+    "question": "How many sample values are in 256 stereo frames, and what duration do they represent at 48 kHz?",
+    "answer": "There are 512 sample values, but the duration is 256/48000 seconds, about 5.333 ms. Channel count changes storage, not the number of time instants.",
+    "points": 2
+  },
+  {
+    "id": "27.3.Q5",
+    "lesson": "27.3",
+    "type": "application",
+    "question": "Why can draining a lock-free command queue until empty still violate a callback deadline? Give a bounded alternative.",
+    "answer": "A producer can keep adding work, and each command may have a nontrivial cost. Limit commands per callback, cap voices and output frames, and define overflow/coalescing behavior. Lock-free does not mean bounded total callback work.",
+    "points": 2
+  },
+  {
+    "id": "27.4.Q1",
+    "lesson": "27.4",
+    "type": "original",
+    "question": "Is stereo panning a complete spatial-hearing model?",
+    "answer": "No. It represents only some directional cues.",
+    "points": 2
+  },
+  {
+    "id": "27.4.Q2",
+    "lesson": "27.4",
+    "type": "original",
+    "question": "Why give presentation events stable identities during replay?",
+    "answer": "To recognize previously presented events and apply a deliberate deduplication policy.",
+    "points": 2
+  },
+  {
+    "id": "27.4.Q3",
+    "lesson": "27.4",
+    "type": "original",
+    "question": "Why provide a non-audio equivalent for a critical cue?",
+    "answer": "The player may not hear the cue because of disability, environment or settings.",
+    "points": 2
+  },
+  {
+    "id": "27.4.Q4",
+    "lesson": "27.4",
+    "type": "application",
+    "question": "At center pan under the equal-power rule, what are the left and right gains? What quantity is preserved?",
+    "answer": "Both gains are sqrt(0.5), approximately 0.7071. Their squares sum to one. This is a mathematical gain property, not a guarantee of equal perceived loudness for every playback setup.",
+    "points": 2
+  },
+  {
+    "id": "27.4.Q5",
+    "lesson": "27.4",
+    "type": "application",
+    "question": "A rollback snapshot restores the set of already-played sounds to an earlier version. What bug follows, and where should this set live?",
+    "answer": "Previously presented sounds can play again during resimulation. Presentation deduplication should live outside rollback state, keyed by stable event identity and bounded by the replay horizon, with a new epoch for a new match.",
+    "points": 2
+  },
+  {
+    "id": "M27.R1",
+    "module": 27,
+    "type": "module_review",
+    "question": "A bind-pose mesh moves when skinning is enabled. Give a structured diagnosis.",
+    "answer": "Check joint index order, current global transforms versus bind globals, inverse bind matrices, mesh-node correction and multiplication convention. Test one fully weighted vertex with a non-identity mesh transform; do not patch with an unexplained inverse.",
+    "points": 2
+  },
+  {
+    "id": "M27.R2",
+    "module": 27,
+    "type": "module_review",
+    "question": "An action is canceled during a blend but its attack sound still fires. What ownership rules are missing?",
+    "answer": "Separate gameplay action authority from visual blending; define event emission/cancellation and whether a marker still belongs to a valid action. Use stable event IDs and trace the action generation. Blending a pose does not authorize gameplay effects.",
+    "points": 2
+  },
+  {
+    "id": "M27.R3",
+    "module": 27,
+    "type": "module_review",
+    "question": "A callback has a lock-free queue but misses deadlines. Give three plausible reasons.",
+    "answer": "Unbounded draining, allocation/loading or expensive DSP, too many voices/large block work, and operating-system scheduling can all matter. Cap work, preallocate and measure the actual device path; lock-free is not a hard real-time guarantee.",
+    "points": 2
+  },
+  {
+    "id": "M27.R4",
+    "module": 27,
+    "type": "module_review",
+    "question": "Why should the presentation-event deduplication ledger not be restored with the rolled-back simulation state?",
+    "answer": "Restoring it would forget already presented events and replay audible/visible one-shots. Keep bounded presentation history separate, while restoring the authoritative event-generation state needed for deterministic resimulation.",
+    "points": 2
+  },
+  {
+    "id": "M27.R5",
+    "module": 27,
+    "type": "module_review",
+    "question": "What makes a critical visual audio alternative successful rather than merely present?",
+    "answer": "A tester can identify the required state and complete the task without sound. The cue must be readable, timely, distinguishable without color alone where relevant, and not obscured or dependent on an inaccessible control.",
+    "points": 2
+  },
+  {
+    "id": "28.1.Q1",
+    "lesson": "28.1",
+    "type": "original",
+    "question": "How do pathfinding and steering differ?",
+    "answer": "Pathfinding selects a route; steering produces local movement to follow or adjust that route.",
+    "points": 2
+  },
+  {
+    "id": "28.1.Q2",
+    "lesson": "28.1",
+    "type": "original",
+    "question": "Can the example 1.0-wide agent pass through the 0.8-wide doorway?",
+    "answer": "Not under the stated no-overlap model.",
+    "points": 2
+  },
+  {
+    "id": "28.1.Q3",
+    "lesson": "28.1",
+    "type": "original",
+    "question": "Why bound replanning work?",
+    "answer": "Large or frequent searches can consume the frame budget and harm responsiveness.",
+    "points": 2
+  },
+  {
+    "id": "28.1.Q4",
+    "lesson": "28.1",
+    "type": "application",
+    "question": "For a four-connected unit-cost grid, what is the Manhattan heuristic from (0,0) to (3,2)? Does a two-expansion budget prove a route is impossible?",
+    "answer": "The heuristic is 5. Exhausting two expansions only proves the configured budget was consumed; return budget_exhausted unless the frontier was actually exhausted without a path.",
+    "points": 2
+  },
+  {
+    "id": "28.1.Q5",
+    "lesson": "28.1",
+    "type": "application",
+    "question": "A smoothed path segment cuts across an obstacle corner although every original grid node is free. What validation is missing?",
+    "answer": "Clearance along the continuous segment for the full agent footprint. Validate swept movement or use a smoothing method constrained by navigable geometry; point-node validity alone is insufficient.",
+    "points": 2
+  },
+  {
+    "id": "28.2.Q1",
+    "lesson": "28.2",
+    "type": "original",
+    "question": "What statuses should a multi-frame action expose?",
+    "answer": "At least a defined running/progress state, success, failure and cancellation behavior.",
+    "points": 2
+  },
+  {
+    "id": "28.2.Q2",
+    "lesson": "28.2",
+    "type": "original",
+    "question": "Why can nearly tied utility scores cause oscillation?",
+    "answer": "Small input changes repeatedly reverse the preferred action.",
+    "points": 2
+  },
+  {
+    "id": "28.2.Q3",
+    "lesson": "28.2",
+    "type": "original",
+    "question": "Why is a decision trace valuable?",
+    "answer": "It makes selection criteria and failures visible for testing, tuning and designer review.",
+    "points": 2
+  },
+  {
+    "id": "28.2.Q4",
+    "lesson": "28.2",
+    "type": "application",
+    "question": "The current action scores 0.60, the best alternative scores 0.64 and the switching margin is 0.05. Which action remains, assuming both are valid?",
+    "answer": "The current action remains because 0.64 is not greater than 0.65. If the current action becomes invalid, validity overrides the hysteresis rule.",
+    "points": 2
+  },
+  {
+    "id": "28.2.Q5",
+    "lesson": "28.2",
+    "type": "application",
+    "question": "A canceled navigation action receives its asynchronous result later and starts moving again. What state or ownership check should prevent this?",
+    "answer": "Associate requests with an action/entity generation or cancellation token. The completion path verifies the action is still active and owns that request before installing the path; cleanup must release resources exactly once.",
+    "points": 2
+  },
+  {
+    "id": "28.3.Q1",
+    "lesson": "28.3",
+    "type": "original",
+    "question": "Does alpha-beta change the minimax objective when applied correctly?",
+    "answer": "No. It prunes branches that cannot affect the same result under the search assumptions.",
+    "points": 2
+  },
+  {
+    "id": "28.3.Q2",
+    "lesson": "28.3",
+    "type": "original",
+    "question": "How many depth-6 paths arise from branching factor 10 without pruning?",
+    "answer": "About 10^6, or one million.",
+    "points": 2
+  },
+  {
+    "id": "28.3.Q3",
+    "lesson": "28.3",
+    "type": "original",
+    "question": "Why use a fallback action?",
+    "answer": "The decision deadline may arrive before the planned search completes.",
+    "points": 2
+  },
+  {
+    "id": "28.3.Q4",
+    "lesson": "28.3",
+    "type": "application",
+    "question": "A root maximizer has already found value 3. A new minimizing child first reveals leaf value 2. Why may its remaining leaves be pruned?",
+    "answer": "The minimizing child can finish at 2 or lower, so it cannot improve on the root alternative worth 3. Under the stated deterministic minimax model, the branch cannot change the chosen value.",
+    "points": 2
+  },
+  {
+    "id": "28.3.Q5",
+    "lesson": "28.3",
+    "type": "application",
+    "question": "Depth 3 completed but depth 4 exhausts its node budget halfway through the root. Which result should iterative deepening return, and what should be reported?",
+    "answer": "Return the last fully completed depth-3 result, or a legal fallback if none completed. Report completed_depth=3, the actual node count and that the next iteration was interrupted; do not claim a complete depth-4 minimax result.",
+    "points": 2
+  },
+  {
+    "id": "28.4.Q1",
+    "lesson": "28.4",
+    "type": "original",
+    "question": "Why separate complete episodes across data splits?",
+    "answer": "It reduces leakage from highly correlated examples belonging to the same episode.",
+    "points": 2
+  },
+  {
+    "id": "28.4.Q2",
+    "lesson": "28.4",
+    "type": "original",
+    "question": "What mathematical rule underlies backpropagation?",
+    "answer": "The chain rule applied through the computation graph.",
+    "points": 2
+  },
+  {
+    "id": "28.4.Q3",
+    "lesson": "28.4",
+    "type": "original",
+    "question": "Why retain a rules-based baseline?",
+    "answer": "It reveals whether learning adds useful quality relative to its data, runtime and maintenance costs.",
+    "points": 2
+  },
+  {
+    "id": "28.4.Q4",
+    "lesson": "28.4",
+    "type": "application",
+    "question": "For x=(1,2), y=1, w=(0,0), b=0 and learning rate 0.1, compute one logistic cross-entropy gradient-descent update.",
+    "answer": "p=0.5, so p-y=-0.5. The weight gradient is (-0.5,-1), bias gradient -0.5. Updated w=(0.05,0.10), b=0.05. The new logit is 0.30.",
+    "points": 2
+  },
+  {
+    "id": "28.4.Q5",
+    "lesson": "28.4",
+    "type": "application",
+    "question": "A classifier scores 98% when frames are randomly split, but 72% when entire episodes are held out. Which estimate better supports new-episode use, and why?",
+    "answer": "The held-out-episode result better matches the stated deployment question because correlated frames from the same episode no longer leak across the split. Report both methods, the class baseline and uncertainty rather than treating 98% as demonstrated generalization.",
+    "points": 2
+  },
+  {
+    "id": "M28.R1",
+    "module": 28,
+    "type": "module_review",
+    "question": "A* found a route, but the agent never reaches the target. Name four different layers to inspect.",
+    "answer": "Navigation representation/clearance, path freshness, steering/progress detection and collision/physical execution. Also inspect target changes and action ownership. A graph path is not a guarantee of executable motion.",
+    "points": 2
+  },
+  {
+    "id": "M28.R2",
+    "module": 28,
+    "type": "module_review",
+    "question": "How do hysteresis and action cancellation solve different AI problems?",
+    "answer": "Hysteresis avoids unstable selection around similar scores; cancellation releases resources/ownership when an action stops. A stable selector can still leak requests, and perfect cleanup can still thrash between actions.",
+    "points": 2
+  },
+  {
+    "id": "M28.R3",
+    "module": 28,
+    "type": "module_review",
+    "question": "A search expires before completing the first root move. What can it safely return?",
+    "answer": "A legal fallback validated before expensive search, or a move from the last fully completed iteration. A partial score without a corresponding fully defined action is not safe. Terminal states need their own result.",
+    "points": 2
+  },
+  {
+    "id": "M28.R4",
+    "module": 28,
+    "type": "module_review",
+    "question": "A classifier scores 99% after randomly splitting frames from the same matches. Why is that evidence weak?",
+    "answer": "Closely related frames can leak episode-specific information across splits. Split independent episodes/scenarios before preprocessing and model selection, compare an appropriate baseline, and report held-out error categories and deployment costs.",
+    "points": 2
+  },
+  {
+    "id": "M28.R5",
+    "module": 28,
+    "type": "module_review",
+    "question": "How should a learned component behave when the model fails to load or inference is too slow?",
+    "answer": "Validate artifact/schema, use a tested bounded rules/legal-action fallback, emit diagnostics outside critical execution, and keep game progression available. Offline accuracy does not justify making an unbounded model dependency authoritative.",
+    "points": 2
+  },
+  {
+    "id": "29.1.Q1",
+    "lesson": "29.1",
+    "type": "original",
+    "question": "What is authoritative state?",
+    "answer": "The state accepted as the deciding game truth under the chosen trust model.",
+    "points": 2
+  },
+  {
+    "id": "29.1.Q2",
+    "lesson": "29.1",
+    "type": "original",
+    "question": "Which inputs are replayed after acknowledgment of input 40 in the example?",
+    "answer": "Unacknowledged inputs 41 through 44.",
+    "points": 2
+  },
+  {
+    "id": "29.1.Q3",
+    "lesson": "29.1",
+    "type": "original",
+    "question": "Why send intentions rather than unrestricted reward totals?",
+    "answer": "The authority can validate and compute outcomes instead of trusting client-supplied benefits.",
+    "points": 2
+  },
+  {
+    "id": "29.1.Q4",
+    "lesson": "29.1",
+    "type": "application",
+    "question": "Authority acknowledges input 40 at x=10. Pending inputs 41 through 44 each move +1. What is the reconciled prediction?",
+    "answer": "Restore x=10 and replay only 41,42,43,44, producing x=14. Do not replay 40 or discard all pending input. The acknowledgment must be tied to the authoritative state after those acknowledged effects.",
+    "points": 2
+  },
+  {
+    "id": "29.1.Q5",
+    "lesson": "29.1",
+    "type": "application",
+    "question": "Why is acknowledging the highest received sequence unsafe when an earlier input is missing?",
+    "answer": "The client may discard the missing input even though the authority never applied it. A cumulative acknowledgment must refer to the highest contiguous processed sequence, or the protocol must explicitly describe selective acknowledgment and missing-input semantics.",
+    "points": 2
+  },
+  {
+    "id": "29.2.Q1",
+    "lesson": "29.2",
+    "type": "original",
+    "question": "What cost does snapshot interpolation commonly add?",
+    "answer": "Additional presentation delay from buffering earlier snapshots.",
+    "points": 2
+  },
+  {
+    "id": "29.2.Q2",
+    "lesson": "29.2",
+    "type": "original",
+    "question": "Why must delta-compression baselines be identified?",
+    "answer": "The receiver needs the correct prior state to reconstruct the delta.",
+    "points": 2
+  },
+  {
+    "id": "29.2.Q3",
+    "lesson": "29.2",
+    "type": "original",
+    "question": "Why avoid transmitting irrelevant hidden enemy state?",
+    "answer": "A modified client may inspect received information even if the normal UI hides it.",
+    "points": 2
+  },
+  {
+    "id": "29.2.Q4",
+    "lesson": "29.2",
+    "type": "application",
+    "question": "Positions are 2 m at 1.00 s and 4 m at 1.10 s. What is the interpolated position at 1.04 s?",
+    "answer": "alpha=(1.04-1.00)/(1.10-1.00)=0.4, so x=2+0.4*(4-2)=2.8 m. Use the simulation timestamps, not arrival times.",
+    "points": 2
+  },
+  {
+    "id": "29.2.Q5",
+    "lesson": "29.2",
+    "type": "application",
+    "question": "A delta names baseline 120, but the receiver only retains baseline 121. Should it apply the delta to 121?",
+    "answer": "No. The delta is meaningful only relative to its named baseline. Trigger the specified full-state or baseline recovery path and preserve a valid displayed state while recovering.",
+    "points": 2
+  },
+  {
+    "id": "29.3.Q1",
+    "lesson": "29.3",
+    "type": "original",
+    "question": "How much time do 120 ticks cover at 60 Hz?",
+    "answer": "Two seconds.",
+    "points": 2
+  },
+  {
+    "id": "29.3.Q2",
+    "lesson": "29.3",
+    "type": "original",
+    "question": "How much raw storage do 120 snapshots of 2 MB require?",
+    "answer": "240 MB.",
+    "points": 2
+  },
+  {
+    "id": "29.3.Q3",
+    "lesson": "29.3",
+    "type": "original",
+    "question": "Why are external side effects difficult during rollback?",
+    "answer": "Re-executing a tick must not repeat irreversible actions such as issuing a reward or sending an external message.",
+    "points": 2
+  },
+  {
+    "id": "29.3.Q4",
+    "lesson": "29.3",
+    "type": "application",
+    "question": "With S_0=0 and predicted inputs [1,1,0,1], tick 2 is corrected to -1. Which state must be restored and what is the corrected S_4?",
+    "answer": "Restore the pre-tick state S_2=2. Tick 2 gives S_3=1, and tick 3 gives S_4=2. Restoring S_3 would retain an effect of the incorrect prediction.",
+    "points": 2
+  },
+  {
+    "id": "29.3.Q5",
+    "lesson": "29.3",
+    "type": "application",
+    "question": "A late input refers to a tick older than the snapshot ring. What is a valid response, and what is an invalid shortcut?",
+    "answer": "Use a documented resynchronization, pause or disconnect policy. Applying the old input to the current tick or claiming rollback succeeded without the required state is invalid.",
+    "points": 2
+  },
+  {
+    "id": "29.4.Q1",
+    "lesson": "29.4",
+    "type": "original",
+    "question": "Is authentication the same as authorization?",
+    "answer": "No. Identity verification and permission to perform a specific action are separate checks.",
+    "points": 2
+  },
+  {
+    "id": "29.4.Q2",
+    "lesson": "29.4",
+    "type": "original",
+    "question": "Why identify a match-result operation uniquely?",
+    "answer": "Retries can then be recognized and processed without duplicating its durable effect.",
+    "points": 2
+  },
+  {
+    "id": "29.4.Q3",
+    "lesson": "29.4",
+    "type": "original",
+    "question": "Must this lab use a paid public cloud?",
+    "answer": "No. Local services and synthetic accounts satisfy the educational objective.",
+    "points": 2
+  },
+  {
+    "id": "29.4.Q4",
+    "lesson": "29.4",
+    "type": "application",
+    "question": "A result commits, but its response is lost. The client retries with the same operation ID and payload. What must happen to the reward total?",
+    "answer": "The durable effect must not be repeated. The service returns the prior result or an already-applied response, using an operation record committed atomically with the reward update.",
+    "points": 2
+  },
+  {
+    "id": "29.4.Q5",
+    "lesson": "29.4",
+    "type": "application",
+    "question": "Why must a reused operation ID with a different payload be rejected instead of treated as a normal retry?",
+    "answer": "An idempotency key identifies one operation, not arbitrary later edits. Accepting a changed payload can conceal corruption or unauthorized changes. Bind the ID to the canonical payload and report a conflict.",
+    "points": 2
+  },
+  {
+    "id": "M29.R1",
+    "module": 29,
+    "type": "module_review",
+    "question": "The server receives inputs 10, 12 and 13 but not 11. What may it acknowledge under the contiguous-ACK protocol?",
+    "answer": "After applying 10 it may acknowledge 10; 12 and 13 remain buffered until 11 arrives. Acknowledging 13 would make the client discard missing input 11 and break the replay contract.",
+    "points": 2
+  },
+  {
+    "id": "M29.R2",
+    "module": 29,
+    "type": "module_review",
+    "question": "Is hiding an entity in the renderer sufficient to prevent clients from learning its position?",
+    "answer": "No. The server must filter relevance before transmitting the state. Inspect payloads and account for related events/deltas; a client can inspect received data regardless of render visibility.",
+    "points": 2
+  },
+  {
+    "id": "M29.R3",
+    "module": 29,
+    "type": "module_review",
+    "question": "Explain the off-by-one error in restoring S_(t+1) when replacing input I_t.",
+    "answer": "With S_t defined before I_t, S_(t+1) already includes the old input. Restore S_t, apply the corrected I_t and replay later inputs. Starting after the old input preserves its effect or double-applies work.",
+    "points": 2
+  },
+  {
+    "id": "M29.R4",
+    "module": 29,
+    "type": "module_review",
+    "question": "A reward committed but the response was lost. How does the client retry without duplicating the reward?",
+    "answer": "Reuse the same operation ID and payload. In an atomic transaction, the service sees the recorded exact operation and returns its existing result/no-op. Reusing an ID with a different payload is a conflict.",
+    "points": 2
+  },
+  {
+    "id": "M29.R5",
+    "module": 29,
+    "type": "module_review",
+    "question": "What does an in-process faulty-network test prove, and what remains to test?",
+    "answer": "It tests the modeled protocol under deterministic delay/loss/reorder/duplicate scenarios. It does not test sockets, process isolation, real clock drift, bandwidth limits, production authentication or platform transport failures. Add separate integration tests.",
+    "points": 2
+  },
+  {
+    "id": "30.1.Q1",
+    "lesson": "30.1",
+    "type": "original",
+    "question": "What is the ideal frame time after a 10x speedup of the example 2 ms subsystem?",
+    "answer": "18 ms unchanged work plus 0.2 ms optimized work = 18.2 ms.",
+    "points": 2
+  },
+  {
+    "id": "30.1.Q2",
+    "lesson": "30.1",
+    "type": "original",
+    "question": "Why record build type?",
+    "answer": "Debug and optimized builds can have very different performance and checks.",
+    "points": 2
+  },
+  {
+    "id": "30.1.Q3",
+    "lesson": "30.1",
+    "type": "original",
+    "question": "Why can a microbenchmark improvement fail to help the game?",
+    "answer": "That operation may not dominate the real critical path or may create costs elsewhere.",
+    "points": 2
+  },
+  {
+    "id": "30.1.Q4",
+    "lesson": "30.1",
+    "type": "application",
+    "question": "Using nearest-rank percentiles, what are the mean and p95 of [10,10,10,10,50] ms? Is this enough data to characterize a real game tail?",
+    "answer": "The mean is 18 ms. ceil(0.95*5)=5, so p95 is 50 ms. Five observations only validate the calculation; a real tail claim needs a suitable workload, many samples and repeated runs.",
+    "points": 2
+  },
+  {
+    "id": "30.1.Q5",
+    "lesson": "30.1",
+    "type": "application",
+    "question": "A 20 ms frame contains 2 ms of optimizable work. What is the ideal total time after a 10x improvement, and what is the infinite-speed lower bound?",
+    "answer": "18+2/10=18.2 ms after a 10x improvement. The modeled lower bound is 18 ms. This assumes the other work and critical-path structure stay unchanged.",
+    "points": 2
+  },
+  {
+    "id": "30.2.Q1",
+    "lesson": "30.2",
+    "type": "original",
+    "question": "Why use pseudo-localization before full translation?",
+    "answer": "It exposes layout and text-handling problems using expanded or altered test strings.",
+    "points": 2
+  },
+  {
+    "id": "30.2.Q2",
+    "lesson": "30.2",
+    "type": "original",
+    "question": "What should a control prompt show after rebinding?",
+    "answer": "The current binding, not an obsolete hard-coded default.",
+    "points": 2
+  },
+  {
+    "id": "30.2.Q3",
+    "lesson": "30.2",
+    "type": "original",
+    "question": "Does checking every accessibility guideline prove legal compliance?",
+    "answer": "No. It supports engineering review but is not a legal determination or substitute for user evaluation.",
+    "points": 2
+  },
+  {
+    "id": "30.2.Q4",
+    "lesson": "30.2",
+    "type": "application",
+    "question": "After interact is rebound from E to Space, which systems must reflect the change?",
+    "answer": "Gameplay input, visible prompts, relevant menus/help, and persisted settings must agree. Include a restart/reload test and a recovery path for conflicting or unusable bindings.",
+    "points": 2
+  },
+  {
+    "id": "30.2.Q5",
+    "lesson": "30.2",
+    "type": "application",
+    "question": "Why is an expanded pseudo-localized label useful but insufficient to prove support for all languages?",
+    "answer": "It exposes layout and hard-coded-string problems, but it does not test real translation quality, plural rules, shaping, grapheme behavior, locale formatting or right-to-left layout. State the actual tested language and layout scope.",
+    "points": 2
+  },
+  {
+    "id": "30.3.Q1",
+    "lesson": "30.3",
+    "type": "original",
+    "question": "Can a data-only mod still be dangerous to robustness?",
+    "answer": "Yes. Malformed sizes, structures or resource demands can trigger failures unless validated.",
+    "points": 2
+  },
+  {
+    "id": "30.3.Q2",
+    "lesson": "30.3",
+    "type": "original",
+    "question": "Why separate saves from replaceable installation files?",
+    "answer": "Updates or reinstalls should not erase user progress.",
+    "points": 2
+  },
+  {
+    "id": "30.3.Q3",
+    "lesson": "30.3",
+    "type": "original",
+    "question": "Does naming a system a sandbox establish isolation?",
+    "answer": "No. Isolation depends on the enforced capability, memory and resource boundaries.",
+    "points": 2
+  },
+  {
+    "id": "30.3.Q4",
+    "lesson": "30.3",
+    "type": "application",
+    "question": "A texture declares 100000 by 100000 pixels at four bytes per pixel. What allocation would it imply, and when should it be rejected?",
+    "answer": "It implies 40,000,000,000 bytes, about 40 GB decimal. Reject it during schema/resource validation before allocating, checking both individual dimensions and total package limits with overflow-safe arithmetic.",
+    "points": 2
+  },
+  {
+    "id": "30.3.Q5",
+    "lesson": "30.3",
+    "type": "application",
+    "question": "Why does a SHA-256 checksum stored beside a downloaded archive not by itself prove publisher authenticity?",
+    "answer": "An attacker able to replace the archive may also replace the checksum. A trusted channel, trusted expected digest or signature-verification chain is needed for authenticity. The digest still supports byte-integrity comparison against a trusted value.",
+    "points": 2
+  },
+  {
+    "id": "30.4.Q1",
+    "lesson": "30.4",
+    "type": "original",
+    "question": "What proves completion beyond a recorded demo?",
+    "answer": "A reproducible package, tests, usable controls, documented limitations and independent execution.",
+    "points": 2
+  },
+  {
+    "id": "30.4.Q2",
+    "lesson": "30.4",
+    "type": "original",
+    "question": "Why disclose library and AI assistance?",
+    "answer": "It distinguishes the learner's decisions and understanding from supplied work and supports provenance.",
+    "points": 2
+  },
+  {
+    "id": "30.4.Q3",
+    "lesson": "30.4",
+    "type": "original",
+    "question": "Why include a live modification in an oral review?",
+    "answer": "It tests whether the learner can reason about and change the system rather than only present a prepared artifact.",
+    "points": 2
+  },
+  {
+    "id": "30.4.Q4",
+    "lesson": "30.4",
+    "type": "application",
+    "question": "A game meets its frame budget but an ordinary interrupted save can corrupt the only progress file. Can a high overall rubric score override this?",
+    "answer": "No. Data loss in a claimed supported path is a mandatory release blocker. Repair the path or explicitly remove the unsafe behavior, then test the resulting supported contract. A weighted score cannot waive critical correctness requirements.",
+    "points": 2
+  },
+  {
+    "id": "30.4.Q5",
+    "lesson": "30.4",
+    "type": "application",
+    "question": "What should a technical postmortem contain beyond a list of completed features?",
+    "answer": "Decisions, hypotheses, failed approaches, measurements, reproducible defects and fixes, user-test findings, limitations, provenance and assistance disclosures, and a reasoned account of what would change next. Claims should point to actual evidence.",
+    "points": 2
+  },
+  {
+    "id": "M30.R1",
+    "module": 30,
+    "type": "module_review",
+    "question": "A release’s mean frame time improves but its p99 doubles. Is it necessarily better?",
+    "answer": "No. State the target experience and budget, inspect raw distributions and stalls, and compare repeated runs plus correctness. Mean throughput and tail responsiveness are different outcomes.",
+    "points": 2
+  },
+  {
+    "id": "M30.R2",
+    "module": 30,
+    "type": "module_review",
+    "question": "What is wrong with marking an untested platform as compatible because the code is portable?",
+    "answer": "Portability intent is not execution evidence. Toolchains, devices, paths, fonts and timing can differ. Mark it untested until the declared build/launch/input scenarios are executed.",
+    "points": 2
+  },
+  {
+    "id": "M30.R3",
+    "module": 30,
+    "type": "module_review",
+    "question": "Does a data-only mod eliminate security and reliability risk?",
+    "answer": "No. Untrusted counts, dimensions, paths, decompression and schema versions can still exhaust resources or escape boundaries. Validate before allocation/use, cap actual bytes and avoid treating data-only as inherently safe.",
+    "points": 2
+  },
+  {
+    "id": "M30.R4",
+    "module": 30,
+    "type": "module_review",
+    "question": "Why keep both a numerical rubric and mandatory release blockers?",
+    "answer": "The rubric distinguishes quality across categories; blockers enforce non-negotiable correctness and review conditions. Excellent documentation cannot compensate for destructive saves or a reviewer unable to launch the game.",
+    "points": 2
+  },
+  {
+    "id": "M30.R5",
+    "module": 30,
+    "type": "module_review",
+    "question": "What belongs in a technical postmortem beyond a feature list?",
+    "answer": "Predictions versus measured outcomes, evidence-linked failures, corrected assumptions, rejected alternatives, remaining limitations, reproducible results and one bounded next improvement. Distinguish supplied demonstration results from the learner’s own engine evidence.",
+    "points": 2
+  }
+]

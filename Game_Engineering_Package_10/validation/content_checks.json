@@ -1,0 +1,27 @@
+{
+  "original_modules": 5,
+  "original_lessons_preserved_exactly": 20,
+  "original_quiz_questions_and_answers": 60,
+  "expanded_labs": 20,
+  "graduate_problems_with_solutions": 40,
+  "learner_warmups": 20,
+  "html_internal_anchors": "all valid and unique",
+  "reading_ids": "all resolve",
+  "pdf_page_counts": {
+    "ANSWER_KEY.pdf": 31,
+    "CAPSTONE_SPEC.pdf": 9,
+    "LAB_WORKBOOK.pdf": 44,
+    "REFERENCE_GUIDE.pdf": 17,
+    "START_NEXT.pdf": 6,
+    "STUDENT_HANDBOOK.pdf": 65,
+    "modules/41_graduate_numerical_methods_and_research_practice.pdf": 15,
+    "modules/42_advanced_parallel_and_gpu_algorithms.pdf": 14,
+    "modules/43_advanced_rendering_and_reconstruction.pdf": 15,
+    "modules/44_advanced_engine_systems_and_simulation_research.pdf": 16,
+    "modules/45_compilers_shader_languages_and_engine_specialization.pdf": 14
+  },
+  "pdf_text_bounds_and_glyph_issues": [],
+  "split_quiz_blocks": [],
+  "low_text_pages_for_review": [],
+  "pdf_bookmark_destinations": "all in range"
+}

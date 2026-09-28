@@ -1,0 +1,2 @@
+Wrote 36 model cases and 12 native summaries to /mnt/data/Game_Engineering_Package_09/capstone/results
+Ledger files and hashes verified; substantive claims require review.

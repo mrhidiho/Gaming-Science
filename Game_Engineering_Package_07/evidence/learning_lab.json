@@ -1,0 +1,29 @@
+{
+  "data": "synthetic; 150 independent episode seeds; 8 correlated samples per episode",
+  "split_episode_counts": [
+    90,
+    30,
+    30
+  ],
+  "split_sample_counts": [
+    720,
+    240,
+    240
+  ],
+  "selected_epochs": 5,
+  "validation_accuracy": 0.9208333333333333,
+  "frozen_weights": [
+    4.368232473342152,
+    -1.9317026767764398
+  ],
+  "frozen_bias": 0.04788861887816929,
+  "heldout_confusion": {
+    "tp": 113,
+    "tn": 106,
+    "fp": 14,
+    "fn": 7
+  },
+  "heldout_accuracy": 0.9125,
+  "majority_training_baseline_heldout_accuracy": 0.5,
+  "limits": "No player data; no latency, generalization to real games, or superiority claim."
+}

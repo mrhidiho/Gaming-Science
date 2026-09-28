@@ -1,0 +1,12 @@
+{
+  "confidence": 0.95,
+  "lower": 1.126872339638022,
+  "quantile": "linear interpolation at (n-1)*p",
+  "replications": 2000,
+  "seed": 20260928,
+  "source": "synthetic four-pair demonstration; not a thesis result",
+  "speedup": 1.2061450720815536,
+  "unit": "matched independent pair",
+  "upper": 1.2909944487358058,
+  "warning": "Teaching bootstrap; validity depends on sampling design and independence."
+}

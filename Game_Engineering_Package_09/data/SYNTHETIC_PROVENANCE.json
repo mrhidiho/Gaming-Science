@@ -1,0 +1,7 @@
+{
+  "kind": "synthetic teaching data",
+  "randomness": "none; deterministic formulas",
+  "power": "120 one-second intervals. First 60: 60 W and 60 accepted frames each. Last 60: 50 W and 45 frames each. Power is interval-average.",
+  "latency": "180 inputs at 60 Hz. Software markers start two intervals behind input; an extra interval of queue age is added at inputs 60 and 120. One synthetic clock, no panel model.",
+  "limits": "Not measurements, not battery-life predictions, not input-to-photon observations."
+}

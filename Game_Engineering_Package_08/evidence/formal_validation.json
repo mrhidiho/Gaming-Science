@@ -1,0 +1,5 @@
+{
+  "status": "NOT_RUN",
+  "reason": "Formal toolchain unavailable in authoring environment",
+  "scope": "Starter harness only; no proof certificate or complete FIFO ordering proof supplied"
+}

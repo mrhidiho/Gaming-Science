@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#19263d">
+  <meta name="description" content="A student-friendly course map for the Computer Science and Computer Engineering for Games series.">
+  <title>Game Engineering · Student Course Map</title>
+  <link rel="stylesheet" href="portal.css">
+  <script src="course_index.js" defer></script>
+  <script src="portal.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to course content</a>
+  <div class="mobile-scrim" id="mobile-scrim" hidden></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar" aria-label="Course navigation">
+      <a class="brand" href="#main-content" data-action="home" aria-label="Game Engineering course map home">
+        <span class="brand-mark" aria-hidden="true">G<span>·</span></span>
+        <span class="brand-copy"><strong>Game Engineering</strong><small>STUDENT COURSE MAP</small></span>
+      </a>
+
+      <div class="side-actions">
+        <button class="side-link is-active" type="button" data-action="home">
+          <span class="nav-icon" aria-hidden="true">⌂</span><span>Course home</span>
+        </button>
+        <button class="side-link" type="button" data-action="bookmarks">
+          <span class="nav-icon" aria-hidden="true">☆</span><span>Saved lessons</span><span class="nav-count" id="bookmark-count">0</span>
+        </button>
+      </div>
+
+      <div class="side-heading-row">
+        <h2>Course path</h2>
+        <span>10 VOLUMES</span>
+      </div>
+      <label class="search-box" for="course-search">
+        <span aria-hidden="true">⌕</span>
+        <input id="course-search" type="search" placeholder="Search lessons or topics" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <p class="search-help" id="search-help" aria-live="polite">Search across 200 lessons, outcomes, and assignments.</p>
+      <div class="filter-row" aria-label="Filter lessons">
+        <button type="button" class="filter-chip is-selected" data-filter="all">All</button>
+        <button type="button" class="filter-chip" data-filter="recent">Recent</button>
+        <button type="button" class="filter-chip" data-filter="saved">Saved</button>
+      </div>
+      <nav class="course-tree" id="course-tree" aria-label="Volumes, modules, and lessons"></nav>
+      <div class="sidebar-bottom">
+        <span class="local-indicator" id="storage-indicator" aria-hidden="true"></span>
+        <p id="storage-note">Resume and saved lessons stay in this browser.</p>
+      </div>
+    </aside>
+
+    <div class="main-column">
+      <header class="topbar">
+        <button type="button" class="menu-button" id="menu-button" aria-label="Open course navigation" aria-expanded="false">☰</button>
+        <div class="topbar-path"><span>SELF-STUDY SERIES</span><span aria-hidden="true">/</span><span id="topbar-context">COURSE HOME</span></div>
+        <div class="topbar-actions">
+          <button class="quiet-button" type="button" data-action="home">Overview</button>
+          <a class="quiet-button external-link" href="Game_Engineering_Package_01_Curriculum/PROGRAM_GUIDE.pdf" target="_blank" rel="noreferrer">Program guide <span aria-hidden="true">↗</span></a>
+        </div>
+      </header>
+
+      <main id="main-content" class="home-anchor" tabindex="-1">
+        <section class="home-view" id="home-view" aria-labelledby="home-title">
+          <div class="hero-card">
+            <div class="hero-copy">
+              <p class="eyebrow"><span class="eyebrow-dot"></span> TEN VOLUMES · 50 MODULES · 200 LESSONS</p>
+              <h1 id="home-title">From your first<br><em>program</em> to the engine.</h1>
+              <p class="hero-description">A guided path through computer science and computer engineering for games. Find a lesson, follow the module sequence, and open its reader for the full teaching material, labs, and quizzes.</p>
+              <div class="hero-actions">
+                <button class="primary-button" type="button" id="continue-button">Start with lesson 01.1 <span aria-hidden="true">→</span></button>
+                <button class="text-button" type="button" id="browse-button">Browse the course <span aria-hidden="true">↓</span></button>
+              </div>
+              <p class="resume-line" id="resume-line" aria-live="polite">No recent lesson yet. Begin with the foundations or choose a volume below.</p>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+              <div class="orbit-core"><span>STATE</span><b>↗</b><span>RENDER</span></div>
+              <span class="art-label art-label-a">INPUT</span><span class="art-label art-label-b">SIMULATION</span><span class="art-label art-label-c">OUTPUT</span>
+              <span class="art-node node-a"></span><span class="art-node node-b"></span><span class="art-node node-c"></span>
+            </div>
+            <div class="hero-footnote"><span>✳</span> A long-form learning series: take it one module at a time.</div>
+          </div>
+
+          <div class="stats-strip" aria-label="Program at a glance">
+            <div><strong>10</strong><span>Volumes</span></div>
+            <div><strong>50</strong><span>Modules</span></div>
+            <div><strong>200</strong><span>Lessons</span></div>
+            <div><strong>4,500–7,200</strong><span>Estimated study hours</span></div>
+            <p>Planning estimate across reading, labs, projects, and one thesis.</p>
+          </div>
+
+          <section class="section-block" id="volume-section" aria-labelledby="volumes-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">THE LEARNING PATH</p><h2 id="volumes-title">Choose your next build.</h2></div>
+              <button type="button" class="section-link" id="sidebar-browse-link">Browse by lesson <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="volume-grid" id="volume-grid"></div>
+          </section>
+
+          <section class="section-block checkpoint-section" aria-labelledby="checkpoint-title">
+            <div class="section-heading">
+              <div><p class="eyebrow">BUILD AS YOU LEARN</p><h2 id="checkpoint-title">Ten checkpoints. One growing portfolio.</h2></div>
+              <p class="section-intro">Each volume ends with a larger project that draws its lessons together.</p>
+            </div>
+            <div class="checkpoint-track" id="checkpoint-track"></div>
+          </section>
+
+          <section class="resources-band" aria-labelledby="resources-title">
+            <div class="resources-copy"><p class="eyebrow">NEED THE BIG PICTURE?</p><h2 id="resources-title">Start with the program guide.</h2><p>See the prerequisites, entry diagnostic, project checkpoints, and the full reference list before choosing your route.</p></div>
+            <div class="resources-actions">
+              <a class="resource-button" href="Game_Engineering_Package_01_Curriculum/PROGRAM_GUIDE.pdf" target="_blank" rel="noreferrer">Program guide <span>PDF ↗</span></a>
+              <a class="resource-button" href="Game_Engineering_Package_01_Curriculum/START_HERE.pdf" target="_blank" rel="noreferrer">Start here <span>PDF ↗</span></a>
+              <a class="resource-button" href="Game_Engineering_Package_01_Curriculum/CURRICULUM.html" target="_blank" rel="noreferrer">Original full curriculum <span>Open ↗</span></a>
+            </div>
+          </section>
+          <footer class="page-footer"><span>Computer Science and Computer Engineering for Games</span><span>Self-study materials · no account required</span></footer>
+        </section>
+
+        <section class="reader-view" id="reader-view" hidden aria-labelledby="reader-title">
+          <div class="reader-toolbar">
+            <div class="reader-title-group"><button type="button" class="back-button" id="back-button"><span aria-hidden="true">←</span> Course home</button><span class="reader-divider" aria-hidden="true">/</span><p class="eyebrow" id="reader-breadcrumb">VOLUME 1 · MODULE 1</p></div>
+            <div class="reader-actions"><button class="save-button" type="button" id="save-lesson-button" aria-pressed="false">☆ <span>Save lesson</span></button><a class="open-reader-button" id="open-reader-link" href="#" target="_blank" rel="noreferrer">Open full reader <span aria-hidden="true">↗</span></a></div>
+          </div>
+          <div class="reader-heading"><div><p class="eyebrow" id="reader-lesson-id">LESSON 01.1</p><h1 id="reader-title">Choose a lesson</h1><p id="reader-outcome"></p></div><div class="reader-switcher"><button type="button" id="previous-lesson" aria-label="Previous lesson">←</button><button type="button" id="next-lesson" aria-label="Next lesson">→</button></div></div>
+          <div class="reader-frame-wrap"><iframe id="course-reader" title="Course lesson reader" loading="lazy"></iframe></div>
+          <p class="reader-note">This reader is part of the original volume package. Its own search, quiz, and progress controls remain available inside the frame. The course map remembers your last lesson and saved lessons in this browser.</p>
+        </section>
+
+        <section class="saved-view" id="saved-view" hidden aria-labelledby="saved-title">
+          <div class="saved-heading"><p class="eyebrow">YOUR SHORTLIST</p><h1 id="saved-title">Saved lessons</h1><p>Keep a personal list of lessons to revisit. It stays in this browser.</p></div>
+          <div class="saved-list" id="saved-list"></div>
+          <button type="button" class="text-button saved-back" data-action="home">Back to course home <span aria-hidden="true">→</span></button>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

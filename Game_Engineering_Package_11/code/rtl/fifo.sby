@@ -1,0 +1,19 @@
+[tasks]
+prove
+cover
+
+[options]
+prove: mode prove
+prove: depth 30
+cover: mode cover
+cover: depth 30
+
+[engines]
+smtbmc boolector
+
+[script]
+read -formal teaching_fifo.sv
+prep -top teaching_fifo
+
+[files]
+teaching_fifo.sv

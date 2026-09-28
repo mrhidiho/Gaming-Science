@@ -1,0 +1,62 @@
+[
+  {
+    "id": "46-A",
+    "title": "An ordering claim from a trace",
+    "question": "A worker reports that a million relaxed all-atomic store-buffering runs never produced zero/zero. Write the strongest justified statement, the unjustified stronger statement, and one evidence source that could decide whether the outcome is allowed.",
+    "answer": "The experiment did not observe the outcome under the recorded conditions. It does not prove the outcome forbidden. A named language/ISA formal model and a valid execution argument or model checker can decide the relevant allowance; source and hardware layers must remain separate."
+  },
+  {
+    "id": "46-B",
+    "title": "A cache experiment that changes two things",
+    "question": "Compare a cache with 8 sets × 1 way × 64 bytes and one with 8 sets × 2 ways × 64 bytes. What changed? Construct a same-capacity associativity comparison, and state one limitation that survives the repair.",
+    "answer": "Capacity changes from 512 to 1,024 bytes as well as associativity. A 4-set × 2-way × 64-byte cache is a same-capacity comparison against the first. Index mapping and replacement behavior still differ, and a read-only serial model still excludes overlap, prefetching and real timing."
+  },
+  {
+    "id": "47-A",
+    "title": "Repairing one kind of slack",
+    "question": "Starting from setup slack +0.25 ns and hold slack −0.06 ns, add a buffer with +0.08 ns minimum delay and +0.12 ns maximum delay. Assume everything else unchanged. What are the new slacks?",
+    "answer": "Hold improves to +0.02 ns; setup worsens to +0.13 ns. The arithmetic is only a first estimate: route, slew, load and corner characterization may invalidate the assumed fixed increments."
+  },
+  {
+    "id": "47-B",
+    "title": "Energy versus feasibility",
+    "question": "Candidate P consumes 4 mW and processes 2 million items/s. Q consumes 3 mW and processes 1 million items/s. Which has lower energy per item? Which is feasible under a 3.5 mW hard power ceiling?",
+    "answer": "P uses 2 nJ/item and Q uses 3 nJ/item, so P is more energy-efficient. Only Q satisfies the 3.5 mW ceiling. A lower energy ratio does not override a hard peak or sustained power constraint."
+  },
+  {
+    "id": "48-A",
+    "title": "A proof with no traffic",
+    "question": "A queue harness assumes push is always false and proves that every popped value was previously pushed. Explain the vacuity risk and specify a cover or mutation that improves confidence.",
+    "answer": "The environment prevents meaningful enqueue traffic. Require a cover that accepts at least two distinct values and later pops them, inspect reachability, and mutate ordering or data storage so the intended property must fail. A cover does not replace the property proof; it exposes a too-restrictive environment."
+  },
+  {
+    "id": "48-B",
+    "title": "Reset at the worst time",
+    "question": "In the one-entry mailbox, the source has toggled request and is holding a payload. Only the destination is reset. Explain why treating this as an ordinary empty state is unsafe.",
+    "answer": "The request, acknowledgment and synchronizer histories can disagree about whether a payload belongs to the old or new epoch. The transfer could be dropped, duplicated or falsely acknowledged. The supplied model rejects unilateral reset; an implementation needs an explicit coordinated flush or an independently verified recovery protocol."
+  },
+  {
+    "id": "49-A",
+    "title": "The wrong resampling unit",
+    "question": "A study has twelve independently selected scenes, each producing 10,000 frame times for both configurations. Why is sampling all 120,000 frames as independent potentially misleading? Specify a defensible paired primary analysis.",
+    "answer": "Frames within a scene can be correlated and share scene difficulty. Treating them as independent can exaggerate precision. Define a scene-level metric first, pair the baseline and candidate within each scene, and resample independent scene pairs; repeated sessions may require a hierarchical model. The exact target population and sampling plan still matter."
+  },
+  {
+    "id": "49-B",
+    "title": "A favorable metric switch",
+    "question": "The approved primary metric is p95 frame time. After testing, the candidate improves the mean but worsens p95. Write an honest result sentence and one allowed next step.",
+    "answer": "The candidate improved mean frame time but regressed the prespecified p95 metric under the tested workload, so the primary hypothesis was not supported. Report both values and the failed cases. A follow-up hypothesis may study the mean or mechanism, but it must be labeled a new or exploratory analysis rather than silently replacing the original endpoint."
+  },
+  {
+    "id": "50-A",
+    "title": "A clean-room mismatch",
+    "question": "The independent reviewer reproduces the final table except one workload that is 15% slower. The thesis conclusion depends on that row. What should happen before Gate J closes?",
+    "answer": "Keep the gate open, compare environment, inputs, timing scope, stochastic variation and analysis scripts, and preserve both runs. Repair or narrow the claim, rerun the affected comparison and obtain reviewer confirmation. Do not average away a systematic discrepancy merely to meet a threshold."
+  },
+  {
+    "id": "50-B",
+    "title": "The honest portfolio statement",
+    "question": "Rewrite “I built a production GPU and earned a master’s degree” for a learner who implemented a queue accelerator, tested it in an educational flow and completed this self-study route.",
+    "answer": "Example: “Completed a master’s-level self-study specialization and built a queue accelerator evaluated with an educational RTL/physical-design flow. Implemented the stated logic, tests and analysis; no production silicon or accredited degree is claimed.” Specify actual personal contributions, tools, measured results and remaining limitations rather than copying unearned detail."
+  }
+]

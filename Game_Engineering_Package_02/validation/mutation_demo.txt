@@ -1,0 +1,2 @@
+PASS: reference satisfies the example; seeded double-damage mutant is rejected.
+This checks one known mutation. It does not prove all defects are detected.

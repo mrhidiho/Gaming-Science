@@ -1,0 +1,741 @@
+{
+  "number": 8,
+  "title": "Gaming Platforms and Hardware/Software Co-design",
+  "level": "Upper undergraduate CE / capstone",
+  "purpose": "Study boards, memory, GPU architecture, performance, input/display pipelines and integrated design.",
+  "planning_hours": {
+    "minimum": 350,
+    "maximum": 560
+  },
+  "pdf_path": "volumes/08_gaming_platforms_and_hardware_software_co_design.pdf",
+  "source_path": "source/08_gaming_platforms_and_hardware_software_co_design.md",
+  "checkpoint": "H",
+  "modules": [
+    {
+      "number": 36,
+      "title": "Embedded platforms, drivers and board design",
+      "prerequisites": "Modules 17-18 and 31-35. Physical work remains optional and supervised.",
+      "references": [
+        "R36",
+        "R51",
+        "R53",
+        "R30"
+      ],
+      "project": "Design a simulated controller or peripheral with firmware, a host interface and a schematic-level review. A physical board extension begins only after the electrical, layout and bring-up plans receive qualified review.",
+      "lessons": [
+        {
+          "id": "36.1",
+          "title": "Serial interfaces and peripheral contracts",
+          "outcome": "Choose a communication interface using timing and electrical constraints.",
+          "practical_assignment": "Build a simulated peripheral transaction decoder and driver for one interface. Pass: incorrect framing or mode is detected, timeouts are bounded and a complete interface-contract table is provided.",
+          "assigned_reading": "R53: device drivers, UART, SPI and I2C APIs; R51: bus-level driver documentation. For hardware, add the exact peripheral datasheet.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why can two SPI devices fail at the same clock rate?",
+            "Does an interface name guarantee voltage compatibility?",
+            "Why begin with one interface rather than every bus?"
+          ]
+        },
+        {
+          "id": "36.2",
+          "title": "Firmware, RTOS scheduling and driver lifecycle",
+          "outcome": "Bound embedded work and make device state transitions explicit.",
+          "practical_assignment": "Use a supported RTOS simulator or a deterministic scheduler model to implement input, processing and logging tasks. Pass: deadlines are evaluated under injected load and removal/cancellation leaves no live invalid requests.",
+          "assigned_reading": "R53: kernel scheduling, synchronization and device model; R51: driver lifecycle and power management.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Does an RTOS automatically make all tasks meet deadlines?",
+            "Why not feed a watchdog unconditionally from a stuck loop?",
+            "What must happen to outstanding requests when a device disappears?"
+          ]
+        },
+        {
+          "id": "36.3",
+          "title": "Schematics, PCB layout, power integrity and signal integrity",
+          "outcome": "Translate a circuit into a manufacturable layout without ignoring physics.",
+          "practical_assignment": "Create a low-speed peripheral schematic and unrouted or simple two-layer layout in KiCad. Pass: footprints are checked against datasheets, ERC/DRC findings are resolved or justified and a reviewer inspects power and return paths before fabrication.",
+          "assigned_reading": "R36: schematic editor, PCB editor, ERC and DRC; R30: nonideal circuit behavior; R49: interconnect and packaging extension.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Does passing DRC prove electrical correctness?",
+            "Why do return paths matter?",
+            "Why verify footprints against datasheets?"
+          ]
+        },
+        {
+          "id": "36.4",
+          "title": "Bring-up, instrumentation and fault isolation",
+          "outcome": "Turn an unresponsive device into a sequence of testable hypotheses.",
+          "practical_assignment": "Write and rehearse a bring-up procedure against a simulated device with injected clock, reset and protocol faults. Pass: each fault has a safe diagnostic branch and the procedure includes explicit stop conditions.",
+          "assigned_reading": "R53: board support and debugging; R36: fabrication outputs and design review; selected instrument manuals for any physical extension.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why test power, clock and reset before complex application behavior?",
+            "What is the value of an expected-observation table?",
+            "What should happen when a physical observation exceeds a reviewed safe limit?"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 37,
+      "title": "GPU microarchitecture and memory systems",
+      "prerequisites": "Modules 16, 22, 32 and 34.",
+      "references": [
+        "R37",
+        "R48",
+        "R43",
+        "R21"
+      ],
+      "project": "Create a GPU architecture workbook connecting shader behavior to execution groups, registers, memory transactions and fixed-function resources. Measure one accessible GPU or clearly label a simulator-only study.",
+      "lessons": [
+        {
+          "id": "37.1",
+          "title": "SIMT execution, divergence, occupancy and latency hiding",
+          "outcome": "Explain why many threads do not guarantee useful parallel work.",
+          "practical_assignment": "Compare coherent and divergent workloads, varying register pressure or group size where supported. Pass: outputs agree, device group assumptions are recorded and the report does not equate occupancy with performance.",
+          "assigned_reading": "R37: programming model, execution and hardware implementation; R48: vector and multithreaded architecture foundations.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "What is branch divergence in grouped GPU execution?",
+            "Does high occupancy guarantee high throughput?",
+            "Why can reducing register use sometimes hurt?"
+          ]
+        },
+        {
+          "id": "37.2",
+          "title": "Coalescing, local storage, caches and shared-memory banks",
+          "outcome": "Match data layout to the memory transactions actually performed.",
+          "practical_assignment": "Benchmark contiguous, strided and tiled access with identical useful work. Pass: count useful bytes, state the relevant memory level and include any layout-conversion cost in the application comparison.",
+          "assigned_reading": "R37: device memory access, shared memory and performance considerations; R43: operational intensity.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "What does coalescing improve?",
+            "Why can shared memory still cause stalls?",
+            "Why include layout conversion in a comparison?"
+          ]
+        },
+        {
+          "id": "37.3",
+          "title": "Raster, texture, matrix and ray-tracing units",
+          "outcome": "Understand fixed-function acceleration as specialized tradeoffs.",
+          "practical_assignment": "Analyze one texture-heavy, arithmetic-heavy or ray-query workload. Pass: identify the likely resource limits using measurements or a documented model and state supported precision and feature assumptions.",
+          "assigned_reading": "R37: architecture and specialized operations; R21: graphics/compute capabilities; R23: ray intersection and acceleration reference.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Does a ray-tracing unit eliminate the rest of rendering work?",
+            "Why compare the same numerical precision or quality?",
+            "When might specialized hardware lose on a small workload?"
+          ]
+        },
+        {
+          "id": "37.4",
+          "title": "CPU-GPU sharing, discrete memory and synchronization",
+          "outcome": "Treat shared addressability separately from ownership and cost.",
+          "practical_assignment": "Compare an upload/compute/readback path with an available shared-memory path, or model both with stated assumptions. Pass: correct ownership, separate phase timings and no claim that unified means zero-cost.",
+          "assigned_reading": "R37: memory management and synchronization; R21, R24 or R25: the selected platform's resource-sharing contract.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Does shared addressing mean zero data-access cost?",
+            "Why is CPU modification during GPU use risky?",
+            "What must an end-to-end accelerator benchmark include?"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 38,
+      "title": "Quantitative performance engineering",
+      "prerequisites": "Modules 09, 16, 18, 30 and 37.",
+      "references": [
+        "R43",
+        "R37",
+        "R48",
+        "R26"
+      ],
+      "project": "Produce a performance investigation with a hypothesis, controlled workload, raw measurements, uncertainty, a bottleneck model and a verified optimization. A negative result is acceptable when the evidence is rigorous.",
+      "lessons": [
+        {
+          "id": "38.1",
+          "title": "Amdahl, roofline and bottleneck models",
+          "outcome": "Use upper bounds to reject implausible optimization claims.",
+          "practical_assignment": "Build a roofline worksheet for one kernel and an Amdahl estimate for one frame optimization. Pass: units cancel correctly, modeled ceilings use the declared memory level and observed deviations are explained as hypotheses.",
+          "assigned_reading": "R43: original Roofline model; R48: quantitative architecture; revisit Module 18 parallel limits.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "What is the example roofline bound?",
+            "What is the maximum speedup with 20% unchanged serial work and infinitely fast remaining work?",
+            "Does being below the roof prove the model is wrong?"
+          ]
+        },
+        {
+          "id": "38.2",
+          "title": "Profilers, counters and trustworthy benchmark design",
+          "outcome": "Distinguish observation from an explanation that still needs testing.",
+          "practical_assignment": "Create a benchmark harness with warmup, repeated runs, output validation and metadata. Pass: an intentional no-op or wrong-result variant is rejected and all included/excluded samples are documented.",
+          "assigned_reading": "R26: profiling; R37: performance analysis; R09: inference and uncertainty.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why validate benchmark output?",
+            "Are similarly named counters identical across all processors?",
+            "Why declare an exclusion policy before inspecting results?"
+          ]
+        },
+        {
+          "id": "38.3",
+          "title": "SIMD, cache blocking, NUMA and job scheduling",
+          "outcome": "Optimize locality and parallelism together.",
+          "practical_assignment": "Optimize a particle or transform workload using one locality change and one scheduling change. Pass: test tail sizes, report numerical differences, and measure small as well as large workloads to expose overhead.",
+          "assigned_reading": "R37: parallel memory patterns; R48: multiprocessors and memory systems; R11: safe C++ and concurrency.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "What is false sharing?",
+            "Why can very small jobs be inefficient?",
+            "Why test small workloads after a parallel optimization?"
+          ]
+        },
+        {
+          "id": "38.4",
+          "title": "Energy, thermal behavior and sustained performance",
+          "outcome": "Evaluate useful work over time rather than only a short peak.",
+          "practical_assignment": "Run a sustained workload within normal device limits or analyze a synthetic power trace. Pass: distinguish watts from joules, report the measurement boundary and compare early versus sustained performance.",
+          "assigned_reading": "R48: quantitative architecture; R51: device power management; R37: GPU execution and performance context.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "How much energy is 50 W for 2 seconds?",
+            "Which example uses less task energy?",
+            "Why not disable thermal protections for a curriculum benchmark?"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 39,
+      "title": "Gaming-platform constraints and interactive latency",
+      "prerequisites": "Modules 22, 27, 29 and 36-38.",
+      "references": [
+        "R22",
+        "R24",
+        "R25",
+        "R29",
+        "R52",
+        "R53"
+      ],
+      "project": "Create a platform capability and latency report for the engine. Implement one non-desktop constraint in simulation or on an available device: touch input, suspend/resume, restricted memory, variable presentation or XR timing.",
+      "lessons": [
+        {
+          "id": "39.1",
+          "title": "Input-to-display latency and frame pacing",
+          "outcome": "Account for the whole interaction path rather than only frame rate.",
+          "practical_assignment": "Instrument input receipt, simulation consumption, render submission and presentation-related timestamps. Pass: explain which stages are actually measured and which remain estimated, and show a frame-pacing distribution.",
+          "assigned_reading": "R22: input and event timing; R24 or R25: presentation; R52: frame timing as an advanced comparison.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Is 60 frames per second a complete latency measurement?",
+            "What is two 60 Hz frame intervals?",
+            "Why label timestamp boundaries precisely?"
+          ]
+        },
+        {
+          "id": "39.2",
+          "title": "Mobile and handheld systems: memory, power and lifecycle",
+          "outcome": "Design for suspension, limited budgets and sustained use.",
+          "practical_assignment": "Add suspend/resume simulation and a constrained memory mode. Pass: progress survives the documented lifecycle, resources are restored safely and quality changes do not alter authoritative simulation rules.",
+          "assigned_reading": "R25: platform graphics resources; R22: application lifecycle events; R29: text and input usability; R51: power-management concepts.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why not assume shutdown always provides unlimited save time?",
+            "Why measure sustained rather than only initial performance?",
+            "What should rendering quality tiers preserve?"
+          ]
+        },
+        {
+          "id": "39.3",
+          "title": "XR spaces, stereo views, pose timing and comfort constraints",
+          "outcome": "Render from runtime-provided timing and coordinate contracts.",
+          "practical_assignment": "Implement two simulated camera views and a pose-time log, or a minimal OpenXR scene on available supported hardware. Pass: spaces and units are explicit, frame timing follows the runtime and loss of tracking has defined behavior.",
+          "assigned_reading": "R52: spaces, view configuration, frame loop and timing; R29: interaction and accessibility review.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why is a pose incomplete without a space and time?",
+            "Should stereo projection be hard-coded for every headset?",
+            "Does prediction remove all latency or discomfort risk?"
+          ]
+        },
+        {
+          "id": "39.4",
+          "title": "Portability, platform services and console-development boundaries",
+          "outcome": "Build transferable systems without assuming proprietary access.",
+          "practical_assignment": "Write a platform interface and capability matrix, then implement a second backend or strict mock. Pass: assumptions about paths, input and lifecycle are exposed, and proprietary requirements are marked unavailable until authorized.",
+          "assigned_reading": "R22, R24 and R25: platform interfaces; R29: cross-device usability; official authorized platform documentation only for restricted targets.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why can a strict mock help portability?",
+            "Does public self-study grant access to proprietary console SDKs?",
+            "Why separate packaged assets from persistent saves?"
+          ]
+        }
+      ]
+    },
+    {
+      "number": 40,
+      "title": "Hardware/software co-design capstone",
+      "prerequisites": "Gates F and G; Modules 36-39.",
+      "references": [
+        "R43",
+        "R48",
+        "R49",
+        "R38",
+        "R33"
+      ],
+      "project": "Gate H: choose one game workload and compare a software baseline with a specialized hardware or architecture alternative. Deliver a reference implementation, model or RTL, software interface, verification evidence and an end-to-end tradeoff report.",
+      "lessons": [
+        {
+          "id": "40.1",
+          "title": "Workload characterization and measurable requirements",
+          "outcome": "Derive hardware goals from a real software operation.",
+          "practical_assignment": "Select a workload from the engine and write a requirement sheet plus baseline measurements. Pass: each target has units and a test, and the maximum plausible application benefit is estimated.",
+          "assigned_reading": "R43: bottleneck modeling; R48: quantitative design; R49: project methodology.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why start with workload measurements?",
+            "What maximum fraction of the example frame can removing 0.2 ms save?",
+            "Can rejecting a hardware proposal be a successful outcome?"
+          ]
+        },
+        {
+          "id": "40.2",
+          "title": "Architecture alternatives, arithmetic precision and dataflow",
+          "outcome": "Explore several designs before committing to one.",
+          "practical_assignment": "Model three variants, such as scalar, pipelined and multi-lane. Pass: resource and bandwidth estimates are explicit, fixed-point error meets a chosen application tolerance and rejected variants have documented reasons.",
+          "assigned_reading": "R49: architecture and RTL modeling; R43: bandwidth limits; R33: resource inference.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why might twice as many lanes fail to double throughput?",
+            "What should determine acceptable quantization error?",
+            "Why explore more than one architecture?"
+          ]
+        },
+        {
+          "id": "40.3",
+          "title": "Interface design, virtualization and end-to-end evaluation",
+          "outcome": "Include the host software in the hardware result.",
+          "practical_assignment": "Implement a host driver model with invalid-descriptor, timeout and reset tests. Pass: buffer bounds are enforced, ownership survives failure and results include both kernel and end-to-end timing.",
+          "assigned_reading": "R51: DMA and device interfaces; R49: system integration; R38: modeled systems when hardware is unavailable.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why validate device work descriptors?",
+            "Can kernel and application speedups legitimately differ?",
+            "Why test realistic batch sizes?"
+          ]
+        },
+        {
+          "id": "40.4",
+          "title": "Design review, evidence tiers and undergraduate CE completion",
+          "outcome": "Defend a co-design decision with limitations and reproducible artifacts.",
+          "practical_assignment": "Complete Gate H and a design-review presentation. Pass: every major claim traces to an artifact, the baseline is reproduced and a limitations section clearly separates educational estimates from production claims.",
+          "assigned_reading": "R49: design-project reporting; R48: architectural tradeoffs; revisit the evidence and project rubrics in the handbook.",
+          "quiz_question_count": 3,
+          "original_quiz": [
+            "Why label simulation and physical measurements separately?",
+            "What makes a baseline competent?",
+            "Does Gate H authorize production chip fabrication?"
+          ]
+        }
+      ]
+    }
+  ],
+  "gate_spec": {
+    "id": "H",
+    "after_volume": 8,
+    "title": "undergraduate hardware/software co-design capstone",
+    "requirements_markdown": "**After Volume 8.** Choose one measured engine workload. Compare a competent software baseline with at least two architecture alternatives, implementing one alternative as RTL, a supported simulation model or a bounded analytical prototype with clear limitations.\n\nRequired evidence includes workload distributions, numerical-quality limits, host/device ownership, setup and transfer costs, resource/timing estimates, failure handling and a sensitivity analysis. Evaluate small and large workloads and one adverse case. A negative conclusion is acceptable: proving that a software optimization is preferable is valid co-design work.\n\nThe review must identify the maximum application benefit, the dominant bottleneck, which results are modeled and which are measured, and what changes under a tighter memory or latency constraint. Do not compare an optimized accelerator against an intentionally weak software baseline."
+  },
+  "program_references": [
+    {
+      "id": "R01",
+      "organization": "ACM / IEEE-CS / AAAI",
+      "title": "CS2023 knowledge areas",
+      "url": "https://csed.acm.org/knowledge-areas/",
+      "note": "Breadth checklist, not a claim of accreditation."
+    },
+    {
+      "id": "R02",
+      "organization": "ACM / IEEE Computer Society",
+      "title": "Computer Engineering Curricula 2016",
+      "url": "https://ieeecs-media.computer.org/assets/pdf/ce2016-final-report.pdf",
+      "note": "Computer-engineering breadth and laboratory expectations; historical curriculum report."
+    },
+    {
+      "id": "R03",
+      "organization": "Harvard University",
+      "title": "CS50 Introduction to Programming with Python",
+      "url": "https://cs50.harvard.edu/python/",
+      "note": "Beginner lectures and practice; complete exercises rather than only watching."
+    },
+    {
+      "id": "R04",
+      "organization": "Python Software Foundation",
+      "title": "Python tutorial and language documentation",
+      "url": "https://docs.python.org/3/tutorial/",
+      "note": "Reference companion; the tutorial itself assumes some programming familiarity."
+    },
+    {
+      "id": "R05",
+      "organization": "Scott Chacon and Ben Straub",
+      "title": "Pro Git",
+      "url": "https://git-scm.com/book/en/v2",
+      "note": "Version control and collaboration."
+    },
+    {
+      "id": "R06",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.042J Mathematics for Computer Science",
+      "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+      "note": "Proofs, graphs, counting and discrete probability."
+    },
+    {
+      "id": "R07",
+      "organization": "MIT OpenCourseWare",
+      "title": "18.06 Linear Algebra",
+      "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+      "note": "Matrices, vector spaces, eigenvalues and problem sets."
+    },
+    {
+      "id": "R08",
+      "organization": "MIT OpenCourseWare",
+      "title": "18.01SC Single Variable Calculus",
+      "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+      "note": "Calculus lectures, exercises and assessments."
+    },
+    {
+      "id": "R09",
+      "organization": "MIT OpenCourseWare",
+      "title": "18.05 Introduction to Probability and Statistics",
+      "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+      "note": "Probability, inference and quantitative reasoning."
+    },
+    {
+      "id": "R10",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.003 Signals and Systems",
+      "url": "https://ocw.mit.edu/courses/6-003-signals-and-systems-fall-2011/",
+      "note": "Sampling, convolution, transforms and systems."
+    },
+    {
+      "id": "R11",
+      "organization": "C++ Core Guidelines editors",
+      "title": "C++ Core Guidelines",
+      "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+      "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard."
+    },
+    {
+      "id": "R12",
+      "organization": "Kitware",
+      "title": "CMake tutorial",
+      "url": "https://cmake.org/cmake/help/latest/guide/tutorial/index.html",
+      "note": "Build systems; use documentation matching the installed release."
+    },
+    {
+      "id": "R13",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.006 Introduction to Algorithms",
+      "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+      "note": "Data structures, graph algorithms and dynamic programming."
+    },
+    {
+      "id": "R14",
+      "organization": "LLVM Project",
+      "title": "Kaleidoscope and LLVM tutorials",
+      "url": "https://llvm.org/docs/tutorial/",
+      "note": "Compiler frontends, intermediate representation and JIT compilation."
+    },
+    {
+      "id": "R15",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.004 Computation Structures",
+      "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+      "note": "Logic, processor design, memory and systems."
+    },
+    {
+      "id": "R16",
+      "organization": "Remzi and Andrea Arpaci-Dusseau",
+      "title": "Operating Systems: Three Easy Pieces",
+      "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+      "note": "Virtualization, concurrency and persistence; book by its authors."
+    },
+    {
+      "id": "R17",
+      "organization": "IETF / RFC Editor",
+      "title": "RFC 9293: Transmission Control Protocol",
+      "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+      "note": "Transport semantics; reference reading after networking foundations."
+    },
+    {
+      "id": "R18",
+      "organization": "PostgreSQL Global Development Group",
+      "title": "PostgreSQL tutorial",
+      "url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "note": "Relational data, transactions and SQL; pin local server and client versions."
+    },
+    {
+      "id": "R19",
+      "organization": "Carnegie Mellon University",
+      "title": "15-462/662 Computer Graphics",
+      "url": "https://15462.courses.cs.cmu.edu/fall2021/",
+      "note": "Rendering, geometry and animation course structure and exercises."
+    },
+    {
+      "id": "R20",
+      "organization": "Carnegie Mellon University",
+      "title": "15-466/666 Computer Game Programming",
+      "url": "https://graphics.cs.cmu.edu/courses/15-466/",
+      "note": "Runtime systems and game-production programming."
+    },
+    {
+      "id": "R21",
+      "organization": "Khronos Group",
+      "title": "Vulkan tutorial",
+      "url": "https://docs.vulkan.org/tutorial/latest/00_Introduction.html",
+      "note": "Explicit graphics API study; feature-check the device before using the moving latest tutorial."
+    },
+    {
+      "id": "R22",
+      "organization": "SDL project",
+      "title": "SDL3 documentation",
+      "url": "https://wiki.libsdl.org/SDL3/FrontPage",
+      "note": "Windowing, input, audio and platform services; do not mix SDL2 and SDL3 examples."
+    },
+    {
+      "id": "R23",
+      "organization": "Matt Pharr, Wenzel Jakob, Greg Humphreys",
+      "title": "Physically Based Rendering, fourth edition",
+      "url": "https://www.pbr-book.org/4ed/contents",
+      "note": "Rendering mathematics and implementation; use chapter titles in lesson assignments."
+    },
+    {
+      "id": "R24",
+      "organization": "Microsoft",
+      "title": "Direct3D 12 graphics",
+      "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d12/direct3d-12-graphics",
+      "note": "Windows graphics backend reference."
+    },
+    {
+      "id": "R25",
+      "organization": "Apple",
+      "title": "Metal developer resources",
+      "url": "https://developer.apple.com/metal/",
+      "note": "Apple-platform graphics and compute reference."
+    },
+    {
+      "id": "R26",
+      "organization": "Epic Games",
+      "title": "Programming with C++ in Unreal Engine",
+      "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/programming-with-cplusplus-in-unreal-engine",
+      "note": "Engine comparison after C++ foundations, not a beginner substitute."
+    },
+    {
+      "id": "R27",
+      "organization": "Glenn Fiedler",
+      "title": "Fix Your Timestep!",
+      "url": "https://gafferongames.com/post/fix_your_timestep/",
+      "note": "Original practitioner explanation of fixed-step simulation; read critically and implement your own lab."
+    },
+    {
+      "id": "R28",
+      "organization": "Box2D project",
+      "title": "Box2D documentation",
+      "url": "https://box2d.org/documentation/",
+      "note": "Collision, constraints and simulation reference."
+    },
+    {
+      "id": "R29",
+      "organization": "Microsoft",
+      "title": "Xbox Accessibility Guidelines",
+      "url": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines",
+      "note": "Accessibility design and testing; not a legal-compliance certificate."
+    },
+    {
+      "id": "R30",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.002 Circuits and Electronics",
+      "url": "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/",
+      "note": "Circuits, transistors and laboratory reasoning."
+    },
+    {
+      "id": "R31",
+      "organization": "Noam Nisan and Shimon Schocken",
+      "title": "Nand to Tetris",
+      "url": "https://www.nand2tetris.org/",
+      "note": "Computer construction projects; review the authors' license terms."
+    },
+    {
+      "id": "R32",
+      "organization": "Verilator project",
+      "title": "Verilator user guide",
+      "url": "https://verilator.org/guide/latest/",
+      "note": "RTL simulation and linting; match supported SystemVerilog subset."
+    },
+    {
+      "id": "R33",
+      "organization": "YosysHQ",
+      "title": "Yosys documentation",
+      "url": "https://yosyshq.readthedocs.io/projects/yosys/en/latest/",
+      "note": "Synthesis and technology mapping; stable installed release preferred over a development snapshot."
+    },
+    {
+      "id": "R34",
+      "organization": "cocotb project",
+      "title": "cocotb documentation",
+      "url": "https://docs.cocotb.org/en/stable/",
+      "note": "Python-based HDL verification; simulator and version compatibility must be checked."
+    },
+    {
+      "id": "R35",
+      "organization": "RISC-V International",
+      "title": "RISC-V ISA specifications",
+      "url": "https://docs.riscv.org/reference/isa/",
+      "note": "Instruction-set reference; record the exact ISA version and implemented extensions."
+    },
+    {
+      "id": "R36",
+      "organization": "KiCad project",
+      "title": "KiCad documentation",
+      "url": "https://docs.kicad.org/",
+      "note": "Schematic capture, PCB layout and manufacturing outputs."
+    },
+    {
+      "id": "R37",
+      "organization": "NVIDIA",
+      "title": "CUDA Programming Guide",
+      "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+      "note": "GPU execution and memory; CUDA is an optional vendor-specific lab route."
+    },
+    {
+      "id": "R38",
+      "organization": "gem5 project",
+      "title": "gem5 documentation",
+      "url": "https://www.gem5.org/documentation/",
+      "note": "Architecture simulation; distinguish model outputs from measured hardware results."
+    },
+    {
+      "id": "R39",
+      "organization": "OpenROAD project",
+      "title": "OpenROAD documentation",
+      "url": "https://openroad.readthedocs.io/en/latest/",
+      "note": "RTL-to-physical-design study; educational results are not production signoff."
+    },
+    {
+      "id": "R40",
+      "organization": "OpenStax / Rice University",
+      "title": "Precalculus, second edition",
+      "url": "https://openstax.org/details/books/precalculus-2e",
+      "note": "Algebra, functions and trigonometry bridge before calculus."
+    },
+    {
+      "id": "R41",
+      "organization": "MIT OpenCourseWare",
+      "title": "18.02SC Multivariable Calculus",
+      "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+      "note": "Partial derivatives, gradients, multiple integrals and constrained differentials."
+    },
+    {
+      "id": "R42",
+      "organization": "Stephen Boyd and Lieven Vandenberghe",
+      "title": "Convex Optimization",
+      "url": "https://web.stanford.edu/~boyd/cvxbook/",
+      "note": "Graduate optimization text available from its authors; copyrighted, linked rather than redistributed."
+    },
+    {
+      "id": "R43",
+      "organization": "Samuel Williams, Andrew Waterman and David Patterson",
+      "title": "Roofline performance model, technical report",
+      "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html",
+      "note": "Original 2008 performance-model reference; use current measured hardware limits for experiments."
+    },
+    {
+      "id": "R44",
+      "organization": "Benedikt Bitterli and coauthors",
+      "title": "Spatiotemporal reservoir resampling for real-time ray tracing with dynamic direct lighting",
+      "url": "https://research.nvidia.com/publication/2020-07_spatiotemporal-reservoir-resampling-real-time-ray-tracing-dynamic-direct",
+      "note": "Original ReSTIR research, 2020; example reproduction target, not a claim to be the latest method."
+    },
+    {
+      "id": "R45",
+      "organization": "LLVM Project",
+      "title": "AddressSanitizer documentation",
+      "url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+      "note": "Memory-error instrumentation, limitations and supported toolchains."
+    },
+    {
+      "id": "R46",
+      "organization": "University of California, Berkeley",
+      "title": "CS188 Introduction to Artificial Intelligence textbook",
+      "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/",
+      "note": "Search, games, decision processes, learning and probabilistic reasoning."
+    },
+    {
+      "id": "R47",
+      "organization": "Aston Zhang, Zachary Lipton, Mu Li and Alexander Smola",
+      "title": "Dive into Deep Learning",
+      "url": "https://d2l.ai/",
+      "note": "Learning fundamentals, gradients, generalization and reproducible exercises; pin compatible framework versions."
+    },
+    {
+      "id": "R48",
+      "organization": "MIT OpenCourseWare",
+      "title": "6.823 Computer System Architecture",
+      "url": "https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/",
+      "note": "Graduate architecture foundations; historical course concepts supplemented with current specifications."
+    },
+    {
+      "id": "R49",
+      "organization": "Christopher Batten / Cornell University",
+      "title": "ECE5745 Complex Digital ASIC Design",
+      "url": "https://www.csl.cornell.edu/courses/ece5745/",
+      "note": "Graduate ASIC methodology, circuits, EDA and design-project expectations."
+    },
+    {
+      "id": "R50",
+      "organization": "YosysHQ",
+      "title": "SymbiYosys documentation",
+      "url": "https://yosyshq.readthedocs.io/projects/sby/en/latest/",
+      "note": "Formal hardware verification, safety, liveness and cover properties."
+    },
+    {
+      "id": "R51",
+      "organization": "Linux kernel contributors",
+      "title": "Driver implementer API guide",
+      "url": "https://docs.kernel.org/driver-api/index.html",
+      "note": "Device ownership, I/O, DMA and driver interfaces; use disposable VMs or simulated devices for kernel experiments."
+    },
+    {
+      "id": "R52",
+      "organization": "Khronos Group",
+      "title": "OpenXR registry and specifications",
+      "url": "https://registry.khronos.org/OpenXR/",
+      "note": "XR coordinate spaces, frame timing and runtime interfaces; optional hardware-dependent extension."
+    },
+    {
+      "id": "R53",
+      "organization": "Zephyr Project",
+      "title": "Zephyr documentation",
+      "url": "https://docs.zephyrproject.org/latest/introduction/index.html",
+      "note": "Embedded kernel, drivers, board support and simulation; select and pin a supported release."
+    },
+    {
+      "id": "R54",
+      "organization": "MIT OpenCourseWare",
+      "title": "18.085 Computational Science and Engineering I",
+      "url": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/",
+      "note": "Graduate numerical methods, equilibrium systems, differential equations and variational reasoning."
+    },
+    {
+      "id": "R55",
+      "organization": "Matthias Mueller and collaborators",
+      "title": "Author publication archive: position-based simulation and XPBD",
+      "url": "https://matthias-research.github.io/pages/publications/publications.html",
+      "note": "Read the named 2016 XPBD paper and related course notes for the simulation reproduction; papers retain their own copyrights."
+    }
+  ]
+}

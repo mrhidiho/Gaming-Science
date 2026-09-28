@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "fresh_process_state": {
+    "balances": {
+      "player1": 50
+    },
+    "rewards": 1
+  },
+  "checked": [
+    "rollback before commit",
+    "reply lost after commit",
+    "exact retry",
+    "conflicting retry",
+    "synthetic ownership",
+    "fresh interpreter read"
+  ],
+  "scope": "SQLite local test; no external identity provider or power-failure test"
+}

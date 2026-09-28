@@ -1,0 +1,3 @@
+# Formal starter scope
+Run from this directory after installing SymbiYosys, Yosys and Boolector: sby -f fifo.sby. Record actual tool versions and inspect assumptions first. The supplied harness checks occupancy and output stability and contains reachability covers; it is not a complete FIFO-order proof. Add a tracked-item or independent abstract-queue property, depth-one coverage and a failed-property demonstration.
+This harness was not executed in the authoring environment. No formal result or proof certificate is bundled. A tool timeout/unknown or bounded result must not be relabeled as an unbounded proof.

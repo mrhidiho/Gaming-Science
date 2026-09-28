@@ -1,0 +1,7 @@
+{
+  "data_kind": "synthetic_analytic_and_numerical_reference_outputs",
+  "simulation": "one-dimensional undamped spring: mass=1 kg, stiffness=100 N/m, initial x=1 m, v=0, T=2 s",
+  "probability": "chosen weights 70/25/5; same seed across sample sizes shares prefixes and is not an independent replicate across n",
+  "limitations": "Not measured player, hardware or physical-system observations. No proof or student mastery is certified.",
+  "reproduce": "python capstone/reference/build_evidence.py --out outputs/new_reference"
+}

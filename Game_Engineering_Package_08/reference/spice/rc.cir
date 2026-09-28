@@ -1,0 +1,11 @@
+* RC charging from 0 V and small-signal frequency response.
+Vsrc supply 0 DC 3.3 AC 1
+R1 supply output 10k
+C1 output 0 1u IC=0
+.control
+tran 100u 50m uic
+print v(output)
+ac dec 20 1 10000
+print vm(output) vp(output)
+.endc
+.end

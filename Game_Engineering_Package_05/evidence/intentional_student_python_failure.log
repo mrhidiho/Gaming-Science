@@ -1,0 +1,261 @@
++ /opt/pyvenv/bin/python -m unittest python.tests.test_labs.Test192 -v
+test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) ... 
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'\xff') ... ERROR
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'{') ... ERROR
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'NaN') ... ERROR
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'[[[[[[[[[[') ... ERROR
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'          ') ... ERROR
+  test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'') ... ERROR
+test_canonical (python.tests.test_labs.Test192.test_canonical) ... ERROR
+test_duplicate (python.tests.test_labs.Test192.test_duplicate) ... ERROR
+test_fields (python.tests.test_labs.Test192.test_fields) ... ERROR
+test_good (python.tests.test_labs.Test192.test_good) ... ERROR
+test_id (python.tests.test_labs.Test192.test_id) ... ERROR
+test_max_values (python.tests.test_labs.Test192.test_max_values) ... ERROR
+test_operation (python.tests.test_labs.Test192.test_operation) ... ERROR
+test_types (python.tests.test_labs.Test192.test_types) ... 
+  test_types (python.tests.test_labs.Test192.test_types) (v=True) ... ERROR
+  test_types (python.tests.test_labs.Test192.test_types) (v=1.0) ... ERROR
+  test_types (python.tests.test_labs.Test192.test_types) (v='1') ... ERROR
+  test_types (python.tests.test_labs.Test192.test_types) (v=None) ... ERROR
+  test_types (python.tests.test_labs.Test192.test_types) (v=-1) ... ERROR
+  test_types (python.tests.test_labs.Test192.test_types) (v=1001) ... ERROR
+test_value_count (python.tests.test_labs.Test192.test_value_count) ... ERROR
+test_version (python.tests.test_labs.Test192.test_version) ... ERROR
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'\xff')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'{')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'NaN')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'[[[[[[[[[[')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'          ')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_bad_encoding (python.tests.test_labs.Test192.test_bad_encoding) (raw=b'')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 165, in test_bad_encoding
+    with self.subTest(raw=raw[:10]),self.assertRaises(ValueError):self.m.parse_request(raw)
+                                                                  ~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_canonical (python.tests.test_labs.Test192.test_canonical)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 150, in test_canonical
+    other=dict(reversed(list(self.good.items())));self.assertEqual(self.m.canonical_request(other),self.m.canonical_request(self.good))
+                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 5, in canonical_request
+    raise NotImplementedError("19.2: validate then canonicalize")
+NotImplementedError: 19.2: validate then canonicalize
+
+======================================================================
+ERROR: test_duplicate (python.tests.test_labs.Test192.test_duplicate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 162, in test_duplicate
+    with self.assertRaises(ValueError):self.m.parse_request(b'{"version":1,"version":1}')
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_fields (python.tests.test_labs.Test192.test_fields)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 160, in test_fields
+    with self.assertRaises(ValueError):self.m.parse_request(json.dumps(b).encode())
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_good (python.tests.test_labs.Test192.test_good)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 148, in test_good
+    def test_good(self):self.assertEqual(self.m.parse_request(self.raw()),self.good)
+                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_id (python.tests.test_labs.Test192.test_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 168, in test_id
+    with self.assertRaises(ValueError):self.m.parse_request(self.raw(dict(self.good,id=value)))
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_max_values (python.tests.test_labs.Test192.test_max_values)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 172, in test_max_values
+    def test_max_values(self):self.assertEqual(len(self.m.parse_request(self.raw(dict(self.good,values=[1000]*256)))["values"]),256)
+                                                   ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_operation (python.tests.test_labs.Test192.test_operation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 174, in test_operation
+    with self.assertRaises(ValueError):self.m.parse_request(self.raw(dict(self.good,operation="exec")))
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v=1.0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v='1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_types (python.tests.test_labs.Test192.test_types) (v=1001)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 154, in test_types
+    with self.subTest(v=v),self.assertRaises(ValueError):self.m.parse_request(self.raw(b))
+                                                         ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_value_count (python.tests.test_labs.Test192.test_value_count)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 171, in test_value_count
+    with self.assertRaises(ValueError):self.m.parse_request(self.raw(dict(self.good,values=values)))
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+======================================================================
+ERROR: test_version (python.tests.test_labs.Test192.test_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_05/python/tests/test_labs.py", line 157, in test_version
+    with self.assertRaises(ValueError):self.m.parse_request(self.raw(dict(self.good,version=v)))
+                                       ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_05/python/student/lab_19_2.py", line 3, in parse_request
+    raise NotImplementedError("19.2: bounded strict parser")
+NotImplementedError: 19.2: bounded strict parser
+
+----------------------------------------------------------------------
+Ran 11 tests in 0.009s
+
+FAILED (errors=21)
+Check failed: Command '['/opt/pyvenv/bin/python', '-m', 'unittest', 'python.tests.test_labs.Test192', '-v']' returned non-zero exit status 1.

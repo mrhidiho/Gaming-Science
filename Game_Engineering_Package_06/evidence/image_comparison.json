@@ -1,0 +1,9 @@
+{
+  "dimensions": [
+    320,
+    180
+  ],
+  "changed_pixels": 6103,
+  "rgb8_mse": 2478.9097974537035,
+  "scope": "Encoded sRGB8 image difference; diagnostic, not perceptual quality or HDR metric"
+}

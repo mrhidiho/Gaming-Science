@@ -1,0 +1,3 @@
+# Learner task: timer and MMIO
+Write a register contract before RTL. Specify word alignment, reserved bits, read-only registers, side effects, compare-event timing, write-one-to-clear priority, IRQ enable and reset-in-flight behavior. Use the supplied timer model to check the third enabled edge for compare=3 from zero.
+Add a single-outstanding request/response wrapper and an independent driver. Holding response-valid must not repeat the side effect. Add an ownership test that rejects CPU writes to a device-owned buffer. The gate_g starter gives one bounded queue register map but does not provide your finished adapter.

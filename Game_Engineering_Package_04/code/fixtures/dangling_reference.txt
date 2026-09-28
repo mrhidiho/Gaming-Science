@@ -1,0 +1,16 @@
+// INSPECT ONLY. Do not compile/run as a test oracle.
+// Task: identify each owner, lifetime end and invalid access; repair by design.
+#include <string>
+#include <string_view>
+#include <vector>
+std::string_view label() {
+    std::string temporary = "unit-7";
+    return temporary; // view outlives owner
+}
+void grows() {
+    std::vector<int> values{7};
+    int* old = &values[0];
+    const auto original_capacity = values.capacity();
+    while (values.size() <= original_capacity) values.push_back(9);
+    // *old is invalid after the reallocation; do not dereference it.
+}

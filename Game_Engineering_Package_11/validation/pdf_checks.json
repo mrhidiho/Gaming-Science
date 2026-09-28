@@ -1,0 +1,45 @@
+{
+  "documents": [
+    {
+      "file": "Gate_J_Thesis_Defense_and_Handoff.pdf",
+      "pages": 10,
+      "text_characters": 25876,
+      "bookmarks": 16
+    },
+    {
+      "file": "START_HERE.pdf",
+      "pages": 4,
+      "text_characters": 7571,
+      "bookmarks": 7
+    },
+    {
+      "file": "Volume_10_Answer_Key.pdf",
+      "pages": 18,
+      "text_characters": 41480,
+      "bookmarks": 26
+    },
+    {
+      "file": "Volume_10_Lab_Workbook.pdf",
+      "pages": 31,
+      "text_characters": 60884,
+      "bookmarks": 36
+    },
+    {
+      "file": "Volume_10_Math_and_Reference.pdf",
+      "pages": 13,
+      "text_characters": 25504,
+      "bookmarks": 11
+    },
+    {
+      "file": "Volume_10_Student_Handbook.pdf",
+      "pages": 46,
+      "text_characters": 123733,
+      "bookmarks": 31
+    }
+  ],
+  "text_geometry_issues": [],
+  "pages_rendered": 122,
+  "renderer": "pdftoppm; final six PDFs, every page rasterized at 700-pixel long edge; selected overview/high-resolution pages visually inspected",
+  "lesson_quiz_count": 60,
+  "lesson_quiz_groups_intact": true
+}

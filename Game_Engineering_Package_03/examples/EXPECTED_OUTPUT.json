@@ -1,0 +1,22 @@
+{
+  "06.1": "travel time: 6.0 s\ndirection: (0.000, 1.000)\nhalvings of 1024: 10\n",
+  "06.2": "0 -> 0 = 1\n0 -> 1 = 1\n1 -> 0 = 0\n1 -> 1 = 1\nall positive: False\ncounterexample indices: [1]\n",
+  "06.3": "prefix 0: 0 living\nprefix 1: 1 living\nprefix 2: 1 living\nprefix 3: 1 living\nprefix 4: 2 living\nsum and formula: 5050 5050\n",
+  "06.4": "order: ['assets', 'device', 'scene']\nloadouts: 81\ncomplete graph edges: 10\nhalving steps: 10\n",
+  "07.1": "unit: (0.6, 0.8)\nx component: 3.0\nsquared length: 25.0\nrejected: zero vector has no unique direction\n",
+  "07.2": "rotate then scale: ((-2.0,), (1.0,))\nscale then rotate: ((-1.0,), (2.0,))\nsolve: (2.0, 1.0)\n",
+  "07.3": "child origin: (10.0, 2.0, 0.0, 1.0)\ndirection: (1.0, 0.0, 0.0, 0.0)\nquaternion: (0.0, 1.0, 0.0)\n",
+  "07.4": "line: y = 1.970 x + 1.060\nresiduals: [0.04, -0.13, 0.2, -0.17, 0.06]\nfour diagonal updates: (16.0, 0.0625)\n",
+  "08.1": "h=0.100 estimate=12.010000 error=0.010000\nh=0.010 estimate=12.000100 error=0.000100\nh=0.001 estimate=12.000001 error=0.000001\n",
+  "08.2": "n= 4 left=0.218750 trapezoid=0.343750\nn= 8 left=0.273438 trapezoid=0.335938\nn=16 left=0.302734 trapezoid=0.333984\nexact: 0.333333\nlinear trapezoid: 9.0\n",
+  "08.3": "projectile: x=0.750 m, v=-1.000 m/s\nspring: x=0.19950 m, v=-0.05000 m/s\n",
+  "08.4": "explicit: E/E0=86.736174\nsemi: E/E0=0.800291\nexplicit prediction: 86.736174\n",
+  "09.1": "true and false alerts: 90 495\nP(bug|alert): 0.153846\nindependent two heads: 0.25\ncopied second coin, two heads: 0.5\n",
+  "09.2": "seed: 2026; trials: 1000\ncounts: [725, 220, 55]\nmodel expectation: 2.250\nsample mean: 2.200\n",
+  "09.3": "synthetic mean: 9.750 ms\nnearest-rank p95 and p99: 5.0 100.0\npaired mean and illustrative t interval: 3.000 [1.037, 4.963]\n",
+  "09.4": "fitted slope and intercept: 2.0 1.0\nheld-out predictions: [11.0, 13.0]\nheld-out RMSE: 0.707107\n",
+  "10.1": "numerical gradient: (4.0, -6.0)\nanalytic gradient: (4.0, -6.0)\nobjective: 7.000 -> 3.040\n",
+  "10.2": "alias magnitude: 100.0 Hz\ncosine samples agree within 1e-12: True\nraw decimation: [0, 0, 0, 0]\npair-averaged decimation: [0.5, 0.5, 0.5, 0.5]\n",
+  "10.3": "full convolution: [0.5, 1.5, 2.5, 1.5]\nimpulse response: [0.25, 0.5, 0.25]\ncausal same-length prefix: [0.5, 1.0, 1.0, 1.0]\n",
+  "10.4": "alpha=0.25 x=2.988281 steps=8 reason=gradient_tolerance\nalpha=1.00 x=0.000000 steps=8 reason=iteration_limit\nalpha=1.10 x=-9.899451 steps=8 reason=iteration_limit\n"
+}

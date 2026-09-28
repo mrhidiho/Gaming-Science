@@ -1,0 +1,262 @@
+[
+  {
+    "name": "01_halt",
+    "retired": 1,
+    "fault": null
+  },
+  {
+    "name": "02_nop",
+    "retired": 2,
+    "fault": null
+  },
+  {
+    "name": "03_positive_immediate",
+    "retired": 2,
+    "fault": null
+  },
+  {
+    "name": "04_negative_immediate",
+    "retired": 2,
+    "fault": null
+  },
+  {
+    "name": "05_zero_register",
+    "retired": 3,
+    "fault": null
+  },
+  {
+    "name": "06_add",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "07_subtract",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "08_add_wrap",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "09_subtract_wrap",
+    "retired": 3,
+    "fault": null
+  },
+  {
+    "name": "10_store_load",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "11_positive_offset",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "12_negative_offset",
+    "retired": 5,
+    "fault": null
+  },
+  {
+    "name": "13_branch_taken",
+    "retired": 2,
+    "fault": null
+  },
+  {
+    "name": "14_branch_not_taken",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "15_backward_branch",
+    "retired": 11,
+    "fault": null
+  },
+  {
+    "name": "16_absolute_jump",
+    "retired": 2,
+    "fault": null
+  },
+  {
+    "name": "17_register_dependency",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "18_store_overwrite",
+    "retired": 6,
+    "fault": null
+  },
+  {
+    "name": "19_address_255",
+    "retired": 5,
+    "fault": null
+  },
+  {
+    "name": "20_address_wrap",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "21_load_zero_register",
+    "retired": 4,
+    "fault": null
+  },
+  {
+    "name": "22_wrong_path_store",
+    "retired": 3,
+    "fault": null
+  },
+  {
+    "name": "23_illegal_opcode",
+    "retired": 0,
+    "fault": "illegal_instruction"
+  },
+  {
+    "name": "24_reserved_add",
+    "retired": 0,
+    "fault": "illegal_instruction"
+  },
+  {
+    "name": "25_reserved_nop",
+    "retired": 0,
+    "fault": "illegal_instruction"
+  },
+  {
+    "name": "26_reserved_jump",
+    "retired": 0,
+    "fault": "illegal_instruction"
+  },
+  {
+    "name": "27_reserved_halt",
+    "retired": 0,
+    "fault": "illegal_instruction"
+  },
+  {
+    "name": "28_bad_load",
+    "retired": 1,
+    "fault": "data_address"
+  },
+  {
+    "name": "29_bad_store",
+    "retired": 2,
+    "fault": "data_address"
+  },
+  {
+    "name": "30_bad_load_r0",
+    "retired": 1,
+    "fault": "data_address"
+  },
+  {
+    "name": "31_fetch_out_of_range",
+    "retired": 1,
+    "fault": "fetch_address"
+  },
+  {
+    "name": "32_halt_no_following_effect",
+    "retired": 1,
+    "fault": null
+  },
+  {
+    "name": "random_00",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_01",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_02",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_03",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_04",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_05",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_06",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_07",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_08",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_09",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_10",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_11",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_12",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_13",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_14",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_15",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_16",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_17",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_18",
+    "retired": 61,
+    "fault": null
+  },
+  {
+    "name": "random_19",
+    "retired": 61,
+    "fault": null
+  }
+]

@@ -1,0 +1,112 @@
+Internal ctest changing into directory: /mnt/data/_build/student
+Test project /mnt/data/_build/student
+      Start  2: student_11_1
+ 1/20 Test  #2: student_11_1 .....................***Failed    0.00 sec
+FAIL student_11_1: TODO: checked next_tick
+
+      Start  4: student_11_2
+ 2/20 Test  #4: student_11_2 .....................***Failed    0.00 sec
+FAIL student_11_2: TODO: validate syntax and range before narrowing
+
+      Start  6: student_11_3
+ 3/20 Test  #6: student_11_3 .....................***Failed    0.00 sec
+FAIL student_11_3: TODO: bounded search and copied optional
+
+      Start  8: student_11_4
+ 4/20 Test  #8: student_11_4 .....................***Failed    0.01 sec
+FAIL student_11_4: TODO: reject duplicate IDs
+
+      Start 10: student_12_1
+ 5/20 Test #10: student_12_1 .....................***Failed    0.00 sec
+FAIL student_12_1: TODO: acquire one mock resource
+
+      Start 12: student_12_2
+ 6/20 Test #12: student_12_2 .....................***Failed    0.00 sec
+FAIL student_12_2: /mnt/data/Game_Engineering_Package_04/code/starter/lesson_12_2.cpp:28: p4test::throws<std::runtime_error>([&]{replace(value,9,true);})
+
+      Start 14: student_12_3
+ 7/20 Test #14: student_12_3 .....................***Failed    0.00 sec
+FAIL student_12_3: TODO: capture command by value
+
+      Start 16: student_12_4
+ 8/20 Test #16: student_12_4 .....................***Failed    0.00 sec
+FAIL student_12_4: TODO: constrained bounded value
+
+      Start 18: student_13_1
+ 9/20 Test #18: student_13_1 .....................***Failed    0.00 sec
+FAIL student_13_1: TODO: logical size
+
+      Start 20: student_13_2
+10/20 Test #20: student_13_2 .....................***Failed    0.00 sec
+FAIL student_13_2: TODO: FIFO, explicit empty
+
+      Start 22: student_13_3
+11/20 Test #22: student_13_3 .....................***Failed    0.00 sec
+FAIL student_13_3: TODO: insert true, update false
+
+      Start 24: student_13_4
+12/20 Test #24: student_13_4 .....................***Failed    0.00 sec
+FAIL student_13_4: TODO: root replacement and sift down
+
+      Start 26: student_14_1
+13/20 Test #26: student_14_1 .....................***Failed    0.00 sec
+FAIL student_14_1: TODO: half-open search and invariant
+
+      Start 28: student_14_2
+14/20 Test #28: student_14_2 .....................***Failed    0.00 sec
+FAIL student_14_2: TODO: validate, FIFO frontier, visited-on-discovery, parents
+
+      Start 30: student_14_3
+15/20 Test #30: student_14_3 .....................***Failed    0.00 sec
+FAIL student_14_3: TODO: Dijkstra with checked cost and stale-entry handling
+
+      Start 32: student_14_4
+16/20 Test #32: student_14_4 .....................***Failed    0.00 sec
+FAIL student_14_4: TODO: bounded 0/1 DP; descending capacity
+
+      Start 34: student_15_1
+17/20 Test #34: student_15_1 .....................***Failed    0.00 sec
+FAIL student_15_1: TODO: reject Boolean arithmetic before evaluation
+
+      Start 36: student_15_2
+18/20 Test #36: student_15_2 .....................***Failed    0.00 sec
+FAIL student_15_2: TODO: bounded recursive-descent expression language
+
+      Start 38: student_15_3
+19/20 Test #38: student_15_3 .....................***Failed    0.00 sec
+FAIL student_15_3: TODO: checked stack, opcode, operand, range and instruction budgets
+
+      Start 40: student_15_4
+20/20 Test #40: student_15_4 .....................***Failed    0.00 sec
+FAIL student_15_4: TODO: Start/Digits/Dead finite-state recognizer
+
+
+0% tests passed, 20 tests failed out of 20
+
+Label Time Summary:
+student    =   0.07 sec*proc (20 tests)
+
+Total Test time (real) =   0.08 sec
+
+The following tests FAILED:
+	  2 - student_11_1 (Failed)                             student
+	  4 - student_11_2 (Failed)                             student
+	  6 - student_11_3 (Failed)                             student
+	  8 - student_11_4 (Failed)                             student
+	 10 - student_12_1 (Failed)                             student
+	 12 - student_12_2 (Failed)                             student
+	 14 - student_12_3 (Failed)                             student
+	 16 - student_12_4 (Failed)                             student
+	 18 - student_13_1 (Failed)                             student
+	 20 - student_13_2 (Failed)                             student
+	 22 - student_13_3 (Failed)                             student
+	 24 - student_13_4 (Failed)                             student
+	 26 - student_14_1 (Failed)                             student
+	 28 - student_14_2 (Failed)                             student
+	 30 - student_14_3 (Failed)                             student
+	 32 - student_14_4 (Failed)                             student
+	 34 - student_15_1 (Failed)                             student
+	 36 - student_15_2 (Failed)                             student
+	 38 - student_15_3 (Failed)                             student
+	 40 - student_15_4 (Failed)                             student
+Errors while running CTest

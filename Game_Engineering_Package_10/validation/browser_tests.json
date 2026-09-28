@@ -1,0 +1,22 @@
+{
+  "browser": "system Chromium 144.0.7559.96",
+  "test_mode": "HTML injected into about:blank for isolated UI tests",
+  "limitations": [
+    "Managed browser policy blocked both file:// and localhost navigation; those launch paths were not validated.",
+    "Native local-file storage persistence and actual saved browser downloads were not validated."
+  ],
+  "checks": [
+    "20 lesson articles; all answer panels closed initially",
+    "Lesson search filters and clear restores all lessons",
+    "Checkbox updates in-session progress; native origin persistence untested",
+    "Unavailable local-storage fallback is displayed on opaque origin",
+    "Answer panel opens on demand",
+    "Export handler serializes a valid progress Blob; download persistence untested",
+    "Compatible progress import replaces selected lesson set",
+    "Invalid lesson IDs rejected without replacing progress",
+    "390-pixel layout has no horizontal document overflow",
+    "No uncaught JavaScript errors or HTTP(S) requests during these isolated interactions"
+  ],
+  "errors": [],
+  "network_requests": []
+}

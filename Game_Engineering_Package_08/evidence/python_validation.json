@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "layer": "Python reference tests only",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "command": [
+    "/opt/pyvenv/bin/python",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "elapsed_seconds": 0.8134,
+  "log": "python_tests.txt"
+}

@@ -1,0 +1,713 @@
+{
+  "package": 7,
+  "volume": 6,
+  "title": "Game Systems and Production",
+  "edition": "2026-09-28",
+  "checkpoint": "F",
+  "modules": [
+    26,
+    27,
+    28,
+    29,
+    30
+  ],
+  "lessons": 20,
+  "lesson_quiz_questions": 100,
+  "original_quiz_questions_preserved": 60,
+  "module_review_questions": 25,
+  "full_labs": 20,
+  "module_projects": 5,
+  "python_demos": 20,
+  "exercise_reference_pairs": 20,
+  "integration_companions": 5,
+  "native_offline_harnesses": 1,
+  "blank_markdown_templates": 14,
+  "pdf_pages": {
+    "STUDENT_HANDBOOK.pdf": 79,
+    "CAPSTONE_SPEC.pdf": 9,
+    "SYSTEMS_REFERENCE.pdf": 12,
+    "START_NEXT.pdf": 6,
+    "ANSWER_KEY.pdf": 30,
+    "LAB_WORKBOOK.pdf": 50,
+    "NATIVE_INTEGRATION_GUIDE.pdf": 11,
+    "modules/MODULE_27.pdf": 21,
+    "modules/MODULE_28.pdf": 21,
+    "modules/MODULE_30.pdf": 21,
+    "modules/MODULE_29.pdf": 21,
+    "modules/MODULE_26.pdf": 21
+  },
+  "file_count_excluding_manifest": 134,
+  "files": [
+    {
+      "path": "ANSWER_KEY.pdf",
+      "bytes": 174285,
+      "sha256": "0061ca0465ba15a572611dd2ac45f9acca8163de0286603be5003bd4cda40c2f"
+    },
+    {
+      "path": "CAPSTONE_SPEC.pdf",
+      "bytes": 91835,
+      "sha256": "4bfb597e71087474d39d1d8e2a6233edd61d349f772567409e267ff8813fb4d6"
+    },
+    {
+      "path": "COURSE.html",
+      "bytes": 320356,
+      "sha256": "09042dc3cbcda0dd394fcb5d547373adf0cd50b27fc70144c8746ea2a697dd86"
+    },
+    {
+      "path": "LAB_WORKBOOK.pdf",
+      "bytes": 220595,
+      "sha256": "1f7766d123608e54f45716b603ccb008689d422e23f8a2c14985cfb539d25e27"
+    },
+    {
+      "path": "NATIVE_INTEGRATION_GUIDE.pdf",
+      "bytes": 165797,
+      "sha256": "dc11b126f67f85dbb070428df5e085478497fd709d3ea98f9d8d8c0e2793acab"
+    },
+    {
+      "path": "NOTICE.md",
+      "bytes": 1099,
+      "sha256": "e612b7abea388a06ce17b489e1e904b52669d5dc4c0104fbc499a5c55f28fd69"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5357,
+      "sha256": "f3a14e06e1de325f56f6ebf9d54e6522633afcd42be07ef96c87487f9da4de8c"
+    },
+    {
+      "path": "START_NEXT.pdf",
+      "bytes": 98525,
+      "sha256": "16d956c31ac989a7ee75828bdc4426f935c8ed9e512485b1aef3262862177373"
+    },
+    {
+      "path": "STUDENT_HANDBOOK.pdf",
+      "bytes": 338240,
+      "sha256": "0dd283cbc609d8a5c1feb64ba1369fd24689527bb9c260fa5b194309d73e7fe2"
+    },
+    {
+      "path": "SYSTEMS_REFERENCE.pdf",
+      "bytes": 150324,
+      "sha256": "a7d9afae61fb79deb9cad852bcfacb26465652cd9e0cf9c2beb3e1672b7cd267"
+    },
+    {
+      "path": "evidence/BROWSER_TESTS.json",
+      "bytes": 959,
+      "sha256": "df13a8da4a521961bd2b44fbdebce847bbcd095f4a58d3f522b040fe8eb7335f"
+    },
+    {
+      "path": "evidence/KERNEL_TESTS.log",
+      "bytes": 32,
+      "sha256": "ae8dd03ae66400dba6fb51980371f570aeb914b4849205e56f0f8b6f0e0f367b"
+    },
+    {
+      "path": "evidence/NATIVE_SANITIZER_RUN.log",
+      "bytes": 256,
+      "sha256": "5bc577ae9a467ded6754be561b3e53229bf820aa8d82d4658e65e32ae0d00bba"
+    },
+    {
+      "path": "evidence/PROPERTY_TESTS.log",
+      "bytes": 1690,
+      "sha256": "d7c2b927b32b273b558c36735932b3cb6e31485b09458822d3b7d2582f9196d7"
+    },
+    {
+      "path": "evidence/REFERENCE_RUN.log",
+      "bytes": 3162,
+      "sha256": "d00d8bfe83a740ff4620a5e9d2765aedd99269e574f4c4bb2fe07de09b613bad"
+    },
+    {
+      "path": "evidence/TESTED_ENVIRONMENT.md",
+      "bytes": 2482,
+      "sha256": "668de4566823fcd8c886f64c6481eb2c924030bb55bbdc059b0ccfaea39746d4"
+    },
+    {
+      "path": "evidence/VALIDATION_SUMMARY.json",
+      "bytes": 1225,
+      "sha256": "3e9d8cb599e2a56c116418af8213117d1bab325e80496bea35f4d495f7934528"
+    },
+    {
+      "path": "evidence/environment.json",
+      "bytes": 298,
+      "sha256": "0dd39601eb22825993dabcd0539d5a9ddc77beb5fd687761586c4d52dec4a0a8"
+    },
+    {
+      "path": "evidence/learning_lab.json",
+      "bytes": 651,
+      "sha256": "4359cd8638fc25e38d18a3d19372abbaaa54ef91661631a91bed98becab9cb23"
+    },
+    {
+      "path": "evidence/network_lab.json",
+      "bytes": 559,
+      "sha256": "ee0a25d7e738e2bb461aadc4d88825137fa1bb092c3d8b7d75f8f680f46a9a02"
+    },
+    {
+      "path": "evidence/physics_lab.json",
+      "bytes": 1961,
+      "sha256": "679cba74ab59f220212dcafd4cb8c062c46517841c148ae21968cc89b8d11801"
+    },
+    {
+      "path": "evidence/release_lab.json",
+      "bytes": 255,
+      "sha256": "705c9112e85d827f31ac08aae50cf3e81ac43d5d520b63aedc8f456673b78d59"
+    },
+    {
+      "path": "evidence/service_lab.json",
+      "bytes": 381,
+      "sha256": "8b4ae62086596594bab5a796a7b33b519f21c59ac800d095c62305b63e053ed6"
+    },
+    {
+      "path": "modules/MODULE_26.pdf",
+      "bytes": 187153,
+      "sha256": "22b2da007b543cbc9eb0cf4bc2c2d7eb3fe56b31a3d54d7693a02378aff043c2"
+    },
+    {
+      "path": "modules/MODULE_27.pdf",
+      "bytes": 186494,
+      "sha256": "d4f532e74e5fc79a65ff9397d8bdc72d41bdc469057cfc63ec6a7cde6822647e"
+    },
+    {
+      "path": "modules/MODULE_28.pdf",
+      "bytes": 187365,
+      "sha256": "baacc429edaa0e99e85e579646fa664baa8044a6ccdcee9d72e5ea23fe301492"
+    },
+    {
+      "path": "modules/MODULE_29.pdf",
+      "bytes": 186750,
+      "sha256": "2b17b01f9265d57095fe229cee674b45732a90eaf0169820a338210f9080c7fd"
+    },
+    {
+      "path": "modules/MODULE_30.pdf",
+      "bytes": 187941,
+      "sha256": "b3b969caae0c09674bcdb9b7970ddb25cf955bb9ccb34e9bbb68d22d57828142"
+    },
+    {
+      "path": "source/ANSWER_KEY.md",
+      "bytes": 43187,
+      "sha256": "77cea6af40335d58555463c6e3dce6497999df7919416928d150e0a4c62a9a85"
+    },
+    {
+      "path": "source/CAPSTONE_SPEC.md",
+      "bytes": 14771,
+      "sha256": "2069c8bf20faa5fef8774975028cdff2ab4e8dc50866b9c805e74d63a1441341"
+    },
+    {
+      "path": "source/LAB_WORKBOOK.md",
+      "bytes": 72641,
+      "sha256": "45bb60e87f2c42973ed9dab3a9bef4d3f29e5fe68e5d019b50b0d7747f419de2"
+    },
+    {
+      "path": "source/MODULE_26.md",
+      "bytes": 36539,
+      "sha256": "c432bbd4cf85694a5b9e16f5bc3a64f3dd4c16a10c44a8880684be44d71e6770"
+    },
+    {
+      "path": "source/MODULE_27.md",
+      "bytes": 36211,
+      "sha256": "3397d339fdd032642b3deae52c4beb5159097f4f3683ec63a1c6ef96a9f7918c"
+    },
+    {
+      "path": "source/MODULE_28.md",
+      "bytes": 36783,
+      "sha256": "f630f965f159308b07afd229c8531e760a8f166fb93f11ef29a791c77b7c1da5"
+    },
+    {
+      "path": "source/MODULE_29.md",
+      "bytes": 36782,
+      "sha256": "f8830de2674c58dd358b41afdd4d38b5c32593d698df4666ffe9f241136ccb75"
+    },
+    {
+      "path": "source/MODULE_30.md",
+      "bytes": 37459,
+      "sha256": "8b2aafa2885541c28e675fc4cae944b6d8f15a175ffa917ee0885d3964b02673"
+    },
+    {
+      "path": "source/NATIVE_INTEGRATION_GUIDE.md",
+      "bytes": 17337,
+      "sha256": "52ac2f9a0acf3b78efa1243d270e0d2e9dbc7c4266d0ae6051731b4f3a22c4d6"
+    },
+    {
+      "path": "source/REFERENCES.md",
+      "bytes": 7750,
+      "sha256": "687d70cb15fc2f48a4772a6146a0bcb7dded6dcca688cc12a99c7390f0b59a5d"
+    },
+    {
+      "path": "source/START_NEXT.md",
+      "bytes": 8600,
+      "sha256": "c18cfb13793604703f4422b9c8cb47fb8262e803cb6212a41d797ec8a06cb383"
+    },
+    {
+      "path": "source/STUDENT_HANDBOOK.md",
+      "bytes": 154770,
+      "sha256": "ac9330d8476061a3a3e5e8e3b6e66a70fb89d5f9187828c77aa02c809f39ecf7"
+    },
+    {
+      "path": "source/SYSTEMS_REFERENCE.md",
+      "bytes": 19388,
+      "sha256": "f5714e3c7a43c1699bb3ed4f4daaabec7c297d41ba8f28b9bcf8d6aa07ed2da8"
+    },
+    {
+      "path": "source/browser.css",
+      "bytes": 4092,
+      "sha256": "63482f0ca84af61564e7de9b5564968e86456a0f5cb08a87d02baea489262532"
+    },
+    {
+      "path": "source/browser.js",
+      "bytes": 4823,
+      "sha256": "cd51b21fece6df701825216901ef337974ae985f16e53fdf09e490f765b8dfa2"
+    },
+    {
+      "path": "source/curriculum.json",
+      "bytes": 235876,
+      "sha256": "7e163cf0cf06490fee41ccfc8fb7976c6c257a1f5ba59faa6d48793e923010cc"
+    },
+    {
+      "path": "source/pdf_pages.json",
+      "bytes": 355,
+      "sha256": "1ace256f26bb5d7e624d3be4859a9ec39fd1df5f4b8014239ba95f81b5ad23fd"
+    },
+    {
+      "path": "source/quiz_bank.json",
+      "bytes": 44326,
+      "sha256": "0ab69a99bd3639de67cd571badaf6f7b9a7b4343107adaf4e3f06fbddae05bd8"
+    },
+    {
+      "path": "starter/README.md",
+      "bytes": 3095,
+      "sha256": "5470dc2b258f3cbf87f9b775b265b82362b0da8bc3651ae8e0e65e47e352c7e5"
+    },
+    {
+      "path": "starter/cpp/CMakeLists.txt",
+      "bytes": 400,
+      "sha256": "3fd5e158055b404f6e3b48c142873e728136288dd039f0c4e855779666f5ba69"
+    },
+    {
+      "path": "starter/cpp/audio_harness.cpp",
+      "bytes": 4672,
+      "sha256": "e9e51c63795d3c655b1c471335aa5087665937e9e5f27b0ea23ff1cd08c64a49"
+    },
+    {
+      "path": "starter/integration/learning_lab.py",
+      "bytes": 2521,
+      "sha256": "8df84d5cffb8d734a48b53faeb656897430cb4f97e59b52af0726fefc2a8d892"
+    },
+    {
+      "path": "starter/integration/network_lab.py",
+      "bytes": 4153,
+      "sha256": "2834d59122c663ca4170ad065e79ef00f1c1990651911133c0b387c3ffe97e26"
+    },
+    {
+      "path": "starter/integration/physics_lab.py",
+      "bytes": 1713,
+      "sha256": "9a954d89bc0c89ad33dff63c0e94375ed1364a2090b5dbd4111b0077ffec4b00"
+    },
+    {
+      "path": "starter/integration/release_lab.py",
+      "bytes": 2269,
+      "sha256": "d69f76dca98961a449188ba1a6bccad29c6152c29419bc23a409599d9fb1a062"
+    },
+    {
+      "path": "starter/integration/service_lab.py",
+      "bytes": 3599,
+      "sha256": "c5b6578908451514c182e687902ed77173123bdee2c1909be4a7b804af6f3c6f"
+    },
+    {
+      "path": "starter/python/cases.json",
+      "bytes": 38255,
+      "sha256": "0dc158c090cda2e7406fef6cfa7a776a694e0f2305ed38cb4fe6ad01e4de1bb6"
+    },
+    {
+      "path": "starter/python/demos/lesson_26_1.py",
+      "bytes": 613,
+      "sha256": "b8c81a44c83a532ae7bb3e0b98c8c40a94a7f15bd10480856fad1172272bad3d"
+    },
+    {
+      "path": "starter/python/demos/lesson_26_2.py",
+      "bytes": 592,
+      "sha256": "30d97711e19c120bdb1c95871207378333d224bd2d6d52124d38e84154ce6d97"
+    },
+    {
+      "path": "starter/python/demos/lesson_26_3.py",
+      "bytes": 617,
+      "sha256": "2a68b5cda85fc0ce5bb3234ba7cf692c9eeaea381d6cce68aefcd7283d4550dd"
+    },
+    {
+      "path": "starter/python/demos/lesson_26_4.py",
+      "bytes": 623,
+      "sha256": "542a8f6a840a84f5665af1e3da5ebb2064bbc87b7a675e2dd4fe5da5583234f7"
+    },
+    {
+      "path": "starter/python/demos/lesson_27_1.py",
+      "bytes": 623,
+      "sha256": "83be6fc10547096db40c33d68c919ba332d1e10e6a927bedac16a8bb04fcd4bc"
+    },
+    {
+      "path": "starter/python/demos/lesson_27_2.py",
+      "bytes": 579,
+      "sha256": "58d95e86cb010d3b9f725258efa2de8cb7f27b25f580fc7dc515b4f6a629578a"
+    },
+    {
+      "path": "starter/python/demos/lesson_27_3.py",
+      "bytes": 611,
+      "sha256": "cbc5f706498ae01437dec417878210cc7175b0a087b9b0642e9e13eda8946efd"
+    },
+    {
+      "path": "starter/python/demos/lesson_27_4.py",
+      "bytes": 641,
+      "sha256": "2af370d81da4e882864ad4250790bb36a0d4b24fb986c111c005e5e8408e3aed"
+    },
+    {
+      "path": "starter/python/demos/lesson_28_1.py",
+      "bytes": 603,
+      "sha256": "c4cc95aaef95cfb0800382234002881997f27201572bc48e9d0672d5c04b85be"
+    },
+    {
+      "path": "starter/python/demos/lesson_28_2.py",
+      "bytes": 638,
+      "sha256": "2df5b0cf2c4a5866d49548c92b454c7515f577ec7082952c72ba6071a5d2078c"
+    },
+    {
+      "path": "starter/python/demos/lesson_28_3.py",
+      "bytes": 588,
+      "sha256": "07b386fbae2dfc5d274261c8a8af140946a38cda8f8ecea3688f871a03d63de8"
+    },
+    {
+      "path": "starter/python/demos/lesson_28_4.py",
+      "bytes": 595,
+      "sha256": "388bb6919cbb732a586dcbe1df5bbcc6072ac98aacbf1159537faa7079ba4d18"
+    },
+    {
+      "path": "starter/python/demos/lesson_29_1.py",
+      "bytes": 633,
+      "sha256": "182f35c6b4f30777a3b9fbddda909c0d025408382ef39f2e291132bc3548e178"
+    },
+    {
+      "path": "starter/python/demos/lesson_29_2.py",
+      "bytes": 590,
+      "sha256": "610ae1f1cf2f032f215ba1101523f3ce721725aa6de9d89a65f8645d86ad1dc3"
+    },
+    {
+      "path": "starter/python/demos/lesson_29_3.py",
+      "bytes": 616,
+      "sha256": "df66927c10f49e8cd1d57fb1284af6db41f2261df3d22fb6e0016938840a9c9d"
+    },
+    {
+      "path": "starter/python/demos/lesson_29_4.py",
+      "bytes": 657,
+      "sha256": "bb05e1b81b41ed39c0550ded08d276c1f0dffa76f5bc171842b819e669130c46"
+    },
+    {
+      "path": "starter/python/demos/lesson_30_1.py",
+      "bytes": 592,
+      "sha256": "79ac0a1d65061bda1e3c135cb7770e8dbea3ffd37b14e7533907ba42b5644f84"
+    },
+    {
+      "path": "starter/python/demos/lesson_30_2.py",
+      "bytes": 633,
+      "sha256": "ecbed02c4d85daa24134513327cfde8bf8373797ab3c8e0a738bd8a020dfa1ee"
+    },
+    {
+      "path": "starter/python/demos/lesson_30_3.py",
+      "bytes": 628,
+      "sha256": "ed4cd56f636538c61724e49fdafdb5f6da9e31a1801d19a22a71b19c907388a3"
+    },
+    {
+      "path": "starter/python/demos/lesson_30_4.py",
+      "bytes": 831,
+      "sha256": "98694d41c2819d016b0a94d234016ef8df00e3578deb049d15046fd6b45cea34"
+    },
+    {
+      "path": "starter/python/exercises/lesson_26_1.py",
+      "bytes": 776,
+      "sha256": "65d1f952019ffa7eee0b8f549e1e8541737ee36eda488518856618e9821ec52d"
+    },
+    {
+      "path": "starter/python/exercises/lesson_26_2.py",
+      "bytes": 696,
+      "sha256": "de0abc6f91d920065b4338f4ceb7ba0ef7a5a60cf44909034a16959d342048c8"
+    },
+    {
+      "path": "starter/python/exercises/lesson_26_3.py",
+      "bytes": 650,
+      "sha256": "bee38374027419ec08a1d8ced5911321383acbfbf466e8d23a12bfc7e70a4409"
+    },
+    {
+      "path": "starter/python/exercises/lesson_26_4.py",
+      "bytes": 805,
+      "sha256": "83742dbd08211602f0e69059474789b68f861e483d647c06202a03f02b1d0800"
+    },
+    {
+      "path": "starter/python/exercises/lesson_27_1.py",
+      "bytes": 756,
+      "sha256": "8f606603e6b29ff439a790e9e91b5e800f73b30c62b6be29f49f5c3ec8cba184"
+    },
+    {
+      "path": "starter/python/exercises/lesson_27_2.py",
+      "bytes": 696,
+      "sha256": "455f2d1b400c4d81f82d967f0b73175dbd05491178b481d7e3a6a37015409713"
+    },
+    {
+      "path": "starter/python/exercises/lesson_27_3.py",
+      "bytes": 728,
+      "sha256": "e314f2b9b73b8e206310a8dc351048ff0b737f3b4d3181de4f9793dc447ba529"
+    },
+    {
+      "path": "starter/python/exercises/lesson_27_4.py",
+      "bytes": 800,
+      "sha256": "ef403437f6b3a44d3c4639ac9fdceea11ede5e88ebcb3441bfa9bee221562c28"
+    },
+    {
+      "path": "starter/python/exercises/lesson_28_1.py",
+      "bytes": 734,
+      "sha256": "6564c7e24cc3603c2f8fe1595731ad2dbb7c671fe7dce1ae00d28eb58ab7b7fa"
+    },
+    {
+      "path": "starter/python/exercises/lesson_28_2.py",
+      "bytes": 737,
+      "sha256": "422f2130be75fa45f7de4301b6216654911827f7b97192de5b65beda74a276b1"
+    },
+    {
+      "path": "starter/python/exercises/lesson_28_3.py",
+      "bytes": 829,
+      "sha256": "363f6874372e1de90b57b025692cba842a1f4e2489106308aaf7d6af149420ee"
+    },
+    {
+      "path": "starter/python/exercises/lesson_28_4.py",
+      "bytes": 696,
+      "sha256": "5f556098ab8c95d40904d4429ab992c50256a6e59e3e42f23c7922794a6557d5"
+    },
+    {
+      "path": "starter/python/exercises/lesson_29_1.py",
+      "bytes": 804,
+      "sha256": "978a8ef607127219b1e67dbf296c053980fcc6dde895a64d0f577ed6e80513fe"
+    },
+    {
+      "path": "starter/python/exercises/lesson_29_2.py",
+      "bytes": 760,
+      "sha256": "7c672fd752695f6f08be8a2cb3a3de6bd162c76755164d79262a1067acbff34b"
+    },
+    {
+      "path": "starter/python/exercises/lesson_29_3.py",
+      "bytes": 827,
+      "sha256": "e72f1b30ae05f9c5da573394ff0e39803eaf13bff0f6c383b960db839a119862"
+    },
+    {
+      "path": "starter/python/exercises/lesson_29_4.py",
+      "bytes": 876,
+      "sha256": "bf0c941c62b55d1252bd7064a807edc45ce0a3fc4eb4bda8759b72333a450f74"
+    },
+    {
+      "path": "starter/python/exercises/lesson_30_1.py",
+      "bytes": 690,
+      "sha256": "0526718591317a0f990f08f0e8e19b01398fcaac234dc0f491bd2a46a5f3f50d"
+    },
+    {
+      "path": "starter/python/exercises/lesson_30_2.py",
+      "bytes": 797,
+      "sha256": "39e53329d6f7367c8c9aa587500a8737b796064433351671ab915bcb57c8f820"
+    },
+    {
+      "path": "starter/python/exercises/lesson_30_3.py",
+      "bytes": 786,
+      "sha256": "cb22abc9275150084f7c5b48f5f2e74123d8efff5d3990f38b2c2467e5084540"
+    },
+    {
+      "path": "starter/python/exercises/lesson_30_4.py",
+      "bytes": 850,
+      "sha256": "c2bab76d45478b8ed0d4a0407fdad3dae42498ce59d91847faae9faa05261063"
+    },
+    {
+      "path": "starter/python/references/lesson_26_1.py",
+      "bytes": 2180,
+      "sha256": "1ae6d00d3a3f289f2f3ab6e9057f6eeb50d5d1c466d12860d310a9e1a82dd106"
+    },
+    {
+      "path": "starter/python/references/lesson_26_2.py",
+      "bytes": 1063,
+      "sha256": "5ac38cead06c85240347df446ba05cc03cd2281c591f9dc39aa8d772017e2698"
+    },
+    {
+      "path": "starter/python/references/lesson_26_3.py",
+      "bytes": 998,
+      "sha256": "3c306b26edd7da0f2422d268d1ef00c73f87e52e84ba93d1daacb80ce6555eb6"
+    },
+    {
+      "path": "starter/python/references/lesson_26_4.py",
+      "bytes": 1975,
+      "sha256": "9c927a44406ba59d0d74eacb7497913444c38d3fc5b214a45301df58a785d6b5"
+    },
+    {
+      "path": "starter/python/references/lesson_27_1.py",
+      "bytes": 1664,
+      "sha256": "13e91b082aa1597af0c261c55b95c83e4c2bb9f698ea949349b6de4eef9f9c74"
+    },
+    {
+      "path": "starter/python/references/lesson_27_2.py",
+      "bytes": 1412,
+      "sha256": "e3064e77ccbbfa01436e74842e089237fccfbcecb88efccbe533222a5a4d8c83"
+    },
+    {
+      "path": "starter/python/references/lesson_27_3.py",
+      "bytes": 1497,
+      "sha256": "a5f5839206dfd6c71b11ed72edb550ae283fd728c1b5aeeb24b51c941e6af6f3"
+    },
+    {
+      "path": "starter/python/references/lesson_27_4.py",
+      "bytes": 1557,
+      "sha256": "505275c5702c3c0ea7f05f10ec40984078946afcac2ec3ae34855f8c54b1f9cb"
+    },
+    {
+      "path": "starter/python/references/lesson_28_1.py",
+      "bytes": 2371,
+      "sha256": "d7db7faa162548ab9d6a69f83ef332f87bb847f5aa2f4e83ccb82726e6fb1f5b"
+    },
+    {
+      "path": "starter/python/references/lesson_28_2.py",
+      "bytes": 1460,
+      "sha256": "71e547fa12f991209cc8b04444b34bd13cc95dfe4f7454868ff7de976df5e748"
+    },
+    {
+      "path": "starter/python/references/lesson_28_3.py",
+      "bytes": 1882,
+      "sha256": "dcfa8dfb663e46422d741b8e1946ab5221e7056a657d7c856956c2632eaba061"
+    },
+    {
+      "path": "starter/python/references/lesson_28_4.py",
+      "bytes": 1419,
+      "sha256": "9a20bda077700d5b3e920523bf96a73ee8ec50c9238bc6190ce5052b1d7caf8b"
+    },
+    {
+      "path": "starter/python/references/lesson_29_1.py",
+      "bytes": 1470,
+      "sha256": "1b62891d4dd8350f078c0aea2ce4dff8f954a188c7e7edca21936ced2aa39827"
+    },
+    {
+      "path": "starter/python/references/lesson_29_2.py",
+      "bytes": 1454,
+      "sha256": "413663db4c42626148c92419140cf978823b08ff261f7cfb3745d9d5b1c1a2b2"
+    },
+    {
+      "path": "starter/python/references/lesson_29_3.py",
+      "bytes": 1868,
+      "sha256": "98cb1185b5e1df76f1002eb70557f4e131e7e4ff4523d55b5f28a101496eccd2"
+    },
+    {
+      "path": "starter/python/references/lesson_29_4.py",
+      "bytes": 2215,
+      "sha256": "1fc63fcd9be29fda7e9b6a1430a45972e2a3cf74da36832790d78d0292aa6e96"
+    },
+    {
+      "path": "starter/python/references/lesson_30_1.py",
+      "bytes": 1229,
+      "sha256": "2809950cd461b73026c1d39617af36335e274ecff7ac7ebd68004a18f07a0588"
+    },
+    {
+      "path": "starter/python/references/lesson_30_2.py",
+      "bytes": 1633,
+      "sha256": "7b9a80c9f7b80cd691efe5a6ac9b8e46c6e34da2eede980682b586e81960ec30"
+    },
+    {
+      "path": "starter/python/references/lesson_30_3.py",
+      "bytes": 1783,
+      "sha256": "fbc507117837d73c79d418a2325e1855057897f92343ce51aa16d5d0f0ec2b19"
+    },
+    {
+      "path": "starter/python/references/lesson_30_4.py",
+      "bytes": 1576,
+      "sha256": "38f47c8f3f65092a23fd5ae997d8aa6dddf33a769a450c040adbbc685ced1032"
+    },
+    {
+      "path": "starter/python/run_tests.py",
+      "bytes": 3084,
+      "sha256": "fb5c4a2245f6258fcffd7af808045d957f8f483230e09c76f471e3f4480fbc09"
+    },
+    {
+      "path": "starter/python/test_properties.py",
+      "bytes": 6113,
+      "sha256": "a81d0e8b89e77ac5bb6e47fc6c85c1ee1e646c52f72488398dec563b028a19bf"
+    },
+    {
+      "path": "starter/run_all.py",
+      "bytes": 1981,
+      "sha256": "6453dd22b7e5d438e8e06819fc8ceedee52318fb29e29b0fb0c1e0c5351bd2c3"
+    },
+    {
+      "path": "templates/AI_EXPERIMENT.md",
+      "bytes": 1105,
+      "sha256": "8665d88a2755875508aa34b8a278938febe8234985105c17293428a74126d3f1"
+    },
+    {
+      "path": "templates/ASSET_PROVENANCE.md",
+      "bytes": 679,
+      "sha256": "ab138ee78ae77fa99a8bc2a6aaaaaeea0143c4421d685830f5224c3102f1c98c"
+    },
+    {
+      "path": "templates/AUDIO_DEVICE_STRESS.md",
+      "bytes": 1168,
+      "sha256": "1dbf1de65f0caccaf74880bee106de04e9bfddeb41b431c7cd3715e8e134d615"
+    },
+    {
+      "path": "templates/BENCHMARK_MANIFEST.md",
+      "bytes": 1115,
+      "sha256": "a8e2fad050eee8ed3e0b4032fc4f89666d65acc3c19de6c57ac4aaf0efb348ce"
+    },
+    {
+      "path": "templates/CAPSTONE_REVIEW.md",
+      "bytes": 1355,
+      "sha256": "0da78f4a205f64af8e64a8521a95e7cf41e759996edc884c6a2dbae255b25e30"
+    },
+    {
+      "path": "templates/COMPATIBILITY_ACCESSIBILITY_MATRIX.md",
+      "bytes": 1136,
+      "sha256": "d24ef92f579996a3321b78b92babc0155de9c1eec52c39b50112bdc98c2761a5"
+    },
+    {
+      "path": "templates/ENGINE_BOUNDARIES.md",
+      "bytes": 968,
+      "sha256": "06f599fd02508725bb2e353f01589b177417b1b60dc0a9360d62de4bd170a09c"
+    },
+    {
+      "path": "templates/LAB_JOURNAL.md",
+      "bytes": 1098,
+      "sha256": "a34434feb74de46591ab77d97c9e95b7587f3de2e617d900c24cc3ae7788bb70"
+    },
+    {
+      "path": "templates/MOD_RELEASE_RECOVERY.md",
+      "bytes": 1025,
+      "sha256": "616f39d634eecce599fa38b08584ed9db46090d3229acaeb46fb6c8098cd78c6"
+    },
+    {
+      "path": "templates/NETWORK_PROTOCOL_TEST.md",
+      "bytes": 1181,
+      "sha256": "983dbef68bf89ba3de0e98e83fddda480e9a8c61d883e1dbe22249fec54afb3e"
+    },
+    {
+      "path": "templates/PHYSICS_LIBRARY_COMPARISON.md",
+      "bytes": 1047,
+      "sha256": "b283d132ff178a540a5eb4f9200100483eaa8e2dc3edf8aca4e3d40d12473059"
+    },
+    {
+      "path": "templates/PREREQUISITE_REPAIR.md",
+      "bytes": 623,
+      "sha256": "32030328fea06faf9cc135bb0bbe98b8dce33a9db68dccc39977ae5417b7e34e"
+    },
+    {
+      "path": "templates/SERVICE_FAILURE_RECORD.md",
+      "bytes": 956,
+      "sha256": "20ec4a096bfa5db1da77ed2cfa47d210be3eae835bb52bb762e160abef932583"
+    },
+    {
+      "path": "templates/TECHNICAL_POSTMORTEM.md",
+      "bytes": 1109,
+      "sha256": "643297107912b2d947dad6966c69c961f50c31d17fa8c5d50a618309a0c25e7b"
+    },
+    {
+      "path": "templates/progress_template.json",
+      "bytes": 1708,
+      "sha256": "06fa04d5f834a14e9071d7cb91de849a8f2d912c402b367abe1ef649e2f7f8ca"
+    },
+    {
+      "path": "verify_manifest.py",
+      "bytes": 1002,
+      "sha256": "9f0d4ba9a36014de99ce52982a968c0bc3dc8a0543f0dc8a3a00c481a9623aed"
+    }
+  ],
+  "scope_note": "Teaching materials and reference implementations; not completed learner labs or capstone. See evidence/TESTED_ENVIRONMENT.md."
+}

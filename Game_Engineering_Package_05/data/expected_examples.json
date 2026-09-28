@@ -1,0 +1,22 @@
+{
+  "16.1": "sum=23\n",
+  "16.2": "sum=28\n",
+  "16.3": "0:miss\n4:hit\n32:miss\n0:miss\n16:miss\n20:hit\n",
+  "16.4": "11 22 33 44 55 \n",
+  "17.1": "sum=10 separate_process=True\n",
+  "17.2": "equal=True bytes=4096\n",
+  "17.3": "{'job': 0, 'start': 0, 'finish': 12, 'lateness': 0}\n{'job': 1, 'start': 12, 'finish': 13, 'lateness': 8}\nTimes above are model units, not measured OS latency.\n",
+  "17.4": "injected failure; old score=7\nnew score=99\n",
+  "18.1": "sold=10 gold=0 stock=10\n",
+  "18.2": "1 2 3 4 5 \n",
+  "18.3": "published=42\n",
+  "18.4": "result=15 modeled_span=6\n",
+  "19.1": "[b'one', b'two']\n",
+  "19.2": "{\"id\":\"job-1\",\"operation\":\"sum_squares\",\"values\":[2,3],\"version\":1}\nboolean value rejected\n",
+  "19.3": "[('A', 20), ('B', 3)]\nforeign key rejected\n",
+  "19.4": "reply lost; retry same request\n{'destination_quantity': 8, 'source_quantity': 15}\ntotal=23\n",
+  "20.1": "Requirements missing evidence: ['REQ-2']\nNamed tests still need to be run and reviewed; names are not proof.\n",
+  "20.2": "bounded random inputs=500 rejected=500\nNo observed unexpected exception; not a security proof.\n",
+  "20.3": "change detected=True\nA digest detects byte changes against a trusted value; it is not authentication.\n",
+  "20.4": "Before: ERROR: invalid\nAfter: REQ_VERSION: expected version 1. Check the request template and retry.\nReview: text-only status, actionable recovery, no secret or full payload in the message.\n"
+}

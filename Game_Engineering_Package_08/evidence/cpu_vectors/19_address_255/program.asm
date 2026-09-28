@@ -1,0 +1,5 @@
+LDI r1,255
+LDI r2,31
+ST r2,r1,0
+LD r3,r1,0
+HALT

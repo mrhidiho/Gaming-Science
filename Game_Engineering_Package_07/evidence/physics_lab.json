@@ -1,0 +1,92 @@
+{
+  "free_fall": [
+    {
+      "steps": 30,
+      "position": -5.166666666666665,
+      "analytic": -5.0,
+      "absolute_error": 0.1666666666666652
+    },
+    {
+      "steps": 60,
+      "position": -5.083333333333334,
+      "analytic": -5.0,
+      "absolute_error": 0.08333333333333393
+    },
+    {
+      "steps": 120,
+      "position": -5.041666666666665,
+      "analytic": -5.0,
+      "absolute_error": 0.041666666666665186
+    }
+  ],
+  "chain_position_projection": [
+    {
+      "iterations": 1,
+      "max_distance_error": 0.3999999999999999,
+      "positions": [
+        0.0,
+        1.4,
+        2.8,
+        3.8
+      ]
+    },
+    {
+      "iterations": 2,
+      "max_distance_error": 0.3999999999999999,
+      "positions": [
+        0.0,
+        1.4,
+        2.5999999999999996,
+        3.5999999999999996
+      ]
+    },
+    {
+      "iterations": 4,
+      "max_distance_error": 0.22499999999999987,
+      "positions": [
+        0.0,
+        1.2249999999999999,
+        2.3374999999999995,
+        3.3374999999999995
+      ]
+    },
+    {
+      "iterations": 8,
+      "max_distance_error": 0.07119140624999987,
+      "positions": [
+        0.0,
+        1.0711914062499999,
+        2.1067871093749995,
+        3.1067871093749995
+      ]
+    },
+    {
+      "iterations": 16,
+      "max_distance_error": 0.0071271792054175,
+      "positions": [
+        0.0,
+        1.0071271792054175,
+        2.010690768808126,
+        3.010690768808126
+      ]
+    },
+    {
+      "iterations": 32,
+      "max_distance_error": 7.143283606803053e-05,
+      "positions": [
+        0.0,
+        1.000071432836068,
+        2.0001071492541023,
+        3.0001071492541023
+      ]
+    }
+  ],
+  "off_center_contact": {
+    "effective_inverse_mass": 1.5,
+    "impulse": 3.0,
+    "va_after": 1.5,
+    "omega_after": 6.0,
+    "relative_normal_speed_after": 1.5
+  },
+  "limits": "Projection is not an energy-conserving constraint solver. No maintained-library comparison performed."
+}

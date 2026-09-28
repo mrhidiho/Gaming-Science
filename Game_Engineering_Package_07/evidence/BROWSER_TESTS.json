@@ -1,0 +1,21 @@
+{
+  "browser": "System Chromium via Playwright; direct document-content rendering",
+  "checks": [
+    "20 lesson articles loaded",
+    "lesson answers initially closed",
+    "five module review keys",
+    "search narrowed to 1 lessons",
+    "recorded progress and 8/10 target",
+    "unavailable browser storage handled without crashing",
+    "answer reveal works",
+    "export JSON correct",
+    "invalid import rejected without overwriting progress",
+    "confirmed reset works",
+    "valid import restores progress",
+    "390-pixel layout has no page overflow",
+    "no JavaScript page errors",
+    "no remote resource requests"
+  ],
+  "passed": true,
+  "limits": "Administrative policy blocked file and loopback HTTP navigation. UI was tested from local bytes with set_content. Native local-storage persistence and link navigation were not verified; storage-unavailable fallback was tested. Not a human accessibility review or all-browser certification."
+}

@@ -1,0 +1,142 @@
+[
+  {
+    "id": "R01",
+    "organization": "ACM / IEEE-CS / AAAI",
+    "title": "CS2023 knowledge areas",
+    "url": "https://csed.acm.org/knowledge-areas/",
+    "note": "Breadth checklist, not a claim of accreditation."
+  },
+  {
+    "id": "R02",
+    "organization": "ACM / IEEE Computer Society",
+    "title": "Computer Engineering Curricula 2016",
+    "url": "https://ieeecs-media.computer.org/assets/pdf/ce2016-final-report.pdf",
+    "note": "Computer-engineering breadth and laboratory expectations; historical curriculum report."
+  },
+  {
+    "id": "R05",
+    "organization": "Scott Chacon and Ben Straub",
+    "title": "Pro Git",
+    "url": "https://git-scm.com/book/en/v2",
+    "note": "Version control and collaboration."
+  },
+  {
+    "id": "R06",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.042J Mathematics for Computer Science",
+    "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+    "note": "Proofs, graphs, counting and discrete probability."
+  },
+  {
+    "id": "R09",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.05 Introduction to Probability and Statistics",
+    "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+    "note": "Probability, inference and quantitative reasoning."
+  },
+  {
+    "id": "R11",
+    "organization": "C++ Core Guidelines editors",
+    "title": "C++ Core Guidelines",
+    "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+    "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard."
+  },
+  {
+    "id": "R26",
+    "organization": "Epic Games",
+    "title": "Programming with C++ in Unreal Engine",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/programming-with-cplusplus-in-unreal-engine",
+    "note": "Engine comparison after C++ foundations, not a beginner substitute."
+  },
+  {
+    "id": "R30",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.002 Circuits and Electronics",
+    "url": "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/",
+    "note": "Circuits, transistors and laboratory reasoning."
+  },
+  {
+    "id": "R33",
+    "organization": "YosysHQ",
+    "title": "Yosys documentation",
+    "url": "https://yosyshq.readthedocs.io/projects/yosys/en/latest/",
+    "note": "Synthesis and technology mapping; stable installed release preferred over a development snapshot."
+  },
+  {
+    "id": "R35",
+    "organization": "RISC-V International",
+    "title": "RISC-V ISA specifications",
+    "url": "https://docs.riscv.org/reference/isa/",
+    "note": "Instruction-set reference; record the exact ISA version and implemented extensions."
+  },
+  {
+    "id": "R38",
+    "organization": "gem5 project",
+    "title": "gem5 documentation",
+    "url": "https://www.gem5.org/documentation/",
+    "note": "Architecture simulation; distinguish model outputs from measured hardware results."
+  },
+  {
+    "id": "R39",
+    "organization": "OpenROAD project",
+    "title": "OpenROAD documentation",
+    "url": "https://openroad.readthedocs.io/en/latest/",
+    "note": "RTL-to-physical-design study; educational results are not production signoff."
+  },
+  {
+    "id": "R42",
+    "organization": "Stephen Boyd and Lieven Vandenberghe",
+    "title": "Convex Optimization",
+    "url": "https://web.stanford.edu/~boyd/cvxbook/",
+    "note": "Graduate optimization text available from its authors; copyrighted, linked rather than redistributed."
+  },
+  {
+    "id": "R43",
+    "organization": "Samuel Williams, Andrew Waterman and David Patterson",
+    "title": "Roofline performance model, technical report",
+    "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html",
+    "note": "Original 2008 performance-model reference; use current measured hardware limits for experiments."
+  },
+  {
+    "id": "R44",
+    "organization": "Benedikt Bitterli and coauthors",
+    "title": "Spatiotemporal reservoir resampling for real-time ray tracing with dynamic direct lighting",
+    "url": "https://research.nvidia.com/publication/2020-07_spatiotemporal-reservoir-resampling-real-time-ray-tracing-dynamic-direct",
+    "note": "Original ReSTIR research, 2020; example reproduction target, not a claim to be the latest method."
+  },
+  {
+    "id": "R48",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.823 Computer System Architecture",
+    "url": "https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/",
+    "note": "Graduate architecture foundations; historical course concepts supplemented with current specifications."
+  },
+  {
+    "id": "R49",
+    "organization": "Christopher Batten / Cornell University",
+    "title": "ECE5745 Complex Digital ASIC Design",
+    "url": "https://www.csl.cornell.edu/courses/ece5745/",
+    "note": "Graduate ASIC methodology, circuits, EDA and design-project expectations."
+  },
+  {
+    "id": "R50",
+    "organization": "YosysHQ",
+    "title": "SymbiYosys documentation",
+    "url": "https://yosyshq.readthedocs.io/projects/sby/en/latest/",
+    "note": "Formal hardware verification, safety, liveness and cover properties."
+  },
+  {
+    "id": "R51",
+    "organization": "Linux kernel contributors",
+    "title": "Driver implementer API guide",
+    "url": "https://docs.kernel.org/driver-api/index.html",
+    "note": "Device ownership, I/O, DMA and driver interfaces; use disposable VMs or simulated devices for kernel experiments."
+  },
+  {
+    "id": "R55",
+    "organization": "Matthias Mueller and collaborators",
+    "title": "Author publication archive: position-based simulation and XPBD",
+    "url": "https://matthias-research.github.io/pages/publications/publications.html",
+    "note": "Read the named 2016 XPBD paper and related course notes for the simulation reproduction; papers retain their own copyrights."
+  }
+]

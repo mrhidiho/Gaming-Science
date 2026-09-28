@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-28",
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "cmake": "cmake version 3.31.6",
+  "node": "v22.16.0",
+  "python_test_cases": 143,
+  "cpp_assertions": 200,
+  "cpp_test_executables": 1,
+  "cpp_sanitizers": [
+    "AddressSanitizer",
+    "UndefinedBehaviorSanitizer"
+  ],
+  "gpu_execution": "NOT PERFORMED",
+  "independent_reviewer": "NOT PERFORMED",
+  "macos_windows_execution": "NOT PERFORMED"
+}

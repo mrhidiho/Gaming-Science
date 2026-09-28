@@ -1,0 +1,25 @@
+test_bad_source_preserves_manifest (__main__.PipelineTests.test_bad_source_preserves_manifest) ... ok
+test_box_parallel_miss (__main__.PipelineTests.test_box_parallel_miss) ... ok
+test_bvh_empty_rejected (__main__.PipelineTests.test_bvh_empty_rejected) ... ok
+test_bvh_matches (__main__.PipelineTests.test_bvh_matches) ... ok
+test_constant_json (__main__.PipelineTests.test_constant_json) ... ok
+test_dependency_invalidation (__main__.PipelineTests.test_dependency_invalidation) ... ok
+test_deterministic_fresh_build (__main__.PipelineTests.test_deterministic_fresh_build) ... ok
+test_identical_centroids (__main__.PipelineTests.test_identical_centroids) ... ok
+test_image_format_mips (__main__.PipelineTests.test_image_format_mips) ... ok
+test_mesh_bad_color (__main__.PipelineTests.test_mesh_bad_color) ... ok
+test_mesh_format (__main__.PipelineTests.test_mesh_format) ... ok
+test_mesh_nan_rejected (__main__.PipelineTests.test_mesh_nan_rejected) ... ok
+test_odd_area_filter (__main__.PipelineTests.test_odd_area_filter) ... ok
+test_payload_hashes (__main__.PipelineTests.test_payload_hashes) ... ok
+test_pixel_count (__main__.PipelineTests.test_pixel_count) ... ok
+test_sphere_behind (__main__.PipelineTests.test_sphere_behind) ... ok
+test_sphere_inside (__main__.PipelineTests.test_sphere_inside) ... ok
+test_sphere_nonunit_ray (__main__.PipelineTests.test_sphere_nonunit_ray) ... ok
+test_unknown_filter (__main__.PipelineTests.test_unknown_filter) ... ok
+test_zero_ray_rejected (__main__.PipelineTests.test_zero_ray_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 20 tests in 0.019s
+
+OK

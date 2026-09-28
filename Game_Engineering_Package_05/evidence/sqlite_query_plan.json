@@ -1,0 +1,28 @@
+{
+  "sqlite_runtime": "3.46.1",
+  "fixture_rows": 5000,
+  "returned_rows": 52,
+  "before": [
+    [
+      4,
+      0,
+      0,
+      "SCAN sample USING INDEX sqlite_autoindex_sample_1"
+    ]
+  ],
+  "after": [
+    [
+      4,
+      0,
+      0,
+      "SEARCH sample USING INDEX sample_item (item_id=?)"
+    ],
+    [
+      16,
+      0,
+      0,
+      "USE TEMP B-TREE FOR ORDER BY"
+    ]
+  ],
+  "note": "Generated fixture; plans are observed for this SQLite version, not PostgreSQL or every dataset."
+}

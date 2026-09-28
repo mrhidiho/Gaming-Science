@@ -1,0 +1,30 @@
+{
+  "package": 5,
+  "volume": 4,
+  "native_cases": 70,
+  "python_methods": 88,
+  "distinct_reference_cases": 158,
+  "worked_examples": 20,
+  "clean_extraction": {
+    "status": "passed",
+    "fresh_source_extraction": true,
+    "fresh_native_build_directory": true,
+    "native_ctest_groups": 9,
+    "python_methods": 88,
+    "worked_examples": 20,
+    "real_native_loopback_demo": true
+  },
+  "instrumented_native_groups": {
+    "asan_ubsan": 9,
+    "tsan": 9
+  },
+  "not_tested": [
+    "Windows",
+    "macOS",
+    "Arm native",
+    "RISC-V execution",
+    "PostgreSQL runtime",
+    "power-loss durability",
+    "direct file browser persistence"
+  ]
+}

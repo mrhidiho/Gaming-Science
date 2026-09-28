@@ -1,0 +1,90 @@
+{
+  "dynamic_power_W": 0.00019999999999999998,
+  "energy_J_per_item": [
+    2e-09,
+    1.5e-09
+  ],
+  "frontier": [
+    "A",
+    "B",
+    "D"
+  ],
+  "inverter_chains": [
+    {
+      "delay": 65.0,
+      "effort": 64.0,
+      "inverting": true,
+      "sizes": [
+        1.0
+      ],
+      "units": "normalized"
+    },
+    {
+      "delay": 18.0,
+      "effort": 8.0,
+      "inverting": false,
+      "sizes": [
+        1.0,
+        8.0
+      ],
+      "units": "normalized"
+    },
+    {
+      "delay": 15.0,
+      "effort": 3.9999999999999996,
+      "inverting": true,
+      "sizes": [
+        1.0,
+        3.9999999999999996,
+        15.999999999999996
+      ],
+      "units": "normalized"
+    },
+    {
+      "delay": 15.313708498984761,
+      "effort": 2.8284271247461903,
+      "inverting": false,
+      "sizes": [
+        1.0,
+        2.8284271247461903,
+        8.000000000000002,
+        22.627416997969526
+      ],
+      "units": "normalized"
+    }
+  ],
+  "objectives": [
+    "latency_ms",
+    "power_W",
+    "area_normalized"
+  ],
+  "ppa_candidates": {
+    "A": [
+      10,
+      40,
+      20
+    ],
+    "B": [
+      8,
+      50,
+      24
+    ],
+    "C": [
+      12,
+      45,
+      22
+    ],
+    "D": [
+      9,
+      35,
+      25
+    ]
+  },
+  "reduced_voltage_power_W": 0.00012800000000000002,
+  "source": "synthetic analytical examples, not physical-design results",
+  "timing_ns": {
+    "hold": -0.06,
+    "setup": 0.25,
+    "tightened_setup": -0.1499999999999999
+  }
+}

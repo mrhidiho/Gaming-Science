@@ -1,0 +1,42 @@
+{
+  "commands": [
+    "wait",
+    "wait",
+    "wait",
+    "wait",
+    "wait",
+    "wait",
+    "wait",
+    "d",
+    "d",
+    "d",
+    "d",
+    "d",
+    "d",
+    "d",
+    "d",
+    "d",
+    "s",
+    "s",
+    "s",
+    "s",
+    "s",
+    "s",
+    "s",
+    "s",
+    "s"
+  ],
+  "initial": {
+    "rules": "training-yard-v1",
+    "state": {
+      "energy": 25,
+      "status": "playing",
+      "turns": 0,
+      "x": 0,
+      "y": 0
+    },
+    "version": 1
+  },
+  "rules": "training-yard-v1",
+  "version": 1
+}

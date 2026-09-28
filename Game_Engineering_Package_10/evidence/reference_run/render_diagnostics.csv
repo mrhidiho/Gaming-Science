@@ -1,0 +1,3 @@
+mode,width,height,spp,elapsed_ns,mean_linear_radiance
+bsdf,24,18,8,76568546,0.1902777777777778
+mis,24,18,8,103583767,0.19391288942915785

@@ -1,0 +1,88 @@
+{
+  "output": [
+    66,
+    68,
+    62,
+    60,
+    32767,
+    -32768,
+    64
+  ],
+  "elapsed_cycles": 9,
+  "tick_count": 10,
+  "stalled_ticks": 2,
+  "accepted_packets": 4,
+  "retired_packets": 4,
+  "trace": [
+    {
+      "edge": 0,
+      "ready": true,
+      "accepted": true,
+      "retired": false,
+      "occupancy": 1
+    },
+    {
+      "edge": 1,
+      "ready": false,
+      "accepted": true,
+      "retired": false,
+      "occupancy": 2
+    },
+    {
+      "edge": 2,
+      "ready": true,
+      "accepted": true,
+      "retired": false,
+      "occupancy": 3
+    },
+    {
+      "edge": 3,
+      "ready": true,
+      "accepted": true,
+      "retired": false,
+      "occupancy": 4
+    },
+    {
+      "edge": 4,
+      "ready": false,
+      "accepted": false,
+      "retired": false,
+      "occupancy": 4
+    },
+    {
+      "edge": 5,
+      "ready": true,
+      "accepted": false,
+      "retired": true,
+      "occupancy": 3
+    },
+    {
+      "edge": 6,
+      "ready": true,
+      "accepted": false,
+      "retired": true,
+      "occupancy": 2
+    },
+    {
+      "edge": 7,
+      "ready": false,
+      "accepted": false,
+      "retired": false,
+      "occupancy": 2
+    },
+    {
+      "edge": 8,
+      "ready": true,
+      "accepted": false,
+      "retired": true,
+      "occupancy": 1
+    },
+    {
+      "edge": 9,
+      "ready": true,
+      "accepted": false,
+      "retired": true,
+      "occupancy": 0
+    }
+  ]
+}

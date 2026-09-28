@@ -1,0 +1,33 @@
+{
+  "package": 5,
+  "volume": 4,
+  "original_module_and_lesson_fields_preserved": true,
+  "original_quiz_questions_preserved": 60,
+  "added_lesson_questions": 40,
+  "additional_problems": 50,
+  "module_review_questions": 25,
+  "readiness_questions": 12,
+  "lessons": 20,
+  "runnable_examples": 20,
+  "coding_exercise_interfaces": 16,
+  "evidence_labs": 4,
+  "templates": 10,
+  "reference_directory_entries": 28,
+  "pdf_pages": {
+    "ANSWER_KEY.pdf": 24,
+    "CAPSTONE_SPEC.pdf": 8,
+    "LAB_WORKBOOK.pdf": 28,
+    "START_NEXT.pdf": 4,
+    "STUDENT_HANDBOOK.pdf": 54,
+    "SYSTEMS_REFERENCE.pdf": 6,
+    "modules/16_processor_architecture_and_assembly.pdf": 11,
+    "modules/17_operating_systems_and_resource_management.pdf": 10,
+    "modules/18_concurrency_and_parallel_programming.pdf": 10,
+    "modules/19_networks_storage_and_data_services.pdf": 10,
+    "modules/20_engineering_practice_security_and_maintainability.pdf": 10
+  },
+  "python_sources_parse": true,
+  "browser_all_lesson_questions_present": true,
+  "pdf_bookmarks_present": true,
+  "source_sha256": "21ffde3c0e228c7729933e4e92010295c7a46001fd05c995090ad79dde773a25"
+}

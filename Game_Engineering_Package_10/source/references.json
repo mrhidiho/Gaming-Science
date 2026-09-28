@@ -1,0 +1,578 @@
+[
+  {
+    "id": "R01",
+    "organization": "ACM / IEEE-CS / AAAI",
+    "title": "CS2023 knowledge areas",
+    "url": "https://csed.acm.org/knowledge-areas/",
+    "note": "Breadth checklist, not a claim of accreditation.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R02",
+    "organization": "ACM / IEEE Computer Society",
+    "title": "Computer Engineering Curricula 2016",
+    "url": "https://ieeecs-media.computer.org/assets/pdf/ce2016-final-report.pdf",
+    "note": "Computer-engineering breadth and laboratory expectations; historical curriculum report.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R03",
+    "organization": "Harvard University",
+    "title": "CS50 Introduction to Programming with Python",
+    "url": "https://cs50.harvard.edu/python/",
+    "note": "Beginner lectures and practice; complete exercises rather than only watching.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R04",
+    "organization": "Python Software Foundation",
+    "title": "Python tutorial and language documentation",
+    "url": "https://docs.python.org/3/tutorial/",
+    "note": "Reference companion; the tutorial itself assumes some programming familiarity.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R05",
+    "organization": "Scott Chacon and Ben Straub",
+    "title": "Pro Git",
+    "url": "https://git-scm.com/book/en/v2",
+    "note": "Version control and collaboration.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R06",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.042J Mathematics for Computer Science",
+    "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+    "note": "Proofs, graphs, counting and discrete probability.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R07",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.06 Linear Algebra",
+    "url": "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/",
+    "note": "Matrices, vector spaces, eigenvalues and problem sets.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R08",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.01SC Single Variable Calculus",
+    "url": "https://ocw.mit.edu/courses/18-01sc-single-variable-calculus-fall-2010/",
+    "note": "Calculus lectures, exercises and assessments.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R09",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.05 Introduction to Probability and Statistics",
+    "url": "https://ocw.mit.edu/courses/18-05-introduction-to-probability-and-statistics-spring-2022/",
+    "note": "Probability, inference and quantitative reasoning.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R10",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.003 Signals and Systems",
+    "url": "https://ocw.mit.edu/courses/6-003-signals-and-systems-fall-2011/",
+    "note": "Sampling, convolution, transforms and systems.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R11",
+    "organization": "C++ Core Guidelines editors",
+    "title": "C++ Core Guidelines",
+    "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+    "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R12",
+    "organization": "Kitware",
+    "title": "CMake tutorial",
+    "url": "https://cmake.org/cmake/help/latest/guide/tutorial/index.html",
+    "note": "Build systems; use documentation matching the installed release.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R13",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.006 Introduction to Algorithms",
+    "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+    "note": "Data structures, graph algorithms and dynamic programming.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R14",
+    "organization": "LLVM Project",
+    "title": "Kaleidoscope and LLVM tutorials",
+    "url": "https://llvm.org/docs/tutorial/",
+    "note": "Compiler frontends, intermediate representation and JIT compilation.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R15",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.004 Computation Structures",
+    "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+    "note": "Logic, processor design, memory and systems.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R16",
+    "organization": "Remzi and Andrea Arpaci-Dusseau",
+    "title": "Operating Systems: Three Easy Pieces",
+    "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "note": "Virtualization, concurrency and persistence; book by its authors.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R17",
+    "organization": "IETF / RFC Editor",
+    "title": "RFC 9293: Transmission Control Protocol",
+    "url": "https://www.rfc-editor.org/rfc/rfc9293.html",
+    "note": "Transport semantics; reference reading after networking foundations.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R18",
+    "organization": "PostgreSQL Global Development Group",
+    "title": "PostgreSQL tutorial",
+    "url": "https://www.postgresql.org/docs/current/tutorial.html",
+    "note": "Relational data, transactions and SQL; pin local server and client versions.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R19",
+    "organization": "Carnegie Mellon University",
+    "title": "15-462/662 Computer Graphics",
+    "url": "https://15462.courses.cs.cmu.edu/fall2021/",
+    "note": "Rendering, geometry and animation course structure and exercises.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R20",
+    "organization": "Carnegie Mellon University",
+    "title": "15-466/666 Computer Game Programming",
+    "url": "https://graphics.cs.cmu.edu/courses/15-466/",
+    "note": "Runtime systems and game-production programming.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R21",
+    "organization": "Khronos Group",
+    "title": "Vulkan tutorial",
+    "url": "https://docs.vulkan.org/tutorial/latest/00_Introduction.html",
+    "note": "Explicit graphics API study; feature-check the device before using the moving latest tutorial.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R22",
+    "organization": "SDL project",
+    "title": "SDL3 documentation",
+    "url": "https://wiki.libsdl.org/SDL3/FrontPage",
+    "note": "Windowing, input, audio and platform services; do not mix SDL2 and SDL3 examples.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R23",
+    "organization": "Matt Pharr, Wenzel Jakob, Greg Humphreys",
+    "title": "Physically Based Rendering, fourth edition",
+    "url": "https://www.pbr-book.org/4ed/contents",
+    "note": "Rendering mathematics and implementation; use chapter titles in lesson assignments.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R24",
+    "organization": "Microsoft",
+    "title": "Direct3D 12 graphics",
+    "url": "https://learn.microsoft.com/en-us/windows/win32/direct3d12/direct3d-12-graphics",
+    "note": "Windows graphics backend reference.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R25",
+    "organization": "Apple",
+    "title": "Metal developer resources",
+    "url": "https://developer.apple.com/metal/",
+    "note": "Apple-platform graphics and compute reference.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R26",
+    "organization": "Epic Games",
+    "title": "Programming with C++ in Unreal Engine",
+    "url": "https://dev.epicgames.com/documentation/en-us/unreal-engine/programming-with-cplusplus-in-unreal-engine",
+    "note": "Engine comparison after C++ foundations, not a beginner substitute.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R27",
+    "organization": "Glenn Fiedler",
+    "title": "Fix Your Timestep!",
+    "url": "https://gafferongames.com/post/fix_your_timestep/",
+    "note": "Original practitioner explanation of fixed-step simulation; read critically and implement your own lab.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R28",
+    "organization": "Box2D project",
+    "title": "Box2D documentation",
+    "url": "https://box2d.org/documentation/",
+    "note": "Collision, constraints and simulation reference.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R29",
+    "organization": "Microsoft",
+    "title": "Xbox Accessibility Guidelines",
+    "url": "https://learn.microsoft.com/en-us/xbox/accessibility/guidelines",
+    "note": "Accessibility design and testing; not a legal-compliance certificate.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R30",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.002 Circuits and Electronics",
+    "url": "https://ocw.mit.edu/courses/6-002-circuits-and-electronics-spring-2007/",
+    "note": "Circuits, transistors and laboratory reasoning.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R31",
+    "organization": "Noam Nisan and Shimon Schocken",
+    "title": "Nand to Tetris",
+    "url": "https://www.nand2tetris.org/",
+    "note": "Computer construction projects; review the authors' license terms.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R32",
+    "organization": "Verilator project",
+    "title": "Verilator user guide",
+    "url": "https://verilator.org/guide/latest/",
+    "note": "RTL simulation and linting; match supported SystemVerilog subset.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R33",
+    "organization": "YosysHQ",
+    "title": "Yosys documentation",
+    "url": "https://yosyshq.readthedocs.io/projects/yosys/en/latest/",
+    "note": "Synthesis and technology mapping; stable installed release preferred over a development snapshot.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R34",
+    "organization": "cocotb project",
+    "title": "cocotb documentation",
+    "url": "https://docs.cocotb.org/en/stable/",
+    "note": "Python-based HDL verification; simulator and version compatibility must be checked.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R35",
+    "organization": "RISC-V International",
+    "title": "RISC-V ISA specifications",
+    "url": "https://docs.riscv.org/reference/isa/",
+    "note": "Instruction-set reference; record the exact ISA version and implemented extensions.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R36",
+    "organization": "KiCad project",
+    "title": "KiCad documentation",
+    "url": "https://docs.kicad.org/",
+    "note": "Schematic capture, PCB layout and manufacturing outputs.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R37",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+    "note": "GPU execution and memory; CUDA is an optional vendor-specific lab route.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R38",
+    "organization": "gem5 project",
+    "title": "gem5 documentation",
+    "url": "https://www.gem5.org/documentation/",
+    "note": "Architecture simulation; distinguish model outputs from measured hardware results.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R39",
+    "organization": "OpenROAD project",
+    "title": "OpenROAD documentation",
+    "url": "https://openroad.readthedocs.io/en/latest/",
+    "note": "RTL-to-physical-design study; educational results are not production signoff.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R40",
+    "organization": "OpenStax / Rice University",
+    "title": "Precalculus, second edition",
+    "url": "https://openstax.org/details/books/precalculus-2e",
+    "note": "Algebra, functions and trigonometry bridge before calculus.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R41",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.02SC Multivariable Calculus",
+    "url": "https://ocw.mit.edu/courses/18-02sc-multivariable-calculus-fall-2010/",
+    "note": "Partial derivatives, gradients, multiple integrals and constrained differentials.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R42",
+    "organization": "Stephen Boyd and Lieven Vandenberghe",
+    "title": "Convex Optimization",
+    "url": "https://web.stanford.edu/~boyd/cvxbook/",
+    "note": "Graduate optimization text available from its authors; copyrighted, linked rather than redistributed.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R43",
+    "organization": "Samuel Williams, Andrew Waterman and David Patterson",
+    "title": "Roofline performance model, technical report",
+    "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html",
+    "note": "Original 2008 performance-model reference; use current measured hardware limits for experiments.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R44",
+    "organization": "Benedikt Bitterli and coauthors",
+    "title": "Spatiotemporal reservoir resampling for real-time ray tracing with dynamic direct lighting",
+    "url": "https://research.nvidia.com/publication/2020-07_spatiotemporal-reservoir-resampling-real-time-ray-tracing-dynamic-direct",
+    "note": "Original ReSTIR research, 2020; example reproduction target, not a claim to be the latest method.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R45",
+    "organization": "LLVM Project",
+    "title": "AddressSanitizer documentation",
+    "url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+    "note": "Memory-error instrumentation, limitations and supported toolchains.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R46",
+    "organization": "University of California, Berkeley",
+    "title": "CS188 Introduction to Artificial Intelligence textbook",
+    "url": "https://inst.eecs.berkeley.edu/~cs188/textbook/",
+    "note": "Search, games, decision processes, learning and probabilistic reasoning.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R47",
+    "organization": "Aston Zhang, Zachary Lipton, Mu Li and Alexander Smola",
+    "title": "Dive into Deep Learning",
+    "url": "https://d2l.ai/",
+    "note": "Learning fundamentals, gradients, generalization and reproducible exercises; pin compatible framework versions.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R48",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.823 Computer System Architecture",
+    "url": "https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/",
+    "note": "Graduate architecture foundations; historical course concepts supplemented with current specifications.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R49",
+    "organization": "Christopher Batten / Cornell University",
+    "title": "ECE5745 Complex Digital ASIC Design",
+    "url": "https://www.csl.cornell.edu/courses/ece5745/",
+    "note": "Graduate ASIC methodology, circuits, EDA and design-project expectations.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R50",
+    "organization": "YosysHQ",
+    "title": "SymbiYosys documentation",
+    "url": "https://yosyshq.readthedocs.io/projects/sby/en/latest/",
+    "note": "Formal hardware verification, safety, liveness and cover properties.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R51",
+    "organization": "Linux kernel contributors",
+    "title": "Driver implementer API guide",
+    "url": "https://docs.kernel.org/driver-api/index.html",
+    "note": "Device ownership, I/O, DMA and driver interfaces; use disposable VMs or simulated devices for kernel experiments.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R52",
+    "organization": "Khronos Group",
+    "title": "OpenXR registry and specifications",
+    "url": "https://registry.khronos.org/OpenXR/",
+    "note": "XR coordinate spaces, frame timing and runtime interfaces; optional hardware-dependent extension.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R53",
+    "organization": "Zephyr Project",
+    "title": "Zephyr documentation",
+    "url": "https://docs.zephyrproject.org/latest/introduction/index.html",
+    "note": "Embedded kernel, drivers, board support and simulation; select and pin a supported release.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R54",
+    "organization": "MIT OpenCourseWare",
+    "title": "18.085 Computational Science and Engineering I",
+    "url": "https://ocw.mit.edu/courses/18-085-computational-science-and-engineering-i-fall-2008/",
+    "note": "Graduate numerical methods, equilibrium systems, differential equations and variational reasoning.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "R55",
+    "organization": "Matthias Mueller and collaborators",
+    "title": "Author publication archive: position-based simulation and XPBD",
+    "url": "https://matthias-research.github.io/pages/publications/publications.html",
+    "note": "Read the named 2016 XPBD paper and related course notes for the simulation reproduction; papers retain their own copyrights.",
+    "status": "Inherited from the original program; not every moving page was revalidated for this expansion."
+  },
+  {
+    "id": "S01",
+    "organization": "Jonathan Richard Shewchuk",
+    "title": "An Introduction to the Conjugate Gradient Method Without the Agonizing Pain (1994)",
+    "url": "https://www.cs.cmu.edu/~quake-papers/painless-conjugate-gradient.pdf",
+    "note": "PCG derivation and Appendix B3; PDF and algorithm page inspected.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S02",
+    "organization": "Stephen Boyd and Lieven Vandenberghe",
+    "title": "Convex Optimization (2004), author-hosted text",
+    "url": "https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf",
+    "note": "Convexity, optimality and numerical methods; KKT page inspected. Also R42.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S03",
+    "organization": "Mark Harris, Shubhabrata Sengupta and John D. Owens",
+    "title": "Parallel Prefix Sum (Scan) with CUDA, GPU Gems 3, Chapter 39",
+    "url": "https://developer.nvidia.com/gpugems/gpugems3/part-vi-gpu-computing/chapter-39-parallel-prefix-sum-scan-cuda",
+    "note": "Work-efficient scan foundations; historical algorithms, not current tuning defaults.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S04",
+    "organization": "NVIDIA",
+    "title": "CUDA Programming Guide",
+    "url": "https://docs.nvidia.com/cuda/cuda-programming-guide/",
+    "note": "Execution and memory contracts; moving documentation consulted, no matching toolkit/device validation claimed.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S05",
+    "organization": "Miles Macklin, Matthias Mueller and Nuttapong Chentanez",
+    "title": "XPBD: Position-Based Simulation of Compliant Constrained Dynamics (2016)",
+    "url": "https://matthias-research.github.io/pages/publications/XPBD.pdf",
+    "note": "Original paper; multiplier/compliance equations inspected. A bounded reproduction target, not a completed result supplied here.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S06",
+    "organization": "Matt Pharr, Wenzel Jakob and Greg Humphreys",
+    "title": "PBRT 4e: Mapping Path Tracing to the GPU",
+    "url": "https://www.pbr-book.org/4ed/Wavefront_Rendering_on_GPUs/Mapping_Path_Tracing_to_the_GPU",
+    "note": "Wavefront organization and queue-oriented rendering.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S07",
+    "organization": "Matt Pharr, Wenzel Jakob and Greg Humphreys",
+    "title": "PBRT 4e: Improving Efficiency",
+    "url": "https://www.pbr-book.org/4ed/Monte_Carlo_Integration/Improving_Efficiency",
+    "note": "Importance sampling, MIS and roulette.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S08",
+    "organization": "Matt Pharr, Wenzel Jakob and Greg Humphreys",
+    "title": "PBRT 4e: A Better Path Tracer",
+    "url": "https://www.pbr-book.org/4ed/Light_Transport_I_Surface_Reflection/A_Better_Path_Tracer",
+    "note": "Light sampling and emitter-hit weighting; compare against the bounded educational implementation.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S09",
+    "organization": "Khronos Group",
+    "title": "Vulkan specification: Acceleration Structures",
+    "url": "https://docs.vulkan.org/spec/latest/chapters/accelstructures.html",
+    "note": "Capability, update and resource contracts. Moving specification, not a tested API backend.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S10",
+    "organization": "Mitsuba project",
+    "title": "Gradient-based optimization tutorial",
+    "url": "https://mitsuba.readthedocs.io/en/stable/src/inverse_rendering/gradient_based_opt.html",
+    "note": "Primary implementation documentation for inverse rendering; no Mitsuba installation required by the portable references.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S11",
+    "organization": "Diego Ongaro and John Ousterhout",
+    "title": "In Search of an Understandable Consensus Algorithm, extended version",
+    "url": "https://raft.github.io/raft.pdf",
+    "note": "Replicated state-machine assumptions; PDF and architecture page inspected. The teaching sink does not implement Raft.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S12",
+    "organization": "Leslie Lamport",
+    "title": "Safety, Liveness, and Fairness (2019)",
+    "url": "https://lamport.azurewebsites.net/tla/safety-liveness.pdf",
+    "note": "Precise definitions and fairness assumptions; safety/liveness page inspected.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S13",
+    "organization": "LLVM Project",
+    "title": "LLVM Language Reference Manual",
+    "url": "https://llvm.org/docs/LangRef.html",
+    "note": "SSA, phi and arithmetic semantics. Record the LLVM version actually used in a learner experiment.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S14",
+    "organization": "ACM",
+    "title": "Artifact Review and Badging, version 1.1",
+    "url": "https://www.acm.org/publications/policies/artifact-review-and-badging-current",
+    "note": "Official search index and ACM terminology page verified; direct policy-page fetch returned 403. Supplement: https://www.acm.org/publications/badging-terms . This curriculum awards no ACM badge.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S15",
+    "organization": "LLVM Project",
+    "title": "Auto-Vectorization in LLVM",
+    "url": "https://llvm.org/docs/Vectorizers.html",
+    "note": "Loop/SLP vectorization, legality and diagnostics; primary compiler documentation.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S16",
+    "organization": "LLVM Project",
+    "title": "LLVM Tutorial: Table of Contents",
+    "url": "https://llvm.org/docs/tutorial/",
+    "note": "Frontend, IR and JIT tutorials. The bundled DSL stops at interpretation and source emission.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  },
+  {
+    "id": "S17",
+    "organization": "HashiCorp",
+    "title": "Consul session semantics",
+    "url": "https://developer.hashicorp.com/consul/docs/automate/session",
+    "note": "Session/locking behavior and authority limitations; primary service documentation, not a service deployment requirement.",
+    "status": "Focused primary source consulted September 28, 2026; see note for retrieval limits."
+  }
+]

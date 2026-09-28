@@ -1,0 +1,23 @@
+{
+  "static_links": "passed",
+  "html_pages": 7,
+  "python_sources_parsed": 20,
+  "javascript_syntax": "passed",
+  "runtime": "passed for injected-page UI tests",
+  "transport": "set_content with inline local CSS/JS; navigation is blocked by browser policy in this environment",
+  "engine": "144.0.7559.96",
+  "tested_features": [
+    "20 lessons",
+    "search filtering",
+    "clear filter",
+    "read count",
+    "graceful local-storage-unavailable fallback",
+    "separate answer content",
+    "desktop/mobile layout",
+    "no page errors"
+  ],
+  "not_tested": [
+    "file:// and HTTP navigation (environment policy)",
+    "persistent native browser storage across reload"
+  ]
+}

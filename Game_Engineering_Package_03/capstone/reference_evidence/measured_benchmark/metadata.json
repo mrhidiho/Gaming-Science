@@ -1,0 +1,20 @@
+{
+  "data_kind": "measured_local_python_microbenchmark",
+  "utc": "2026-09-28T16:41:21.333515+00:00",
+  "python": "3.13.5",
+  "implementation": "CPython",
+  "operating_system": "Linux",
+  "machine": "x86_64",
+  "seed": 260903,
+  "pairs_per_workload": 30,
+  "workloads": 6,
+  "warmups_per_method_per_workload": 3,
+  "rows": 360,
+  "clock": "perf_counter_ns",
+  "includes": "A: list membership queries; B: set construction and membership queries",
+  "excludes": "input construction, output validation, CSV writing, process startup, graphics and game-engine integration",
+  "percentile": "nearest rank, p95 fraction 0.95",
+  "difference_sign": "B minus A; negative means B took less time",
+  "interval_assumptions": "Student t interval on paired differences, conditional on independent approximately normal pair differences. Ordering is randomized; independence/normality are not established automatically.",
+  "inference_limit": "Local short Python workload only. No native engine, GPU, universal device, causal player-experience or population-tail claim."
+}

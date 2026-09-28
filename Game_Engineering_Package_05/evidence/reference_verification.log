@@ -1,0 +1,165 @@
++ cmake -S /mnt/data/Game_Engineering_Package_05/native -B /mnt/data/_package05_work/build-debug -DCMAKE_BUILD_TYPE=Debug -DSTUDENT_EXERCISES=OFF
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /mnt/data/_package05_work/build-debug
++ cmake --build /mnt/data/_package05_work/build-debug --config Debug --parallel 2
+[  6%] Built target contract_tests
+[ 12%] Built target demo_16_1
+[ 19%] Built target demo_16_2
+[ 25%] Built target demo_16_4
+[ 32%] Built target demo_16_3
+[ 45%] Built target demo_18_2
+[ 45%] Built target demo_18_1
+[ 51%] Built target demo_18_3
+[ 58%] Built target demo_18_4
+[ 64%] Built target native_worker
+[ 74%] Built target benchmark
+[ 80%] Built target locality_benchmark
+[ 87%] Built target graph_tests
+[ 93%] Built target false_sharing
+[100%] Built target graph_benchmark
++ ctest --test-dir /mnt/data/_package05_work/build-debug -C Debug --output-on-failure
+Internal ctest changing into directory: /mnt/data/_package05_work/build-debug
+Test project /mnt/data/_package05_work/build-debug
+    Start 1: lab_16.1
+1/9 Test #1: lab_16.1 .........................   Passed    0.00 sec
+    Start 2: lab_16.2
+2/9 Test #2: lab_16.2 .........................   Passed    0.00 sec
+    Start 3: lab_16.3
+3/9 Test #3: lab_16.3 .........................   Passed    0.01 sec
+    Start 4: lab_16.4
+4/9 Test #4: lab_16.4 .........................   Passed    0.02 sec
+    Start 5: lab_18.1
+5/9 Test #5: lab_18.1 .........................   Passed    0.02 sec
+    Start 6: lab_18.2
+6/9 Test #6: lab_18.2 .........................   Passed    0.36 sec
+    Start 7: lab_18.3
+7/9 Test #7: lab_18.3 .........................   Passed    0.01 sec
+    Start 8: lab_18.4
+8/9 Test #8: lab_18.4 .........................   Passed    0.00 sec
+    Start 9: graph_integration
+9/9 Test #9: graph_integration ................   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 9
+
+Total Test time (real) =   0.45 sec
++ /opt/pyvenv/bin/python -m unittest discover -s python/tests -v
+test_backpressure_and_release (test_capstone.TestCapstone.test_backpressure_and_release) ... ok
+test_cancel_after_commit_does_not_undo (test_capstone.TestCapstone.test_cancel_after_commit_does_not_undo) ... ok
+test_cancel_pending_and_running_before_commit (test_capstone.TestCapstone.test_cancel_pending_and_running_before_commit) ... ok
+test_direct_store_invalid_result (test_capstone.TestCapstone.test_direct_store_invalid_result) ... ok
+test_duplicate_concurrent (test_capstone.TestCapstone.test_duplicate_concurrent) ... ok
+test_graceful_drain (test_capstone.TestCapstone.test_graceful_drain) ... ok
+test_history_quota_keeps_replays (test_capstone.TestCapstone.test_history_quota_keeps_replays) ... ok
+test_id_conflict (test_capstone.TestCapstone.test_id_conflict) ... ok
+test_invalid_before_admission (test_capstone.TestCapstone.test_invalid_before_admission) ... ok
+test_limits (test_capstone.TestCapstone.test_limits) ... ok
+test_loopback_bad_length (test_capstone.TestCapstone.test_loopback_bad_length) ... ok
+test_loopback_bad_schema (test_capstone.TestCapstone.test_loopback_bad_schema) ... ok
+test_loopback_split_and_replay (test_capstone.TestCapstone.test_loopback_split_and_replay) ... ok
+test_native_loopback_integration (test_capstone.TestCapstone.test_native_loopback_integration) ... ok
+test_real_native (test_capstone.TestCapstone.test_real_native) ... ok
+test_real_native_bad_argument (test_capstone.TestCapstone.test_real_native_bad_argument) ... ok
+test_restart (test_capstone.TestCapstone.test_restart) ... ok
+test_simple (test_capstone.TestCapstone.test_simple) ... ok
+test_worker_failure_no_commit (test_capstone.TestCapstone.test_worker_failure_no_commit) ... ok
+test_empty (test_labs.Test171.test_empty) ... ok
+test_input_preserved (test_labs.Test171.test_input_preserved) ... ok
+test_pid (test_labs.Test171.test_pid) ... ok
+test_range (test_labs.Test171.test_range) ... ok
+test_size (test_labs.Test171.test_size) ... ok
+test_sum (test_labs.Test171.test_sum) ... ok
+test_timeout_parameter (test_labs.Test171.test_timeout_parameter) ... ok
+test_binary (test_labs.Test172.test_binary) ... ok
+test_directory (test_labs.Test172.test_directory) ... ok
+test_empty (test_labs.Test172.test_empty) ... ok
+test_large (test_labs.Test172.test_large) ... ok
+test_missing (test_labs.Test172.test_missing) ... ok
+test_unchanged (test_labs.Test172.test_unchanged) ... ok
+test_contention (test_labs.Test173.test_contention) ... ok
+test_empty (test_labs.Test173.test_empty) ... ok
+test_idle_gap (test_labs.Test173.test_idle_gap) ... ok
+test_invalid (test_labs.Test173.test_invalid) ... ok
+test_order (test_labs.Test173.test_order) ... ok
+test_stable_ties (test_labs.Test173.test_stable_ties) ... ok
+test_failure_after_replace (test_labs.Test174.test_failure_after_replace) ... ok
+test_failure_before_commit (test_labs.Test174.test_failure_before_commit) ... ok
+test_invalid_does_not_replace (test_labs.Test174.test_invalid_does_not_replace) ... ok
+test_oversize (test_labs.Test174.test_oversize) ... ok
+test_round_trip (test_labs.Test174.test_round_trip) ... ok
+test_schema (test_labs.Test174.test_schema) ... ok
+test_truncated (test_labs.Test174.test_truncated) ... ok
+test_all_splits (test_labs.Test191.test_all_splits) ... ok
+test_bad_encode (test_labs.Test191.test_bad_encode) ... ok
+test_boundary (test_labs.Test191.test_boundary) ... ok
+test_byte_fragments (test_labs.Test191.test_byte_fragments) ... ok
+test_chunk_budget (test_labs.Test191.test_chunk_budget) ... ok
+test_closed (test_labs.Test191.test_closed) ... ok
+test_deadline (test_labs.Test191.test_deadline) ... ok
+test_exact_socket (test_labs.Test191.test_exact_socket) ... ok
+test_known_encoding (test_labs.Test191.test_known_encoding) ... ok
+test_multiple_frames (test_labs.Test191.test_multiple_frames) ... ok
+test_oversize_advertisement (test_labs.Test191.test_oversize_advertisement) ... ok
+test_socket_eof (test_labs.Test191.test_socket_eof) ... ok
+test_truncated (test_labs.Test191.test_truncated) ... ok
+test_zero_size (test_labs.Test191.test_zero_size) ... ok
+test_bad_encoding (test_labs.Test192.test_bad_encoding) ... ok
+test_canonical (test_labs.Test192.test_canonical) ... ok
+test_duplicate (test_labs.Test192.test_duplicate) ... ok
+test_fields (test_labs.Test192.test_fields) ... ok
+test_good (test_labs.Test192.test_good) ... ok
+test_id (test_labs.Test192.test_id) ... ok
+test_max_values (test_labs.Test192.test_max_values) ... ok
+test_operation (test_labs.Test192.test_operation) ... ok
+test_types (test_labs.Test192.test_types) ... ok
+test_value_count (test_labs.Test192.test_value_count) ... ok
+test_version (test_labs.Test192.test_version) ... ok
+test_atomic_seed_error (test_labs.Test193.test_atomic_seed_error) ... ok
+test_foreign_key_enabled (test_labs.Test193.test_foreign_key_enabled) ... ok
+test_invalid_reference (test_labs.Test193.test_invalid_reference) ... ok
+test_negative (test_labs.Test193.test_negative) ... ok
+test_seed (test_labs.Test193.test_seed) ... ok
+test_text_as_data (test_labs.Test193.test_text_as_data) ... ok
+test_unique (test_labs.Test193.test_unique) ... ok
+test_conflict (test_labs.Test194.test_conflict) ... ok
+test_creates_destination_item (test_labs.Test194.test_creates_destination_item) ... ok
+test_history_limit (test_labs.Test194.test_history_limit) ... ok
+test_insufficient (test_labs.Test194.test_insufficient) ... ok
+test_invalid_quantity (test_labs.Test194.test_invalid_quantity) ... ok
+test_missing (test_labs.Test194.test_missing) ... ok
+test_replay (test_labs.Test194.test_replay) ... ok
+test_response_lost (test_labs.Test194.test_response_lost) ... ok
+test_rollback (test_labs.Test194.test_rollback) ... ok
+test_same_player (test_labs.Test194.test_same_player) ... ok
+test_transfer (test_labs.Test194.test_transfer) ... ok
+
+----------------------------------------------------------------------
+Ran 88 tests in 5.774s
+
+OK
+PASS example 16.1
+PASS example 16.2
+PASS example 16.3
+PASS example 16.4
+PASS example 17.1
+PASS example 17.2
+PASS example 17.3
+PASS example 17.4
+PASS example 18.1
+PASS example 18.2
+PASS example 18.3
+PASS example 18.4
+PASS example 19.1
+PASS example 19.2
+PASS example 19.3
+PASS example 19.4
+PASS example 20.1
+PASS example 20.2
+PASS example 20.3
+PASS example 20.4
++ /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_05/capstone/reference/run_demo.py --native /mnt/data/_package05_work/build-debug/native_worker
+{"id": "demo-1", "result": 29, "status": "done", "version": 1}
+same response: True
+stored rows: 1
+Reference verification completed. Build directory: /mnt/data/_package05_work/build-debug
+This does not certify student work, hardware performance or all concurrent executions.

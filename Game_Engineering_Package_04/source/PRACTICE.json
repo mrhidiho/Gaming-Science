@@ -1,0 +1,484 @@
+{
+  "exercises": {
+    "11": [
+      [
+        "E11.1",
+        "Trace the build graph",
+        "A game executable consists of main.cpp, world.cpp and world.hpp. main includes world.hpp; world.cpp supplies update_world. Draw the preprocessing, compilation and linking stages. Identify what must rebuild after a public signature changes.",
+        "Both translation units that include the changed header must be recompiled, then the executable relinked. A dependency-aware generator tracks that header relationship. The header is not normally compiled into a standalone implementation. Preserve the declaration/definition match and show the actual verbose build, rather than claiming that a filename proves a stage occurred."
+      ],
+      [
+        "E11.2",
+        "Define a checked budget",
+        "A texture header declares width and height as decimal unsigned values, each at most 16,384. Pixels need four bytes and the allocation budget is 64 MiB. Specify a checked validation order and give one legal and one rejected case.",
+        "Parse each dimension with complete-consumption and range checks; reject zero under this contract. Before multiplication, test width <= budget / 4 / height using nonzero divisors, or use an adequately bounded wider type and compare the result. 4096 by 4096 consumes exactly 67,108,864 bytes and fits; 4097 by 4096 does not. State that 1 MiB is 1,048,576 bytes. A cast after an overflowing multiplication cannot repair it."
+      ],
+      [
+        "E11.3",
+        "Repair a borrowed view",
+        "A function builds a local std::string and returns std::string_view into it. Identify the owner, the lifetime end and two valid redesigns. Do not execute the defect to prove it.",
+        "The local string owns the characters and is destroyed on return. The view does not extend that storage lifetime. Return an owning string by value, or accept caller-owned storage and return a view whose documented lifetime is bounded by that storage and invalidating mutations. A static scratch buffer is not an equivalent general repair: it changes sharing, reentrancy and thread behavior."
+      ],
+      [
+        "E11.4",
+        "Choose stable identity",
+        "You keep a pointer to an element of a vector of units. More units spawn, then an earlier element is erased. Design a lookup contract that does not depend on old addresses.",
+        "Use a stable logical ID and resolve it when needed; return a copied snapshot or a short-lived borrowed reference with explicit invalidation rules. Vector growth can reallocate, and erase invalidates references/iterators at and after the erase position. reserve can prevent some reallocations but not erase-related invalidation or ownership destruction. If IDs are reused, include a generation or document a no-reuse policy."
+      ],
+      [
+        "E11.5",
+        "Binary encoding",
+        "Encode entity ID 0x01020304 as four little-endian bytes. Explain why writing sizeof(Unit) bytes from an object is not this format.",
+        "Bytes are 04 03 02 01. Native object layout can include padding, and native byte order need not equal the specified wire order. Pointers and library containers are not portable serialized payloads. Write named fields with checked widths and lengths, and test the exact bytes against a golden fixture."
+      ],
+      [
+        "E11.6",
+        "Floating-point evidence",
+        "On your compiler, print max_digits10, digits and is_iec559 for float and double. Compare (a+b)+c with a+(b+c) for a large cancellation case. What is the conclusion allowed by one run?",
+        "Record actual properties and flags. A suitable demonstration is a=1e16, b=-1e16, c=1 in common binary64 arithmetic: the first grouping often yields 1 and the second 0. Treat the observed result as a property of that build and rounding behavior, not every C++ platform. The reason is rounding at intermediate operations; associativity over real numbers does not automatically transfer to floating point. Do not enable fast-math for the baseline."
+      ],
+      [
+        "E11.7",
+        "Error contracts",
+        "A resource lookup may legitimately miss, a packet may be malformed, and a developer may violate an internal invariant. Design distinct observable outcomes and tests for each.",
+        "An optional value suits ordinary absence. A structured parse error with category and offset suits malformed input. An invariant violation needs a deliberate fail-fast or checked error policy, not silent recovery that corrupts state. The particular mechanism can differ, but callers must be able to distinguish the cases; no stale output may masquerade as success."
+      ],
+      [
+        "E11.8",
+        "Cross-language replay",
+        "Define a six-command, integer-only grid replay and run equivalent Python and C++ transitions. Include an edge hit and a no-op. Compare complete states, not just a printed final coordinate.",
+        "Specify initial state, grid bounds, legal deltas, collision policy, command ordering and tick advancement before coding. Compare each indexed state and whether each command was accepted. An independent Python fixture is supplied in code/tools/grid_fixture.py. Agreement only covers the stated model: it does not establish floating-point determinism, RNG portability or equivalence to the learner's entire earlier game."
+      ]
+    ],
+    "12": [
+      [
+        "E12.1",
+        "Partial construction",
+        "An object owns resource A and then tries to acquire B, which fails. Draw which fully constructed subobjects are destroyed and whether the outer object destructor runs.",
+        "Fully constructed members and bases are destroyed during unwinding in reverse completion order; the destructor of the incompletely constructed outer object does not run. Put A in an owning member rather than an unguarded raw handle. Count acquisitions and releases to show that A is released even though construction never returned an object."
+      ],
+      [
+        "E12.2",
+        "Move assignment",
+        "An owner contains handle 7; a second owner contains handle 9. Move-assign the second into the first. State the destination, source and release counts. Include self-move in the contract.",
+        "The old destination resource 7 must be released; the destination becomes the unique owner of 9; the source becomes empty under this wrapper's contract. Destruction then releases 9 once. The educational wrapper treats self-move as a no-op. Standard-library moved-from objects generally have valid but otherwise unspecified states unless a stronger guarantee is specified; do not infer universal emptiness."
+      ],
+      [
+        "E12.3",
+        "Transactional replacement",
+        "A loaded level contains a texture handle and parsed metadata. A replacement may fail during file reading, validation or allocation. Describe the commit point.",
+        "Prepare a complete candidate level in local owning objects, validate it, then swap or move through an operation with a suitable nonthrowing guarantee. Failures before commit destroy candidate resources and preserve the old level. A failure after destroying the old level cannot satisfy the strong guarantee. The exercise must inject failures at multiple acquisition stages rather than only throw before all work."
+      ],
+      [
+        "E12.4",
+        "Shared ownership cycle",
+        "Two shared_ptr-owning nodes point to one another. External roots are removed. Explain the leak mechanism and draw a corrected ownership graph.",
+        "Each strong reference keeps the other count nonzero, so both objects remain owned after external roots disappear. Choose a real ownership direction and make back references weak_ptr or non-owning IDs with a lifetime contract. A weak reference must be locked and checked before use. shared_ptr is not a tracing garbage collector and does not solve every graph ownership problem."
+      ],
+      [
+        "E12.5",
+        "Substitutability",
+        "A base renderer promises that draw captures a command for later execution. One subclass retains a reference to a caller's temporary command instead. Does virtual dispatch make the implementation correct?",
+        "No. The implementation violates the promised lifetime behavior. Store an owned copy or transfer ownership under a different explicit interface. Virtual functions select an implementation; they do not prove that the implementation preserves postconditions, error behavior or lifetime requirements."
+      ],
+      [
+        "E12.6",
+        "Concept versus invariant",
+        "Your template requires that a value type supports <. Does that establish that a comparator is a strict weak ordering? Give a counterexample to purely syntactic checking.",
+        "No. A requires-expression checks whether expressions are well formed and perhaps their result types, not all semantic laws. A comparator that returns true for equal values can compile while violating irreflexivity. State and test irreflexivity, asymmetry and transitivity on representative values, while recognizing that finite tests are not a universal proof."
+      ],
+      [
+        "E12.7",
+        "Layout experiment",
+        "Compare an array of structs with a struct of arrays for an update using only x and vx. Define a fair benchmark and a reason the result might change for another workload.",
+        "Use identical entity counts, values, updates and correctness checks; exclude initialization/allocation consistently; alternate order; repeat timed samples in Release without sanitizers; report hardware and dispersion. AoS may pull unused fields into cache, but an operation using all fields changes the traffic pattern. Do not claim that one synthetic run establishes a universal layout winner."
+      ],
+      [
+        "E12.8",
+        "One-page ownership map",
+        "Draw a resource manager with a unique owner, a cache, a renderer and a temporary command list. Label every edge owning or borrowing and each invalidating action.",
+        "A valid answer names a single authoritative owner or a justified shared lifetime for each resource. It identifies destruction order, cache eviction, generation checks or expired weak references, and whether commands copy data or hold handles. The map must explain replacement failure and renderer shutdown. Review against code, because an elegant diagram cannot compensate for an untracked raw owner."
+      ]
+    ],
+    "13": [
+      [
+        "E13.1",
+        "Amortized growth",
+        "Starting empty, compare total old-element copies for capacity growth by exactly one and by doubling through eight insertions. Include the ninth insertion.",
+        "Exact growth copies 0+1+2+3+4+5+6+7=28 old elements by eight inserts and 36 by nine. Doubling capacities 1,2,4,8 copies 0+1+2+4=7 by eight and 15 by nine when growing to16. A single doubling push is linear in current size, while the aggregate is linear over the sequence. Allocation and value-write costs still exist."
+      ],
+      [
+        "E13.2",
+        "A circular trace",
+        "A capacity-three reject-on-full queue receives push10, push20, pop, push30, push40, push50, pop, pop, pop. Write results, head/count changes and logical contents.",
+        "The pops yield10,20,30,40 in order; push50 is rejected and does not replace anything. With head initially0: after the first pop head1/count1; after push30 and40 count3; rejected50 leaves state unchanged; remaining pops advance head2,0,1 and count2,1,0. Physical array slots are not themselves the logical queue order."
+      ],
+      [
+        "E13.3",
+        "Collision deletion",
+        "For open addressing, keys A and B hash to the same bucket and B is placed after A. Explain why replacing A with a never-used empty marker can break lookup.",
+        "Lookup may stop at the first never-used empty marker and falsely conclude B is absent. Use a tombstone or a correct backward-shift deletion policy consistent with the probe sequence. The supplied reference uses chaining instead, where deleting one node does not break another bucket-chain search; this problem is an independent policy comparison."
+      ],
+      [
+        "E13.4",
+        "Hash-table adversary",
+        "A hash function returns zero for every key. What changes in expected versus worst-case lookup, and what should a correctness test demonstrate?",
+        "All keys collide. Chaining lookup becomes linear in the number of keys in that bucket, and a sequence of insertions/searches can become quadratic overall. The table must remain correct through updates, deletions and rehashes. Expected constant behavior relies on distribution/load assumptions; forced collision tests check correctness, not performance guarantees."
+      ],
+      [
+        "E13.5",
+        "Heap does not mean sorted",
+        "Give a valid min-heap array that is not globally sorted. Explain the order guarantee and derive parent/child indices in a zero-based array.",
+        "[1,4,2,9,7,3] is a valid min-heap and not sorted. Every parent is <= its children; siblings and unrelated subtrees need not be ordered. Children are2i+1 and2i+2, parent is(i-1)/2 for i>0. Check bounds before using a child index and consider arithmetic limits for a generalized huge structure."
+      ],
+      [
+        "E13.6",
+        "Tie semantics",
+        "Events have time and insertion sequence. Define a priority rule that produces reproducible FIFO behavior among equal times and test three ties.",
+        "Order by the pair(time,sequence), with the lower pair first; use a sequence domain that cannot silently wrap during the supported run. std::priority_queue's default comparator makes the largest element top, so a min-priority comparator needs the opposite relation. Distinct sequence values make same-time ordering explicit rather than dependent on heap layout."
+      ],
+      [
+        "E13.7",
+        "Locality versus complexity",
+        "A linked list supports O(1) insertion after a known node. Why can a vector still win when inserting a small record into a small collection?",
+        "The list claim excludes finding the position, allocation and cache behavior. A vector may shift a small contiguous region efficiently and avoid per-node allocation/pointer chasing. Compare the complete operation and representative workload, not isolated asymptotic phrases. Iterator stability or large record movement may reverse the tradeoff."
+      ],
+      [
+        "E13.8",
+        "Stateful differential test",
+        "Design a seeded randomized test for your map or queue against a standard container. Explain how to make a failure actionable.",
+        "Generate bounded operations and compare return values, contents, size and invariants after each step. Log seed, operation index and the complete or minimized failing prefix. Force empty/full/collision/boundary cases in addition to random sampling. A matching reference with the same bug is possible; retain hand-derived golden traces and invariant checks as separate evidence."
+      ]
+    ],
+    "14": [
+      [
+        "E14.1",
+        "Half-open search proof",
+        "For lower_bound on a sorted array, state the loop invariant and show why lo+(hi-lo)/2 is preferable to (lo+hi)/2.",
+        "Maintain that positions before lo are below the target and positions at or after hi are not below it; the unresolved range is[lo,hi). Each update shrinks it, and lo==hi is the first possible position. The difference form avoids an unnecessary lo+hi overflow when indices are valid, while preserving the midpoint."
+      ],
+      [
+        "E14.2",
+        "Stability as a requirement",
+        "Records (key,arrival) are (2,A),(1,B),(2,C),(1,D). Give a stable sorted result and one acceptable-looking but unstable result.",
+        "Stable order is(1,B),(1,D),(2,A),(2,C). Reversing B/D or A/C is unstable even though keys are sorted. If equal-key arrival order is part of the game or tool contract, test it explicitly. Otherwise adding a deterministic secondary key is another specified contract, not the same claim as stability."
+      ],
+      [
+        "E14.3",
+        "Dependency direction",
+        "Texture T must exist before Material M, and M before Level L. Define edge direction, a valid topological order and a cycle rejection test.",
+        "Use prerequisite -> dependent edges T->M and M->L. A valid order is T,M,L. Adding L->T forms a cycle; a Kahn traversal that processes fewer than all vertices must reject the complete build order. Returning only an acyclic prefix as if it were success is incorrect."
+      ],
+      [
+        "E14.4",
+        "BFS discovery rule",
+        "A diamond graph has S->A,S->B,A->G,B->G. Compare marking visited at enqueue versus after removal.",
+        "Marking on enqueue prevents G from being queued repeatedly and fixes the first shortest parent under fixed neighbor order. Marking late can enqueue duplicates, complicate parent semantics and increase work. BFS shortest-path claims require equal-cost edges; varying weights require another algorithm."
+      ],
+      [
+        "E14.5",
+        "An inadmissible shortcut",
+        "S->G costs10, S->A costs1, A->G costs1. Set h(A)=100,h(G)=0. Trace goal-on-pop A*.",
+        "After expanding S, priorities are10 for G and101 for A, so G is popped with cost10 even though the optimum is2. The heuristic overestimates the remaining cost of A, violating admissibility. h=0 gives Dijkstra on this graph. A low expanded-node count does not repair the wrong result."
+      ],
+      [
+        "E14.6",
+        "Movement changes the heuristic",
+        "Explain when Manhattan distance is appropriate for a grid and why introducing cheap diagonal moves can invalidate it.",
+        "For four-neighbor movement with each orthogonal step costing at least c>=0, c*(|dx|+|dy|) is a lower bound. If a diagonal moves both coordinates for the cost of one orthogonal move, Manhattan may overestimate: from(0,0)to(1,1) it predicts2c but a diagonal costs c. Use a lower bound derived from the actual movement and cost rules; do not reuse a heuristic merely because the map looks square."
+      ],
+      [
+        "E14.7",
+        "0/1 versus unbounded DP",
+        "One item weighs2 and is worth3; budget is4. Show how ascending in-place capacity iteration incorrectly permits reuse in a 0/1 solver.",
+        "Ascending updates first set dp2=3, then dp4 can read the updated dp2 and become6, using the same item twice. Descending capacity reads the previous-item layer implicitly and yields3. A two-dimensional table with separate item rows is another way to preserve that distinction."
+      ],
+      [
+        "E14.8",
+        "Pseudo-polynomial cost",
+        "Your knapsack DP costs O(nB). Why is this not necessarily polynomial in the input bit length, and what should a real-time tool do with huge B?",
+        "The binary encoding length of B is proportional to log B, so iteration proportional to B can be exponential in that part of the encoded input. Enforce budgets, reduce the problem with a justified scaling/approximation policy, or choose another solver. State approximation error or lack of guarantee; silently truncating B changes the optimization problem."
+      ]
+    ],
+    "15": [
+      [
+        "E15.1",
+        "Type errors before execution",
+        "Write the rules for number addition and a Boolean condition. Classify 3+4, true+4 and if3then1else2 under your explicit toy rules.",
+        "Addition requires Number on both sides and returns Number; a condition requires Boolean and branches must satisfy the chosen result compatibility rule. 3+4 is valid; true+4 is invalid; using3 as a condition is invalid unless numeric truth conversion is an explicit language feature. These rules belong to the checker exercise; the bundled arithmetic evaluator does not implement if or Boolean literals."
+      ],
+      [
+        "E15.2",
+        "Parse an associativity trap",
+        "Draw ASTs for 9-4-2 and 9-(4-2). Explain the parser control flow that produces left-associative subtraction.",
+        "The first AST is Sub(Sub(9,4),2) and yields3; the second is Sub(9,Sub(4,2)) and yields7. Parse an initial term, then loop over plus/minus, replacing the left subtree with a new binary node each time. A naive recursion on the entire remaining expression can unintentionally make subtraction right-associative."
+      ],
+      [
+        "E15.3",
+        "Located diagnostics",
+        "For source 2 + (3 * ), identify a useful error category and byte offset. What information should survive bytecode compilation?",
+        "With zero-based ASCII byte offsets, the unexpected right parenthesis is at9. Report a syntax error expecting an operand there, with source context. Bytecode instructions retain the originating operator/literal offset so a later runtime division error can identify its source. The exact wording is not fixed, but category, position and invariant preservation are testable."
+      ],
+      [
+        "E15.4",
+        "Stack accounting",
+        "Trace PUSH8,PUSH3,SUB,PUSH2,MUL. Give stack depth after each instruction and the final value.",
+        "Stacks are[8],[8,3],[5],[5,2],[10], with depths1,2,1,2,1. A binary op removes right then left and pushes left op right. The maximum depth is2 and final depth1. Reversing operands would silently break subtraction and division even if addition tests passed."
+      ],
+      [
+        "E15.5",
+        "A limit is not a sandbox",
+        "Your VM has 4,096 instructions of fuel. Explain why that alone does not bound lexing, parsing, allocation or a future host callback.",
+        "Fuel is one budget for the stage that charges it. Add source-byte, token, AST-node, nesting/depth, bytecode and stack limits before corresponding expensive work. A host callback may block or allocate beyond the VM's accounting. The supplied language has no I/O, pointers, jumps or callbacks, and is educational, not a general hostile-code security boundary."
+      ],
+      [
+        "E15.6",
+        "Error-preserving optimization",
+        "Under the bounded integer language, may (1/0)*0 become0? May 2+3*4 become14? State a safe folding policy.",
+        "The first transformation removes a required division error and is forbidden. The second is valid because its checked operations all succeed with the same value. Fold a subtree only when checked evaluation succeeds; retain failing operations and source offsets. Evaluation order and side effects would require further reasoning if the language were extended."
+      ],
+      [
+        "E15.7",
+        "Termination reasoning",
+        "Explain why a finite straight-line bytecode program terminates under the provided model, then why the same explanation fails after adding backward jumps.",
+        "Each executed instruction advances to the next finite position and each arithmetic operation is bounded, so the baseline completes or reports an error after at most its instruction count. Backward jumps break that decreasing-remaining-instructions argument. Fuel can force a controlled stop but does not establish that every unbounded program would naturally terminate."
+      ],
+      [
+        "E15.8",
+        "Independent cross-check",
+        "A tree evaluator and VM both use the same checked arithmetic helper. What bugs can differential comparison miss, and how do you strengthen evidence?",
+        "A shared arithmetic bug can affect both implementations identically. Add hand-derived golden values, boundary/error cases and, where practical, a small independent mathematical model. Generated ASTs/expression strings should exercise precedence, associativity and malformed input, not only constant additions. Compare error category and location as well as successful values."
+      ]
+    ]
+  },
+  "reviews": {
+    "11": [
+      [
+        "Explain compile, link and runtime failure using one concrete defect for each.",
+        "Syntax or missing declaration is compile-time; declared but omitted definition is link-time; a rejected out-of-bounds command is a runtime contract failure. Include actual diagnostic evidence."
+      ],
+      [
+        "Why is cast-then-check too late for a large file length?",
+        "The cast can discard the original range information. Validate the original value and the multiplication/allocation budget before narrowing or allocating."
+      ],
+      [
+        "When is a returned span safe?",
+        "Only while its referenced storage remains alive and access is not invalidated; span does not own or extend lifetime. State mutation rules."
+      ],
+      [
+        "What is the difference between an entity ID and a vector index?",
+        "An ID names a logical entity; an index names a current position that can change with insertion/erase/reordering. Reuse policies need explicit handling."
+      ],
+      [
+        "What evidence establishes the native port rather than just successful compilation?",
+        "Equivalent specified state transitions and error policy on shared fixtures, automated tests, explicit representation choices and a clean reproducible build."
+      ]
+    ],
+    "12": [
+      [
+        "Why should a resource be placed into an owner immediately?",
+        "The owner then covers later failure paths automatically; an unguarded raw handle between acquisition and adoption can leak."
+      ],
+      [
+        "Does std::move itself move the resource?",
+        "No. It changes value category to permit move operations; the selected constructor or assignment defines the actual behavior."
+      ],
+      [
+        "When can replacing an object satisfy the strong guarantee?",
+        "Prepare a complete valid candidate while preserving the original, then commit through a suitable nonthrowing operation."
+      ],
+      [
+        "Why is a virtual destructor relevant to unique_ptr<Base>?",
+        "Deletion through the base pointer must correctly destroy the dynamic object when that polymorphic ownership contract is used."
+      ],
+      [
+        "Why are layout benchmark results conditional?",
+        "They depend on accessed fields, working set, compiler, optimization, machine, order and workload; publish those conditions and repeated samples."
+      ]
+    ],
+    "13": [
+      [
+        "Distinguish worst-case push from amortized push for a doubling array.",
+        "One growth push moves O(n) old elements; over a sequence of n pushes the total movement is O(n), giving amortized O(1) per push under the stated model."
+      ],
+      [
+        "What happens on full in this ring buffer?",
+        "Push returns false and leaves contents, head and count unchanged. It is not an overwrite-oldest queue and not concurrent."
+      ],
+      [
+        "What assumptions support expected constant hash lookup?",
+        "A suitable hash distribution and controlled load/collision policy. Worst-case collision chains can still be linear."
+      ],
+      [
+        "Why can a heap not answer arbitrary membership queries in logarithmic time just from its ordering?",
+        "Only parent-child priority is ordered; an arbitrary target is not localized to a binary-search branch."
+      ],
+      [
+        "What must every randomized container test record?",
+        "Reproducible seed, operation trace/failing prefix, expected/actual results and invariant checks, supplemented by boundary/golden cases."
+      ]
+    ],
+    "14": [
+      [
+        "When does BFS provide minimum-cost paths?",
+        "When all traversed edges have the same nonnegative step cost, so minimizing edge count minimizes cost; the ordinary unit-cost case is simplest."
+      ],
+      [
+        "What does a topological cycle failure mean for an asset build?",
+        "No ordering satisfies all dependencies. Report a cycle or failure; do not call the processed prefix a valid complete plan."
+      ],
+      [
+        "Why skip stale priority-queue records in Dijkstra?",
+        "A node may be queued with an old larger tentative cost; expanding it after a better distance is known repeats work and may confuse termination/accounting."
+      ],
+      [
+        "What does h=0 do to A*?",
+        "It prioritizes accumulated cost and gives Dijkstra behavior, subject to the same nonnegative-edge and implementation assumptions."
+      ],
+      [
+        "What is required before claiming an approximation guarantee?",
+        "Define the objective/domain and prove or cite an applicable bound for that algorithm; an observed close result is not a general guarantee."
+      ]
+    ],
+    "15": [
+      [
+        "Separate syntax, typing and execution with an example.",
+        "Syntax forms an AST; typing rejects disallowed operand categories; execution computes values or runtime errors. A syntactically valid division can still fail on zero."
+      ],
+      [
+        "Why keep source offsets in tokens and instructions?",
+        "They connect parsing and runtime failures to original input; optimization must preserve the relevant origin for observable errors."
+      ],
+      [
+        "Why reject final VM stack depth other than one?",
+        "The expression-program contract promises one result; zero or multiple leftovers indicate malformed/incomplete bytecode."
+      ],
+      [
+        "What changes when you add host callbacks?",
+        "The trust boundary and resource model expand; instruction fuel alone does not bound callback time, memory or authority."
+      ],
+      [
+        "Why is a matching optimized result on one expression insufficient?",
+        "Optimization must preserve all defined outcomes across its domain, including errors and their required context. Differential and golden tests provide evidence, not universal proof."
+      ]
+    ]
+  },
+  "projects": {
+    "11": {
+      "title": "Native deterministic grid simulation",
+      "goal": "Port the learner's earlier integer grid model into a small C++20 command-line program. The bundled grid fixture is a teaching baseline, not a claim that your original game used exactly these rules.",
+      "steps": [
+        "Write a transition contract: initial state, dimensions, legal inputs, blocked/invalid behavior, tick ordering and output schema. Preserve the earlier model or document deliberate changes.",
+        "Separate declarations, implementation and tests. Use stable IDs and checked integer operations. Keep rendering outside the pure transition rule.",
+        "Run the same command traces through the original implementation and the port; compare every state and acceptance result. Include an invalid input without invoking undefined behavior.",
+        "Build from a fresh directory in Debug and Release. Save warnings, compiler/configuration and a representation-difference note."
+      ],
+      "deliver": "A reproducible native target, tests and replay fixtures, a before/after behavior table, and an explanation of at least three Python/C++ differences: integer range, object lifetime/ownership and error handling.",
+      "accept": "Valid traces match the written model; invalid inputs follow the stated policy; numeric bounds are checked before unsafe arithmetic; stale references are not retained across mutations. A terminal replay suffices; graphics are not required."
+    },
+    "12": {
+      "title": "Transactional resource manager",
+      "goal": "Manage mock resources so ownership, failure and replacement are observable without requiring a GPU or real device.",
+      "steps": [
+        "Choose a unique owner type with empty/moved-from states and a live-resource counter. State the allocator/deallocator pairing and borrowed counter lifetime.",
+        "Build a manager using stable keys, owned resources and bounded public operations. Reject duplicates or specify replacement behavior.",
+        "Acquire a replacement in temporary owned state; validate it; commit only when it is ready. Inject failure at each acquisition/validation stage.",
+        "Exercise scope exit, partial construction, move construction, move assignment, self-move and shutdown. Compare a composed backend with an inheritance-based interface using the same behavior contract."
+      ],
+      "deliver": "Ownership diagram, API contract, fault-injection table, lifetime/move tests and a one-page design comparison. Real graphics resources are an optional later extension, not needed here.",
+      "accept": "Every successful acquisition has exactly one release by the end of each isolated test; failed replacement preserves the previous valid resource; copies cannot accidentally duplicate ownership; no exception crosses a destructor or a C boundary."
+    },
+    "13": {
+      "title": "Measured educational container library",
+      "goal": "Implement an int-only dynamic array, bounded queue, integer hash table and min-heap, then compare their semantics and measured costs with standard containers.",
+      "steps": [
+        "Write representation invariants and supported limits for each structure before implementing mutation. Do not claim generic allocator-aware behavior for the narrow int-only buffer.",
+        "Add deterministic empty/singleton/boundary/growth/collision/tie tests. Implement a checked full policy for the queue and a correct deletion policy for the map.",
+        "Generate bounded seeded operation sequences and compare to suitable standard containers after every operation; preserve failing traces.",
+        "Measure representative workloads in Release after correctness passes. Separate allocation, setup and iteration costs; report samples rather than one fastest run."
+      ],
+      "deliver": "Four educational implementations, invariant checks, differential/golden tests, complexity derivations and a comparison report including a case where the favored design loses or has an important limitation.",
+      "accept": "All structures preserve contracts under all tested operations; benchmarks compare equivalent work; expected/amortized/worst-case claims are labeled. Standard containers remain the default for production unless measured requirements justify otherwise."
+    },
+    "14": {
+      "title": "Pathfinding visualizer and asset dependency planner",
+      "goal": "Produce a small inspectable map search tool and a dependency planner. A terminal grid with the selected path and visited cells is an acceptable visualizer.",
+      "steps": [
+        "Define directed graph indexing, edge direction, valid costs, neighbor order and graph budgets. Add unweighted BFS and prerequisite-first topological ordering with cycle rejection.",
+        "Add Dijkstra and A*, route reconstruction and deterministic tie rules. Derive a heuristic from movement rules and document whether reopening is supported.",
+        "Use weighted, blocked, disconnected, zero-cost and deliberately misleading-heuristic cases. Independently validate path edges and total cost; compare small graphs with exhaustive or Floyd-style results.",
+        "Display the grid/path/search counts and produce a dependency order or cycle diagnostic. Compare multiple maps and include setup cost in the report as a separate component."
+      ],
+      "deliver": "A terminal or graphical visualizer, build-order tool, correctness argument/invariants, fixtures, independent oracle tests and complexity/performance report.",
+      "accept": "Minimum-cost claims hold only under documented assumptions; unreachable and cyclic cases are explicit; h=0 agrees with Dijkstra; a bad heuristic demonstration is labeled a counterexample, not supported optimal behavior."
+    },
+    "15": {
+      "title": "Gate C integration and bounded expression runtime",
+      "goal": "Integrate the native simulation, ownership evidence, container/algorithm comparisons and a tiny lexer/parser/tree evaluator/bytecode VM. This is Gate C, not an additional independent sixth project.",
+      "steps": [
+        "Implement the exact grammar and bounded arithmetic semantics. Keep located tokens and AST ownership explicit; reject unknown names and malformed syntax without partial execution.",
+        "Compile ASTs to checked stack instructions. Compare tree and VM results and errors, then add successful-subtree constant folding and a finite-state recognizer.",
+        "Enforce source, token, node, depth, bytecode, stack and fuel budgets. Test every rejection path and document the restricted trust boundary.",
+        "Complete the four C bridge exercises, integrate a deterministic simulation demo and prepare the Gate C review dossier described in CAPSTONE_SPEC.pdf."
+      ],
+      "deliver": "A student-built Gate C repository, reproducible tests and demo, language specification, resource-bound table, C bridge evidence, design report and oral-review notes.",
+      "accept": "Use the detailed Gate C rubric and non-negotiable checks. Running supplied reference examples alone is not project completion. Libraries may support the work but may not silently replace the central educational implementations."
+    }
+  },
+  "transfer_review": {
+    "11.1": "The declaration and definition describe different overloads. Make their signatures identical in the shared header and implementation, include that header in both callers/implementation, then relink the defining object. A call-site cast does not supply a missing definition.",
+    "11.2": "Validate each dimension and bytes-per-pixel in their original domains. Use checked division against the allocation budget before multiplying, or a proven sufficiently wide intermediate with an explicit final budget check. A10^10-pixel request should be rejected by the chosen budget, not allowed to wrap into a small allocation.",
+    "11.3": "Capture an owned copy of the required value, or capture a suitable owning shared object when a real shared lifetime is justified. A weak handle/ID with validity checking is another borrow design. Capturing by reference is safe only when the referenced owner is guaranteed to outlive execution.",
+    "11.4": "Finish mutations before constructing a copied render snapshot, or rebuild short-lived borrows after mutation and guarantee no invalidating mutation until consumption completes. Asynchronous rendering needs ownership or explicit completion lifetime. Keeping old vector iterators is not repaired by merely reserving capacity.",
+    "12.1": "Provide an explicit close/flush operation that reports errors, then make destructor cleanup best-effort and nonthrowing. Track whether the handle has already been released, and document state after a failed flush/close. The destructor must not perform a second release after a completed explicit close.",
+    "12.2": "The asset and index form one observable repository invariant. Prepare both in candidate state and commit them together through a nonthrowing mechanism, or provide rollback with a justified guarantee. Swapping the asset and then failing while updating the index exposes a partially changed repository.",
+    "12.3": "Queue owned command payloads or transfer an owning batch whose lifetime extends through completion. Alternatively enforce a documented completion barrier before caller storage can change or die. A reference to a temporary DrawCommand does not become valid simply because submission returned successfully.",
+    "12.4": "Fetching all fields of one entity can favor contiguous per-entity AoS storage, whereas scanning one field across entities can favor SoA. Compare equivalent selected-entity access patterns, sizes, order and checksums in Release; publish measured results rather than treating either layout as universally superior.",
+    "13.1": "Amortized bounds allow occasional expensive allocation/copy spikes. Reserve a justified maximum before the frame phase, use fixed-capacity storage or a preallocated pool, and return an explicit full/overflow result when the supported budget is exhausted. Test the failure without reallocating during the protected phase.",
+    "13.2": "An overwrite-oldest policy evicts the logical head when full before inserting the new sample. Update full-state return semantics, head/count invariants and expected pop sequence. Real audio concurrency and timing requirements need separate synchronization analysis; changing overflow semantics alone does not create a lock-free queue.",
+    "13.3": "Correctness can coexist with attacker-chosen quadratic work or excessive allocation. Production needs input-size/time/memory limits and a reviewed hashing/collision defense suitable to its threat model. This exercise does not certify a defense; identify worst-case resource behavior and fail within explicit budgets.",
+    "13.4": "A heap exposes the next priority efficiently but does not directly support ordered interval traversal. A balanced ordered tree or sorted structure may give O(log n+k) range reporting under its contract, at different insertion/storage costs. Define k as the output count and compare the actual update/query workload.",
+    "14.1": "Binary search requires the same consistent ordering/equivalence relation as sorting. Case-insensitive sort does not generally establish the case-sensitive partition precondition. Use the same comparator or rebuild under the required relation, including a defined treatment of equal folded names.",
+    "14.2": "Each ready vertex is inserted/removed from a heap rather than a constant-time FIFO. With ordinary adjacency traversal and one insertion/removal per vertex, the bound is O(E+V log V), excluding separate validation/name-comparison costs. State string comparison costs when names are not constant-size.",
+    "14.3": "With unit-cost orthogonal and diagonal moves, Chebyshev distance max(|dx|,|dy|) is a lower bound: one move can reduce each difference by at most one. Obstacles removing moves cannot shorten that minimum. Different diagonal costs require a corresponding revised lower bound.",
+    "14.4": "A state needs the item prefix plus remaining/used mass and power budgets. A direct dense DP has O(nMP) time and O(MP) rolling-layer space for integer capacities M and P. This can exceed memory even when the one-budget problem is small; validate dimensions and consider a justified alternative.",
+    "15.1": "Pass the random sample, a deterministic RNG state or an explicit RNG dependency into the rule and return updated state as needed. Record the generator algorithm/state and ordering. A seed alone is insufficient when library distribution algorithms or call order differ.",
+    "15.2": "Put remainder at the multiplicative precedence level and choose a signed rule explicitly, such as a=b*q+r with q truncated toward zero and r carrying the dividend sign. Reject zero divisors; add lexer, parser, evaluator, bytecode, optimizer and negative-operand/error tests.",
+    "15.3": "Validate jump targets and instruction-pointer changes, charge fuel for every executed instruction, analyze stack shapes at joins and loops, and bound storage independently. Backward jumps remove the baseline straight-line termination argument. Runtime fuel provides bounded interruption rather than proof of natural termination.",
+    "15.4": "The two occurrences may have effects, throw errors or produce different values. Approve the rewrite only when the expression is pure, yields the same defined value on both evaluations, has no observable errors removed and obeys the numeric semantics. Floating-point NaN/infinity introduce additional restrictions."
+  },
+  "c_bridge_answers": [
+    [
+      "C01",
+      [
+        "No. Language linkage does not make arbitrary C++ classes, templates or layouts into a portable C ABI. Use explicitly compatible declarations and document the toolchain boundary.",
+        "Capture the actual C compiler command and language mode, and inspect the C standard macro. The implementation also rejects __cplusplus. Filename alone is not proof.",
+        "The caller might read stale or partially changed output as a successful result. Specify unchanged, cleared or another deliberate policy and test it alongside status."
+      ]
+    ],
+    [
+      "C02",
+      [
+        "The caller that accepts ownership must eventually call the matching destroy, normally through an owning wrapper. A borrower must not release it.",
+        "The C create/destroy pair defines the release operation. Default delete is not that pairing; a custom deleter invokes ge_device_destroy.",
+        "No. Opacity hides fields, not ownership aliases or erroneous repeated destroy calls. A unique-owner protocol and tests are still required."
+      ]
+    ],
+    [
+      "C03",
+      [
+        "The implementation may insert padding to align members and the complete structure. The wire format is a separately defined field sequence.",
+        "Both functions could use the same wrong ordering. Compare encoded bytes with the independently specified golden sequence as well as round trips.",
+        "Return the documented error, do not interpret the payload under an incompatible schema, and preserve or clear output exactly as the API promises."
+      ]
+    ],
+    [
+      "C04",
+      [
+        "A controlled hook targets a known path without destabilizing the system, competing with unrelated processes or relying on unpredictable allocation behavior.",
+        "No. One preserves prior data; the other explicitly clears an ownership output. Tests must enforce the function-specific promise.",
+        "Define synchronization, concurrent ownership/use rules and thread-safe failure instrumentation, then analyze races and test the new contract. The current global hooks are not thread-safe."
+      ]
+    ]
+  ]
+}

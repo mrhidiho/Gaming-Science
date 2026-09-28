@@ -1,0 +1,2 @@
+int twice(int x) { return x * 2; }
+int main() { return twice(2) == 4 ? 0 : 1; }

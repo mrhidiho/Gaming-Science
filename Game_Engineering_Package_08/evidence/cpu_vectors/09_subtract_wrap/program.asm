@@ -1,0 +1,3 @@
+LDI r1,1
+SUB r3,r0,r1
+HALT

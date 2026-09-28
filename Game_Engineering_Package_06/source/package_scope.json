@@ -1,0 +1,31 @@
+{
+  "package": 6,
+  "volume": 5,
+  "title": "Graphics and Game-Engine Construction",
+  "edition": "2026-09-28",
+  "modules": [
+    21,
+    22,
+    23,
+    24,
+    25
+  ],
+  "lessons": 20,
+  "lesson_questions_original": 60,
+  "lesson_questions_new": 40,
+  "lesson_questions_total": 100,
+  "module_review_questions": 25,
+  "readiness_questions": 8,
+  "starter_reference_pairs": 20,
+  "original_lesson_labs": 20,
+  "module_projects": 5,
+  "checkpoint": "E",
+  "planning_hours": {
+    "minimum": 420,
+    "maximum": 650
+  },
+  "gate_overlaps_module_projects": true,
+  "gpu_execution": "NOT PERFORMED",
+  "independent_reviewer": "NOT PERFORMED",
+  "teaching_material_status": "expanded edition delivered; learner labs and integrated engine remain learner work"
+}

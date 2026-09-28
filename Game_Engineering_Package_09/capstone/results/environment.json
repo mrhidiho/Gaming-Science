@@ -1,0 +1,24 @@
+{
+  "python": "3.13.5 (main, Jul 15 2026, 20:25:40) [GCC 14.2.0]",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "implementation": "CPython",
+  "native_executed": true,
+  "model_limitations": [
+    "assumed latency and clock, not synthesized",
+    "no routing, CDC, power or memory-controller simulation",
+    "global pipeline stalls model one selected protocol",
+    "payload bandwidth assumptions; not vendor specifications",
+    "toy workload, not a measured production game frame"
+  ],
+  "compiler": "g++ (Debian 14.2.0-19) 14.2.0",
+  "compile_flags": [
+    "-std=c++17",
+    "-O3",
+    "-Wall",
+    "-Wextra",
+    "-Wpedantic"
+  ],
+  "measurement_boundary": "C++ host function only; allocation, validation and checksum outside timing",
+  "sampling": "five warmup invocations per variant, 30 paired samples; alternating variant order; no outlier removal",
+  "caveats": "No CPU pinning, frequency control or thermal instruments. Nanosecond timer unit is not timer accuracy. Small cases may be timer dominated."
+}

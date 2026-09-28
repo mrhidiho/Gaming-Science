@@ -1,0 +1,247 @@
+{
+  "number": 10,
+  "title": "Graduate Gaming Hardware and Research Thesis",
+  "level": "Master's-level specialization / thesis",
+  "purpose": "Evaluate advanced architectures, physical design and verification, then complete and defend a research artifact.",
+  "planning_hours": {
+    "minimum": 810,
+    "maximum": 1380
+  },
+  "pdf_path": "volumes/10_graduate_gaming_hardware_and_research_thesis.pdf",
+  "source_path": "source/10_graduate_gaming_hardware_and_research_thesis.md",
+  "checkpoint": "J",
+  "modules": [
+    {
+      "number": 46,
+      "title": "Advanced computer architecture for gaming workloads",
+      "prerequisites": "Modules 34, 37-40 and 41-42.",
+      "references": [
+        "R48",
+        "R38",
+        "R35",
+        "R43"
+      ],
+      "project": "Perform an architecture study using a pinned simulator or a carefully bounded analytical model. Compare at least three configurations on representative and adverse game-related workloads, and validate the model against a known reference where possible.",
+      "lessons": [
+        {
+          "id": "46.1",
+          "title": "Cache coherence, memory consistency and synchronization",
+          "outcome": "Separate agreement about a location from ordering across locations.",
+          "practical_assignment": "Model a small coherence protocol and evaluate message-passing litmus tests under stated language and hardware models. Pass: ownership invariants hold, transient races are considered and coherence is not confused with data-race freedom.",
+          "assigned_reading": "R48: multiprocessors, coherence and consistency; R35: selected memory-ordering specification; R11: language-level concurrency.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "46.2",
+          "title": "Out-of-order execution, speculation and precise state",
+          "outcome": "Increase instruction overlap without changing architectural outcomes.",
+          "practical_assignment": "Use a simulator or detailed scheduling model to compare in-order and out-of-order execution on independent and dependent instruction streams. Pass: architectural results agree and bottleneck explanations include true dependencies and resource limits.",
+          "assigned_reading": "R48: superscalar, out-of-order, prediction and exception handling; R38: CPU models and configuration.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "46.3",
+          "title": "Architecture simulation, traces and model validation",
+          "outcome": "Use simulation as evidence with a stated fidelity boundary.",
+          "practical_assignment": "Run a cache, scheduling or accelerator study with at least one validation case and a sensitivity sweep. Pass: raw configurations reproduce results, modeled versus measured quantities are labeled and conclusions do not exceed the tested fidelity.",
+          "assigned_reading": "R38: simulation models, statistics and configuration; R48: architecture evaluation; R43: analytical bounds.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "46.4",
+          "title": "Memory systems, chiplets and multi-objective design",
+          "outcome": "Choose an architecture across performance, power, cost and complexity.",
+          "practical_assignment": "Construct a Pareto comparison of at least three architecture configurations. Pass: objectives and assumptions are explicit, dominated designs are identified correctly and a recommendation changes appropriately when a hard constraint changes.",
+          "assigned_reading": "R48: memory and quantitative design; R49: packaging and system tradeoffs; R38: architecture alternatives.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 47,
+      "title": "VLSI, timing and physical implementation",
+      "prerequisites": "Modules 31-34, 40 and 46. Use educational libraries and licensed or open tools only.",
+      "references": [
+        "R49",
+        "R39",
+        "R30",
+        "R33"
+      ],
+      "project": "Carry a verified small RTL block through an educational synthesis and physical-design flow. Report constraints, timing, area and power-estimation assumptions. The result is a learning artifact, not fabrication-ready commercial signoff.",
+      "lessons": [
+        {
+          "id": "47.1",
+          "title": "CMOS logic, transistor sizing and delay models",
+          "outcome": "Connect gate-level choices to electrical load and timing.",
+          "practical_assignment": "Analyze and simulate an inverter chain or compare library-cell drive strengths under several loads. Pass: assumptions are stated, input loading is included and model predictions are compared with available characterized or simulated results.",
+          "assigned_reading": "R49: CMOS devices, combinational circuits and delay; R30: MOS circuit foundations.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "47.2",
+          "title": "Static timing analysis, clocks and timing exceptions",
+          "outcome": "Check every required path under the correct timing contract.",
+          "practical_assignment": "Constrain a small sequential block and inspect worst setup and hold paths. Pass: no unexplained unconstrained endpoints, every exception is justified and a deliberately tightened clock produces an understood violation.",
+          "assigned_reading": "R39: timing analysis and flow constraints; R49: sequential timing and clocking.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "47.3",
+          "title": "Synthesis, placement, clock trees, routing and physical checks",
+          "outcome": "Understand how a logical netlist becomes a physical layout.",
+          "practical_assignment": "Run a small block through an educational OpenROAD-compatible flow or inspect a provided open example. Pass: capture stage reports, identify a routing/timing change and state which physical checks were and were not performed.",
+          "assigned_reading": "R39: flow stages, placement, clock tree and routing; R49: physical-design methodology and EDA.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "47.4",
+          "title": "Power, area, process corners and design-space closure",
+          "outcome": "Report PPA with enough assumptions to make comparison meaningful.",
+          "practical_assignment": "Compare two verified RTL implementations using identical flow assumptions. Pass: report area, worst timing and activity-based power estimates where supported, with uncertainty and no unsupported commercial-silicon claim.",
+          "assigned_reading": "R49: power, timing and implementation tradeoffs; R39: reports and analysis; R30: energy and electrical models.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 48,
+      "title": "Verification, reliability and hardware trust boundaries",
+      "prerequisites": "Modules 33-35, 46-47.",
+      "references": [
+        "R50",
+        "R49",
+        "R39",
+        "R51"
+      ],
+      "project": "Create a verification dossier for the hardware capstone: requirements-to-tests traceability, assertions, coverage, clock/reset review, fault injection and a clearly bounded assurance claim.",
+      "lessons": [
+        {
+          "id": "48.1",
+          "title": "Formal properties, abstraction and assume-guarantee reasoning",
+          "outcome": "Prove useful properties without hiding failures in assumptions.",
+          "practical_assignment": "Prove a queue, arbiter or transaction property and inject a violation. Pass: assumptions are reviewed independently, contention is covered and bounded, proven, failed and unknown results are reported separately.",
+          "assigned_reading": "R50: safety, liveness, induction, cover and assumptions; R49: verification methodology.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "48.2",
+          "title": "Clock/reset crossings and asynchronous FIFO verification",
+          "outcome": "Check digital protocol correctness while acknowledging analog risk.",
+          "practical_assignment": "Model an asynchronous FIFO or event handshake with independent clocks and reset sequences. Pass: no loss/duplication under the stated protocol, full/empty behavior is checked and physical synchronizer assumptions are listed separately.",
+          "assigned_reading": "R50: multiclock modeling and verification; R49: sequential circuits and synchronization; revisit Module 32 timing boundaries.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "48.3",
+          "title": "Fault models, ECC, testability and recovery",
+          "outcome": "Design for detectable failures rather than assuming perfect hardware.",
+          "practical_assignment": "Implement a parity and a small single-error-correcting code model, then inject faults. Pass: enumerate the supported correction/detection claims, test multi-bit counterexamples and define a recovery response.",
+          "assigned_reading": "R49: testing, DFT and reliability context; R51: error detection/correction reporting concepts; R06: coding and combinatorial reasoning extension.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "48.4",
+          "title": "Hardware security, thermal limits and assurance review",
+          "outcome": "Include isolation and failure containment in the design contract.",
+          "practical_assignment": "Write a threat-and-failure review for the accelerator and test malformed descriptors, denied access and reset under load in simulation. Pass: isolation limits, protection assumptions and unresolved risks are explicit; no unauthorized target testing occurs.",
+          "assigned_reading": "R51: device access, DMA and isolation; R49: implementation and verification; R50: enforceable protocol properties.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 49,
+      "title": "Master's thesis: proposal, implementation and evaluation",
+      "prerequisites": "Gate I and relevant advanced-track modules; independent technical mentorship strongly recommended.",
+      "references": [
+        "R42",
+        "R44",
+        "R48",
+        "R49",
+        "R55"
+      ],
+      "project": "Prepare and execute a thesis-scale project in one primary specialization. Budget 400-800 focused hours as a planning range, with scope adjusted through review. The deliverable is a defensible contribution and reproducible artifact, not a promise of publication.",
+      "lessons": [
+        {
+          "id": "49.1",
+          "title": "Question selection, literature map and thesis scope",
+          "outcome": "Turn a broad interest into a falsifiable, feasible research question.",
+          "practical_assignment": "Write a 3-5 page proposal with a research question, 8-15 relevant sources, baseline plan, constraints and exclusions. Pass: a reviewer can explain what observation would weaken or refute the main hypothesis.",
+          "assigned_reading": "Use Module 41's paper method and the chosen track's original papers; R44, R48, R49 or R55 are starting anchors, not a substitute for the literature search.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "49.2",
+          "title": "Proposal review, baselines and risk-reduction milestones",
+          "outcome": "Make failure cheap before the expensive implementation phase.",
+          "practical_assignment": "Deliver a running baseline, risk register and milestone plan. Pass: the primary metric can be measured, a small feasibility experiment exists and each major risk has a mitigation or explicit acceptance decision.",
+          "assigned_reading": "R49: project milestone and reporting structure; Module 41: experimental design; chosen method's primary documentation.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "49.3",
+          "title": "Implementation, ablations and controlled evaluation",
+          "outcome": "Execute the study without changing the question to fit a favorable result.",
+          "practical_assignment": "Run the approved evaluation with baselines, at least one ablation and one sensitivity study. Pass: scripts regenerate results, failed cases remain visible and claims use the preregistered primary metric or clearly disclose deviations.",
+          "assigned_reading": "R09 and Module 41: uncertainty; chosen track's original methods and implementation references; handbook experiment manifest.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "49.4",
+          "title": "Thesis writing, reproducibility and contribution boundaries",
+          "outcome": "Write a technical argument another engineer can audit.",
+          "practical_assignment": "Produce a thesis-style report, typically 30-60 pages plus appendices as a planning guide, and a complete artifact package. Pass: a reviewer traces five major claims to evidence and reproduces the central table or experiment.",
+          "assigned_reading": "R49: final project reports; chosen original papers for reporting comparisons; handbook thesis outline and evidence checklist.",
+          "quiz_question_count": 3
+        }
+      ]
+    },
+    {
+      "number": 50,
+      "title": "Thesis defense, professional practice and continued development",
+      "prerequisites": "Module 49 and all prerequisites for the selected specialization.",
+      "references": [
+        "R01",
+        "R02",
+        "R05",
+        "R11",
+        "R49"
+      ],
+      "project": "Gate J: defend the thesis, pass an independent artifact reproduction, complete a maintainable handoff and publish an honest portfolio where rights permit. This completes the self-study program, not an accredited degree.",
+      "lessons": [
+        {
+          "id": "50.1",
+          "title": "Oral defense and independent artifact reproduction",
+          "outcome": "Show that the learner owns the reasoning and implementation.",
+          "practical_assignment": "Hold a 30-45 minute technical defense with a qualified reviewer or peer panel and a separate artifact run. Pass: the central result is reproduced, major questions receive evidence-based answers and required revisions are completed.",
+          "assigned_reading": "R49: design-project evaluation as a reference; handbook defense questions and rubric.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "50.2",
+          "title": "Mature-codebase integration, review and maintainable contributions",
+          "outcome": "Transfer a prototype into an engineering environment with other owners.",
+          "practical_assignment": "Integrate one tested improvement into a mature open codebase or a maintained local fork. Pass: a focused patch, regression test, design rationale and reviewer response are included, whether or not an upstream project accepts it.",
+          "assigned_reading": "R05: distributed workflows and contributing; R11: interfaces and maintenance; R26: mature-engine comparison where authorized.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "50.3",
+          "title": "Portfolio, technical interviews and role-specific evidence",
+          "outcome": "Present concrete engineering competence without inflated claims.",
+          "practical_assignment": "Prepare three portfolio case studies and complete one systems, one algorithm and one specialization mock interview. Pass: every claimed result is supported by an artifact and assistance or third-party contributions are clearly attributed.",
+          "assigned_reading": "R01-R02: breadth review; R11: engineering explanation and contracts; handbook role map and portfolio template.",
+          "quiz_question_count": 3
+        },
+        {
+          "id": "50.4",
+          "title": "Long-term learning, maintenance and final handoff",
+          "outcome": "Keep the knowledge and artifacts useful after the course ends.",
+          "practical_assignment": "Complete Gate J: archive the thesis artifact, produce a maintainer handoff and write a 90-day learning plan with one primary gap and one real contribution goal. Pass: another person can locate, build and understand the project without the author's machine.",
+          "assigned_reading": "R05: maintenance workflows; R01-R02: periodic breadth review; current official documentation for the selected tools when an update is undertaken.",
+          "quiz_question_count": 3
+        }
+      ]
+    }
+  ]
+}

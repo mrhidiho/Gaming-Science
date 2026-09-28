@@ -1,0 +1,6 @@
+{
+  "status": "NOT_RUN",
+  "layer": "SPICE ideal/toy circuit models, not hardware measurements",
+  "runs": [],
+  "reason": "ngspice is not on PATH"
+}

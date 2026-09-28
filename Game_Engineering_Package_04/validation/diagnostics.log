@@ -1,0 +1,25 @@
+
+EXPERIMENT: good 
+COMMAND: /usr/bin/c++ -std=c++20 -Wall -Wextra -Wpedantic /tmp/p4_build_lesson_tv8a8gwg/good.cpp -o /tmp/p4_build_lesson_tv8a8gwg/good
+
+Expected success.
+
+EXPERIMENT: compile_error 
+COMMAND: /usr/bin/c++ -std=c++20 -Wall -Wextra -Wpedantic -fsyntax-only /tmp/p4_build_lesson_tv8a8gwg/compile_error.cpp
+/tmp/p4_build_lesson_tv8a8gwg/compile_error.cpp: In function ‘int main()’:
+/tmp/p4_build_lesson_tv8a8gwg/compile_error.cpp:2:28: error: expected ‘,’ or ‘;’ before ‘return’
+    2 | int main() { int score = 3 return score; }
+      |                            ^~~~~~
+/tmp/p4_build_lesson_tv8a8gwg/compile_error.cpp:2:18: warning: unused variable ‘score’ [-Wunused-variable]
+    2 | int main() { int score = 3 return score; }
+      |                  ^~~~~
+
+Expected rejection; now explain the stage.
+
+EXPERIMENT: link_error 
+COMMAND: /usr/bin/c++ -std=c++20 -Wall -Wextra -Wpedantic /tmp/p4_build_lesson_tv8a8gwg/link_error.cpp -o /tmp/p4_build_lesson_tv8a8gwg/link_error
+/usr/bin/ld: /tmp/ccdDbfx6.o: in function `main':
+link_error.cpp:(.text+0xa): undefined reference to `missing_update(int)'
+collect2: error: ld returned 1 exit status
+
+Expected rejection; now explain the stage.

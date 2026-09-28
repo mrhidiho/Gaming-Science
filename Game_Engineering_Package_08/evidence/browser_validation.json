@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "test_origin": "in-memory about:blank document via set_content; file and loopback navigation blocked by authoring policy",
+  "checks": [
+    "20 lessons present; all answers closed on first load",
+    "Search filters by lesson ID and Show all restores every lesson",
+    "Core completion and transfer scores update; storage-denied fallback is shown. Native persistence not tested.",
+    "Answer reveal works on demand",
+    "Progress export and validated import round trip",
+    "Wrong-volume import rejected without replacing prior progress",
+    "All local document download links resolve",
+    "390-pixel mobile layout has no horizontal overflow",
+    "No JavaScript page errors in these interaction tests"
+  ],
+  "browser": "144.0.7559.96"
+}

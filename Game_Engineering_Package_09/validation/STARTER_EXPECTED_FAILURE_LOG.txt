@@ -1,0 +1,11 @@
+FAIL 36.1: valid: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: deadline equality: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: mode mismatch: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: late: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: bad checksum: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: short frame: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: negative payload: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: wrong sequence: unexpected NotImplementedError: Implement lesson 36.1
+FAIL 36.1: invalid byte: unexpected NotImplementedError: Implement lesson 36.1
+36.1: checked 9 cases (starters)
+0/9 passed; 9 failed

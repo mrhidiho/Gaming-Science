@@ -1,0 +1,2529 @@
+{
+  "36.1": [
+    {
+      "name": "valid",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          160
+        ]
+      },
+      "expected": {
+        "status": "ok",
+        "value": 5
+      }
+    },
+    {
+      "name": "deadline equality",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 50,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          160
+        ]
+      },
+      "expected": {
+        "status": "ok",
+        "value": 5
+      }
+    },
+    {
+      "name": "mode mismatch",
+      "input": {
+        "mode": 1,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          160
+        ]
+      },
+      "expected": {
+        "status": "mode_error"
+      }
+    },
+    {
+      "name": "late",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 51,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          160
+        ]
+      },
+      "expected": {
+        "status": "timeout"
+      }
+    },
+    {
+      "name": "bad checksum",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          161
+        ]
+      },
+      "expected": {
+        "status": "checksum_error"
+      }
+    },
+    {
+      "name": "short frame",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          165
+        ]
+      },
+      "expected": {
+        "status": "framing_error"
+      }
+    },
+    {
+      "name": "negative payload",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 1,
+        "frame": [
+          165,
+          1,
+          255,
+          255,
+          164
+        ]
+      },
+      "expected": {
+        "status": "ok",
+        "value": -1
+      }
+    },
+    {
+      "name": "wrong sequence",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 2,
+        "frame": [
+          165,
+          0,
+          0,
+          5,
+          160
+        ]
+      },
+      "expected": {
+        "status": "sequence_error"
+      }
+    },
+    {
+      "name": "invalid byte",
+      "input": {
+        "mode": 0,
+        "expected_mode": 0,
+        "elapsed_us": 40,
+        "timeout_us": 50,
+        "expected_seq": 0,
+        "frame": [
+          256
+        ]
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "36.2": [
+    {
+      "name": "single periodic",
+      "input": {
+        "horizon": 10,
+        "tasks": [
+          {
+            "name": "input",
+            "period": 5,
+            "cost": 1,
+            "deadline": 5,
+            "priority": 0
+          }
+        ]
+      },
+      "expected": {
+        "released": 2,
+        "completed": 2,
+        "missed": 0,
+        "pending": 0
+      }
+    },
+    {
+      "name": "exact deadline",
+      "input": {
+        "horizon": 4,
+        "tasks": [
+          {
+            "name": "a",
+            "period": 4,
+            "cost": 4,
+            "deadline": 4,
+            "priority": 0
+          }
+        ]
+      },
+      "expected": {
+        "released": 1,
+        "completed": 1,
+        "missed": 0,
+        "pending": 0
+      }
+    },
+    {
+      "name": "overload",
+      "input": {
+        "horizon": 4,
+        "tasks": [
+          {
+            "name": "a",
+            "period": 4,
+            "cost": 5,
+            "deadline": 4,
+            "priority": 0
+          }
+        ]
+      },
+      "expected": {
+        "released": 1,
+        "completed": 0,
+        "missed": 1,
+        "pending": 1
+      }
+    },
+    {
+      "name": "preemption",
+      "input": {
+        "horizon": 4,
+        "tasks": [
+          {
+            "name": "a",
+            "period": 2,
+            "cost": 1,
+            "deadline": 2,
+            "priority": 0
+          },
+          {
+            "name": "b",
+            "period": 4,
+            "cost": 2,
+            "deadline": 4,
+            "priority": 1
+          }
+        ]
+      },
+      "expected": {
+        "released": 3,
+        "completed": 3,
+        "missed": 0,
+        "pending": 0
+      }
+    },
+    {
+      "name": "late pending",
+      "input": {
+        "horizon": 2,
+        "tasks": [
+          {
+            "name": "a",
+            "period": 4,
+            "cost": 3,
+            "deadline": 1,
+            "priority": 0
+          }
+        ]
+      },
+      "expected": {
+        "released": 1,
+        "completed": 0,
+        "missed": 1,
+        "pending": 1
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "horizon": 3,
+        "tasks": []
+      },
+      "expected": {
+        "released": 0,
+        "completed": 0,
+        "missed": 0,
+        "pending": 0
+      }
+    },
+    {
+      "name": "invalid period",
+      "input": {
+        "horizon": 2,
+        "tasks": [
+          {
+            "name": "a",
+            "period": 0,
+            "cost": 1,
+            "deadline": 1,
+            "priority": 0
+          }
+        ]
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "36.3": [
+    {
+      "name": "review candidate",
+      "input": {
+        "supply_v": 3.3,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 40,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": true
+      },
+      "expected": {
+        "issues": [],
+        "ready_for_review": true
+      }
+    },
+    {
+      "name": "voltage",
+      "input": {
+        "supply_v": 5,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 40,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": true
+      },
+      "expected": {
+        "issues": [
+          "voltage"
+        ],
+        "ready_for_review": false
+      }
+    },
+    {
+      "name": "overload",
+      "input": {
+        "supply_v": 3.3,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 101,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": true
+      },
+      "expected": {
+        "issues": [
+          "current_budget"
+        ],
+        "ready_for_review": false
+      }
+    },
+    {
+      "name": "footprint",
+      "input": {
+        "supply_v": 3.3,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 40,
+        "budget_ma": 100,
+        "footprint_verified": false,
+        "return_path_continuous": true
+      },
+      "expected": {
+        "issues": [
+          "footprint"
+        ],
+        "ready_for_review": false
+      }
+    },
+    {
+      "name": "return path",
+      "input": {
+        "supply_v": 3.3,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 40,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": false
+      },
+      "expected": {
+        "issues": [
+          "return_path"
+        ],
+        "ready_for_review": false
+      }
+    },
+    {
+      "name": "two faults",
+      "input": {
+        "supply_v": 5,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": 150,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": true
+      },
+      "expected": {
+        "issues": [
+          "current_budget",
+          "voltage"
+        ],
+        "ready_for_review": false
+      }
+    },
+    {
+      "name": "negative load",
+      "input": {
+        "supply_v": 3.3,
+        "min_v": 3.0,
+        "max_v": 3.6,
+        "load_ma": -1,
+        "budget_ma": 100,
+        "footprint_verified": true,
+        "return_path_continuous": true
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "36.4": [
+    {
+      "name": "good",
+      "input": {
+        "over_limit": false,
+        "power_ok": true,
+        "reset_released": true,
+        "clock_ok": true,
+        "id_ok": true,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "RUN_BOUNDED_SELF_TEST"
+      }
+    },
+    {
+      "name": "over_limit",
+      "input": {
+        "over_limit": true,
+        "power_ok": true,
+        "reset_released": true,
+        "clock_ok": true,
+        "id_ok": true,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "STOP_AND_ISOLATE"
+      }
+    },
+    {
+      "name": "power_ok",
+      "input": {
+        "over_limit": false,
+        "power_ok": false,
+        "reset_released": true,
+        "clock_ok": true,
+        "id_ok": true,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "REVIEW_SUPPLY"
+      }
+    },
+    {
+      "name": "reset_released",
+      "input": {
+        "over_limit": false,
+        "power_ok": true,
+        "reset_released": false,
+        "clock_ok": true,
+        "id_ok": true,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "REVIEW_RESET"
+      }
+    },
+    {
+      "name": "clock_ok",
+      "input": {
+        "over_limit": false,
+        "power_ok": true,
+        "reset_released": true,
+        "clock_ok": false,
+        "id_ok": true,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "REVIEW_CLOCK"
+      }
+    },
+    {
+      "name": "id_ok",
+      "input": {
+        "over_limit": false,
+        "power_ok": true,
+        "reset_released": true,
+        "clock_ok": true,
+        "id_ok": false,
+        "framing_ok": true
+      },
+      "expected": {
+        "action": "REVIEW_ID_PATH"
+      }
+    },
+    {
+      "name": "framing_ok",
+      "input": {
+        "over_limit": false,
+        "power_ok": true,
+        "reset_released": true,
+        "clock_ok": true,
+        "id_ok": true,
+        "framing_ok": false
+      },
+      "expected": {
+        "action": "REVIEW_PROTOCOL"
+      }
+    }
+  ],
+  "37.1": [
+    {
+      "name": "coherent",
+      "input": {
+        "width": 4,
+        "paths": [
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "common": 0,
+        "a_cost": 4,
+        "b_cost": 4
+      },
+      "expected": {
+        "issued_slots": 4,
+        "useful_lane_slots": 16,
+        "efficiency": 1.0
+      }
+    },
+    {
+      "name": "split",
+      "input": {
+        "width": 4,
+        "paths": [
+          "A",
+          "A",
+          "B",
+          "B"
+        ],
+        "common": 0,
+        "a_cost": 4,
+        "b_cost": 4
+      },
+      "expected": {
+        "issued_slots": 8,
+        "useful_lane_slots": 16,
+        "efficiency": 0.5
+      }
+    },
+    {
+      "name": "common prefix",
+      "input": {
+        "width": 4,
+        "paths": [
+          "A",
+          "B",
+          "A",
+          "B"
+        ],
+        "common": 4,
+        "a_cost": 4,
+        "b_cost": 4
+      },
+      "expected": {
+        "issued_slots": 12,
+        "useful_lane_slots": 32,
+        "efficiency": 0.6666666666666666
+      }
+    },
+    {
+      "name": "tail",
+      "input": {
+        "width": 4,
+        "paths": [
+          "A"
+        ],
+        "common": 0,
+        "a_cost": 4,
+        "b_cost": 4
+      },
+      "expected": {
+        "issued_slots": 4,
+        "useful_lane_slots": 4,
+        "efficiency": 0.25
+      }
+    },
+    {
+      "name": "unequal branches",
+      "input": {
+        "width": 4,
+        "paths": [
+          "A",
+          "A",
+          "A",
+          "B"
+        ],
+        "common": 0,
+        "a_cost": 1,
+        "b_cost": 9
+      },
+      "expected": {
+        "issued_slots": 10,
+        "useful_lane_slots": 12,
+        "efficiency": 0.3
+      }
+    },
+    {
+      "name": "invalid path",
+      "input": {
+        "width": 4,
+        "paths": [
+          "C"
+        ],
+        "common": 0,
+        "a_cost": 4,
+        "b_cost": 4
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "37.2": [
+    {
+      "name": "contiguous",
+      "input": {
+        "addresses": [
+          0,
+          4,
+          8,
+          12,
+          16,
+          20,
+          24,
+          28,
+          32,
+          36,
+          40,
+          44,
+          48,
+          52,
+          56,
+          60,
+          64,
+          68,
+          72,
+          76,
+          80,
+          84,
+          88,
+          92,
+          96,
+          100,
+          104,
+          108,
+          112,
+          116,
+          120,
+          124
+        ],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "expected": {
+        "sectors": 4,
+        "transferred_bytes": 128,
+        "useful_unique_bytes": 128,
+        "utilization": 1.0
+      }
+    },
+    {
+      "name": "strided",
+      "input": {
+        "addresses": [
+          0,
+          32,
+          64,
+          96,
+          128,
+          160,
+          192,
+          224,
+          256,
+          288,
+          320,
+          352,
+          384,
+          416,
+          448,
+          480,
+          512,
+          544,
+          576,
+          608,
+          640,
+          672,
+          704,
+          736,
+          768,
+          800,
+          832,
+          864,
+          896,
+          928,
+          960,
+          992
+        ],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "expected": {
+        "sectors": 32,
+        "transferred_bytes": 1024,
+        "useful_unique_bytes": 128,
+        "utilization": 0.125
+      }
+    },
+    {
+      "name": "cross sector",
+      "input": {
+        "addresses": [
+          30
+        ],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "expected": {
+        "sectors": 2,
+        "transferred_bytes": 64,
+        "useful_unique_bytes": 4,
+        "utilization": 0.0625
+      }
+    },
+    {
+      "name": "broadcast",
+      "input": {
+        "addresses": [
+          0,
+          0,
+          0
+        ],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "expected": {
+        "sectors": 1,
+        "transferred_bytes": 32,
+        "useful_unique_bytes": 4,
+        "utilization": 0.125
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "addresses": [],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "expected": {
+        "sectors": 0,
+        "transferred_bytes": 0,
+        "useful_unique_bytes": 0,
+        "utilization": 0.0
+      }
+    },
+    {
+      "name": "invalid address",
+      "input": {
+        "addresses": [
+          -1
+        ],
+        "word_bytes": 4,
+        "sector_bytes": 32
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "37.3": [
+    {
+      "name": "arithmetic limited",
+      "input": {
+        "demands": {
+          "alu": 100,
+          "tex": 20
+        },
+        "rates": {
+          "alu": 100,
+          "tex": 100
+        },
+        "setup_s": 0.1
+      },
+      "expected": {
+        "lower_s": 1.1,
+        "serial_s": 1.3,
+        "dominant": "alu"
+      }
+    },
+    {
+      "name": "texture limited",
+      "input": {
+        "demands": {
+          "alu": 10,
+          "tex": 40
+        },
+        "rates": {
+          "alu": 100,
+          "tex": 20
+        },
+        "setup_s": 0
+      },
+      "expected": {
+        "lower_s": 2.0,
+        "serial_s": 2.1,
+        "dominant": "tex"
+      }
+    },
+    {
+      "name": "tie lexicographic",
+      "input": {
+        "demands": {
+          "alu": 20,
+          "tex": 20
+        },
+        "rates": {
+          "alu": 20,
+          "tex": 20
+        },
+        "setup_s": 0
+      },
+      "expected": {
+        "lower_s": 1.0,
+        "serial_s": 2.0,
+        "dominant": "alu"
+      }
+    },
+    {
+      "name": "zero work",
+      "input": {
+        "demands": {
+          "alu": 0
+        },
+        "rates": {
+          "alu": 1
+        },
+        "setup_s": 0.2
+      },
+      "expected": {
+        "lower_s": 0.2,
+        "serial_s": 0.2,
+        "dominant": "alu"
+      }
+    },
+    {
+      "name": "zero rate",
+      "input": {
+        "demands": {
+          "alu": 1
+        },
+        "rates": {
+          "alu": 0
+        },
+        "setup_s": 0
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "mismatched resources",
+      "input": {
+        "demands": {
+          "alu": 1
+        },
+        "rates": {
+          "tex": 1
+        },
+        "setup_s": 0
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "37.4": [
+    {
+      "name": "discrete",
+      "input": {
+        "input_bytes": 1000,
+        "output_bytes": 1000,
+        "bandwidth_Bps": 1000,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": 0.1,
+        "visibility_s": 0.3,
+        "shared": false
+      },
+      "expected": {
+        "transfer_or_visibility_s": 2.0,
+        "latency_s": 2.4
+      }
+    },
+    {
+      "name": "shared",
+      "input": {
+        "input_bytes": 1000,
+        "output_bytes": 1000,
+        "bandwidth_Bps": 1000,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": 0.1,
+        "visibility_s": 0.3,
+        "shared": true
+      },
+      "expected": {
+        "transfer_or_visibility_s": 0.3,
+        "latency_s": 0.7
+      }
+    },
+    {
+      "name": "no payload",
+      "input": {
+        "input_bytes": 0,
+        "output_bytes": 0,
+        "bandwidth_Bps": 1000,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": 0.1,
+        "visibility_s": 0.3,
+        "shared": false
+      },
+      "expected": {
+        "transfer_or_visibility_s": 0.0,
+        "latency_s": 0.4
+      }
+    },
+    {
+      "name": "double bandwidth",
+      "input": {
+        "input_bytes": 1000,
+        "output_bytes": 1000,
+        "bandwidth_Bps": 2000,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": 0.1,
+        "visibility_s": 0.3,
+        "shared": false
+      },
+      "expected": {
+        "transfer_or_visibility_s": 1.0,
+        "latency_s": 1.4
+      }
+    },
+    {
+      "name": "invalid bandwidth",
+      "input": {
+        "input_bytes": 1000,
+        "output_bytes": 1000,
+        "bandwidth_Bps": 0,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": 0.1,
+        "visibility_s": 0.3,
+        "shared": false
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "negative sync",
+      "input": {
+        "input_bytes": 1000,
+        "output_bytes": 1000,
+        "bandwidth_Bps": 1000,
+        "setup_s": 0.1,
+        "compute_s": 0.2,
+        "sync_s": -1,
+        "visibility_s": 0.3,
+        "shared": false
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "38.1": [
+    {
+      "name": "base",
+      "input": {
+        "unchanged_fraction": 0.2,
+        "acceleration": 4,
+        "added_fraction": 0,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 2
+      },
+      "expected": {
+        "speedup": 2.5,
+        "roof_GFLOPs": 200
+      }
+    },
+    {
+      "name": "overhead",
+      "input": {
+        "unchanged_fraction": 0.2,
+        "acceleration": 4,
+        "added_fraction": 0.1,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 2
+      },
+      "expected": {
+        "speedup": 2.0,
+        "roof_GFLOPs": 200
+      }
+    },
+    {
+      "name": "all unchanged",
+      "input": {
+        "unchanged_fraction": 1,
+        "acceleration": 4,
+        "added_fraction": 0,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 2
+      },
+      "expected": {
+        "speedup": 1.0,
+        "roof_GFLOPs": 200
+      }
+    },
+    {
+      "name": "compute ceiling",
+      "input": {
+        "unchanged_fraction": 0.2,
+        "acceleration": 4,
+        "added_fraction": 0,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 20
+      },
+      "expected": {
+        "speedup": 2.5,
+        "roof_GFLOPs": 1000
+      }
+    },
+    {
+      "name": "invalid fraction",
+      "input": {
+        "unchanged_fraction": 1.1,
+        "acceleration": 4,
+        "added_fraction": 0,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 2
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "zero acceleration",
+      "input": {
+        "unchanged_fraction": 0.2,
+        "acceleration": 0,
+        "added_fraction": 0,
+        "compute_GFLOPs": 1000,
+        "bandwidth_GBs": 100,
+        "intensity_FLOP_per_byte": 2
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "38.2": [
+    {
+      "name": "warmup",
+      "input": {
+        "times_ns": [
+          100,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 1
+      },
+      "expected": {
+        "status": "ok",
+        "n": 3,
+        "mean_ns": 20,
+        "median_ns": 20,
+        "p95_ns": 30,
+        "excluded_warmup": 1
+      }
+    },
+    {
+      "name": "no warmup",
+      "input": {
+        "times_ns": [
+          100,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 0
+      },
+      "expected": {
+        "status": "ok",
+        "n": 4,
+        "mean_ns": 40,
+        "median_ns": 25,
+        "p95_ns": 100,
+        "excluded_warmup": 0
+      }
+    },
+    {
+      "name": "wrong output",
+      "input": {
+        "times_ns": [
+          100,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          7,
+          0,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 1
+      },
+      "expected": {
+        "status": "rejected_wrong_output"
+      }
+    },
+    {
+      "name": "wrong warmup",
+      "input": {
+        "times_ns": [
+          100,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          0,
+          7,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 1
+      },
+      "expected": {
+        "status": "rejected_wrong_output"
+      }
+    },
+    {
+      "name": "invalid time",
+      "input": {
+        "times_ns": [
+          0,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 1
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "all warmup",
+      "input": {
+        "times_ns": [
+          100,
+          10,
+          20,
+          30
+        ],
+        "checksums": [
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected_checksum": 7,
+        "warmup": 4
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "38.3": [
+    {
+      "name": "round robin",
+      "input": {
+        "costs": [
+          8,
+          1,
+          8,
+          1
+        ],
+        "workers": 2,
+        "overhead": 0,
+        "policy": "round_robin"
+      },
+      "expected": {
+        "loads": [
+          16.0,
+          2.0
+        ],
+        "makespan": 16.0,
+        "total_service": 18.0
+      }
+    },
+    {
+      "name": "greedy",
+      "input": {
+        "costs": [
+          8,
+          1,
+          8,
+          1
+        ],
+        "workers": 2,
+        "overhead": 0,
+        "policy": "greedy"
+      },
+      "expected": {
+        "loads": [
+          9.0,
+          9.0
+        ],
+        "makespan": 9.0,
+        "total_service": 18.0
+      }
+    },
+    {
+      "name": "one worker",
+      "input": {
+        "costs": [
+          2,
+          3
+        ],
+        "workers": 1,
+        "overhead": 1,
+        "policy": "greedy"
+      },
+      "expected": {
+        "loads": [
+          7.0
+        ],
+        "makespan": 7.0,
+        "total_service": 7.0
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "costs": [],
+        "workers": 2,
+        "overhead": 1,
+        "policy": "greedy"
+      },
+      "expected": {
+        "loads": [
+          0.0,
+          0.0
+        ],
+        "makespan": 0.0,
+        "total_service": 0.0
+      }
+    },
+    {
+      "name": "small jobs overhead",
+      "input": {
+        "costs": [
+          1,
+          1
+        ],
+        "workers": 2,
+        "overhead": 9,
+        "policy": "greedy"
+      },
+      "expected": {
+        "loads": [
+          10.0,
+          10.0
+        ],
+        "makespan": 10.0,
+        "total_service": 20.0
+      }
+    },
+    {
+      "name": "bad workers",
+      "input": {
+        "costs": [
+          1
+        ],
+        "workers": 0,
+        "overhead": 0,
+        "policy": "greedy"
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "38.4": [
+    {
+      "name": "50 W 2 s",
+      "input": {
+        "times_s": [
+          0,
+          2
+        ],
+        "power_w": [
+          50
+        ],
+        "completed_frames": [
+          120
+        ]
+      },
+      "expected": {
+        "joules": 100.0,
+        "duration_s": 2,
+        "average_w": 50.0,
+        "frames_per_joule": 1.2
+      }
+    },
+    {
+      "name": "80 W 1 s",
+      "input": {
+        "times_s": [
+          0,
+          1
+        ],
+        "power_w": [
+          80
+        ],
+        "completed_frames": [
+          120
+        ]
+      },
+      "expected": {
+        "joules": 80.0,
+        "duration_s": 1,
+        "average_w": 80.0,
+        "frames_per_joule": 1.5
+      }
+    },
+    {
+      "name": "varying intervals",
+      "input": {
+        "times_s": [
+          0,
+          1,
+          3
+        ],
+        "power_w": [
+          10,
+          20
+        ],
+        "completed_frames": [
+          10,
+          20
+        ]
+      },
+      "expected": {
+        "joules": 50.0,
+        "duration_s": 3,
+        "average_w": 16.666666666666668,
+        "frames_per_joule": 0.6
+      }
+    },
+    {
+      "name": "zero power",
+      "input": {
+        "times_s": [
+          0,
+          1
+        ],
+        "power_w": [
+          0
+        ],
+        "completed_frames": [
+          0
+        ]
+      },
+      "expected": {
+        "joules": 0.0,
+        "duration_s": 1,
+        "average_w": 0.0,
+        "frames_per_joule": null
+      }
+    },
+    {
+      "name": "nonmonotonic",
+      "input": {
+        "times_s": [
+          0,
+          0
+        ],
+        "power_w": [
+          1
+        ],
+        "completed_frames": [
+          1
+        ]
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "array mismatch",
+      "input": {
+        "times_s": [
+          0,
+          1,
+          2
+        ],
+        "power_w": [
+          1
+        ],
+        "completed_frames": [
+          1
+        ]
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "39.1": [
+    {
+      "name": "steady",
+      "input": {
+        "input_ms": [
+          0,
+          10,
+          20
+        ],
+        "present_ms": [
+          20,
+          30,
+          40
+        ],
+        "timestamp_kind": "synthetic_present"
+      },
+      "expected": {
+        "mean_latency_ms": 20,
+        "p95_latency_ms": 20,
+        "min_interval_ms": 10,
+        "max_interval_ms": 10,
+        "mean_rate_fps": 100.0,
+        "boundary": "synthetic_present"
+      }
+    },
+    {
+      "name": "uneven",
+      "input": {
+        "input_ms": [
+          0,
+          10,
+          20
+        ],
+        "present_ms": [
+          10,
+          20,
+          40
+        ],
+        "timestamp_kind": "synthetic_present"
+      },
+      "expected": {
+        "mean_latency_ms": 13.333333333333334,
+        "p95_latency_ms": 20,
+        "min_interval_ms": 10,
+        "max_interval_ms": 20,
+        "mean_rate_fps": 66.66666666666667,
+        "boundary": "synthetic_present"
+      }
+    },
+    {
+      "name": "queue delay",
+      "input": {
+        "input_ms": [
+          0,
+          10,
+          20
+        ],
+        "present_ms": [
+          40,
+          50,
+          60
+        ],
+        "timestamp_kind": "synthetic_present"
+      },
+      "expected": {
+        "mean_latency_ms": 40,
+        "p95_latency_ms": 40,
+        "min_interval_ms": 10,
+        "max_interval_ms": 10,
+        "mean_rate_fps": 100.0,
+        "boundary": "synthetic_present"
+      }
+    },
+    {
+      "name": "negative latency",
+      "input": {
+        "input_ms": [
+          21,
+          10,
+          20
+        ],
+        "present_ms": [
+          20,
+          30,
+          40
+        ],
+        "timestamp_kind": "synthetic_present"
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "duplicate presentation",
+      "input": {
+        "input_ms": [
+          0,
+          10,
+          20
+        ],
+        "present_ms": [
+          20,
+          20,
+          40
+        ],
+        "timestamp_kind": "synthetic_present"
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "wrong boundary",
+      "input": {
+        "input_ms": [
+          0,
+          10,
+          20
+        ],
+        "present_ms": [
+          20,
+          30,
+          40
+        ],
+        "timestamp_kind": "photons"
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "39.2": [
+    {
+      "name": "steps",
+      "input": {
+        "events": [
+          "step",
+          "step"
+        ]
+      },
+      "expected": {
+        "state": "RUNNING",
+        "tick": 2,
+        "saved_tick": 0,
+        "resources_live": true,
+        "generation": 1
+      }
+    },
+    {
+      "name": "suspend resume",
+      "input": {
+        "events": [
+          "step",
+          "suspend",
+          "resume"
+        ]
+      },
+      "expected": {
+        "state": "RUNNING",
+        "tick": 1,
+        "saved_tick": 1,
+        "resources_live": true,
+        "generation": 2
+      }
+    },
+    {
+      "name": "sudden kill",
+      "input": {
+        "events": [
+          "step",
+          "step",
+          "kill",
+          "launch"
+        ]
+      },
+      "expected": {
+        "state": "RUNNING",
+        "tick": 0,
+        "saved_tick": 0,
+        "resources_live": true,
+        "generation": 2
+      }
+    },
+    {
+      "name": "checkpoint recovery",
+      "input": {
+        "events": [
+          "step",
+          "checkpoint",
+          "step",
+          "kill",
+          "launch"
+        ]
+      },
+      "expected": {
+        "state": "RUNNING",
+        "tick": 1,
+        "saved_tick": 1,
+        "resources_live": true,
+        "generation": 2
+      }
+    },
+    {
+      "name": "suspended",
+      "input": {
+        "events": [
+          "step",
+          "suspend"
+        ]
+      },
+      "expected": {
+        "state": "SUSPENDED",
+        "tick": 1,
+        "saved_tick": 1,
+        "resources_live": false,
+        "generation": 1
+      }
+    },
+    {
+      "name": "illegal step",
+      "input": {
+        "events": [
+          "suspend",
+          "step"
+        ]
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "39.3": [
+    {
+      "name": "identity",
+      "input": {
+        "tracking_valid": true,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          0,
+          0,
+          0
+        ],
+        "ipd_m": 0.064,
+        "sample_s": 0,
+        "target_s": 0,
+        "yaw_deg": 0
+      },
+      "expected": {
+        "render": "stereo_model",
+        "left_m": [
+          -0.032,
+          0,
+          0
+        ],
+        "right_m": [
+          0.032,
+          0,
+          0
+        ],
+        "prediction_s": 0
+      }
+    },
+    {
+      "name": "yaw 90",
+      "input": {
+        "tracking_valid": true,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          0,
+          0,
+          0
+        ],
+        "ipd_m": 0.064,
+        "sample_s": 0,
+        "target_s": 0,
+        "yaw_deg": 90
+      },
+      "expected": {
+        "render": "stereo_model",
+        "left_m": [
+          0,
+          0,
+          0.032
+        ],
+        "right_m": [
+          0,
+          0,
+          -0.032
+        ],
+        "prediction_s": 0
+      }
+    },
+    {
+      "name": "predict",
+      "input": {
+        "tracking_valid": true,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          1,
+          0,
+          0
+        ],
+        "ipd_m": 0.064,
+        "sample_s": 0,
+        "target_s": 0.01,
+        "yaw_deg": 0
+      },
+      "expected": {
+        "render": "stereo_model",
+        "left_m": [
+          -0.022,
+          0,
+          0
+        ],
+        "right_m": [
+          0.042,
+          0,
+          0
+        ],
+        "prediction_s": 0.01
+      }
+    },
+    {
+      "name": "lost",
+      "input": {
+        "tracking_valid": false,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          0,
+          0,
+          0
+        ],
+        "ipd_m": 0.064,
+        "sample_s": 0,
+        "target_s": 0,
+        "yaw_deg": 0
+      },
+      "expected": {
+        "render": "tracking_lost"
+      }
+    },
+    {
+      "name": "past prediction",
+      "input": {
+        "tracking_valid": true,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          0,
+          0,
+          0
+        ],
+        "ipd_m": 0.064,
+        "sample_s": 0,
+        "target_s": 0.2,
+        "yaw_deg": 0
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "negative ipd",
+      "input": {
+        "tracking_valid": true,
+        "position_m": [
+          0,
+          0,
+          0
+        ],
+        "velocity_mps": [
+          0,
+          0,
+          0
+        ],
+        "ipd_m": -1,
+        "sample_s": 0,
+        "target_s": 0,
+        "yaw_deg": 0
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "39.4": [
+    {
+      "name": "desktop",
+      "input": {
+        "supported": [
+          "keyboard",
+          "save",
+          "ray"
+        ],
+        "required": [
+          "keyboard",
+          "save"
+        ],
+        "optional": [
+          "ray",
+          "touch"
+        ]
+      },
+      "expected": {
+        "accepted": true,
+        "missing": [],
+        "enabled_optional": [
+          "ray"
+        ]
+      }
+    },
+    {
+      "name": "handheld strict",
+      "input": {
+        "supported": [
+          "touch",
+          "save"
+        ],
+        "required": [
+          "keyboard",
+          "save"
+        ],
+        "optional": [
+          "touch"
+        ]
+      },
+      "expected": {
+        "accepted": false,
+        "missing": [
+          "keyboard"
+        ],
+        "enabled_optional": [
+          "touch"
+        ]
+      }
+    },
+    {
+      "name": "portable requirements",
+      "input": {
+        "supported": [
+          "actions",
+          "save"
+        ],
+        "required": [
+          "actions",
+          "save"
+        ],
+        "optional": [
+          "ray"
+        ]
+      },
+      "expected": {
+        "accepted": true,
+        "missing": [],
+        "enabled_optional": []
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "supported": [],
+        "required": [],
+        "optional": []
+      },
+      "expected": {
+        "accepted": true,
+        "missing": [],
+        "enabled_optional": []
+      }
+    },
+    {
+      "name": "deduplicate",
+      "input": {
+        "supported": [
+          "a",
+          "a"
+        ],
+        "required": [
+          "a",
+          "a"
+        ],
+        "optional": [
+          "a",
+          "a"
+        ]
+      },
+      "expected": {
+        "accepted": true,
+        "missing": [],
+        "enabled_optional": [
+          "a"
+        ]
+      }
+    },
+    {
+      "name": "bad type",
+      "input": {
+        "supported": [
+          1
+        ],
+        "required": [],
+        "optional": []
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "40.1": [
+    {
+      "name": "small target",
+      "input": {
+        "frame_ms": 20,
+        "operation_ms": 0.2,
+        "acceleration": 2,
+        "overhead_ms": 0
+      },
+      "expected": {
+        "maximum_saved_fraction": 0.01,
+        "new_frame_ms": 19.9,
+        "application_speedup": 1.0050251256281408
+      }
+    },
+    {
+      "name": "large target",
+      "input": {
+        "frame_ms": 20,
+        "operation_ms": 8,
+        "acceleration": 4,
+        "overhead_ms": 0
+      },
+      "expected": {
+        "maximum_saved_fraction": 0.4,
+        "new_frame_ms": 14.0,
+        "application_speedup": 1.4285714285714286
+      }
+    },
+    {
+      "name": "overhead loses",
+      "input": {
+        "frame_ms": 20,
+        "operation_ms": 2,
+        "acceleration": 2,
+        "overhead_ms": 2
+      },
+      "expected": {
+        "maximum_saved_fraction": 0.1,
+        "new_frame_ms": 21.0,
+        "application_speedup": 0.9523809523809523
+      }
+    },
+    {
+      "name": "zero target",
+      "input": {
+        "frame_ms": 20,
+        "operation_ms": 0,
+        "acceleration": 2,
+        "overhead_ms": 0
+      },
+      "expected": {
+        "maximum_saved_fraction": 0.0,
+        "new_frame_ms": 20.0,
+        "application_speedup": 1.0
+      }
+    },
+    {
+      "name": "invalid target",
+      "input": {
+        "frame_ms": 20,
+        "operation_ms": 21,
+        "acceleration": 2,
+        "overhead_ms": 0
+      },
+      "raises": "ValueError"
+    },
+    {
+      "name": "zero frame",
+      "input": {
+        "frame_ms": 0,
+        "operation_ms": 0,
+        "acceleration": 2,
+        "overhead_ms": 0
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "40.2": [
+    {
+      "name": "Q8.8 unity",
+      "input": {
+        "bits": 16,
+        "frac": 8,
+        "gain": 256,
+        "bias": 0,
+        "x": [
+          -256,
+          0,
+          256,
+          32767
+        ]
+      },
+      "expected": {
+        "raw": [
+          -256,
+          0,
+          256,
+          32767
+        ],
+        "saturated": 0
+      }
+    },
+    {
+      "name": "ties to even",
+      "input": {
+        "bits": 16,
+        "frac": 8,
+        "gain": 128,
+        "bias": 0,
+        "x": [
+          1,
+          3,
+          -1,
+          -3
+        ]
+      },
+      "expected": {
+        "raw": [
+          0,
+          2,
+          0,
+          -2
+        ],
+        "saturated": 0
+      }
+    },
+    {
+      "name": "saturation",
+      "input": {
+        "bits": 16,
+        "frac": 8,
+        "gain": 512,
+        "bias": 0,
+        "x": [
+          20000,
+          -20000
+        ]
+      },
+      "expected": {
+        "raw": [
+          32767,
+          -32768
+        ],
+        "saturated": 2
+      }
+    },
+    {
+      "name": "bias",
+      "input": {
+        "bits": 8,
+        "frac": 0,
+        "gain": 1,
+        "bias": 2,
+        "x": [
+          -1,
+          0,
+          126
+        ]
+      },
+      "expected": {
+        "raw": [
+          1,
+          2,
+          127
+        ],
+        "saturated": 1
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "bits": 16,
+        "frac": 8,
+        "gain": 256,
+        "bias": 0,
+        "x": []
+      },
+      "expected": {
+        "raw": [],
+        "saturated": 0
+      }
+    },
+    {
+      "name": "outside range",
+      "input": {
+        "bits": 8,
+        "frac": 0,
+        "gain": 1,
+        "bias": 0,
+        "x": [
+          128
+        ]
+      },
+      "raises": "ValueError"
+    }
+  ],
+  "40.3": [
+    {
+      "name": "happy path",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 4
+          },
+          {
+            "op": "complete",
+            "epoch": 0
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "submitted",
+          "completed"
+        ],
+        "owner": "HOST",
+        "epoch": 0,
+        "pending": false,
+        "quarantined": false
+      }
+    },
+    {
+      "name": "bounds",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 12,
+            "count": 2
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "invalid_descriptor"
+        ],
+        "owner": "HOST",
+        "epoch": 0,
+        "pending": false,
+        "quarantined": false
+      }
+    },
+    {
+      "name": "alignment",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 1,
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "invalid_descriptor"
+        ],
+        "owner": "HOST",
+        "epoch": 0,
+        "pending": false,
+        "quarantined": false
+      }
+    },
+    {
+      "name": "quarantine",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 4
+          },
+          {
+            "op": "timeout"
+          },
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 4
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "submitted",
+          "quarantined",
+          "busy"
+        ],
+        "owner": "DEVICE",
+        "epoch": 0,
+        "pending": true,
+        "quarantined": true
+      }
+    },
+    {
+      "name": "reset stale",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 4
+          },
+          {
+            "op": "timeout"
+          },
+          {
+            "op": "reset"
+          },
+          {
+            "op": "complete",
+            "epoch": 0
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "submitted",
+          "quarantined",
+          "reset_quiesced",
+          "stale_completion"
+        ],
+        "owner": "HOST",
+        "epoch": 1,
+        "pending": false,
+        "quarantined": false
+      }
+    },
+    {
+      "name": "late completion stays quarantined",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 4
+          },
+          {
+            "op": "timeout"
+          },
+          {
+            "op": "complete",
+            "epoch": 0
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "submitted",
+          "quarantined",
+          "completion_ignored_quarantined"
+        ],
+        "owner": "DEVICE",
+        "epoch": 0,
+        "pending": true,
+        "quarantined": true
+      }
+    },
+    {
+      "name": "negative offset",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": -4,
+            "count": 1
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "invalid_descriptor"
+        ],
+        "owner": "HOST",
+        "epoch": 0,
+        "pending": false,
+        "quarantined": false
+      }
+    },
+    {
+      "name": "zero count",
+      "input": {
+        "capacity": 16,
+        "events": [
+          {
+            "op": "submit",
+            "offset": 0,
+            "count": 0
+          }
+        ]
+      },
+      "expected": {
+        "statuses": [
+          "invalid_descriptor"
+        ],
+        "owner": "HOST",
+        "epoch": 0,
+        "pending": false,
+        "quarantined": false
+      }
+    }
+  ],
+  "40.4": [
+    {
+      "name": "complete structure",
+      "input": {
+        "claims": [
+          {
+            "id": "C1",
+            "tier": "analytical",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": "Assumed clock; no placement or routing."
+          }
+        ],
+        "known_artifacts": [
+          "model.json"
+        ]
+      },
+      "expected": {
+        "issues": [],
+        "structurally_complete": true
+      }
+    },
+    {
+      "name": "missing artifact",
+      "input": {
+        "claims": [
+          {
+            "id": "C1",
+            "tier": "analytical",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": "Assumed clock; no placement or routing."
+          }
+        ],
+        "known_artifacts": []
+      },
+      "expected": {
+        "issues": [
+          "C1:artifact"
+        ],
+        "structurally_complete": false
+      }
+    },
+    {
+      "name": "bad tier",
+      "input": {
+        "claims": [
+          {
+            "id": "C1",
+            "tier": "silicon_proven",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": "Assumed clock; no placement or routing."
+          }
+        ],
+        "known_artifacts": [
+          "model.json"
+        ]
+      },
+      "expected": {
+        "issues": [
+          "C1:tier"
+        ],
+        "structurally_complete": false
+      }
+    },
+    {
+      "name": "missing limitation",
+      "input": {
+        "claims": [
+          {
+            "id": "C1",
+            "tier": "analytical",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": ""
+          }
+        ],
+        "known_artifacts": [
+          "model.json"
+        ]
+      },
+      "expected": {
+        "issues": [
+          "C1:limitations"
+        ],
+        "structurally_complete": false
+      }
+    },
+    {
+      "name": "empty",
+      "input": {
+        "claims": [],
+        "known_artifacts": []
+      },
+      "expected": {
+        "issues": [
+          "empty_ledger"
+        ],
+        "structurally_complete": false
+      }
+    },
+    {
+      "name": "duplicate",
+      "input": {
+        "claims": [
+          {
+            "id": "C1",
+            "tier": "analytical",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": "Assumed clock; no placement or routing."
+          },
+          {
+            "id": "C1",
+            "tier": "analytical",
+            "artifact": "model.json",
+            "requirement": "R1",
+            "limitations": "Assumed clock; no placement or routing."
+          }
+        ],
+        "known_artifacts": [
+          "model.json"
+        ]
+      },
+      "expected": {
+        "issues": [
+          "missing_or_duplicate_id"
+        ],
+        "structurally_complete": false
+      }
+    }
+  ]
+}

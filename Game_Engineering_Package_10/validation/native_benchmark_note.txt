@@ -1,0 +1,1 @@
+consumed checksum=0; within-process diagnostic pairs only

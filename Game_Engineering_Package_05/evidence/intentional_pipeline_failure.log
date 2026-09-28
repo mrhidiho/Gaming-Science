@@ -1,0 +1,21 @@
++ /opt/pyvenv/bin/python -c import unittest
+class Gate(unittest.TestCase):
+ def test_injected(self): self.fail('Intentional pipeline test failure')
+unittest.main()
+
+F
+======================================================================
+FAIL: test_injected (__main__.Gate.test_injected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<string>", line 3, in test_injected
+    def test_injected(self): self.fail('Intentional pipeline test failure')
+                             ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Intentional pipeline test failure
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+VERIFICATION FAILED: Command '['/opt/pyvenv/bin/python', '-c', "import unittest\nclass Gate(unittest.TestCase):\n def test_injected(self): self.fail('Intentional pipeline test failure')\nunittest.main()\n"]' returned non-zero exit status 1.
+Release not completed: Command '['/opt/pyvenv/bin/python', '/mnt/data/Game_Engineering_Package_05/tools/verify.py', '--inject-failure']' returned non-zero exit status 1.

@@ -1,0 +1,74 @@
+{
+  "canonical_lessons_matched": 20,
+  "original_quiz_questions_preserved": 60,
+  "original_quiz_answers_preserved": 60,
+  "added_application_questions": 40,
+  "html_lesson_quizzes": 20,
+  "html_questions_per_lesson": 5,
+  "external_reader_asset_dependencies": 0,
+  "pdf_text_outside_page_bounds": [],
+  "pdf_replacement_glyphs": [],
+  "pdfs": [
+    {
+      "path": "ANSWER_KEY.pdf",
+      "pages": 35,
+      "bytes": 120065
+    },
+    {
+      "path": "CAPSTONE_SPEC.pdf",
+      "pages": 10,
+      "bytes": 53448
+    },
+    {
+      "path": "CPP_REFERENCE.pdf",
+      "pages": 10,
+      "bytes": 53438
+    },
+    {
+      "path": "C_BRIDGE.pdf",
+      "pages": 9,
+      "bytes": 48393
+    },
+    {
+      "path": "LAB_WORKBOOK.pdf",
+      "pages": 32,
+      "bytes": 104151
+    },
+    {
+      "path": "START_NEXT.pdf",
+      "pages": 7,
+      "bytes": 39948
+    },
+    {
+      "path": "STUDENT_HANDBOOK.pdf",
+      "pages": 69,
+      "bytes": 226621
+    },
+    {
+      "path": "modules/MODULE_11.pdf",
+      "pages": 18,
+      "bytes": 74991
+    },
+    {
+      "path": "modules/MODULE_12.pdf",
+      "pages": 18,
+      "bytes": 70939
+    },
+    {
+      "path": "modules/MODULE_13.pdf",
+      "pages": 17,
+      "bytes": 69566
+    },
+    {
+      "path": "modules/MODULE_14.pdf",
+      "pages": 17,
+      "bytes": 69502
+    },
+    {
+      "path": "modules/MODULE_15.pdf",
+      "pages": 18,
+      "bytes": 77055
+    }
+  ],
+  "visual_review": "Rendered and inspected sample covers, body pages, code, tables and references. Full-page text bounds checked on all PDFs."
+}

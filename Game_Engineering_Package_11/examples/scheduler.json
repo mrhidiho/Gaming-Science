@@ -1,0 +1,104 @@
+{
+  "in_order": {
+    "committed": {
+      "A": 2,
+      "B": 5,
+      "C": 5,
+      "D": 12
+    },
+    "events": {
+      "A": {
+        "finish": 4,
+        "issue": 0,
+        "result": 2,
+        "retire": 4
+      },
+      "B": {
+        "finish": 5,
+        "issue": 4,
+        "result": 5,
+        "retire": 5
+      },
+      "C": {
+        "finish": 6,
+        "issue": 5,
+        "result": 5,
+        "retire": 6
+      },
+      "D": {
+        "finish": 7,
+        "issue": 6,
+        "result": 12,
+        "retire": 7
+      }
+    },
+    "fault": null,
+    "last_retirement_cycle": 7
+  },
+  "out_of_order": {
+    "committed": {
+      "A": 2,
+      "B": 5,
+      "C": 5,
+      "D": 12
+    },
+    "events": {
+      "A": {
+        "finish": 4,
+        "issue": 0,
+        "result": 2,
+        "retire": 4
+      },
+      "B": {
+        "finish": 5,
+        "issue": 4,
+        "result": 5,
+        "retire": 5
+      },
+      "C": {
+        "finish": 2,
+        "issue": 1,
+        "result": 5,
+        "retire": 6
+      },
+      "D": {
+        "finish": 3,
+        "issue": 2,
+        "result": 12,
+        "retire": 7
+      }
+    },
+    "fault": null,
+    "last_retirement_cycle": 7
+  },
+  "precise_fault": {
+    "committed": {
+      "A": 2
+    },
+    "events": {
+      "A": {
+        "finish": 4,
+        "issue": 0,
+        "result": 2,
+        "retire": 4
+      },
+      "B": {
+        "finish": 5,
+        "issue": 4,
+        "result": 5
+      },
+      "C": {
+        "finish": 2,
+        "issue": 1,
+        "result": 5
+      },
+      "D": {
+        "finish": 3,
+        "issue": 2,
+        "result": 12
+      }
+    },
+    "fault": "B",
+    "last_retirement_cycle": 5
+  }
+}

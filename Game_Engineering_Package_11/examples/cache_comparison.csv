@@ -1,0 +1,10 @@
+workload,configuration,sets,ways,capacity_bytes,requests,hits,misses,serial_model_cycles,source,trace_sha256
+stream,direct,4,1,256,64,0,64,2048.0,synthetic,dc02f012e062c952b43579a63d76b79b7db4a2e77e50f1cd1028d3eb122daddd
+stream,two_way,2,2,256,64,0,64,2048.0,synthetic,dc02f012e062c952b43579a63d76b79b7db4a2e77e50f1cd1028d3eb122daddd
+stream,fully_associative,1,4,256,64,0,64,2048.0,synthetic,dc02f012e062c952b43579a63d76b79b7db4a2e77e50f1cd1028d3eb122daddd
+localized,direct,4,1,256,64,60,4,248.0,synthetic,64be94b3d39d4b65dcc305db1a489f00d96dc1061c782f51d99ccc3dc4726554
+localized,two_way,2,2,256,64,60,4,248.0,synthetic,64be94b3d39d4b65dcc305db1a489f00d96dc1061c782f51d99ccc3dc4726554
+localized,fully_associative,1,4,256,64,60,4,248.0,synthetic,64be94b3d39d4b65dcc305db1a489f00d96dc1061c782f51d99ccc3dc4726554
+conflict,direct,4,1,256,64,0,64,2048.0,synthetic,62a4e6d619d7393b6ff3a7f58c3c27adbf33344b071cd06a1b211916c8bdd8ae
+conflict,two_way,2,2,256,64,0,64,2048.0,synthetic,62a4e6d619d7393b6ff3a7f58c3c27adbf33344b071cd06a1b211916c8bdd8ae
+conflict,fully_associative,1,4,256,64,60,4,248.0,synthetic,62a4e6d619d7393b6ff3a7f58c3c27adbf33344b071cd06a1b211916c8bdd8ae

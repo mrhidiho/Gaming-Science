@@ -1,0 +1,9 @@
+{
+  "python": "3.13.5",
+  "executable": "/opt/pyvenv/bin/python",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "working_directory": "/mnt/data/Game_Engineering_Package_02",
+  "package_root": "/mnt/data/Game_Engineering_Package_02",
+  "python_3_11_or_later": true,
+  "git": "git version 2.47.3"
+}

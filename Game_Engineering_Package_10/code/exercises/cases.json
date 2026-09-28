@@ -1,0 +1,372 @@
+{
+  "41.1": {
+    "contract": "Return baseline_time/candidate_time at the supplied common quality threshold. Each curve is a list of [time,error]. Pick the minimum measured qualifying time; return None if either curve has no qualifying observation.",
+    "input": {
+      "threshold": 0.01,
+      "baseline": [
+        [
+          4,
+          0.02
+        ],
+        [
+          16,
+          0.01
+        ]
+      ],
+      "candidate": [
+        [
+          4,
+          0.012
+        ],
+        [
+          8,
+          0.009
+        ]
+      ]
+    },
+    "expected": 2.0
+  },
+  "41.2": {
+    "contract": "For a diagonal matrix a, given b, an approximate x and known truth, return [Euclidean residual norm, Euclidean forward-error norm]. Validate equal lengths.",
+    "input": {
+      "a": [
+        1,
+        1e-06
+      ],
+      "b": [
+        1,
+        1e-06
+      ],
+      "x": [
+        1,
+        0
+      ],
+      "truth": [
+        1,
+        1
+      ]
+    },
+    "expected": [
+      1e-06,
+      1.0
+    ]
+  },
+  "41.3": {
+    "contract": "Project target onto sum(x)=total by the affine least-squares projection. There are no nonnegativity constraints. Return the vector.",
+    "input": {
+      "target": [
+        0.2,
+        0.9
+      ],
+      "total": 1
+    },
+    "expected": [
+      0.15,
+      0.85
+    ]
+  },
+  "41.4": {
+    "contract": "Return the geometric mean of positive paired baseline/candidate time ratios. Do not substitute a ratio of total times.",
+    "input": {
+      "baseline": [
+        10,
+        100
+      ],
+      "candidate": [
+        5,
+        90
+      ]
+    },
+    "expected": 1.4907119849998598
+  },
+  "42.1": {
+    "contract": "Return the exclusive integer sum scan. Empty input returns an empty list. Use exact Python integers for this warm-up.",
+    "input": {
+      "values": [
+        3,
+        1,
+        4,
+        1,
+        5
+      ]
+    },
+    "expected": [
+      0,
+      3,
+      4,
+      8,
+      9
+    ]
+  },
+  "42.2": {
+    "contract": "Model a perfect two-stage pipeline with one copy engine and one compute engine, two buffers, fixed stage costs and no contention. For n>0 return copy+compute+(n-1)*max(copy,compute); for n=0 return 0. This is an analytical model, not a timer.",
+    "input": {
+      "n": 8,
+      "copy": 2,
+      "compute": 5
+    },
+    "expected": 42
+  },
+  "42.3": {
+    "contract": "Return the lower bound max(total_work/workers, largest_indivisible_job) for a nonnegative list of costs. Empty work costs 0. The bound need not be attainable.",
+    "input": {
+      "costs": [
+        100,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "workers": 8
+    },
+    "expected": 100
+  },
+  "42.4": {
+    "contract": "Return application speedup old_total/new_total where new_total=other+kernel/kernel_speedup+overhead and old_total=other+kernel.",
+    "input": {
+      "other": 8,
+      "kernel": 2,
+      "kernel_speedup": 4,
+      "overhead": 1.1
+    },
+    "expected": 1.0416666666666667
+  },
+  "43.1": {
+    "contract": "Return the balance-heuristic weight n1*p1/(n1*p1+n2*p2). Define zero denominator as zero for this primitive. Densities must use the same measure.",
+    "input": {
+      "p1": 2,
+      "p2": 6,
+      "n1": 1,
+      "n2": 1
+    },
+    "expected": 0.25
+  },
+  "43.2": {
+    "contract": "Return the smallest integer frame count at which a fixed extra build cost is no worse than accumulated positive trace savings: ceil(extra_build/saved_per_frame). Return None if savings<=0 and extra_build>0; zero extra cost returns 0.",
+    "input": {
+      "extra_build": 4,
+      "saved_per_frame": 1
+    },
+    "expected": 4
+  },
+  "43.3": {
+    "contract": "Return normalized nonnegative weighted-reservoir selection probabilities, not a rendering estimator. If the total weight is zero, return None.",
+    "input": {
+      "weights": [
+        1,
+        2,
+        7
+      ]
+    },
+    "expected": [
+      0.1,
+      0.2,
+      0.7
+    ]
+  },
+  "43.4": {
+    "contract": "For known nonnegative basis b and observations y, return the least-squares scalar coefficient clamped to [0,1]. Raise ValueError for a zero denominator.",
+    "input": {
+      "basis": [
+        0.2,
+        0.5,
+        1
+      ],
+      "observations": [
+        0.14,
+        0.35,
+        0.7
+      ]
+    },
+    "expected": 0.7
+  },
+  "44.1": {
+    "contract": "Return whether resident+new_asset+transient_overlap<=budget. All sizes use the same units; no eviction is performed in this warm-up.",
+    "input": {
+      "resident": 70,
+      "new_asset": 20,
+      "transient_overlap": 25,
+      "budget": 100
+    },
+    "expected": false
+  },
+  "44.2": {
+    "contract": "Return [corrected_position,new_accumulated_lambda] for one scalar XPBD update with constraint x-rest, given predicted x, inverse_mass, alpha, dt and lambda. Use alpha_tilde=alpha/dt^2.",
+    "input": {
+      "x": 1,
+      "rest": 0,
+      "inverse_mass": 1,
+      "alpha": 0.01,
+      "dt": 0.1,
+      "lambda": 0
+    },
+    "expected": [
+      0.5,
+      -0.5
+    ]
+  },
+  "44.3": {
+    "contract": "Return whether a request matches both the current owner and epoch at the committing sink. This predicate alone is not a complete distributed protocol or deduplication transaction.",
+    "input": {
+      "owner": "B",
+      "epoch": 8,
+      "request_owner": "A",
+      "request_epoch": 7
+    },
+    "expected": false
+  },
+  "44.4": {
+    "contract": "Return the shortest bad event trace for the deliberately unguarded one-request lifecycle. Starting live and idle, a request is legal only while alive; complete requires pending work; release kills the owner. Enumerate histories rather than hard-coding the answer.",
+    "input": {},
+    "expected": [
+      "request",
+      "release",
+      "complete"
+    ]
+  },
+  "45.1": {
+    "contract": "Return sorted IN=USE union (OUT minus DEF) for one ordinary non-SSA block. Phi edge handling is outside this warm-up.",
+    "input": {
+      "use": [
+        "a"
+      ],
+      "defs": [
+        "b"
+      ],
+      "out": [
+        "b",
+        "c"
+      ]
+    },
+    "expected": [
+      "a",
+      "c"
+    ]
+  },
+  "45.2": {
+    "contract": "Return whether half-open nonnegative integer ranges [a,a+n) and [b,b+m) overlap. Empty ranges never overlap. Native pointer provenance is outside this model.",
+    "input": {
+      "a": 0,
+      "n": 8,
+      "b": 8,
+      "m": 8
+    },
+    "expected": false
+  },
+  "45.3": {
+    "contract": "Return the number of variants from k independent binary options. Reject negative or noninteger k. This is a count, not an instruction to allocate all variants.",
+    "input": {
+      "k": 8
+    },
+    "expected": 256
+  },
+  "45.4": {
+    "contract": "Return [new_frame_time, application_speedup] from other+kernel/factor+packing+spills. The baseline is other+kernel.",
+    "input": {
+      "other": 9,
+      "kernel": 3,
+      "factor": 2,
+      "packing": 0.8,
+      "spills": 0.9
+    },
+    "expected": [
+      12.2,
+      0.9836065573770493
+    ]
+  }
+}

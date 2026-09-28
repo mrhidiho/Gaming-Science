@@ -1,0 +1,7 @@
+{
+  "status": "NOT_RUN",
+  "layer": "generic synthesis only",
+  "target": null,
+  "runs": [],
+  "reason": "yosys is not on PATH"
+}

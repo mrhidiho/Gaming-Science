@@ -1,0 +1,252 @@
+{
+  "volume": {
+    "number": 7,
+    "title": "Computer Engineering and Digital Design",
+    "level": "Undergraduate CE core",
+    "purpose": "Move from circuits and gates to RTL, a processor and an FPGA-based game subsystem.",
+    "planning_hours": {
+      "minimum": 450,
+      "maximum": 720
+    },
+    "pdf_path": "volumes/07_computer_engineering_and_digital_design.pdf",
+    "source_path": "source/07_computer_engineering_and_digital_design.md",
+    "checkpoint": "G",
+    "modules": [
+      {
+        "number": 31,
+        "title": "Circuits, measurement and electronic foundations",
+        "prerequisites": "Modules 06-10; basic algebra and calculus competence required. Simulation is the default laboratory.",
+        "references": [
+          "R30",
+          "R40",
+          "R10"
+        ],
+        "project": "Create a circuit laboratory notebook using simulation first: voltage/current prediction, an RC transient, a transistor switch and a sampled input. Physical extensions require a qualified mentor and a documented low-voltage safety review.",
+        "lessons": [
+          {
+            "id": "31.1",
+            "title": "Voltage, current, resistance and safe measurement",
+            "outcome": "Analyze a simple circuit using units and conservation laws.",
+            "practical_assignment": "Simulate a two-resistor divider and verify node voltages and current conservation. Pass: predictions include units, the source/load assumptions are stated, and a safety checklist precedes any physical experiment.",
+            "assigned_reading": "R30: lumped-circuit abstraction, resistive networks and basic circuit analysis.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "31.2",
+            "title": "Capacitors, inductors, transients and frequency response",
+            "outcome": "Relate stored energy to timing and filtering behavior.",
+            "practical_assignment": "Simulate an RC step response and a sinusoidal frequency sweep. Pass: the measured time constant agrees with the ideal calculation within numerical tolerance, and the report distinguishes transient from steady-state behavior.",
+            "assigned_reading": "R30: capacitors, inductors, first- and second-order systems; R10: frequency response.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "31.3",
+            "title": "Diodes, transistors, CMOS and analog interfaces",
+            "outcome": "Understand the physical devices beneath digital abstractions.",
+            "practical_assignment": "Simulate a CMOS inverter and one simple amplifier or comparator stage. Pass: plot input/output behavior, identify valid operating regions and explain one failure of the idealized model.",
+            "assigned_reading": "R30: MOS transistors, amplifiers, digital circuits and operational amplifiers.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "31.4",
+            "title": "Sampling, ADCs, DACs and noisy controller inputs",
+            "outcome": "Convert physical signals into stable digital measurements.",
+            "practical_assignment": "Simulate a noisy joystick signal, quantization and a simple filter. Pass: report step size, calibration error, added response delay and behavior near the dead-zone boundary.",
+            "assigned_reading": "R30: mixed-signal and measurement concepts; R10: sampling and filtering.",
+            "quiz_question_count": 3
+          }
+        ]
+      },
+      {
+        "number": 32,
+        "title": "Digital logic, state and timing",
+        "prerequisites": "Modules 06, 15-16 and 31.",
+        "references": [
+          "R15",
+          "R31",
+          "R35"
+        ],
+        "project": "Build and test an arithmetic unit, a finite-state controller and a synchronous queue model. For every block, provide a truth table or transition specification before coding its implementation.",
+        "lessons": [
+          {
+            "id": "32.1",
+            "title": "Boolean logic and combinational building blocks",
+            "outcome": "Translate a logical specification into a circuit with no stored state.",
+            "practical_assignment": "Implement a small multiplexer, decoder and four-bit adder in a logic simulator or model. Pass: exhaustive truth-table tests cover every supported input and no state is required for a result.",
+            "assigned_reading": "R15: combinational logic; R31: Boolean logic and arithmetic projects.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "32.2",
+            "title": "Registers, finite-state machines and synchronous timing",
+            "outcome": "Model state transitions at clock boundaries.",
+            "practical_assignment": "Design a controller with idle, running and done states, including reset and abort. Pass: a transition table matches simulation and a timing worksheet includes setup and hold as different checks.",
+            "assigned_reading": "R15: sequential logic and finite-state machines; R31: sequential logic.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "32.3",
+            "title": "Binary arithmetic, fixed point and overflow policies",
+            "outcome": "Choose representations that preserve the needed range and precision.",
+            "practical_assignment": "Implement wrapping and saturating addition plus a fixed-point multiply. Pass: boundary cases are exhaustive for a small width and an error report quantifies rounding behavior against a floating-point reference.",
+            "assigned_reading": "R15: arithmetic; R31: ALU construction; R35: integer arithmetic semantics as a software/hardware contract.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "32.4",
+            "title": "Clock domains, reset and metastability",
+            "outcome": "Recognize where synchronous assumptions stop applying.",
+            "practical_assignment": "Model a request/acknowledge crossing and explain its stability assumptions. Pass: the receiver never accepts a partially updated word in the protocol model, and the report states that simulation is not an analog metastability proof.",
+            "assigned_reading": "R15: synchronization and asynchronous inputs; deepen with R50 in later verification lessons.",
+            "quiz_question_count": 3
+          }
+        ]
+      },
+      {
+        "number": 33,
+        "title": "SystemVerilog and verification-driven RTL design",
+        "prerequisites": "Module 32; Python and C++ foundations complete.",
+        "references": [
+          "R32",
+          "R33",
+          "R34",
+          "R50"
+        ],
+        "project": "Implement a parameterized synchronous FIFO in RTL with a Python or C++ reference model, automated tests, assertions and synthesis reports. Keep testbench behavior separate from synthesizable hardware.",
+        "lessons": [
+          {
+            "id": "33.1",
+            "title": "RTL semantics and synthesizable SystemVerilog",
+            "outcome": "Write a hardware description rather than a sequential software imitation.",
+            "practical_assignment": "Implement a counter and two-register swap using a simulator. Pass: tests explain old/new values at each edge, lint warnings are resolved or justified, and no unintended latches are inferred.",
+            "assigned_reading": "R32: language support, warnings and simulation; R33: synthesis concepts and supported constructs.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "33.2",
+            "title": "Testbenches, scoreboards and constrained stimulus",
+            "outcome": "Check behavior against an independent specification.",
+            "practical_assignment": "Create a FIFO testbench with empty, full, simultaneous read/write and reset cases. Pass: an intentionally corrupted RTL version is detected, and a seed plus trace reproduces the first mismatch.",
+            "assigned_reading": "R34: writing testbenches, triggers and simulator timing; R32: simulation and tracing.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "33.3",
+            "title": "Assertions, coverage and formal reasoning",
+            "outcome": "Distinguish observed tests from properties proven under assumptions.",
+            "practical_assignment": "Add occupancy, ordering and stalled-data assertions. Pass: bounded results state their depth, at least two meaningful cover goals are reached, and each environment assumption is justified.",
+            "assigned_reading": "R50: getting started, FIFO example, safety, cover and liveness; R34: assertion-oriented simulation checks.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "33.4",
+            "title": "Synthesis, constraints and FPGA resource mapping",
+            "outcome": "Connect verified behavior to a realizable implementation.",
+            "practical_assignment": "Synthesize the FIFO and compare two storage implementations or depths. Pass: record device/model, tool version, inferred memory, registers and timing constraints; reconcile any post-synthesis behavior differences.",
+            "assigned_reading": "R33: synthesis and memory mapping; R32: lint; selected FPGA tool documentation only after a target is chosen.",
+            "quiz_question_count": 3
+          }
+        ]
+      },
+      {
+        "number": 34,
+        "title": "Designing a small processor",
+        "prerequisites": "Modules 16 and 32-33. Implement a documented subset, not an unqualified full-ISA claim.",
+        "references": [
+          "R15",
+          "R31",
+          "R35",
+          "R32"
+        ],
+        "project": "Create a simple processor model and RTL implementation for a clearly specified instruction subset. Run the same short programs on an instruction-level reference and the RTL, comparing architectural state at retirement.",
+        "lessons": [
+          {
+            "id": "34.1",
+            "title": "Instruction sets, datapaths and single-cycle execution",
+            "outcome": "Separate programmer-visible behavior from its implementation.",
+            "practical_assignment": "Implement arithmetic, load/store and one branch form in a reference model and datapath. Pass: hand-encoded programs produce the expected register and memory state and unsupported encodings have defined behavior.",
+            "assigned_reading": "R35: selected base integer instructions; R15: processor design; R31: computer architecture projects.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "34.2",
+            "title": "Pipelining, forwarding, stalls and branch recovery",
+            "outcome": "Preserve architectural behavior while overlapping instructions.",
+            "practical_assignment": "Pipeline the processor or model a pipeline with explicit valid bits. Pass: dependent arithmetic, load-use, branch-taken and back-to-back memory tests match the architectural reference.",
+            "assigned_reading": "R15: pipelined processors; R35: instruction semantics; R32: tracing and debugging.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "34.3",
+            "title": "Memory interfaces, caches and protection boundaries",
+            "outcome": "Design memory behavior as a protocol rather than an instantaneous array.",
+            "practical_assignment": "Add a variable-latency memory model and an optional direct-mapped cache. Pass: randomized stalls preserve program results, each accepted store occurs exactly as specified and cache tests include conflicting addresses.",
+            "assigned_reading": "R15: caches, memory and I/O; R35: memory access and selected privilege concepts as an extension.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "34.4",
+            "title": "Processor verification, toolchains and architectural evidence",
+            "outcome": "Demonstrate instruction correctness with reproducible programs and traces.",
+            "practical_assignment": "Run at least twenty directed programs and a reproducible randomized set against the reference. Pass: mismatch localization works, binary layout is documented and a supported compiled or assembled program runs end to end.",
+            "assigned_reading": "R35: exact chosen ISA revision; R32: simulation; R15: software/processor interface.",
+            "quiz_question_count": 3
+          }
+        ]
+      },
+      {
+        "number": 35,
+        "title": "FPGA-based game subsystems and integration",
+        "prerequisites": "Modules 21, 31-34. Physical deployment is optional; simulated I/O satisfies the core project.",
+        "references": [
+          "R15",
+          "R32",
+          "R33",
+          "R34",
+          "R35"
+        ],
+        "project": "Gate G: demonstrate a verified RTL game subsystem, such as a sprite compositor, controller interface or bounded vector unit. Include a software reference, interface specification, automated verification and synthesis evidence. A physical board is an extension, not a prerequisite.",
+        "lessons": [
+          {
+            "id": "35.1",
+            "title": "Memory-mapped I/O, timers, interrupts and DMA",
+            "outcome": "Explain how software controls asynchronous hardware.",
+            "practical_assignment": "Implement a simulated timer and memory-mapped control block. Pass: register side effects are specified, interrupts are acknowledged without losing new events and buffers remain owned until completion.",
+            "assigned_reading": "R15: I/O and interrupts; R35: ordering concepts for the chosen platform; R32: device testbench modeling.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "35.2",
+            "title": "Framebuffers, scanout and pixel pipelines",
+            "outcome": "Produce timed pixel data with correct storage and scheduling.",
+            "practical_assignment": "Create a simulated scanout counter and color-bar/sprite generator. Pass: exact active dimensions and frame boundaries are verified, captured images match the reference and buffer swapping occurs only at the declared boundary.",
+            "assigned_reading": "R15: digital-system timing; R32 and R34: timed testbenches; use the selected board vendor's documented video reference only for a physical extension.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "35.3",
+            "title": "A small accelerator and its software contract",
+            "outcome": "Measure whether specialized hardware improves a complete operation.",
+            "practical_assignment": "Build a streaming arithmetic or pixel block plus a software driver model. Pass: outputs match the reference over boundary cases, backpressure preserves order and end-to-end cost includes setup and transfer.",
+            "assigned_reading": "R33: synthesis and arithmetic mapping; R34: scoreboard verification; R15: parallelism and I/O.",
+            "quiz_question_count": 3
+          },
+          {
+            "id": "35.4",
+            "title": "Integrated digital-design review and optional board bring-up",
+            "outcome": "Close the loop between specification, verification and implementation.",
+            "practical_assignment": "Complete Gate G with an integration test, synthesis report and short demonstration. Pass: another person reruns the simulation, all timing assumptions are listed and any physical measurements are distinguished from modeled estimates.",
+            "assigned_reading": "R32-R34: repeatable simulation and synthesis; R15: system integration; handbook safety review for physical extensions.",
+            "quiz_question_count": 3
+          }
+        ]
+      }
+    ]
+  },
+  "checkpoint": {
+    "id": "G",
+    "after_volume": 7,
+    "title": "undergraduate digital-design capstone",
+    "requirements_markdown": "**After Volume 7.** Implement one RTL subsystem: a synchronous queue with a small processor interface, a sprite compositor, a fixed-point vector block or another similarly bounded game-related function. The module-level processor exercise remains required even when the capstone centers on a different block.\n\nDeliver the interface specification, software reference, RTL, automated testbench, directed and randomized cases, assertions, reset review and synthesis reports. Test empty/full, simultaneous operations, backpressure, overflow/rounding and reset while work is pending where applicable. Label simulation, synthesis and physical measurements separately.\n\nNo board purchase is required. A board demonstration is optional and follows the safety plan. Passing FPGA operation does not establish ASIC readiness. The oral check asks for a waveform explanation, a nonblocking-assignment trace and setup versus hold reasoning."
+  }
+}

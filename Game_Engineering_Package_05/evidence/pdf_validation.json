@@ -1,0 +1,19 @@
+{
+  "renderer": "pdftoppm (Poppler)",
+  "rendered_pages": {
+    "ANSWER_KEY.pdf": 24,
+    "CAPSTONE_SPEC.pdf": 8,
+    "LAB_WORKBOOK.pdf": 28,
+    "START_NEXT.pdf": 4,
+    "STUDENT_HANDBOOK.pdf": 54,
+    "SYSTEMS_REFERENCE.pdf": 6,
+    "modules/16_processor_architecture_and_assembly.pdf": 11,
+    "modules/17_operating_systems_and_resource_management.pdf": 10,
+    "modules/18_concurrency_and_parallel_programming.pdf": 10,
+    "modules/19_networks_storage_and_data_services.pdf": 10,
+    "modules/20_engineering_practice_security_and_maintainability.pdf": 10
+  },
+  "off_page_word_boxes": [],
+  "sparse_pages_to_review": [],
+  "note": "Word-box checks do not prove absence of overlap; rendered pages require visual review."
+}

@@ -1,0 +1,8 @@
+NOTE: managed browser policy blocked file:// and loopback navigation. Interactive tests used in-memory HTML rendering. No external assets are required; persistent local-file storage was not tested.
+PASS: 20 visible lesson articles at load, in-memory HTML rendering with no external assets.
+PASS: known and zero-match search, clear search restores all lessons.
+PASS: self-reported progress and score thresholds update; unavailable-storage fallback is displayed. Reload persistence not tested.
+PASS: export contains all IDs; invalid import rejected without state loss; valid import accepted.
+PASS: answers remain closed until explicitly revealed.
+Mobile widths: {'width': 390, 'scroll': 390}
+PASS: mobile layout has no horizontal page overflow; no JavaScript page errors.

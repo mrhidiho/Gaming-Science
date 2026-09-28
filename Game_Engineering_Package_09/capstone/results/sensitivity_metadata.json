@@ -1,0 +1,23 @@
+{
+  "kind": "analytical parameter sweep",
+  "cases": 972,
+  "parameters": {
+    "setup_us": [
+      5,
+      20,
+      80
+    ],
+    "host_Bps": [
+      25000000,
+      100000000,
+      400000000
+    ],
+    "internal_Bps": [
+      100000000,
+      400000000,
+      1600000000
+    ]
+  },
+  "unchanged": "Functional traces, elapsed cycles and assumed 100 MHz clock are reused; 5 us completion and four payload bytes/item remain fixed.",
+  "limitations": "No measured accelerator. No change to real transport, memory controller, contention or physical timing is simulated."
+}

@@ -1,0 +1,11 @@
+{
+  "rules": "training-yard-v1",
+  "state": {
+    "energy": 25,
+    "status": "playing",
+    "turns": 0,
+    "x": 0,
+    "y": 0
+  },
+  "version": 1
+}

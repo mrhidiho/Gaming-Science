@@ -1,0 +1,46 @@
+{
+  "boundary": "full zero extension, causal h[0] at index 0",
+  "signal": [
+    1,
+    2,
+    3
+  ],
+  "kernel": [
+    0.5,
+    0.5
+  ],
+  "full": [
+    0.5,
+    1.5,
+    2.5,
+    1.5
+  ],
+  "checker": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    1,
+    0,
+    1
+  ],
+  "raw_phase0": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "raw_phase1": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "pair_average": [
+    0.5,
+    0.5,
+    0.5,
+    0.5
+  ]
+}

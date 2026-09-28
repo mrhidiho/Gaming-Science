@@ -1,0 +1,31 @@
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/run_tests.py --target references
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/test_properties.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_26_1.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_26_2.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_26_3.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_26_4.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_27_1.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_27_2.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_27_3.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_27_4.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_28_1.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_28_2.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_28_3.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_28_4.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_29_1.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_29_2.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_29_3.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_29_4.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_30_1.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_30_2.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_30_3.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/python/demos/lesson_30_4.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/integration/learning_lab.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/integration/network_lab.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/integration/physics_lab.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/integration/release_lab.py
+PASS: /opt/pyvenv/bin/python /mnt/data/Game_Engineering_Package_07/starter/integration/service_lab.py
+PASS: cmake -S /mnt/data/Game_Engineering_Package_07/starter/cpp -B /tmp/volume06-native-garn35lv -DCMAKE_BUILD_TYPE=Release
+PASS: cmake --build /tmp/volume06-native-garn35lv --config Release
+PASS: ctest --test-dir /tmp/volume06-native-garn35lv -C Release --output-on-failure
+All selected package reference checks passed. Full labs and capstone evidence remain learner work.

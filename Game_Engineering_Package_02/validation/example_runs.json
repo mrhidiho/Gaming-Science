@@ -1,0 +1,122 @@
+{
+  "01.1": {
+    "file": "examples/example_01_1.py",
+    "returncode": 0,
+    "stdout": "start: 2\nafter right 3: 5\nafter left 1: 4\ndraw again: 4\n",
+    "stderr": ""
+  },
+  "01.2": {
+    "file": "examples/example_01_2.py",
+    "returncode": 0,
+    "stdout": "python: 3.13.5\nscript name: example_01_2.py\nworking directory name: Game_Engineering_Package_02\nscript exists: True\n",
+    "stderr": ""
+  },
+  "01.3": {
+    "file": "examples/example_01_3.py",
+    "returncode": 0,
+    "stdout": "swapped: 8 3\nlater values: 10 6\n",
+    "stderr": ""
+  },
+  "01.4": {
+    "file": "examples/example_01_4.py",
+    "returncode": 0,
+    "stdout": "travel units: 1.5\ntarget interval ms: 8.333\n",
+    "stderr": ""
+  },
+  "02.1": {
+    "file": "examples/example_02_1.py",
+    "returncode": 0,
+    "stdout": "text addition: 34\nnumeric cost: 12\n",
+    "stderr": ""
+  },
+  "02.2": {
+    "file": "examples/example_02_2.py",
+    "returncode": 0,
+    "stdout": "False 4 10 -> False\nFalse 5 10 -> True\nTrue 1 0 -> True\n",
+    "stderr": ""
+  },
+  "02.3": {
+    "file": "examples/example_02_3.py",
+    "returncode": 0,
+    "stdout": "initial: 0\nturn 1 resources 3\nturn 2 resources 1\nturn 3 resources 4\nturn 4 resources 2\nturn 5 resources 0\n",
+    "stderr": ""
+  },
+  "02.4": {
+    "file": "examples/example_02_4.py",
+    "returncode": 0,
+    "stdout": "next position: 0.5\n",
+    "stderr": ""
+  },
+  "03.1": {
+    "file": "examples/example_03_1.py",
+    "returncode": 0,
+    "stdout": "original name: Runner\ncopied name: Independent\nliving IDs: [101]\n",
+    "stderr": ""
+  },
+  "03.2": {
+    "file": "examples/example_03_2.py",
+    "returncode": 0,
+    "stdout": "cost: 5 remaining: 3\ncost: 5 remaining: 3\ncost: 0 remaining: 3\n",
+    "stderr": ""
+  },
+  "03.3": {
+    "file": "examples/example_03_3.py",
+    "returncode": 0,
+    "stdout": "encoded: {\"health\": 90, \"version\": 1, \"x\": 2}\nsame values: True\nindependent dictionary: True\nRejected truncated JSON; live health: 90\n",
+    "stderr": ""
+  },
+  "03.4": {
+    "file": "examples/example_03_4.py",
+    "returncode": 0,
+    "stdout": "move -> moving\nhit -> stunned\nmove -> stunned\nrecover -> idle\n",
+    "stderr": ""
+  },
+  "04.1": {
+    "file": "examples/example_04_1.py",
+    "returncode": 0,
+    "stdout": "expected: 7\nactual: 4\ndefect observed: True\n",
+    "stderr": ""
+  },
+  "04.2": {
+    "file": "examples/example_04_2.py",
+    "returncode": 0,
+    "stdout": "three independent boundary cases passed\ntwelve bounded-input property cases passed\n",
+    "stderr": ""
+  },
+  "04.3": {
+    "file": "examples/example_04_3.py",
+    "returncode": 0,
+    "stdout": "Running the isolated Git demonstration.\nTemporary repository only; no existing course files changed.\n* 871d2b3 Revert \"Demonstrate a mistaken damage change\"\n* 882e8b0 Demonstrate a mistaken damage change\n* d5f6975 Specify zero-health boundary\n* be90d7f Define starting damage rule\nRestored rules:\ndamage=3\nhealth_min=0\n\nPASS: branch, merge, revert and clean working tree.\n",
+    "stderr": ""
+  },
+  "04.4": {
+    "file": "examples/example_04_4.py",
+    "returncode": 0,
+    "stdout": "balance/cost/result: 6 5 1\nbalance/cost/result: 5 5 5\nbalance/cost/result: 4 5 4\nReview question: should exact affordability be accepted?\n",
+    "stderr": ""
+  },
+  "05.1": {
+    "file": "examples/example_05_1.py",
+    "returncode": 0,
+    "stdout": "...\n..P\n..E\nposition after drawing: (2, 1)\n",
+    "stderr": ""
+  },
+  "05.2": {
+    "file": "examples/example_05_2.py",
+    "returncode": 0,
+    "stdout": "attempted cell: (1, 1)\noriginal: {'x': 1, 'y': 0, 'won': False}\nresult: {'x': 1, 'y': 0, 'won': False}\n",
+    "stderr": ""
+  },
+  "05.3": {
+    "file": "examples/example_05_3.py",
+    "returncode": 0,
+    "stdout": "same canonical text: True\nsame digest: True\ncanonical text: {\"won\":true,\"x\":9,\"y\":9}\n",
+    "stderr": ""
+  },
+  "05.4": {
+    "file": "examples/example_05_4.py",
+    "returncode": 0,
+    "stdout": "Energy=7 Turns=18 Status=won\nReference demonstration completed; your own Gate A remains required.\n",
+    "stderr": ""
+  }
+}

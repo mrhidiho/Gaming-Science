@@ -1,0 +1,138 @@
+test_02_4_inf_velocity (__main__.Contracts.test_02_4_inf_velocity) ... ERROR
+test_02_4_nan (__main__.Contracts.test_02_4_nan) ... ERROR
+test_02_4_negative_dt (__main__.Contracts.test_02_4_negative_dt) ... ERROR
+test_02_4_negative_velocity (__main__.Contracts.test_02_4_negative_velocity) ... ERROR
+test_02_4_no_printing (__main__.Contracts.test_02_4_no_printing) ... ERROR
+test_02_4_normal (__main__.Contracts.test_02_4_normal) ... ERROR
+test_02_4_overflow (__main__.Contracts.test_02_4_overflow) ... ERROR
+test_02_4_stationary (__main__.Contracts.test_02_4_stationary) ... ERROR
+test_02_4_zero_dt (__main__.Contracts.test_02_4_zero_dt) ... ERROR
+
+======================================================================
+ERROR: test_02_4_inf_velocity (__main__.Contracts.test_02_4_inf_velocity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 50, in run
+    getattr(m, function)(*inputs)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_nan (__main__.Contracts.test_02_4_nan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 50, in run
+    getattr(m, function)(*inputs)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_negative_dt (__main__.Contracts.test_02_4_negative_dt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 50, in run
+    getattr(m, function)(*inputs)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_negative_velocity (__main__.Contracts.test_02_4_negative_velocity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 40, in run
+    actual = getattr(m, function)(*inputs)
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_no_printing (__main__.Contracts.test_02_4_no_printing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 96, in pure_advance
+    m.advance(1,2,.5)
+    ~~~~~~~~~^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_normal (__main__.Contracts.test_02_4_normal)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 40, in run
+    actual = getattr(m, function)(*inputs)
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_overflow (__main__.Contracts.test_02_4_overflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 50, in run
+    getattr(m, function)(*inputs)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_stationary (__main__.Contracts.test_02_4_stationary)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 40, in run
+    actual = getattr(m, function)(*inputs)
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+======================================================================
+ERROR: test_02_4_zero_dt (__main__.Contracts.test_02_4_zero_dt)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 34, in run
+    function(self, module)
+    ~~~~~~~~^^^^^^^^^^^^^^
+  File "/mnt/data/Game_Engineering_Package_02/tools/check_labs.py", line 40, in run
+    actual = getattr(m, function)(*inputs)
+  File "/mnt/data/Game_Engineering_Package_02/labs/student/lab_02_4.py", line 8, in advance
+    raise NotImplementedError('Implement Lesson 02.4; see the lab workbook.')
+NotImplementedError: Implement Lesson 02.4; see the lab workbook.
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.004s
+
+FAILED (errors=9)
+Checking STUDENT work
+Contract checks by lesson: {"02.4": 9}

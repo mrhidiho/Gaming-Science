@@ -1,0 +1,114 @@
+[
+  {
+    "id": "R06",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.042J Mathematics for Computer Science",
+    "url": "https://ocw.mit.edu/courses/6-042j-mathematics-for-computer-science-spring-2015/",
+    "note": "Proofs, graphs, counting and discrete probability."
+  },
+  {
+    "id": "R11",
+    "organization": "C++ Core Guidelines editors",
+    "title": "C++ Core Guidelines",
+    "url": "https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines",
+    "note": "Resource safety, interfaces, classes and concurrency; guidance rather than the normative language standard."
+  },
+  {
+    "id": "R12",
+    "organization": "Kitware",
+    "title": "CMake tutorial",
+    "url": "https://cmake.org/cmake/help/latest/guide/tutorial/index.html",
+    "note": "Build systems; use documentation matching the installed release."
+  },
+  {
+    "id": "R13",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.006 Introduction to Algorithms",
+    "url": "https://ocw.mit.edu/courses/6-006-introduction-to-algorithms-fall-2011/",
+    "note": "Data structures, graph algorithms and dynamic programming."
+  },
+  {
+    "id": "R14",
+    "organization": "LLVM Project",
+    "title": "Kaleidoscope and LLVM tutorials",
+    "url": "https://llvm.org/docs/tutorial/",
+    "note": "Compiler frontends, intermediate representation and JIT compilation."
+  },
+  {
+    "id": "R15",
+    "organization": "MIT OpenCourseWare",
+    "title": "6.004 Computation Structures",
+    "url": "https://ocw.mit.edu/courses/6-004-computation-structures-spring-2017/",
+    "note": "Logic, processor design, memory and systems."
+  },
+  {
+    "id": "R16",
+    "organization": "Remzi and Andrea Arpaci-Dusseau",
+    "title": "Operating Systems: Three Easy Pieces",
+    "url": "https://pages.cs.wisc.edu/~remzi/OSTEP/",
+    "note": "Virtualization, concurrency and persistence; book by its authors."
+  },
+  {
+    "id": "R20",
+    "organization": "Carnegie Mellon University",
+    "title": "15-466/666 Computer Game Programming",
+    "url": "https://graphics.cs.cmu.edu/courses/15-466/",
+    "note": "Runtime systems and game-production programming."
+  },
+  {
+    "id": "P4-01",
+    "organization": "Kitware",
+    "title": "CMake compile features and language standards",
+    "url": "https://cmake.org/cmake/help/latest/manual/cmake-compile-features.7.html",
+    "note": "Target requirements, language standards and extensions. Use the documentation matching your CMake release."
+  },
+  {
+    "id": "P4-02",
+    "organization": "David Goldberg / Oracle documentation",
+    "title": "What Every Computer Scientist Should Know About Floating-Point Arithmetic",
+    "url": "https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html",
+    "note": "Author paper reproduced in official numerical-computation documentation; rounding and non-associativity background."
+  },
+  {
+    "id": "P4-03",
+    "organization": "LLVM / Clang",
+    "title": "AddressSanitizer",
+    "url": "https://clang.llvm.org/docs/AddressSanitizer.html",
+    "note": "Compiler/runtime setup and kinds of executed memory errors detected. Detection is not an all-input proof."
+  },
+  {
+    "id": "P4-04",
+    "organization": "LLVM / Clang",
+    "title": "UndefinedBehaviorSanitizer",
+    "url": "https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html",
+    "note": "Runtime instrumentation and supported checks. Platform/toolchain support must be verified."
+  },
+  {
+    "id": "P4-05",
+    "organization": "GNU Compiler Collection",
+    "title": "Language standards supported by GCC",
+    "url": "https://gcc.gnu.org/onlinedocs/gcc/Standards.html",
+    "note": "C/C++ standards and language modes. This course selects C17/C++20, not a newest-standard claim."
+  },
+  {
+    "id": "P4-06",
+    "organization": "LLVM Project",
+    "title": "Kaleidoscope: implementing a parser and AST",
+    "url": "https://llvm.org/docs/tutorial/MyFirstLanguageFrontend/LangImpl02.html",
+    "note": "Frontend architecture reading; the course language and integer semantics are independently specified and do not require LLVM libraries."
+  },
+  {
+    "id": "P4-07",
+    "organization": "C++ working-draft editors / eel.is rendering",
+    "title": "Fundamental types [basic.fundamental]",
+    "url": "https://eel.is/c++draft/basic.fundamental",
+    "note": "Current working-draft view, not the fixed published C++20 edition. Consult only the stable integer/representation concepts used here; later additions are outside this course baseline."
+  },
+  {
+    "id": "P4-08",
+    "organization": "C++ working-draft editors / eel.is rendering",
+    "title": "Vector modifiers, capacity and unordered-container requirements",
+    "url": "https://eel.is/c++draft/vector.modifiers",
+    "note": "Companion sections: https://eel.is/c++draft/vector.capacity and https://eel.is/c++draft/unord.req. Used for operation-specific invalidation rules; current draft contains later features not used by the course."
+  }
+]

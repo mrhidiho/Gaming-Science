@@ -1,0 +1,17 @@
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:45: optimized: loop vectorized using 16 byte vectors
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:3:26: note: vectorized 1 loops in function.
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** Analysis failed with vector mode V2DI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** The result for vector mode V16QI would be the same
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** Re-trying analysis with vector mode V8QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** Analysis failed with vector mode V8QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** Re-trying analysis with vector mode V4QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:4:53: note: ***** Analysis failed with vector mode V4QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:9:11: optimized: loop vectorized using 16 byte vectors
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:8:14: optimized: loop vectorized using 16 byte vectors
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:6:26: note: vectorized 2 loops in function.
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** Analysis failed with vector mode V2DI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** The result for vector mode V16QI would be the same
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** Re-trying analysis with vector mode V8QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** Analysis failed with vector mode V8QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** Re-trying analysis with vector mode V4QI
+/mnt/data/Game_Engineering_Package_05/native/kernels.cpp:10:30: note: ***** Analysis failed with vector mode V4QI

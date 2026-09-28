@@ -1,0 +1,142 @@
+[
+  {
+    "id": "S01",
+    "title": "C++ working draft: order and consistency of atomics",
+    "url": "https://eel.is/c++draft/atomics.order",
+    "use": "Language-level release/acquire synchronization. Live working draft; record a dated snapshot for a thesis. The bundled example targets C++17, not a claim to implement every feature in this live draft.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S02",
+    "title": "RISC-V unprivileged ISA: RVWMO, v20260120",
+    "url": "https://docs.riscv.org/reference/isa/v20260120/unpriv/rvwmo.html",
+    "use": "A named hardware memory model for litmus reasoning. Use this version rather than a generic description of caches.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S03",
+    "title": "gem5 documentation: Ruby",
+    "url": "https://www.gem5.org/documentation/general_docs/ruby/",
+    "use": "Coherence and memory-system modeling. A route to richer protocol studies; not validation of the package’s atomic MSI model.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S04",
+    "title": "gem5 documentation: O3CPU",
+    "url": "https://www.gem5.org/documentation/general_docs/cpu_models/O3CPU",
+    "use": "A detailed out-of-order CPU model. The package’s fixed-latency scheduler is intentionally much smaller.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S05",
+    "title": "MIT OpenCourseWare: 6.823 Computer System Architecture, Fall 2005",
+    "url": "https://ocw.mit.edu/courses/6-823-computer-system-architecture-fall-2005/pages/lecture-notes/",
+    "use": "Historical architecture course notes for speculation, scheduling and precise state. Conceptual reading, not current product specifications.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S06",
+    "title": "Williams, Waterman and Patterson: Roofline report, UCB/EECS-2008-134",
+    "url": "https://www2.eecs.berkeley.edu/Pubs/TechRpts/2008/EECS-2008-134.html",
+    "use": "Original performance-model report. Helps distinguish an upper bound and bottleneck model from an end-to-end measurement.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S07",
+    "title": "Cornell ECE 5745: Complex Digital ASIC Design course portal",
+    "url": "https://www.csl.cornell.edu/courses/ece5745/",
+    "use": "Starting point for an educational ASIC flow and course materials. Choose and record a specific offering; this link alone does not pin its tools or libraries.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S08",
+    "title": "OpenSTA documentation",
+    "url": "https://openroad.readthedocs.io/en/latest/main/src/sta/README.html",
+    "use": "Timing analysis, constraints and reporting. Pin a release or commit before relying on exact commands.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S09",
+    "title": "OpenROAD Flow Scripts: Flow Tutorial",
+    "url": "https://openroad-flow-scripts.readthedocs.io/en/latest/tutorials/FlowTutorial.html",
+    "use": "Flow stages and example configuration. The bundled physical-flow entry points are learner-run inputs, not results.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S10",
+    "title": "OpenROAD Flow Scripts: Adding New Designs",
+    "url": "https://openroad-flow-scripts.readthedocs.io/en/latest/user/AddingNewDesign.html",
+    "use": "Design integration and configuration. Check the version-specific environment, platform and paths.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S11",
+    "title": "YosysHQ SBY: formal extensions to Verilog",
+    "url": "https://yosyshq.readthedocs.io/projects/sby/en/latest/verilog.html",
+    "use": "Assertions, assumptions, covers and past-state reasoning. Separate bounded checks from completed proofs.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S12",
+    "title": "YosysHQ SBY: configuration file reference",
+    "url": "https://yosyshq.readthedocs.io/projects/sby/en/latest/reference.html",
+    "use": "Tasks, proof modes, depth and engines. A solver or engine timeout must remain UNKNOWN/failed-to-complete, not PASS.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S13",
+    "title": "AMD UG949: Multi-Bit CDC",
+    "url": "https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Multi-Bit-CDC",
+    "use": "Vendor guidance for coherent multi-bit clock-domain transfers. The Python mailbox demonstrates a protocol, not analog metastability behavior.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S14",
+    "title": "AMD UG949: Optimizing for MTBF",
+    "url": "https://docs.amd.com/r/en-US/ug949-vivado-design-methodology/Optimizing-for-MTBF",
+    "use": "Synchronizer reliability and implementation considerations. Do not infer an MTBF number from digital simulation.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S15",
+    "title": "Linux kernel documentation: EDAC",
+    "url": "https://docs.kernel.org/driver-api/edac.html",
+    "use": "Error detection and correction interfaces and reporting. The 8-bit SECDED exercise is an educational code, not a model of a specific memory controller.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S16",
+    "title": "Linux kernel documentation: DMA API HOWTO",
+    "url": "https://docs.kernel.org/core-api/dma-api-howto.html",
+    "use": "DMA address and mapping contracts. The local descriptor checker does not perform real DMA or configure an IOMMU.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S17",
+    "title": "Linux kernel documentation: thermal sysfs API",
+    "url": "https://docs.kernel.org/driver-api/thermal/sysfs-api.html",
+    "use": "Thermal interfaces and policy concepts. Actual limits and protections are platform-specific and must not be bypassed.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S18",
+    "title": "NIST/SEMATECH e-Handbook: paired observations",
+    "url": "https://www.itl.nist.gov/div898/handbook/prc/section3/prc311.htm",
+    "use": "Why paired measurements require a paired analysis. The package’s bootstrap routine is an original teaching implementation, not a quoted NIST procedure.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S19",
+    "title": "Pro Git: Contributing to a Project",
+    "url": "https://git-scm.com/book/en/v2/Distributed-Git-Contributing-to-a-Project",
+    "use": "Patch preparation, review and contribution workflows. A local, reviewable integration can be educational evidence without guaranteed upstream acceptance.",
+    "accessed": "2026-09-28"
+  },
+  {
+    "id": "S20",
+    "title": "CS2023: knowledge areas",
+    "url": "https://csed.acm.org/knowledge-areas/",
+    "use": "A curriculum taxonomy for planning continued learning. Completing this package does not confer accreditation or a university degree.",
+    "accessed": "2026-09-28"
+  }
+]

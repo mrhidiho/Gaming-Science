@@ -1,0 +1,50 @@
+[
+  {
+    "file": "ANSWER_KEY.pdf",
+    "pages": 23,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 82
+  },
+  {
+    "file": "ASSESSMENTS.pdf",
+    "pages": 23,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 22
+  },
+  {
+    "file": "GATE_G_CAPSTONE.pdf",
+    "pages": 8,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 13
+  },
+  {
+    "file": "LAB_AND_PROJECT_WORKBOOK.pdf",
+    "pages": 31,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 136
+  },
+  {
+    "file": "START_HERE.pdf",
+    "pages": 6,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 11
+  },
+  {
+    "file": "VOLUME_07_HANDBOOK.pdf",
+    "pages": 53,
+    "rendered_all_pages": true,
+    "renderer": "pdftoppm at 80 dpi",
+    "page_bound_issues": [],
+    "bookmarks": 234
+  }
+]
